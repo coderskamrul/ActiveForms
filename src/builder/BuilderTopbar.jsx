@@ -29,10 +29,10 @@ function ShortcodeChip({ formId }) {
   };
 
   return (
-    <button type="button" className="easyforms-tb-chip" onClick={copy} title="Copy shortcode">
+    <button type="button" className="easyforms-tb__chip" onClick={copy} title="Copy shortcode">
       <Icon name="code" size={14} />
       <code>{code}</code>
-      {copied && <span className="easyforms-tb-chip__ok"><Icon name="check" size={12} /></span>}
+      {copied && <span className="easyforms-tb__chip__ok"><Icon name="check" size={12} /></span>}
     </button>
   );
 }

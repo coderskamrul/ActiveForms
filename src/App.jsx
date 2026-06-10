@@ -1,7 +1,7 @@
 /**
  * Root application: top navbar shell + hash-routed pages.
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import config, { t } from './config';
 import { useRouter } from './router';
 import { ToastProvider } from './components/Toast';
@@ -74,26 +74,41 @@ export default function App() {
   // The builder is a full-bleed screen; hide the page chrome padding handled by CSS.
   const inBuilder = route.parts[0] === 'forms' && (route.parts[1] === 'new' || route.parts[2] === 'edit');
 
+  // Run the builder full-screen: the stylesheet keys off these classes to hide
+  // the WP admin bar + side menu (this is a client-side hash route, so PHP can't
+  // distinguish it). Always clean up so leaving the builder restores wp-admin.
+  useEffect(() => {
+    const cls = 'easyforms-builder-fullscreen';
+    document.body.classList.toggle(cls, inBuilder);
+    document.documentElement.classList.toggle(cls, inBuilder);
+    return () => {
+      document.body.classList.remove(cls);
+      document.documentElement.classList.remove(cls);
+    };
+  }, [inBuilder]);
+
   return (
     <ToastProvider>
       <div className="easyforms-app">
-        <nav className="easyforms-topnav">
-          <a className="easyforms-brand" href="#/dashboard">
-            <span className="easyforms-logo">{(brand.shortName || 'E').slice(0, 1)}</span>
-            <b><span>easy</span>{(brand.name || 'EasyForms').replace(/^easy/i, '')}</b>
-          </a>
-          <div className="easyforms-nav">
-            {NAV.map((item) => (
-              <a key={item.key} href={`#${item.path}`} className={active === item.key ? 'is-active' : ''}>
-                {t(item.key, item.label)}
-              </a>
-            ))}
-          </div>
-          <span className="easyforms-topnav__search" title="Search">
-            <span className="dashicons dashicons-search" style={{ fontSize: 16, width: 16, height: 16 }} aria-hidden="true" />
-            <kbd>⌘K</kbd>
-          </span>
-        </nav>
+        {!inBuilder && (
+          <nav className="easyforms-topnav">
+            <a className="easyforms-brand" href="#/dashboard">
+              <span className="easyforms-logo">{(brand.shortName || 'E').slice(0, 1)}</span>
+              <b><span>easy</span>{(brand.name || 'EasyForms').replace(/^easy/i, '')}</b>
+            </a>
+            <div className="easyforms-nav">
+              {NAV.map((item) => (
+                <a key={item.key} href={`#${item.path}`} className={active === item.key ? 'is-active' : ''}>
+                  {t(item.key, item.label)}
+                </a>
+              ))}
+            </div>
+            <span className="easyforms-topnav__search" title="Search">
+              <span className="dashicons dashicons-search" style={{ fontSize: 16, width: 16, height: 16 }} aria-hidden="true" />
+              <kbd>⌘K</kbd>
+            </span>
+          </nav>
+        )}
         <main className={`easyforms-main${inBuilder ? ' is-builder' : ''}`}>
           {renderPage(route)}
         </main>

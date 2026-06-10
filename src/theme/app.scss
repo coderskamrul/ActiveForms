@@ -46,6 +46,28 @@ body.toplevel_page_easyforms {
 	}
 }
 
+/* ---------- Distraction-free builder ----------
+   The form builder is a client-side hash route, so PHP can't target it. The
+   React app toggles `easyforms-builder-fullscreen` on <html> + <body> while the
+   builder is open; here we strip every piece of wp-admin chrome (admin bar, side
+   menu, footer, content offsets) so the editor owns the entire viewport. Leaving
+   the builder removes the class and wp-admin snaps back to normal. */
+html.easyforms-builder-fullscreen.wp-toolbar { padding-top: 0 !important; }
+body.easyforms-builder-fullscreen {
+	#wpadminbar { display: none !important; }
+	#adminmenumain, #adminmenuwrap, #adminmenuback { display: none !important; }
+	#wpfooter { display: none !important; }
+	#wpcontent, #wpbody-content { margin-left: 0 !important; padding: 0 !important; }
+	#wpbody { padding: 0 !important; }
+
+	.easyforms-wrap { margin: 0; }
+	.easyforms-app { min-height: 100vh; }
+
+	@media screen and (max-width: 782px) {
+		#wpcontent { margin-left: 0 !important; }
+	}
+}
+
 #easyforms-app * { box-sizing: border-box; }
 .easyforms-wrap { margin-left: -20px; }
 
@@ -85,6 +107,7 @@ body.toplevel_page_easyforms {
 }
 
 .easyforms-main { flex: 1; min-width: 0; padding: 24px 28px; }
+.easyforms-main.is-builder { padding: 0; }
 .easyforms-page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; }
 .easyforms-page-head h1 { font-size: 22px; margin: 0; padding: 0; }
 .easyforms-page-head p { margin: 2px 0 0; color: var(--_muted); }

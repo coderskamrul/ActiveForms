@@ -3,10 +3,13 @@
  * tabbed inspector (Input Fields / Input Customization / History).
  */
 
-/* Full-bleed shell that cancels the page padding of .easyforms-main. */
+/* Full-screen shell. The builder runs distraction-free: no WP admin bar and no
+   EasyForms top nav above it (both hidden via .easyforms-builder-fullscreen), so
+   the shell owns the full viewport height. .easyforms-main.is-builder drops its
+   padding, so no negative margins are needed to go edge-to-edge. */
 .easyforms-builder-shell {
-  margin: -24px -28px;
-  height: calc(100vh - 32px - var(--easyforms-topnav-h, 57px));
+  margin: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: var(--_bg);
