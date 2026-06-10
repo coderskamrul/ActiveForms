@@ -1,0 +1,174 @@
+/*
+ * EasyForms frontend form styles. Intentionally lightweight and theme-friendly,
+ * using the same token names where available with neutral fallbacks.
+ */
+
+/* Border-box on every form element so width:100% inputs stay inside their
+   column (otherwise padding + border overflow the column and swallow the
+   inter-column gap, making columns look attached). */
+.easyforms-form-wrap,
+.easyforms-form-wrap *,
+.easyforms-form-wrap *::before,
+.easyforms-form-wrap *::after { box-sizing: border-box; }
+
+.easyforms-form-wrap { max-width: 680px; }
+.easyforms-form .easyforms-field { margin-bottom: 18px; }
+.easyforms-form .easyforms-label { display: block; font-weight: 600; margin-bottom: 6px; }
+.easyforms-form .easyforms-required { color: #dc2626; }
+.easyforms-form .easyforms-input,
+.easyforms-form .easyforms-textarea,
+.easyforms-form .easyforms-select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--easyforms-color-border, #d1d5db);
+  border-radius: var(--easyforms-radius-md, 8px);
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  color: #1f2937;
+}
+.easyforms-form .easyforms-input:focus,
+.easyforms-form .easyforms-textarea:focus,
+.easyforms-form .easyforms-select:focus {
+  outline: none;
+  border-color: var(--easyforms-color-primary, #4f46e5);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+.easyforms-form .easyforms-help { display: block; color: #6b7280; font-size: 13px; margin-top: 4px; }
+.easyforms-form .easyforms-error { display: block; color: #dc2626; font-size: 13px; margin-top: 4px; }
+.easyforms-form .easyforms-field--invalid .easyforms-input,
+.easyforms-form .easyforms-field--invalid .easyforms-textarea,
+.easyforms-form .easyforms-field--invalid .easyforms-select { border-color: #dc2626; }
+
+.easyforms-form .easyforms-subfields { display: flex; flex-wrap: wrap; gap: 10px; }
+.easyforms-form .easyforms-subfield { flex: 1 1 160px; }
+.easyforms-form .easyforms-subfield--wide { flex-basis: 100%; }
+.easyforms-form .easyforms-sublabel { display: block; color: #6b7280; font-size: 12px; margin-top: 3px; }
+
+.easyforms-form .easyforms-choices { display: flex; flex-direction: column; gap: 6px; }
+.easyforms-form .easyforms-choice { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+.easyforms-form .easyforms-consent { display: flex; align-items: flex-start; gap: 8px; }
+
+/* Column container: columns share the row (display:flex + gap are also set
+   inline by the renderer so the gap survives a stale cached stylesheet);
+   stack full-width on small screens. */
+.easyforms-form .easyforms-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.easyforms-form .easyforms-col { min-width: 0; }
+@media (max-width: 600px) {
+  .easyforms-form .easyforms-row { flex-direction: column; }
+  .easyforms-form .easyforms-col { flex: 1 1 auto !important; width: 100%; }
+}
+
+.easyforms-form .easyforms-step-break { display: flex; align-items: center; gap: 12px; margin: 22px 0; }
+.easyforms-form .easyforms-step-break__line { flex: 1; height: 1px; background: var(--easyforms-color-border, #e5e7eb); }
+.easyforms-form .easyforms-step-break__label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; }
+
+/* Pro field controls */
+.easyforms-form .easyforms-rating { display: inline-flex; gap: 6px; font-size: 26px; }
+.easyforms-form .easyforms-rating__star { cursor: pointer; color: #d1d5db; line-height: 1; }
+.easyforms-form .easyforms-rating__star input { position: absolute; opacity: 0; width: 0; height: 0; }
+.easyforms-form .easyforms-rating__star:has(input:checked) { color: #f59e0b; }
+.easyforms-form .easyforms-range { width: 100%; padding: 0; }
+.easyforms-form .easyforms-color { width: 64px; height: 42px; padding: 2px; border: 1px solid var(--easyforms-color-border, #d1d5db); border-radius: var(--easyforms-radius-md, 8px); background: #fff; }
+
+.easyforms-form .easyforms-section { margin: 8px 0 4px; }
+.easyforms-form .easyforms-section-title { margin: 0 0 4px; font-size: 18px; }
+.easyforms-form .easyforms-section-desc { margin: 0; color: #6b7280; }
+
+.easyforms-form .easyforms-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border: none;
+  border-radius: var(--easyforms-radius-md, 8px);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.easyforms-form .easyforms-btn--primary { background: var(--easyforms-color-primary, #4f46e5); color: #fff; }
+.easyforms-form .easyforms-btn--primary:hover { background: var(--easyforms-color-primary-hover, #4338ca); }
+.easyforms-form .easyforms-submit--center { text-align: center; }
+.easyforms-form .easyforms-submit--right { text-align: right; }
+
+.easyforms-form-message { margin-top: 14px; padding: 0; }
+.easyforms-form-message--success { padding: 18px; background: #dcfce7; color: #166534; border-radius: var(--easyforms-radius-md, 8px); }
+.easyforms-form-message--error { padding: 12px 14px; background: #fee2e2; color: #991b1b; border-radius: var(--easyforms-radius-md, 8px); }
+
+/* ---------------------------------------------------------- Label placement */
+.easyforms-form .easyforms-field--lp-hide .easyforms-label { display: none; }
+
+.easyforms-form .easyforms-field--lp-left,
+.easyforms-form .easyforms-field--lp-right {
+  display: grid;
+  grid-template-columns: 28% 1fr;
+  column-gap: 14px;
+  align-items: start;
+}
+.easyforms-form .easyforms-field--lp-left .easyforms-label { grid-column: 1; margin-top: 11px; }
+.easyforms-form .easyforms-field--lp-left .easyforms-control,
+.easyforms-form .easyforms-field--lp-left .easyforms-help,
+.easyforms-form .easyforms-field--lp-left .easyforms-error { grid-column: 2; }
+
+.easyforms-form .easyforms-field--lp-right { grid-template-columns: 1fr 28%; }
+.easyforms-form .easyforms-field--lp-right .easyforms-label { grid-column: 2; grid-row: 1; margin-top: 11px; }
+.easyforms-form .easyforms-field--lp-right .easyforms-control { grid-column: 1; grid-row: 1; }
+.easyforms-form .easyforms-field--lp-right .easyforms-help,
+.easyforms-form .easyforms-field--lp-right .easyforms-error { grid-column: 1; }
+
+.easyforms-form .easyforms-field--lp-bottom { display: flex; flex-direction: column; }
+.easyforms-form .easyforms-field--lp-bottom .easyforms-control { order: 1; }
+.easyforms-form .easyforms-field--lp-bottom .easyforms-label { order: 2; margin: 6px 0 0; }
+.easyforms-form .easyforms-field--lp-bottom .easyforms-help { order: 3; }
+.easyforms-form .easyforms-field--lp-bottom .easyforms-error { order: 4; }
+
+/* ------------------------------------------------------ Searchable dropdown */
+.easyforms-form .easyforms-ss { position: relative; }
+.easyforms-form .easyforms-ss__native { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+.easyforms-form .easyforms-ss__control {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 13px;
+  border: 1px solid var(--easyforms-color-border, #d1d5db);
+  border-radius: var(--easyforms-radius-md, 8px);
+  background: #fff;
+  color: #1f2937;
+  font-size: 15px;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.easyforms-form .easyforms-ss__control::after { content: '\25BE'; color: #6b7280; }
+.easyforms-form .easyforms-ss.is-open .easyforms-ss__control { border-color: var(--easyforms-color-primary, #4f46e5); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+.easyforms-form .easyforms-ss__panel {
+  display: none;
+  position: absolute;
+  z-index: 50;
+  left: 0; right: 0;
+  top: calc(100% + 4px);
+  background: #fff;
+  border: 1px solid var(--easyforms-color-border, #d1d5db);
+  border-radius: var(--easyforms-radius-md, 8px);
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+  overflow: hidden;
+}
+.easyforms-form .easyforms-ss.is-open .easyforms-ss__panel { display: block; }
+.easyforms-form .easyforms-ss__search { width: 100%; border: 0; border-bottom: 1px solid var(--easyforms-color-border, #e5e7eb); padding: 10px 12px; font-size: 14px; outline: none; }
+.easyforms-form .easyforms-ss__list { max-height: 220px; overflow-y: auto; }
+.easyforms-form .easyforms-ss__item { padding: 9px 12px; cursor: pointer; font-size: 14px; }
+.easyforms-form .easyforms-ss__item:hover,
+.easyforms-form .easyforms-ss__item.is-sel { background: rgba(79, 70, 229, 0.08); }
+
+/* ------------------------------------------- Per-sub-field label placement */
+.easyforms-form .easyforms-subfield--lp-top { display: flex; flex-direction: column; }
+.easyforms-form .easyforms-subfield--lp-top .easyforms-sublabel { order: -1; margin: 0 0 5px; }
+.easyforms-form .easyforms-subfield--lp-bottom .easyforms-sublabel { margin-top: 5px; }
+.easyforms-form .easyforms-subfield--lp-hide .easyforms-sublabel { display: none; }
+.easyforms-form .easyforms-subfield--lp-left,
+.easyforms-form .easyforms-subfield--lp-right { display: flex; align-items: center; gap: 10px; }
+.easyforms-form .easyforms-subfield--lp-left .easyforms-input,
+.easyforms-form .easyforms-subfield--lp-right .easyforms-input { flex: 1; min-width: 0; }
+.easyforms-form .easyforms-subfield--lp-left .easyforms-sublabel,
+.easyforms-form .easyforms-subfield--lp-right .easyforms-sublabel { flex: 0 0 32%; margin: 0; }
+.easyforms-form .easyforms-subfield--lp-left .easyforms-sublabel { order: -1; }
