@@ -24,7 +24,7 @@ class LayoutField extends AbstractField {
 	 */
 	private static $map = array(
 		'section'   => array( 'label' => 'Section Break', 'icon' => 'minus', 'category' => 'layout' ),
-		'html'      => array( 'label' => 'Custom HTML', 'icon' => 'editor-code', 'category' => 'layout' ),
+		'html'      => array( 'label' => 'Custom HTML', 'icon' => 'editor-code', 'category' => 'general' ),
 		'container' => array( 'label' => 'Columns', 'icon' => 'columns', 'category' => 'layout' ),
 		'step'      => array( 'label' => 'Page Break / Step', 'icon' => 'flag', 'category' => 'layout' ),
 		'submit'    => array( 'label' => 'Submit Button', 'icon' => 'button', 'category' => 'layout' ),

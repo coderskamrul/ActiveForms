@@ -24,7 +24,7 @@ class AddressField extends AbstractCompositeField {
 	 */
 	public function __construct() {
 		$this->type     = 'address';
-		$this->label    = 'Address';
+		$this->label    = 'Address Fields';
 		$this->icon     = 'location';
 		$this->category = 'general';
 	}

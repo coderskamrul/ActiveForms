@@ -38,25 +38,12 @@ class Activator {
 	}
 
 	/**
-	 * Default global settings.
+	 * Default global settings. Delegates to {@see Settings::defaults()} so the
+	 * activator, the REST sanitizer, and every reader share one canonical shape.
 	 *
 	 * @return array<string,mixed>
 	 */
 	public static function default_settings() {
-		return array(
-			'label_placement'     => 'top',
-			'remove_data_on_uninstall' => false,
-			'recaptcha'           => array(
-				'provider'   => '',
-				'site_key'   => '',
-				'secret_key' => '',
-			),
-			'messages'            => array(
-				'required'       => __( 'This field is required.', 'easyforms' ),
-				'invalid_email'  => __( 'Please enter a valid email address.', 'easyforms' ),
-				'invalid_url'    => __( 'Please enter a valid URL.', 'easyforms' ),
-				'invalid_number' => __( 'Please enter a valid number.', 'easyforms' ),
-			),
-		);
+		return Settings::defaults();
 	}
 }

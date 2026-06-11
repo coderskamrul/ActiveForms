@@ -1,6 +1,6 @@
 <?php
 /**
- * Choice fields: select, radio, checkbox.
+ * Choice fields: select, radio, checkbox, multiselect.
  *
  * @package EasyForms
  */
@@ -23,10 +23,20 @@ class ChoiceField extends AbstractField {
 	 * @var array<string,array>
 	 */
 	private static $map = array(
-		'select'   => array( 'label' => 'Dropdown', 'icon' => 'arrow-down-alt2' ),
-		'radio'    => array( 'label' => 'Radio', 'icon' => 'marker' ),
-		'checkbox' => array( 'label' => 'Checkboxes', 'icon' => 'yes' ),
+		'select'      => array( 'label' => 'Dropdown', 'icon' => 'arrow-down-alt2' ),
+		'radio'       => array( 'label' => 'Radio Field', 'icon' => 'marker' ),
+		'checkbox'    => array( 'label' => 'Checkboxes', 'icon' => 'yes' ),
+		'multiselect' => array( 'label' => 'Multi Select', 'icon' => 'list-view' ),
 	);
+
+	/**
+	 * Choice types whose value is a list of selected options.
+	 *
+	 * @return bool
+	 */
+	private function is_multi() {
+		return in_array( $this->type, array( 'checkbox', 'multiselect' ), true );
+	}
 
 	/**
 	 * Constructor.
@@ -56,7 +66,7 @@ class ChoiceField extends AbstractField {
 				'value' => 'option_2',
 			),
 		);
-		$schema['multiple'] = 'checkbox' === $this->type;
+		$schema['multiple'] = $this->is_multi();
 		return $schema;
 	}
 
@@ -64,9 +74,9 @@ class ChoiceField extends AbstractField {
 	 * {@inheritDoc}
 	 */
 	public function sanitize( $value, $field ) {
-		if ( 'checkbox' === $this->type ) {
+		if ( $this->is_multi() ) {
 			$value = (array) $value;
-			return array_map( 'sanitize_text_field', wp_unslash( $value ) );
+			return array_values( array_map( 'sanitize_text_field', wp_unslash( $value ) ) );
 		}
 		return sanitize_text_field( wp_unslash( (string) $value ) );
 	}
@@ -86,6 +96,30 @@ class ChoiceField extends AbstractField {
 					'<option value="%1$s"%2$s>%3$s</option>',
 					esc_attr( $opt['value'] ),
 					selected( $value, $opt['value'], false ),
+					esc_html( $opt['label'] )
+				);
+			}
+			$control .= '</select>';
+			return $this->wrap( $field, $control );
+		}
+
+		// Multi-select: a native multiple <select> (posts key[]) that the
+		// frontend script enhances into a tag-style picker. Server-side
+		// validation handles "required", so the native control isn't marked
+		// required (it's visually hidden once enhanced and couldn't be focused).
+		if ( 'multiselect' === $this->type ) {
+			$values      = array_map( 'strval', (array) $value );
+			$placeholder = Arr::get( $field, 'placeholder', __( 'Select options…', 'easyforms' ) );
+			$control     = sprintf(
+				'<select multiple class="easyforms-input easyforms-multiselect" id="easyforms-%1$s" name="%1$s[]" data-easyforms-multiselect data-placeholder="%2$s">',
+				esc_attr( $key ),
+				esc_attr( $placeholder )
+			);
+			foreach ( $options as $opt ) {
+				$control .= sprintf(
+					'<option value="%1$s"%2$s>%3$s</option>',
+					esc_attr( $opt['value'] ),
+					in_array( (string) $opt['value'], $values, true ) ? ' selected' : '',
 					esc_html( $opt['label'] )
 				);
 			}

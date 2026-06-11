@@ -54,7 +54,7 @@ class FieldRegistry {
 
 		$this->register( new TextareaField() );
 
-		foreach ( array( 'select', 'radio', 'checkbox' ) as $type ) {
+		foreach ( array( 'select', 'radio', 'checkbox', 'multiselect' ) as $type ) {
 			$this->register( new ChoiceField( $type ) );
 		}
 

@@ -7,6 +7,7 @@
 
 namespace EasyForms\Fields;
 
+use EasyForms\Core\Settings;
 use EasyForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
@@ -176,7 +177,7 @@ abstract class AbstractField implements FieldInterface {
 	 * @return string
 	 */
 	protected function required_message( $field ) {
-		return __( 'This field is required.', 'easyforms' );
+		return Settings::message( 'required', __( 'This field is required.', 'easyforms' ) );
 	}
 
 	/**
@@ -193,9 +194,13 @@ abstract class AbstractField implements FieldInterface {
 		$required = $this->is_required( $field );
 		$css      = esc_attr( Arr::get( $field, 'css_class', '' ) );
 
-		// Label placement: '' (default/top) | top | right | bottom | left | hide.
+		// Label placement: a field may override it; otherwise fall back to the
+		// site-wide default configured in Settings → General → Layout.
 		$placement = Arr::get( $field, 'label_placement', '' );
-		$lp_class  = ( $placement && 'top' !== $placement ) ? ' easyforms-field--lp-' . sanitize_html_class( $placement ) : '';
+		if ( '' === $placement ) {
+			$placement = Settings::default_label_placement();
+		}
+		$lp_class = ( $placement && 'top' !== $placement ) ? ' easyforms-field--lp-' . sanitize_html_class( $placement ) : '';
 
 		$html  = '<div class="easyforms-field easyforms-field--' . esc_attr( $this->type ) . $lp_class . ' ' . $css . '" data-field="' . $key . '">';
 		if ( $label && $this->input && 'hide' !== $placement ) {

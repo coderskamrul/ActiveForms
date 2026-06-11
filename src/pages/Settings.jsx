@@ -1,23 +1,45 @@
 /**
- * Global settings: label placement, spam/captcha provider, data cleanup.
+ * Settings — a vertical-rail, tab-based settings experience.
+ *
+ * The rail (TABS) is grouped and scalable: adding a feature area is a one-line
+ * entry plus a content component in ./settings/tabs.jsx. The active tab is
+ * driven by the hash (#/settings/<tab>) so tabs are deep-linkable and the
+ * browser back button works. Only "functional" tabs persist real settings and
+ * surface a Save button; roadmap tabs preview where a feature will live.
  */
 import React, { useEffect, useState } from 'react';
 import api from '../api/client';
-import { Loading, Card, PageHead, Button, Field, Toggle } from '../components/ui';
+import { Loading, PageHead, Button, Badge } from '../components/ui';
 import { useToast } from '../components/Toast';
+import { useRouter } from '../router';
+import { TABS, GROUP_ORDER, TAB_CONTENT } from './settings/tabs.jsx';
+
+const DEFAULT_TAB = 'general';
+
+/** Resolve a valid tab key from the route, falling back to the default. */
+function tabFromRoute(route) {
+  const key = route.parts[1];
+  return TABS.some((t) => t.key === key) ? key : DEFAULT_TAB;
+}
 
 /** Settings page. */
 export default function Settings() {
+  const { route, navigate } = useRouter();
   const [settings, setSettings] = useState(null);
   const [saving, setSaving] = useState(false);
   const { notify } = useToast();
 
   useEffect(() => { api.get('/settings').then(setSettings).catch(() => setSettings({})); }, []);
 
+  const activeKey = tabFromRoute(route);
+  const activeTab = TABS.find((t) => t.key === activeKey) || TABS[0];
+
   if (settings === null) return <Loading />;
 
-  const recaptcha = settings.recaptcha || {};
-  const setRecaptcha = (key, value) => setSettings({ ...settings, recaptcha: { ...recaptcha, [key]: value } });
+  // Typed setters passed to every tab — keeps tab components free of state plumbing.
+  const setField = (key, value) => setSettings((s) => ({ ...s, [key]: value }));
+  const setMessage = (key, value) => setSettings((s) => ({ ...s, messages: { ...(s.messages || {}), [key]: value } }));
+  const setRecaptcha = (key, value) => setSettings((s) => ({ ...s, recaptcha: { ...(s.recaptcha || {}), [key]: value } }));
 
   const save = async () => {
     setSaving(true);
@@ -28,43 +50,58 @@ export default function Settings() {
     } catch (e) { notify(e.message, 'error'); } finally { setSaving(false); }
   };
 
+  const Content = TAB_CONTENT[activeKey];
+
   return (
     <div>
-      <PageHead title="Settings" actions={<Button variant="primary" onClick={save} disabled={saving}>{saving ? 'Saving…' : 'Save Settings'}</Button>} />
+      <PageHead title="Settings" subtitle="Configure global defaults, protection, and account preferences for EasyForms." />
 
-      <div className="easyforms-grid easyforms-grid-2">
-        <Card>
-          <h3 style={{ marginTop: 0 }}>General</h3>
-          <Field label="Label placement">
-            <select className="easyforms-select" value={settings.label_placement || 'top'} onChange={(e) => setSettings({ ...settings, label_placement: e.target.value })}>
-              <option value="top">Top</option>
-              <option value="left">Left</option>
-              <option value="hidden">Hidden</option>
-            </select>
-          </Field>
-          <div className="easyforms-option-row">
-            <label style={{ margin: 0 }}>Delete all data on uninstall</label>
-            <Toggle checked={settings.remove_data_on_uninstall} onChange={(v) => setSettings({ ...settings, remove_data_on_uninstall: v })} />
+      <div className="easyforms-settings">
+        <nav className="easyforms-settings__rail" aria-label="Settings sections">
+          {GROUP_ORDER.map((group) => {
+            const items = TABS.filter((t) => t.group === group);
+            if (!items.length) return null;
+            return (
+              <div className="easyforms-settings__group" key={group}>
+                <span className="easyforms-settings__group-label">{group}</span>
+                {items.map((t) => (
+                  <a
+                    key={t.key}
+                    href={`#/settings/${t.key}`}
+                    className={`easyforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`}
+                  >
+                    <span className={`dashicons dashicons-${t.icon}`} aria-hidden="true" />
+                    <span className="easyforms-settings__navitem-label">{t.label}</span>
+                    {t.badge && <Badge tone={t.badge.tone}>{t.badge.label}</Badge>}
+                  </a>
+                ))}
+              </div>
+            );
+          })}
+        </nav>
+
+        <div className="easyforms-settings__panel">
+          <div className="easyforms-settings__panel-head">
+            <div>
+              <h2>{activeTab.label}</h2>
+              {!activeTab.functional && (
+                <p>This area previews a feature that isn't available yet. Its controls are disabled until the feature ships.</p>
+              )}
+            </div>
+            {activeTab.functional && (
+              <Button variant="primary" onClick={save} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button>
+            )}
           </div>
-        </Card>
 
-        <Card>
-          <h3 style={{ marginTop: 0 }}>Spam Protection / CAPTCHA</h3>
-          <Field label="Provider" help="Honeypot is always enabled. Choose an additional CAPTCHA provider.">
-            <select className="easyforms-select" value={recaptcha.provider || ''} onChange={(e) => setRecaptcha('provider', e.target.value)}>
-              <option value="">None (honeypot only)</option>
-              <option value="recaptcha">Google reCAPTCHA</option>
-              <option value="hcaptcha">hCaptcha</option>
-              <option value="turnstile">Cloudflare Turnstile</option>
-            </select>
-          </Field>
-          {recaptcha.provider && (
-            <>
-              <Field label="Site Key"><input className="easyforms-input" value={recaptcha.site_key || ''} onChange={(e) => setRecaptcha('site_key', e.target.value)} /></Field>
-              <Field label="Secret Key"><input className="easyforms-input" type="password" value={recaptcha.secret_key || ''} onChange={(e) => setRecaptcha('secret_key', e.target.value)} /></Field>
-            </>
-          )}
-        </Card>
+          <div className="easyforms-settings__sections">
+            <Content
+              settings={settings}
+              setField={setField}
+              setMessage={setMessage}
+              setRecaptcha={setRecaptcha}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

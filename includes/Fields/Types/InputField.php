@@ -7,6 +7,7 @@
 
 namespace EasyForms\Fields\Types;
 
+use EasyForms\Core\Settings;
 use EasyForms\Fields\AbstractField;
 use EasyForms\Support\Arr;
 
@@ -24,13 +25,15 @@ class InputField extends AbstractField {
 	 * @var array<string,array>
 	 */
 	private static $map = array(
-		'text'        => array( 'label' => 'Single Line Text', 'icon' => 'editor-textcolor', 'input' => 'text' ),
-		'email'       => array( 'label' => 'Email', 'icon' => 'email', 'input' => 'email' ),
-		'url'         => array( 'label' => 'Website / URL', 'icon' => 'admin-links', 'input' => 'url' ),
-		'number'      => array( 'label' => 'Number', 'icon' => 'calculator', 'input' => 'number' ),
-		'password'    => array( 'label' => 'Password', 'icon' => 'lock', 'input' => 'password' ),
-		'hidden'      => array( 'label' => 'Hidden', 'icon' => 'hidden', 'input' => 'hidden' ),
-		'masked_text' => array( 'label' => 'Mask Input', 'icon' => 'admin-customizer', 'input' => 'text' ),
+		'text'        => array( 'label' => 'Simple Text', 'icon' => 'editor-textcolor', 'input' => 'text', 'category' => 'general' ),
+		'email'       => array( 'label' => 'Email', 'icon' => 'email', 'input' => 'email', 'category' => 'general' ),
+		'url'         => array( 'label' => 'Website URL', 'icon' => 'admin-links', 'input' => 'url', 'category' => 'general' ),
+		'number'      => array( 'label' => 'Numeric Field', 'icon' => 'calculator', 'input' => 'number', 'category' => 'general' ),
+		'masked_text' => array( 'label' => 'Mask Input', 'icon' => 'admin-customizer', 'input' => 'text', 'category' => 'general' ),
+		// Password & hidden are utility inputs that belong with the advanced set,
+		// not the everyday general fields shown first in the palette.
+		'password'    => array( 'label' => 'Password', 'icon' => 'lock', 'input' => 'password', 'category' => 'advanced' ),
+		'hidden'      => array( 'label' => 'Hidden', 'icon' => 'hidden', 'input' => 'hidden', 'category' => 'advanced' ),
 	);
 
 	/**
@@ -44,7 +47,7 @@ class InputField extends AbstractField {
 		$this->label      = $conf['label'];
 		$this->icon       = $conf['icon'];
 		$this->input_type = $conf['input'];
-		$this->category   = 'general';
+		$this->category   = $conf['category'];
 		$this->input      = true;
 	}
 
@@ -78,14 +81,14 @@ class InputField extends AbstractField {
 		}
 
 		if ( 'email' === $this->type && ! is_email( $value ) ) {
-			return __( 'Please enter a valid email address.', 'easyforms' );
+			return Settings::message( 'invalid_email', __( 'Please enter a valid email address.', 'easyforms' ) );
 		}
 		if ( 'url' === $this->type && ! wp_http_validate_url( $value ) ) {
-			return __( 'Please enter a valid URL.', 'easyforms' );
+			return Settings::message( 'invalid_url', __( 'Please enter a valid URL.', 'easyforms' ) );
 		}
 		if ( 'number' === $this->type ) {
 			if ( ! is_numeric( $value ) ) {
-				return __( 'Please enter a valid number.', 'easyforms' );
+				return Settings::message( 'invalid_number', __( 'Please enter a valid number.', 'easyforms' ) );
 			}
 			$min = Arr::get( $field, 'min', '' );
 			$max = Arr::get( $field, 'max', '' );

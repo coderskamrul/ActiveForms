@@ -8,6 +8,7 @@
 namespace EasyForms\Rest;
 
 use EasyForms\Core\Config;
+use EasyForms\Core\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,7 +45,9 @@ class SettingsController extends AbstractController {
 	 * @return \WP_REST_Response
 	 */
 	public function show() {
-		return $this->ok( get_option( Config::OPTION_SETTINGS, array() ) );
+		// Return defaults merged over stored values so the UI always renders
+		// every known control even before the option has been written.
+		return $this->ok( Settings::all() );
 	}
 
 	/**
@@ -57,9 +60,14 @@ class SettingsController extends AbstractController {
 		$body    = $request->get_json_params();
 		$body    = $body ? $body : $request->get_params();
 		$current = get_option( Config::OPTION_SETTINGS, array() );
+		$current = is_array( $current ) ? $current : array();
 
+		// Only persist values that map to a real, implemented feature. Controls
+		// for not-yet-shipped features are rendered disabled in the UI and never
+		// posted, so the option stays clean as the feature set grows.
 		$clean = array();
-		$clean['label_placement'] = isset( $body['label_placement'] ) ? sanitize_key( $body['label_placement'] ) : 'top';
+
+		$clean['label_placement']          = $this->one_of( $body, 'label_placement', array( 'top', 'right', 'bottom', 'left', 'hide' ), 'top' );
 		$clean['remove_data_on_uninstall'] = ! empty( $body['remove_data_on_uninstall'] );
 
 		if ( isset( $body['recaptcha'] ) && is_array( $body['recaptcha'] ) ) {
@@ -71,12 +79,32 @@ class SettingsController extends AbstractController {
 		}
 
 		if ( isset( $body['messages'] ) && is_array( $body['messages'] ) ) {
-			$clean['messages'] = map_deep( $body['messages'], 'sanitize_text_field' );
+			$allowed = array( 'required', 'invalid_email', 'invalid_url', 'invalid_number' );
+			$messages = array();
+			foreach ( $allowed as $key ) {
+				$messages[ $key ] = isset( $body['messages'][ $key ] ) ? sanitize_text_field( $body['messages'][ $key ] ) : '';
+			}
+			$clean['messages'] = $messages;
 		}
 
-		$merged = array_merge( (array) $current, $clean );
+		$merged = array_merge( $current, $clean );
 		update_option( Config::OPTION_SETTINGS, $merged );
+		Settings::flush();
 
-		return $this->ok( $merged );
+		return $this->ok( Settings::all() );
+	}
+
+	/**
+	 * Return a posted value only when it is one of an allowed set, else default.
+	 *
+	 * @param array  $body    Request body.
+	 * @param string $key     Field key.
+	 * @param array  $allowed Allowed values.
+	 * @param string $default Fallback.
+	 * @return string
+	 */
+	private function one_of( $body, $key, $allowed, $default ) {
+		$value = isset( $body[ $key ] ) ? sanitize_key( $body[ $key ] ) : '';
+		return in_array( $value, $allowed, true ) ? $value : $default;
 	}
 }

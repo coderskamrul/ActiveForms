@@ -19,9 +19,9 @@ const LABEL_PLACEMENTS = [
 ];
 
 const NO_PLACEHOLDER = ['radio', 'checkbox', 'terms', 'gdpr', 'section', 'html', 'submit', 'container', 'date_time', 'nps', 'signature', 'file_upload', 'image_upload', 'repeater', 'rating', 'range', 'color', 'name', 'address'];
-const CHOICE_TYPES = ['select', 'radio', 'checkbox'];
+const CHOICE_TYPES = ['select', 'radio', 'checkbox', 'multiselect'];
 // Fields where a free-text "Default value" makes no sense.
-const NO_DEFAULT = ['nps', 'signature', 'file_upload', 'image_upload', 'repeater', 'rating', 'range', 'color', 'name', 'address'];
+const NO_DEFAULT = ['nps', 'signature', 'file_upload', 'image_upload', 'repeater', 'rating', 'range', 'color', 'name', 'address', 'multiselect'];
 const UPLOAD_TYPES = ['file_upload', 'image_upload'];
 // Grouped fields whose value is an object of toggleable sub-fields.
 const COMPOSITE_TYPES = ['name', 'address'];

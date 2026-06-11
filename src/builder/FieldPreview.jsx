@@ -62,6 +62,23 @@ function Control({ field }) {
           ))}
         </div>
       );
+    case 'multiselect': {
+      const opts = field.options || [];
+      return (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', minHeight: 40, padding: '7px 32px 7px 10px', border: '1px solid #e5e7eb', borderRadius: 8, background: '#fff', position: 'relative', color: '#9ca3af' }}>
+          {opts.length ? (
+            opts.slice(0, 3).map((o, i) => (
+              <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#eef2ff', color: '#4f46e5', borderRadius: 6, padding: '3px 8px', fontSize: 13, fontWeight: 600 }}>
+                {o.label} <span aria-hidden="true">×</span>
+              </span>
+            ))
+          ) : (
+            <span>{ph || 'Select options…'}</span>
+          )}
+          <span style={{ position: 'absolute', right: 12 }} aria-hidden="true">▾</span>
+        </div>
+      );
+    }
     case 'name': {
       const subs = visibleSubs(field);
       return (

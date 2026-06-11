@@ -24,7 +24,7 @@ class CountryField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'country';
-		$this->label    = 'Country';
+		$this->label    = 'Country List';
 		$this->icon     = 'admin-site';
 		$this->category = 'general';
 	}

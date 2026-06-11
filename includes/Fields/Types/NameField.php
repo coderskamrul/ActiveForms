@@ -23,7 +23,7 @@ class NameField extends AbstractCompositeField {
 	 */
 	public function __construct() {
 		$this->type     = 'name';
-		$this->label    = 'Name';
+		$this->label    = 'Name Fields';
 		$this->icon     = 'admin-users';
 		$this->category = 'general';
 	}

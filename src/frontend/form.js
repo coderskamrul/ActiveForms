@@ -18,7 +18,10 @@ import './form.scss';
     elements.forEach(function (el) {
       if (!el.name || el.disabled) return;
       var name = el.name;
-      if (el.type === 'checkbox') {
+      if (el.type === 'select-multiple') {
+        var msKey = name.slice(-2) === '[]' ? name.slice(0, -2) : name;
+        data[msKey] = Array.prototype.map.call(el.selectedOptions, function (o) { return o.value; });
+      } else if (el.type === 'checkbox') {
         if (name.slice(-2) === '[]') {
           var key = name.slice(0, -2);
           data[key] = data[key] || [];
@@ -213,10 +216,91 @@ import './form.scss';
     });
   }
 
+  // Enhance a native multiple <select> into a tag-style picker. The native
+  // select stays in the DOM (visually hidden) so its selected options still
+  // submit as key[]; the widget just mirrors its state.
+  function multiSelect(select) {
+    if (select.dataset.efMulti) return;
+    select.dataset.efMulti = '1';
+
+    var placeholder = select.getAttribute('data-placeholder') || 'Select…';
+    var options = Array.prototype.map.call(select.options, function (o) {
+      return { value: o.value, label: o.textContent };
+    });
+
+    var wrap = document.createElement('div');
+    wrap.className = 'easyforms-ms';
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(select);
+    select.classList.add('easyforms-ms__native');
+
+    var control = document.createElement('div');
+    control.className = 'easyforms-ms__control';
+    control.tabIndex = 0;
+    wrap.appendChild(control);
+
+    var panel = document.createElement('div');
+    panel.className = 'easyforms-ms__panel';
+    wrap.appendChild(panel);
+
+    function isSel(v) {
+      return Array.prototype.some.call(select.options, function (o) { return o.value === v && o.selected; });
+    }
+    function setSel(v, on) {
+      Array.prototype.forEach.call(select.options, function (o) { if (o.value === v) o.selected = on; });
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      render();
+    }
+    function render() {
+      control.innerHTML = '';
+      var chosen = options.filter(function (o) { return isSel(o.value); });
+      if (!chosen.length) {
+        var ph = document.createElement('span');
+        ph.className = 'easyforms-ms__ph';
+        ph.textContent = placeholder;
+        control.appendChild(ph);
+      } else {
+        chosen.forEach(function (o) {
+          var tag = document.createElement('span');
+          tag.className = 'easyforms-ms__tag';
+          tag.textContent = o.label;
+          var x = document.createElement('button');
+          x.type = 'button';
+          x.className = 'easyforms-ms__remove';
+          x.setAttribute('aria-label', 'Remove ' + o.label);
+          x.innerHTML = '&times;';
+          x.addEventListener('click', function (e) { e.stopPropagation(); setSel(o.value, false); });
+          tag.appendChild(x);
+          control.appendChild(tag);
+        });
+      }
+      panel.innerHTML = '';
+      options.forEach(function (o) {
+        var item = document.createElement('div');
+        var on = isSel(o.value);
+        item.className = 'easyforms-ms__item' + (on ? ' is-sel' : '');
+        var check = document.createElement('span');
+        check.className = 'easyforms-ms__check';
+        check.textContent = on ? '✓' : '';
+        var lbl = document.createElement('span');
+        lbl.textContent = o.label;
+        item.appendChild(check);
+        item.appendChild(lbl);
+        item.addEventListener('click', function () { setSel(o.value, !isSel(o.value)); });
+        panel.appendChild(item);
+      });
+    }
+
+    control.addEventListener('click', function () { wrap.classList.toggle('is-open'); });
+    document.addEventListener('click', function (e) { if (!wrap.contains(e.target)) wrap.classList.remove('is-open'); });
+    render();
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.easyforms-form').forEach(handle);
     document.querySelectorAll('[data-easyforms-mask]').forEach(applyMask);
     document.querySelectorAll('[data-easyforms-autoresize]').forEach(autoResize);
     document.querySelectorAll('select[data-easyforms-searchable]').forEach(searchableSelect);
+    document.querySelectorAll('select[data-easyforms-multiselect]').forEach(multiSelect);
   });
 })();

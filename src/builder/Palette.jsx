@@ -8,11 +8,14 @@ import { useDraggable } from '@dnd-kit/core';
 import Icon from './icons.jsx';
 import { t } from '../config';
 
-/* Pro field teasers (rendered locked). Mirrors the advanced/payment roadmap. */
+/* Pro field teasers (rendered locked). Mirrors the advanced/payment roadmap.
+   Phone and the upload fields sit in the General section so the slot is in the
+   right place whether or not the Pro add-on (which makes them functional) is
+   active — matching the General Fields layout users expect. */
 const PRO_FIELDS = [
-  { type: 'phone', label: 'Phone / Mobile', icon: 'phone', category: 'advanced' },
-  { type: 'file_upload', label: 'File Upload', icon: 'upload', category: 'advanced' },
-  { type: 'image_upload', label: 'Image Upload', icon: 'format-image', category: 'advanced' },
+  { type: 'phone', label: 'Phone / Mobile', icon: 'phone', category: 'general' },
+  { type: 'file_upload', label: 'File Upload', icon: 'upload', category: 'general' },
+  { type: 'image_upload', label: 'Image Upload', icon: 'format-image', category: 'general' },
   { type: 'rich_text', label: 'Rich Text', icon: 'editor-paragraph', category: 'advanced' },
   { type: 'color', label: 'Color Picker', icon: 'art', category: 'advanced' },
   { type: 'range', label: 'Range Slider', icon: 'leftright', category: 'advanced' },
@@ -24,6 +27,7 @@ const PRO_FIELDS = [
   { type: 'custom_amount', label: 'Custom Amount', icon: 'money-alt', category: 'payment' },
   { type: 'quantity', label: 'Item Quantity', icon: 'plus-alt', category: 'payment' },
   { type: 'subscription', label: 'Subscription', icon: 'update', category: 'payment' },
+  
   { type: 'payment_method', label: 'Payment Method', icon: 'bank', category: 'payment' },
 ];
 
@@ -33,6 +37,21 @@ const COLUMN_PRESETS = [
   { cols: 3, label: 'Three Columns', icon: 'screenoptions' },
   { cols: 4, label: 'Four Columns', icon: 'grid-view' },
 ];
+
+/* Canonical display order for the General Fields section. Keeping the sequence
+   here (rather than relying on registration order, which spans core + Pro)
+   makes it the single place to reshuffle the everyday fields. Types not listed
+   fall to the end in their existing order. */
+const GENERAL_ORDER = [
+  'name', 'email', 'text', 'masked_text', 'textarea', 'address', 'country',
+  'number', 'select', 'radio', 'checkbox', 'multiselect', 'url', 'date_time',
+  'image_upload', 'file_upload', 'html', 'phone',
+];
+const generalRank = (type) => {
+  const i = GENERAL_ORDER.indexOf(type);
+  return i === -1 ? GENERAL_ORDER.length : i;
+};
+const byGeneralOrder = (a, b) => generalRank(a.type) - generalRank(b.type);
 
 /** A single draggable (free) palette item. */
 function PaletteItem({ def, onAdd }) {
@@ -124,7 +143,7 @@ export default function Palette({ definitions, categories, onAdd }) {
       : [];
 
     return [
-      { key: 'general', title: catLabel('general', 'General Fields'), free: byCat('general'), locked: [] },
+      { key: 'general', title: catLabel('general', 'General Fields'), free: byCat('general').slice().sort(byGeneralOrder), locked: teasers('general').slice().sort(byGeneralOrder) },
       { key: 'layout', title: 'Layout', free: byCat('layout').filter((d) => d.type !== 'container'), locked: [] },
       { key: 'containers', title: 'Containers', free: presetItems, locked: [] },
       { key: 'advanced', title: 'Advanced Fields', free: byCat('advanced'), locked: teasers('advanced') },

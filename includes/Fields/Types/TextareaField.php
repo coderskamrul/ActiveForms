@@ -22,7 +22,7 @@ class TextareaField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'textarea';
-		$this->label    = 'Paragraph';
+		$this->label    = 'Text Area';
 		$this->icon     = 'editor-paragraph';
 		$this->category = 'general';
 	}

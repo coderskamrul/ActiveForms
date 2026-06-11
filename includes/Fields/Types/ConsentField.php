@@ -37,7 +37,9 @@ class ConsentField extends AbstractField {
 		$this->type     = $type;
 		$this->label    = $conf['label'];
 		$this->icon     = $conf['icon'];
-		$this->category = 'general';
+		// Consent fields are specialized; they live under the advanced set, not
+		// the everyday general fields.
+		$this->category = 'advanced';
 	}
 
 	/**

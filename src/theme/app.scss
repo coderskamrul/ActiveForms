@@ -378,6 +378,117 @@ body.easyforms-builder-fullscreen {
 .easyforms-ua { display: block; font-size: 11px; color: var(--_muted); background: var(--_surface-alt); padding: 8px 10px; border-radius: var(--_radius); white-space: pre-wrap; word-break: break-all; }
 .easyforms-detail-actions { padding: 14px 20px; border-top: 1px solid var(--_border); }
 
+/* ============================================================
+   Settings — vertical rail + sectioned panel
+   ============================================================ */
+
+.easyforms-settings { display: grid; grid-template-columns: 248px minmax(0, 1fr); gap: 24px; align-items: start; }
+
+/* Left navigation rail */
+.easyforms-settings__rail {
+  position: sticky; top: calc(32px + 56px + 24px); align-self: start;
+  background: var(--_surface); border: 1px solid var(--_border); border-radius: var(--_radius-lg);
+  box-shadow: var(--_shadow); padding: 8px; max-height: calc(100vh - 32px - 56px - 48px); overflow-y: auto;
+}
+.easyforms-settings__group + .easyforms-settings__group { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--_border); }
+.easyforms-settings__group-label {
+  display: block; padding: 8px 12px 4px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--_muted);
+}
+.easyforms-settings__navitem {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; cursor: pointer;
+  padding: 9px 12px; border: none; background: none; border-radius: var(--_radius); color: var(--_text);
+  font-weight: 600; font-size: 13.5px; transition: all var(--easyforms-motion, 200ms); text-decoration: none;
+}
+.easyforms-settings__navitem:hover { background: var(--_surface-alt); }
+.easyforms-settings__navitem.is-active { background: var(--easyforms-color-primary-soft, #eef2ff); color: var(--easyforms-color-primary, #4f46e5); }
+#easyforms-app[data-theme='dark'] .easyforms-settings__navitem.is-active { background: rgba(79,70,229,.18); color: #c7d2fe; }
+.easyforms-settings__navitem .dashicons { font-size: 18px; width: 18px; height: 18px; flex: 0 0 18px; opacity: .85; }
+.easyforms-settings__navitem-label { flex: 1; min-width: 0; }
+.easyforms-settings__navitem .easyforms-badge { flex: 0 0 auto; transform: scale(.92); }
+
+/* Right panel */
+.easyforms-settings__panel { min-width: 0; }
+.easyforms-settings__panel-head {
+  position: sticky; top: calc(32px + 56px); z-index: 20; display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 16px; margin: -4px 0 18px; padding: 14px 0;
+  background: linear-gradient(var(--_bg) 72%, transparent);
+}
+.easyforms-settings__panel-head h2 { margin: 0; font-size: 19px; }
+.easyforms-settings__panel-head p { margin: 3px 0 0; color: var(--_muted); font-size: 13px; max-width: 60ch; }
+.easyforms-settings__panel-head .easyforms-btn--primary { white-space: nowrap; }
+
+.easyforms-settings__sections { display: flex; flex-direction: column; gap: 16px; }
+
+/* Section card */
+.easyforms-set-section { background: var(--_surface); border: 1px solid var(--_border); border-radius: var(--_radius-lg); box-shadow: var(--_shadow); overflow: hidden; }
+.easyforms-set-section.is-locked { opacity: .96; }
+.easyforms-set-section__head { padding: 18px 22px; border-bottom: 1px solid var(--_border); }
+.easyforms-set-section__head-top { display: flex; align-items: center; gap: 10px; }
+.easyforms-set-section__head h3 { margin: 0; font-size: 15px; font-weight: 700; }
+.easyforms-set-section__head p { margin: 5px 0 0; color: var(--_muted); font-size: 13px; line-height: 1.55; }
+.easyforms-set-section__body { padding: 6px 22px; }
+
+/* A single setting: label block (left) + control (right) */
+.easyforms-set-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 320px); gap: 16px 28px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--_border); }
+.easyforms-set-row:last-child { border-bottom: none; }
+.easyforms-set-row.is-stacked { grid-template-columns: 1fr; gap: 10px; }
+.easyforms-set-row.is-disabled { opacity: .62; }
+.easyforms-set-row__label { display: flex; flex-direction: column; gap: 4px; }
+.easyforms-set-row__title { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13.5px; }
+.easyforms-set-row__desc { color: var(--_muted); font-size: 12.5px; line-height: 1.55; max-width: 56ch; }
+.easyforms-set-row__control { justify-self: end; width: 100%; max-width: 320px; }
+.easyforms-set-row.is-stacked .easyforms-set-row__control { justify-self: stretch; max-width: none; }
+.easyforms-set-row__control--toggle { justify-self: end; width: auto; }
+.easyforms-set-row__control .easyforms-input,
+.easyforms-set-row__control .easyforms-select,
+.easyforms-set-row__control .easyforms-textarea { width: 100%; }
+.easyforms-set-row__control :disabled,
+.easyforms-set-row.is-disabled .easyforms-toggle { cursor: not-allowed; }
+
+/* Segmented (radio) control */
+.easyforms-seg { display: inline-flex; padding: 3px; gap: 3px; background: var(--_surface-alt); border: 1px solid var(--_border); border-radius: var(--_radius); }
+.easyforms-seg button {
+  border: none; background: none; cursor: pointer; padding: 6px 14px; border-radius: calc(var(--_radius) - 2px);
+  font-weight: 600; font-size: 13px; color: var(--_muted); transition: all var(--easyforms-motion, 200ms);
+}
+.easyforms-seg button:hover:not(:disabled) { color: var(--_text); }
+.easyforms-seg button.is-active { background: var(--_surface); color: var(--easyforms-color-primary, #4f46e5); box-shadow: var(--easyforms-shadow-sm, 0 1px 2px rgba(16,24,40,.06)); }
+.easyforms-seg button:disabled { cursor: not-allowed; }
+
+/* Inline info / locked callout inside a section */
+.easyforms-set-note {
+  display: flex; gap: 10px; align-items: flex-start; margin: 14px 0; padding: 12px 14px;
+  background: var(--easyforms-color-primary-soft, #eef2ff); border: 1px solid #c7d2fe; border-radius: var(--_radius);
+  color: var(--_text); font-size: 12.5px; line-height: 1.55;
+}
+#easyforms-app[data-theme='dark'] .easyforms-set-note { background: rgba(79,70,229,.12); border-color: rgba(79,70,229,.4); }
+.easyforms-set-note .dashicons { color: var(--easyforms-color-primary, #4f46e5); flex: 0 0 auto; font-size: 16px; width: 16px; height: 16px; margin-top: 1px; }
+
+/* Badge tones for roadmap / premium markers */
+.easyforms-badge--soon { background: #fef3c7; color: #b45309; }
+.easyforms-badge--pro { background: linear-gradient(135deg, #4f46e5, #0ea5e9); color: #fff; }
+#easyforms-app[data-theme='dark'] .easyforms-badge--soon { background: rgba(217,119,6,.2); color: #fcd34d; }
+
+/* Code-style key/secret reveal helper */
+.easyforms-input-group { display: flex; gap: 8px; }
+.easyforms-input-group .easyforms-input { flex: 1; }
+
+@media (max-width: 900px) {
+  .easyforms-settings { grid-template-columns: 1fr; }
+  .easyforms-settings__rail { position: static; max-height: none; display: flex; flex-wrap: wrap; gap: 4px; }
+  .easyforms-settings__group { display: contents; }
+  .easyforms-settings__group + .easyforms-settings__group { border: none; }
+  .easyforms-settings__group-label { display: none; }
+  .easyforms-settings__navitem { width: auto; }
+  .easyforms-settings__panel-head, .easyforms-settings__rail { position: static; }
+}
+@media (max-width: 600px) {
+  .easyforms-set-row { grid-template-columns: 1fr; gap: 10px; }
+  .easyforms-set-row__control { justify-self: stretch; max-width: none; }
+  .easyforms-set-row__control--toggle { justify-self: start; }
+}
+
 /* ---------- Responsive: collapse the entries table into cards ---------- */
 @media (max-width: 640px) {
   .easyforms-entries-table { min-width: 0; }

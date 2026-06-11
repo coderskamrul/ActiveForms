@@ -22,7 +22,7 @@ class DateTimeField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'date_time';
-		$this->label    = 'Date / Time';
+		$this->label    = 'Time & Date';
 		$this->icon     = 'calendar-alt';
 		$this->category = 'general';
 	}
