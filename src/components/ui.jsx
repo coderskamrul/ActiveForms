@@ -71,3 +71,11 @@ export function Field({ label, help, children }) {
 export function Text({ value, onChange, ...rest }) {
   return <input className="easyforms-input" value={value ?? ''} onChange={(e) => onChange(e.target.value)} {...rest} />;
 }
+
+/**
+ * Status/label pill. `tone` maps to a color treatment; falls back to neutral.
+ */
+export function Badge({ tone = '', children, ...rest }) {
+  const cls = ['easyforms-badge', tone && `easyforms-badge--${tone}`].filter(Boolean).join(' ');
+  return <span className={cls} {...rest}>{children}</span>;
+}

@@ -45,7 +45,7 @@ class Entry {
 	 * List entries for a form.
 	 *
 	 * @param int   $form_id Form ID.
-	 * @param array $args    Query args (status, search, per_page, page).
+	 * @param array $args    Query args (status, search, per_page, page, orderby, order).
 	 * @return array{items:array,total:int}
 	 */
 	public static function for_form( $form_id, $args = array() ) {
@@ -59,6 +59,8 @@ class Entry {
 				'search'   => '',
 				'per_page' => 20,
 				'page'     => 1,
+				'orderby'  => 'id',
+				'order'    => 'DESC',
 			)
 		);
 
@@ -84,11 +86,16 @@ class Entry {
 		$per_page = max( 1, (int) $args['per_page'] );
 		$offset   = ( max( 1, (int) $args['page'] ) - 1 ) * $per_page;
 
+		// Whitelist the sort column/direction; never interpolate raw input into SQL.
+		$orderable = array( 'id', 'serial', 'status', 'created_at', 'updated_at' );
+		$orderby   = in_array( $args['orderby'], $orderable, true ) ? $args['orderby'] : 'id';
+		$order     = 'ASC' === strtoupper( (string) $args['order'] ) ? 'ASC' : 'DESC';
+
 		$count_sql = "SELECT COUNT(*) FROM {$table} {$where}";
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 		$total = (int) $wpdb->get_var( $wpdb->prepare( $count_sql, $params ) );
 
-		$list_sql    = "SELECT * FROM {$table} {$where} ORDER BY id DESC LIMIT %d OFFSET %d";
+		$list_sql    = "SELECT * FROM {$table} {$where} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d";
 		$list_params = array_merge( $params, array( $per_page, $offset ) );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
 		$rows = $wpdb->get_results( $wpdb->prepare( $list_sql, $list_params ), ARRAY_A );
@@ -96,6 +103,71 @@ class Entry {
 		return array(
 			'items' => array_map( array( __CLASS__, 'hydrate' ), $rows ? $rows : array() ),
 			'total' => $total,
+		);
+	}
+
+	/**
+	 * Count entries per status bucket for a form (drives the filter tabs).
+	 *
+	 * @param int $form_id Form ID.
+	 * @return array{all:int,unread:int,read:int,favorites:int,trashed:int}
+	 */
+	public static function counts( $form_id ) {
+		global $wpdb;
+		$table   = self::table();
+		$form_id = (int) $form_id;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT status, is_favorite, COUNT(*) AS c FROM {$table} WHERE form_id = %d GROUP BY status, is_favorite", $form_id ), ARRAY_A );
+
+		$counts = array(
+			'all'       => 0,
+			'unread'    => 0,
+			'read'      => 0,
+			'favorites' => 0,
+			'trashed'   => 0,
+		);
+
+		foreach ( (array) $rows as $row ) {
+			$c = (int) $row['c'];
+			if ( 'trashed' === $row['status'] ) {
+				$counts['trashed'] += $c;
+				continue;
+			}
+			$counts['all'] += $c;
+			if ( isset( $counts[ $row['status'] ] ) ) {
+				$counts[ $row['status'] ] += $c;
+			}
+			if ( (int) $row['is_favorite'] ) {
+				$counts['favorites'] += $c;
+			}
+		}
+
+		return $counts;
+	}
+
+	/**
+	 * Find the neighbouring entry IDs within a form for prev/next navigation.
+	 * Older = lower id, newer = higher id; trashed entries are skipped.
+	 *
+	 * @param int $form_id Form ID.
+	 * @param int $id      Current entry ID.
+	 * @return array{older:?int,newer:?int}
+	 */
+	public static function neighbors( $form_id, $id ) {
+		global $wpdb;
+		$table   = self::table();
+		$form_id = (int) $form_id;
+		$id      = (int) $id;
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$older = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE form_id = %d AND status != 'trashed' AND id < %d ORDER BY id DESC LIMIT 1", $form_id, $id ) );
+		$newer = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE form_id = %d AND status != 'trashed' AND id > %d ORDER BY id ASC LIMIT 1", $form_id, $id ) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+		return array(
+			'older' => $older ? (int) $older : null,
+			'newer' => $newer ? (int) $newer : null,
 		);
 	}
 
@@ -137,7 +209,72 @@ class Entry {
 			self::store_details( $form_id, $entry_id, $data['response'] );
 		}
 
+		if ( $entry_id && ! empty( $data['meta'] ) && is_array( $data['meta'] ) ) {
+			foreach ( $data['meta'] as $key => $value ) {
+				self::set_meta( $entry_id, $form_id, $key, $value );
+			}
+		}
+
 		return $entry_id;
+	}
+
+	/**
+	 * Store (insert/update) a single entry meta value.
+	 *
+	 * @param int    $entry_id Entry ID.
+	 * @param int    $form_id  Form ID.
+	 * @param string $key      Meta key.
+	 * @param mixed  $value    Scalar or array value (arrays JSON-encoded).
+	 * @return void
+	 */
+	public static function set_meta( $entry_id, $form_id, $key, $value ) {
+		global $wpdb;
+		$tables = Config::tables();
+		$table  = $wpdb->prefix . $tables['entry_meta'];
+		$stored = is_scalar( $value ) ? (string) $value : wp_json_encode( $value );
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$exists = (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE entry_id = %d AND meta_key = %s", (int) $entry_id, (string) $key ) );
+
+		if ( $exists ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->update( $table, array( 'meta_value' => $stored ), array( 'id' => $exists ) );
+			return;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$wpdb->insert(
+			$table,
+			array(
+				'entry_id'   => (int) $entry_id,
+				'form_id'    => (int) $form_id,
+				'meta_key'   => (string) $key,
+				'meta_value' => $stored,
+				'created_at' => current_time( 'mysql' ),
+			)
+		);
+	}
+
+	/**
+	 * Fetch all meta for an entry as a key => value map.
+	 *
+	 * @param int $entry_id Entry ID.
+	 * @return array<string,mixed>
+	 */
+	public static function meta( $entry_id ) {
+		global $wpdb;
+		$tables = Config::tables();
+		$table  = $wpdb->prefix . $tables['entry_meta'];
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT meta_key, meta_value FROM {$table} WHERE entry_id = %d", (int) $entry_id ), ARRAY_A );
+
+		$meta = array();
+		foreach ( (array) $rows as $row ) {
+			$meta[ $row['meta_key'] ] = $row['meta_value'];
+		}
+
+		return $meta;
 	}
 
 	/**
@@ -149,6 +286,7 @@ class Entry {
 	 */
 	public static function update( $id, $data ) {
 		global $wpdb;
+		$id      = (int) $id;
 		$allowed = array( 'status', 'is_favorite', 'response', 'payment_status' );
 		$update  = array( 'updated_at' => current_time( 'mysql' ) );
 
@@ -159,7 +297,21 @@ class Entry {
 		}
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		return false !== $wpdb->update( self::table(), $update, array( 'id' => (int) $id ) );
+		$result = false !== $wpdb->update( self::table(), $update, array( 'id' => $id ) );
+
+		// An edited response must re-sync the flattened detail rows that power
+		// search/reporting, otherwise the index drifts from the canonical JSON.
+		if ( isset( $data['response'] ) && is_array( $data['response'] ) ) {
+			$entry = self::find( $id );
+			if ( $entry ) {
+				$tables = Config::tables();
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				$wpdb->delete( $wpdb->prefix . $tables['entry_detail'], array( 'entry_id' => $id ) );
+				self::store_details( (int) $entry['form_id'], $id, $data['response'] );
+			}
+		}
+
+		return $result;
 	}
 
 	/**

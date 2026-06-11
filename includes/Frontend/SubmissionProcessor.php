@@ -14,6 +14,7 @@ use EasyForms\Models\Entry;
 use EasyForms\Spam\SpamGuard;
 use EasyForms\Notifications\EmailNotifier;
 use EasyForms\Support\Arr;
+use EasyForms\Support\UserAgent;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -128,14 +129,26 @@ class SubmissionProcessor {
 
 		$values = $validator->values();
 
-		// Persist.
+		// Resolve client diagnostics once so columns and meta stay consistent.
+		$raw_ua = $this->user_agent();
+		$agent  = UserAgent::parse( $raw_ua );
+		$referer = isset( $_SERVER['HTTP_REFERER'] ) ? esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+
+		// Persist. Columns hold the at-a-glance values; entry_meta keeps the full
+		// diagnostic record (raw UA, OS, referer) without widening the table.
 		$entry_id = Entry::create(
 			array(
 				'form_id'    => $form_id,
 				'response'   => $values,
 				'source_url' => isset( $payload['easyforms_source_url'] ) ? $payload['easyforms_source_url'] : '',
 				'ip'         => $this->client_ip(),
-				'browser'    => $this->user_agent(),
+				'browser'    => $agent['browser'],
+				'device'     => $agent['device'],
+				'meta'       => array(
+					'os'         => $agent['os'],
+					'user_agent' => $raw_ua,
+					'referer'    => $referer,
+				),
 			)
 		);
 
@@ -252,12 +265,12 @@ class SubmissionProcessor {
 	}
 
 	/**
-	 * Short user-agent label.
+	 * Full raw User-Agent string (stored in entry meta for diagnostics).
 	 *
 	 * @return string
 	 */
 	protected function user_agent() {
 		$ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
-		return substr( $ua, 0, 60 );
+		return substr( $ua, 0, 512 );
 	}
 }

@@ -258,3 +258,134 @@ body.easyforms-builder-fullscreen {
 .easyforms-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--_border); margin-bottom: 18px; }
 .easyforms-tabs button { background: none; border: none; padding: 10px 14px; cursor: pointer; font-weight: 600; color: var(--_muted); border-bottom: 2px solid transparent; }
 .easyforms-tabs button.is-active { color: var(--easyforms-color-primary, #4f46e5); border-bottom-color: var(--easyforms-color-primary, #4f46e5); }
+
+/* ============================================================
+   Entries management
+   ============================================================ */
+
+/* Status badge tones (extends .easyforms-badge) */
+.easyforms-badge--read { background: var(--_surface-alt); color: var(--_muted); }
+.easyforms-badge--trashed { background: #fee2e2; color: #b91c1c; }
+#easyforms-app[data-theme='dark'] .easyforms-badge--trashed { background: rgba(220,38,38,.18); color: #fca5a5; }
+
+/* Filter pills + search row */
+.easyforms-entries-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.easyforms-entries-filters__spacer { flex: 1 1 auto; }
+.easyforms-pill {
+  display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; cursor: pointer;
+  border: 1px solid var(--_border); border-radius: var(--easyforms-radius-pill, 999px);
+  background: var(--_surface); color: var(--_text); font-weight: 600; font-size: 13px;
+  transition: all var(--easyforms-motion, 200ms);
+}
+.easyforms-pill:hover { border-color: var(--_muted); }
+.easyforms-pill.is-active {
+  background: var(--easyforms-color-primary, #4f46e5); border-color: var(--easyforms-color-primary, #4f46e5); color: #fff;
+}
+.easyforms-pill__count {
+  display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px;
+  border-radius: 999px; background: var(--_surface-alt); color: var(--_muted); font-size: 11px; font-weight: 700;
+}
+.easyforms-pill.is-active .easyforms-pill__count { background: rgba(255,255,255,.25); color: #fff; }
+
+/* Bulk action bar */
+.easyforms-bulkbar {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 14px; padding: 10px 16px;
+  background: var(--easyforms-color-primary-soft, #eef2ff); border: 1px solid #c7d2fe; border-radius: var(--_radius-lg);
+}
+#easyforms-app[data-theme='dark'] .easyforms-bulkbar { background: rgba(79,70,229,.15); border-color: rgba(79,70,229,.4); }
+.easyforms-bulkbar__count { font-weight: 700; color: var(--easyforms-color-primary, #4f46e5); }
+.easyforms-bulkbar__actions { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+.easyforms-bulkbar__clear { background: none; border: none; cursor: pointer; color: var(--_muted); font-weight: 600; font-size: 13px; }
+.easyforms-bulkbar__clear:hover { color: var(--_text); }
+
+/* Entries table */
+.easyforms-table-scroll { overflow-x: auto; }
+.easyforms-entries-table { min-width: 720px; }
+.easyforms-entries-table th { white-space: nowrap; }
+.easyforms-col-check { width: 40px; }
+.easyforms-col-check input { cursor: pointer; }
+.easyforms-col-actions { width: 110px; text-align: right; }
+.easyforms-th-sort {
+  background: none; border: none; padding: 0; cursor: pointer; font: inherit; color: inherit;
+  text-transform: uppercase; letter-spacing: .04em; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;
+}
+.easyforms-th-sort:hover { color: var(--_text); }
+.easyforms-th-sort.is-active { color: var(--easyforms-color-primary, #4f46e5); }
+.easyforms-th-sort__arrow { font-size: 10px; }
+
+.easyforms-entry-row { cursor: pointer; }
+.easyforms-entry-row.is-unread .easyforms-td-value,
+.easyforms-entry-row.is-unread .easyforms-td-serial span { font-weight: 700; }
+.easyforms-entry-row.is-unread .easyforms-td-serial { position: relative; }
+.easyforms-entry-row.is-unread > td:first-child::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--easyforms-color-primary, #4f46e5);
+}
+.easyforms-entry-row.is-selected { background: var(--easyforms-color-primary-soft, #eef2ff); }
+#easyforms-app[data-theme='dark'] .easyforms-entry-row.is-selected { background: rgba(79,70,229,.12); }
+
+.easyforms-td-serial { display: flex; align-items: center; gap: 6px; white-space: nowrap; color: var(--_muted); }
+.easyforms-td-value { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.easyforms-td-user { color: var(--_muted); white-space: nowrap; }
+.easyforms-td-time { color: var(--_muted); font-size: 12px; white-space: nowrap; }
+.easyforms-muted { color: var(--_muted); }
+
+.easyforms-star {
+  background: none; border: none; cursor: pointer; font-size: 15px; line-height: 1; color: #cbd5e1; padding: 0;
+  transition: color var(--easyforms-motion, 200ms);
+}
+.easyforms-star:hover { color: #f59e0b; }
+.easyforms-star.is-on { color: #f59e0b; }
+.easyforms-td-serial .easyforms-star { color: #cbd5e1; }
+
+.easyforms-iconbtn {
+  width: 28px; height: 28px; display: inline-grid; place-items: center; cursor: pointer; font-size: 13px;
+  border: 1px solid var(--_border); border-radius: var(--_radius); background: var(--_surface); color: var(--_text);
+}
+.easyforms-iconbtn:hover { border-color: var(--_muted); background: var(--_surface-alt); }
+.easyforms-iconbtn.is-danger:hover { border-color: #f3c5c5; color: var(--easyforms-color-danger, #dc2626); }
+
+/* ---------- Entry detail page ---------- */
+.easyforms-detail-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+.easyforms-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 18px; }
+.easyforms-breadcrumb a { color: var(--easyforms-color-primary, #4f46e5); text-decoration: none; font-weight: 600; }
+.easyforms-breadcrumb span { color: var(--_muted); }
+.easyforms-breadcrumb b { font-weight: 700; }
+.easyforms-detail-nav { display: flex; gap: 8px; }
+
+.easyforms-detail-grid { display: grid; grid-template-columns: 1fr 360px; gap: 16px; align-items: start; }
+@media (max-width: 960px) { .easyforms-detail-grid { grid-template-columns: 1fr; } }
+
+.easyforms-detail-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--_border); }
+.easyforms-detail-card-head h2 { margin: 0; font-size: 16px; }
+.easyforms-detail-card-head__actions { display: flex; align-items: center; gap: 8px; }
+
+.easyforms-entry-fields { padding: 6px 20px 14px; }
+.easyforms-entry-field { padding: 12px 0; border-bottom: 1px solid var(--_border); }
+.easyforms-entry-field:last-child { border-bottom: none; }
+.easyforms-entry-field__label { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--_muted); font-weight: 600; margin-bottom: 4px; }
+.easyforms-entry-field__value { font-size: 14px; word-break: break-word; }
+.easyforms-subgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+@media (max-width: 560px) { .easyforms-subgrid { grid-template-columns: 1fr; } }
+
+.easyforms-meta-list { padding: 8px 20px 16px; }
+.easyforms-meta-row { display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--_border); font-size: 13px; }
+.easyforms-meta-row:last-child { border-bottom: none; }
+.easyforms-meta-row__label { flex: 0 0 130px; color: var(--_muted); font-weight: 600; }
+.easyforms-meta-row__value { flex: 1; min-width: 0; word-break: break-word; }
+.easyforms-meta-row__value a { color: var(--easyforms-color-primary, #4f46e5); text-decoration: none; word-break: break-all; }
+.easyforms-meta-status { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.easyforms-select--status { width: auto; min-width: 110px; padding: 5px 8px; font-size: 12px; }
+.easyforms-ua { display: block; font-size: 11px; color: var(--_muted); background: var(--_surface-alt); padding: 8px 10px; border-radius: var(--_radius); white-space: pre-wrap; word-break: break-all; }
+.easyforms-detail-actions { padding: 14px 20px; border-top: 1px solid var(--_border); }
+
+/* ---------- Responsive: collapse the entries table into cards ---------- */
+@media (max-width: 640px) {
+  .easyforms-entries-table { min-width: 0; }
+  .easyforms-entries-table thead { display: none; }
+  .easyforms-entries-table, .easyforms-entries-table tbody, .easyforms-entries-table tr, .easyforms-entries-table td { display: block; width: 100%; }
+  .easyforms-entries-table tr { border-bottom: 1px solid var(--_border); padding: 8px 0; }
+  .easyforms-entries-table td { border: none; padding: 6px 14px; }
+  .easyforms-td-value { max-width: none; white-space: normal; }
+  .easyforms-col-actions { text-align: left; width: auto; }
+  .easyforms-row-actions { opacity: 1; }
+}

@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Forms from './pages/Forms.jsx';
 import Builder from './pages/Builder.jsx';
 import Entries from './pages/Entries.jsx';
+import EntryDetail from './pages/EntryDetail.jsx';
 import Reports from './pages/Reports.jsx';
 import Settings from './pages/Settings.jsx';
 import Integrations from './pages/Integrations.jsx';
@@ -40,12 +41,13 @@ function ComingSoon({ title }) {
  * @returns {React.ReactNode}
  */
 function renderPage(route) {
-  const [section, a, b] = route.parts;
+  const [section, a, b, c] = route.parts;
 
   switch (section) {
     case 'forms':
       if (a === 'new') return <Builder formId={null} />;
       if (a && b === 'edit') return <Builder formId={parseInt(a, 10)} />;
+      if (a && b === 'entries' && c) return <EntryDetail formId={parseInt(a, 10)} entryId={parseInt(c, 10)} />;
       if (a && b === 'entries') return <Entries formId={parseInt(a, 10)} />;
       return <Forms />;
     case 'entries':
@@ -94,7 +96,7 @@ export default function App() {
           <nav className="easyforms-topnav">
             <a className="easyforms-brand" href="#/dashboard">
               <span className="easyforms-logo">{(brand.shortName || 'E').slice(0, 1)}</span>
-              <b><span>easy</span>{(brand.name || 'EasyForms').replace(/^easy/i, '')}</b>
+              <b><span>Easy</span>{(brand.name || 'EasyForms').replace(/^easy/i, '')}</b>
             </a>
             <div className="easyforms-nav">
               {NAV.map((item) => (
