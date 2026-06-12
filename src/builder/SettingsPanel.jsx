@@ -18,7 +18,39 @@ const LABEL_PLACEMENTS = [
   ['hide', 'Hide Label'],
 ];
 
-const NO_PLACEHOLDER = ['radio', 'checkbox', 'terms', 'gdpr', 'section', 'html', 'submit', 'container', 'date_time', 'nps', 'signature', 'file_upload', 'image_upload', 'repeater', 'rating', 'range', 'color', 'name', 'address'];
+const NO_PLACEHOLDER = ['radio', 'checkbox', 'terms', 'gdpr', 'section', 'html', 'submit', 'container', 'nps', 'signature', 'file_upload', 'image_upload', 'repeater', 'rating', 'range', 'color', 'name', 'address'];
+
+// Date/Time field configuration. Values are flatpickr-style format tokens that
+// the frontend picker (form.js) understands; labels show a worked example.
+const DATETIME_MODES = [
+  ['date', 'Date Only'],
+  ['time', 'Time Only'],
+  ['datetime', 'Date & Time'],
+  ['range', 'Date Range'],
+];
+const DATE_FORMATS = [
+  ['m/d/Y', 'm/d/Y (04/28/2018)'],
+  ['d/m/Y', 'd/m/Y (28/04/2018)'],
+  ['d.m.Y', 'd.m.Y (28.04.2019)'],
+  ['n/j/y', 'n/j/y (4/28/18)'],
+  ['m/d/y', 'm/d/y (04/28/18)'],
+  ['M/d/Y', 'M/d/Y (Apr/28/2018)'],
+  ['y/m/d', 'y/m/d (18/04/28)'],
+  ['Y-m-d', 'Y-m-d (2018-04-28)'],
+  ['d-M-y', 'd-M-y (28-Apr-18)'],
+];
+const DATETIME_FORMATS = [
+  ['m/d/Y h:i K', 'm/d/Y h:i K (04/28/2018 08:55 PM)'],
+  ['m/d/Y H:i', 'm/d/Y H:i (04/28/2018 20:55)'],
+  ['d/m/Y h:i K', 'd/m/Y h:i K (28/04/2018 08:55 PM)'],
+  ['d/m/Y H:i', 'd/m/Y H:i (28/04/2018 20:55)'],
+  ['d.m.Y h:i K', 'd.m.Y h:i K (28.04.2019 08:55 PM)'],
+  ['d.m.Y H:i', 'd.m.Y H:i (28.04.2019 20:55)'],
+];
+const TIME_FORMATS = [
+  ['h:i K', 'h:i K (08:55 PM)'],
+  ['H:i', 'H:i (20:55)'],
+];
 const CHOICE_TYPES = ['select', 'radio', 'checkbox', 'multiselect'];
 // Fields where a free-text "Default value" makes no sense.
 const NO_DEFAULT = ['nps', 'signature', 'file_upload', 'image_upload', 'repeater', 'rating', 'range', 'color', 'name', 'address', 'multiselect'];
@@ -421,6 +453,38 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
             <Row label="Max"><input className="easyforms-input" value={field.max || ''} onChange={(e) => set('max', e.target.value)} /></Row>
             <Row label="Step"><input className="easyforms-input" value={field.step || ''} onChange={(e) => set('step', e.target.value)} /></Row>
           </div>
+        </Section>
+      )}
+
+      {type === 'date_time' && (
+        <Section title="Date & Time">
+          <Row label="Field Mode" hint="What this field collects. Only the relevant format is shown below.">
+            <select className="easyforms-input easyforms-select" value={field.mode || 'date'} onChange={(e) => set('mode', e.target.value)}>
+              {DATETIME_MODES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+            </select>
+          </Row>
+          {field.mode === 'time' ? (
+            <Row label="Time Format">
+              <select className="easyforms-input easyforms-select" value={field.time_format || 'h:i K'} onChange={(e) => set('time_format', e.target.value)}>
+                {TIME_FORMATS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </Row>
+          ) : field.mode === 'datetime' ? (
+            <Row label="Date & Time Format">
+              <select className="easyforms-input easyforms-select" value={field.datetime_format || 'm/d/Y h:i K'} onChange={(e) => set('datetime_format', e.target.value)}>
+                {DATETIME_FORMATS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </Row>
+          ) : (
+            <Row label={field.mode === 'range' ? 'Date Range Format' : 'Date Format'} hint={field.mode === 'range' ? 'Applied to both the start and end dates.' : undefined}>
+              <select className="easyforms-input easyforms-select" value={field.date_format || 'm/d/Y'} onChange={(e) => set('date_format', e.target.value)}>
+                {DATE_FORMATS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </Row>
+          )}
+          {field.mode === 'range' && (
+            <Row hint="Pick a start date, then an end date — both appear in this one field." />
+          )}
         </Section>
       )}
 

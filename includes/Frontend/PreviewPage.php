@@ -80,9 +80,30 @@ class PreviewPage {
 	 * @return void
 	 */
 	private function render( $form ) {
+		$title = isset( $form['title'] ) ? $form['title'] : __( 'Form Preview', 'easyforms' );
+
+		// Run the exact same asset pipeline the front end uses so the preview is
+		// a true representation. Firing wp_enqueue_scripts lets the shortcode and
+		// the Pro add-on register their frontend bundles (with localized data);
+		// rendering the form then triggers the easyforms/rendering_form filter
+		// that enqueues the Pro bundle, just like a real page.
+		do_action( 'wp_enqueue_scripts' );
+
 		$renderer  = $this->container->get( 'renderer' );
 		$form_html = $renderer->render( $form );
-		$title     = isset( $form['title'] ) ? $form['title'] : __( 'Form Preview', 'easyforms' );
+
+		// The core bundle (form.css + form.js) always loads on the front end; the
+		// JS is what enhances the multi-select into a tag picker, applies input
+		// masks, turns searchable selects into dropdowns, etc.
+		wp_enqueue_style( 'easyforms-frontend' );
+		wp_enqueue_script( 'easyforms-frontend' );
+
+		// Print only EasyForms' own handles (core + Pro when present) so the clean
+		// preview window isn't polluted by theme/other-plugin assets.
+		$handles = array( 'easyforms-frontend' );
+		if ( wp_script_is( 'easyforms-pro-frontend', 'registered' ) || wp_style_is( 'easyforms-pro-frontend', 'registered' ) ) {
+			$handles[] = 'easyforms-pro-frontend';
+		}
 
 		nocache_headers();
 		header( 'Content-Type: text/html; charset=utf-8' );
@@ -95,7 +116,7 @@ class PreviewPage {
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="robots" content="noindex,nofollow" />
 	<title><?php echo esc_html( $title ); ?> — <?php esc_html_e( 'EasyForms Preview', 'easyforms' ); ?></title>
-	<link rel="stylesheet" href="<?php echo esc_url( EASYFORMS_URL . 'assets/frontend/form.css' ); ?>?v=<?php echo esc_attr( Config::asset_version( 'assets/frontend/form.css' ) ); ?>" />
+	<?php wp_print_styles( $handles ); ?>
 	<?php echo $this->inline_css(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </head>
 <body class="easyforms-preview-body">
@@ -119,6 +140,7 @@ class PreviewPage {
 		</div>
 	</main>
 
+	<?php wp_print_scripts( $handles ); ?>
 	<script>
 		(function () {
 			var win = document.getElementById('easyforms-pvp-window');
@@ -130,14 +152,18 @@ class PreviewPage {
 					win.style.maxWidth = widths[btn.getAttribute('data-device')] || '100%';
 				});
 			});
-			// Disable real submission in preview.
+			// Disable real submission in preview. This listener is registered
+			// during parse — before form.js attaches its own (on DOMContentLoaded)
+			// — and uses the capture phase + stopImmediatePropagation so the
+			// frontend AJAX submit handler never runs and no entry is created.
 			var form = document.querySelector('.easyforms-form');
 			if (form) {
 				form.addEventListener('submit', function (e) {
 					e.preventDefault();
+					e.stopImmediatePropagation();
 					var msg = form.querySelector('.easyforms-form-message');
 					if (msg) { msg.className = 'easyforms-form-message easyforms-form-message--success'; msg.textContent = <?php echo wp_json_encode( __( 'Preview mode — submission is disabled.', 'easyforms' ) ); ?>; }
-				});
+				}, true);
 			}
 		})();
 	</script>
@@ -176,7 +202,9 @@ class PreviewPage {
 			. '.easyforms-pvp__dots span{width:12px;height:12px;border-radius:50%;background:#e5e7eb;}'
 			. '.easyforms-pvp__dots span:nth-child(1){background:#f87171;}.easyforms-pvp__dots span:nth-child(2){background:#fbbf24;}.easyforms-pvp__dots span:nth-child(3){background:#34d399;}'
 			. '.easyforms-pvp__canvas{padding:36px;}'
-			. '.easyforms-pvp__canvas .easyforms-form-wrap{max-width:none;}';
+			// Keep the frontend's column width + center it so the preview reads
+			// like a real page instead of sprawling edge-to-edge.
+			. '.easyforms-pvp__canvas .easyforms-form-wrap{margin:0 auto;}';
 
 		return '<style>' . $css . '</style>';
 	}

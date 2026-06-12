@@ -32,6 +32,16 @@ class ReportsController extends AbstractController {
 
 		register_rest_route(
 			$this->namespace,
+			'/reports/dashboard',
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'dashboard' ),
+				'permission_callback' => array( $this, 'can_read' ),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
 			'/reports/forms/(?P<form_id>\d+)',
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
@@ -42,12 +52,30 @@ class ReportsController extends AbstractController {
 	}
 
 	/**
-	 * Dashboard overview.
+	 * Dashboard overview (legacy minimal payload, kept for compatibility).
 	 *
 	 * @return \WP_REST_Response
 	 */
 	public function overview() {
 		return $this->ok( Analytics::overview() );
+	}
+
+	/**
+	 * Full analytics dashboard, scoped by form + date range.
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response
+	 */
+	public function dashboard( $request ) {
+		return $this->ok(
+			Analytics::dashboard(
+				array(
+					'form_id' => (int) $request->get_param( 'form_id' ),
+					'from'    => sanitize_text_field( (string) $request->get_param( 'from' ) ),
+					'to'      => sanitize_text_field( (string) $request->get_param( 'to' ) ),
+				)
+			)
+		);
 	}
 
 	/**

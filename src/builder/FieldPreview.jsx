@@ -4,6 +4,32 @@
  */
 import React from 'react';
 
+const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/**
+ * Format a date using the picker's flatpickr-style tokens. Kept in sync with
+ * the frontend picker so the canvas mock previews the chosen format faithfully.
+ */
+function efFormat(d, format) {
+  const p2 = (n) => String(n).padStart(2, '0');
+  const H = d.getHours();
+  const h12 = ((H + 11) % 12) + 1;
+  const map = {
+    Y: d.getFullYear(), y: p2(d.getFullYear() % 100),
+    m: p2(d.getMonth() + 1), n: d.getMonth() + 1,
+    d: p2(d.getDate()), j: d.getDate(), M: SHORT_MONTHS[d.getMonth()],
+    H: p2(H), h: p2(h12), i: p2(d.getMinutes()), K: H < 12 ? 'AM' : 'PM',
+  };
+  let out = '';
+  for (const ch of format) out += (ch in map) ? map[ch] : ch;
+  return out;
+}
+
+/** Worked-example string for a format token, off a fixed sample date. */
+function efSample(format, addDays = 0) {
+  return efFormat(new Date(2018, 3, 28 + addDays, 20, 55), format);
+}
+
 /** Visible sub-fields of a composite (name/address), in order. */
 function visibleSubs(field) {
   return (field.fields || []).filter((s) => s && s.visible);
@@ -101,8 +127,22 @@ function Control({ field }) {
         </div>
       );
     }
-    case 'date_time':
-      return <input type="date" readOnly />;
+    case 'date_time': {
+      const mode = field.mode || 'date';
+      const fmt = mode === 'time' ? (field.time_format || 'h:i K')
+        : mode === 'datetime' ? (field.datetime_format || 'm/d/Y h:i K')
+          : (field.date_format || 'm/d/Y');
+      let sample = efSample(fmt);
+      if (mode === 'range') sample = `${sample} to ${efSample(fmt, 5)}`;
+      return (
+        <div style={{ position: 'relative' }}>
+          <input type="text" readOnly value="" placeholder={ph || sample} style={{ width: '100%', paddingRight: 38 }} />
+          <span style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--_muted)', display: 'inline-flex' }} aria-hidden="true">
+            {mode === 'time' ? '🕐' : '📅'}
+          </span>
+        </div>
+      );
+    }
     case 'terms':
     case 'gdpr':
       return <label><input type="checkbox" disabled /> {field.content || 'I agree'}</label>;
