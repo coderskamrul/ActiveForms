@@ -54,24 +54,24 @@ export default function Settings() {
 
   return (
     <div>
-      <PageHead title="Settings" subtitle="Configure global defaults, protection, and account preferences for EasyForms." />
+      <PageHead title="Settings" subtitle="Configure global defaults, protection, and account preferences for ActiveForms." />
 
-      <div className="easyforms-settings">
-        <nav className="easyforms-settings__rail" aria-label="Settings sections">
+      <div className="activeforms-settings">
+        <nav className="activeforms-settings__rail" aria-label="Settings sections">
           {GROUP_ORDER.map((group) => {
             const items = TABS.filter((t) => t.group === group);
             if (!items.length) return null;
             return (
-              <div className="easyforms-settings__group" key={group}>
-                <span className="easyforms-settings__group-label">{group}</span>
+              <div className="activeforms-settings__group" key={group}>
+                <span className="activeforms-settings__group-label">{group}</span>
                 {items.map((t) => (
                   <a
                     key={t.key}
                     href={`#/settings/${t.key}`}
-                    className={`easyforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`}
+                    className={`activeforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`}
                   >
                     <span className={`dashicons dashicons-${t.icon}`} aria-hidden="true" />
-                    <span className="easyforms-settings__navitem-label">{t.label}</span>
+                    <span className="activeforms-settings__navitem-label">{t.label}</span>
                     {t.badge && <Badge tone={t.badge.tone}>{t.badge.label}</Badge>}
                   </a>
                 ))}
@@ -80,8 +80,8 @@ export default function Settings() {
           })}
         </nav>
 
-        <div className="easyforms-settings__panel">
-          <div className="easyforms-settings__panel-head">
+        <div className="activeforms-settings__panel">
+          <div className="activeforms-settings__panel-head">
             <div>
               <h2>{activeTab.label}</h2>
               {!activeTab.functional && (
@@ -93,7 +93,7 @@ export default function Settings() {
             )}
           </div>
 
-          <div className="easyforms-settings__sections">
+          <div className="activeforms-settings__sections">
             <Content
               settings={settings}
               setField={setField}

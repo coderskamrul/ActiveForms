@@ -6,10 +6,10 @@
  * system, and device type from a raw User-Agent string without external
  * dependencies. Intended for submission diagnostics, not exhaustive fingerprinting.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Support;
+namespace ActiveForms\Support;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -34,7 +34,7 @@ class UserAgent {
 		$label = trim( $browser['name'] . ' ' . $browser['version'] );
 
 		return array(
-			'browser'         => '' !== $label ? $label : __( 'Unknown', 'easyforms' ),
+			'browser'         => '' !== $label ? $label : __( 'Unknown', 'activeforms' ),
 			'browser_name'    => $browser['name'],
 			'browser_version' => $browser['version'],
 			'os'              => $os,
@@ -117,7 +117,7 @@ class UserAgent {
 			}
 		}
 
-		return __( 'Unknown', 'easyforms' );
+		return __( 'Unknown', 'activeforms' );
 	}
 
 	/**

@@ -2,13 +2,13 @@
 /**
  * Multi-line textarea field.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,10 +40,10 @@ class TextareaField extends AbstractField {
 	public function render( $field, $value = null ) {
 		$value  = null === $value ? Arr::get( $field, 'default', '' ) : $value;
 		$rows   = (int) Arr::get( $field, 'rows', 4 );
-		$resize = ! empty( $field['auto_resize'] ) ? ' data-easyforms-autoresize="1"' : '';
+		$resize = ! empty( $field['auto_resize'] ) ? ' data-activeforms-autoresize="1"' : '';
 
 		$control = sprintf(
-			'<textarea class="easyforms-input easyforms-textarea" rows="%1$d"%2$s%3$s>%4$s</textarea>',
+			'<textarea class="activeforms-input activeforms-textarea" rows="%1$d"%2$s%3$s>%4$s</textarea>',
 			$rows ? $rows : 4,
 			$this->input_attrs( $field ),
 			$resize,

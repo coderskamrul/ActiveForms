@@ -2,10 +2,10 @@
 /**
  * Builder metadata REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -77,10 +77,10 @@ class BuilderController extends AbstractController {
 			array(
 				'fields'     => $registry->definitions(),
 				'categories' => array(
-					array( 'key' => 'general', 'label' => __( 'General Fields', 'easyforms' ) ),
-					array( 'key' => 'layout', 'label' => __( 'Layout', 'easyforms' ) ),
-					array( 'key' => 'advanced', 'label' => __( 'Advanced (Pro)', 'easyforms' ) ),
-					array( 'key' => 'payment', 'label' => __( 'Payment', 'easyforms' ) ),
+					array( 'key' => 'general', 'label' => __( 'General Fields', 'activeforms' ) ),
+					array( 'key' => 'layout', 'label' => __( 'Layout', 'activeforms' ) ),
+					array( 'key' => 'advanced', 'label' => __( 'Advanced (Pro)', 'activeforms' ) ),
+					array( 'key' => 'payment', 'label' => __( 'Payment', 'activeforms' ) ),
 				),
 			)
 		);

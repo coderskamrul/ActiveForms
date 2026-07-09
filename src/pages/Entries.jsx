@@ -50,7 +50,7 @@ function FormPicker() {
       <PageHead title="Entries" subtitle="Select a form to view its submissions" />
       {forms.length === 0 ? <Card><Empty icon="✉" title="No forms yet">Create a form to start collecting entries.</Empty></Card> : (
         <Card pad={false}>
-          <table className="easyforms-table easyforms-entries-table">
+          <table className="activeforms-table activeforms-entries-table">
             <thead><tr><th>Form</th><th>Entries</th><th aria-label="Actions" /></tr></thead>
             <tbody>
               {forms.map((f) => (
@@ -58,7 +58,7 @@ function FormPicker() {
                   <td style={{ fontWeight: 600 }}>{f.title}</td>
                   <td><Badge>{f.entries ?? 0}</Badge></td>
                   <td style={{ textAlign: 'right' }}>
-                    <a className="easyforms-btn easyforms-btn--sm" href={`#/forms/${f.id}/entries`}>View entries</a>
+                    <a className="activeforms-btn activeforms-btn--sm" href={`#/forms/${f.id}/entries`}>View entries</a>
                   </td>
                 </tr>
               ))}
@@ -76,8 +76,8 @@ function SortTh({ label, col, sort, onSort, style }) {
   const arrow = !active ? '' : (sort.order === 'ASC' ? ' ▲' : ' ▼');
   return (
     <th style={style}>
-      <button type="button" className={`easyforms-th-sort${active ? ' is-active' : ''}`} onClick={() => onSort(col)}>
-        {label}<span className="easyforms-th-sort__arrow">{arrow}</span>
+      <button type="button" className={`activeforms-th-sort${active ? ' is-active' : ''}`} onClick={() => onSort(col)}>
+        {label}<span className="activeforms-th-sort__arrow">{arrow}</span>
       </button>
     </th>
   );
@@ -197,20 +197,20 @@ export default function Entries({ formId }) {
       />
 
       {/* Status filter pills with live counts */}
-      <div className="easyforms-entries-filters">
+      <div className="activeforms-entries-filters">
         {FILTERS.map((f) => (
           <button
             key={f.key}
             type="button"
-            className={`easyforms-pill${filter === f.key ? ' is-active' : ''}`}
+            className={`activeforms-pill${filter === f.key ? ' is-active' : ''}`}
             onClick={() => setFilter(f.key)}
           >
             {f.label}
-            {counts[f.count] !== undefined && <span className="easyforms-pill__count">{counts[f.count]}</span>}
+            {counts[f.count] !== undefined && <span className="activeforms-pill__count">{counts[f.count]}</span>}
           </button>
         ))}
-        <div className="easyforms-entries-filters__spacer" />
-        <div className="easyforms-search">
+        <div className="activeforms-entries-filters__spacer" />
+        <div className="activeforms-search">
           <span className="dashicons dashicons-search" aria-hidden="true" />
           <input
             type="search"
@@ -223,9 +223,9 @@ export default function Entries({ formId }) {
 
       {/* Bulk action bar */}
       {selected.length > 0 && (
-        <div className="easyforms-bulkbar">
-          <span className="easyforms-bulkbar__count">{selected.length} selected</span>
-          <div className="easyforms-bulkbar__actions">
+        <div className="activeforms-bulkbar">
+          <span className="activeforms-bulkbar__count">{selected.length} selected</span>
+          <div className="activeforms-bulkbar__actions">
             {!isTrash && <Button size="sm" disabled={busy} onClick={() => runBulk('read')}>Mark read</Button>}
             {!isTrash && <Button size="sm" disabled={busy} onClick={() => runBulk('unread')}>Mark unread</Button>}
             {!isTrash && <Button size="sm" disabled={busy} onClick={() => runBulk('favorite')}>★ Favorite</Button>}
@@ -233,7 +233,7 @@ export default function Entries({ formId }) {
             {isTrash && <Button size="sm" disabled={busy} onClick={() => runBulk('restore')}>Restore</Button>}
             <Button size="sm" variant="danger" disabled={busy} onClick={() => runBulk('delete')}>Delete</Button>
           </div>
-          <button type="button" className="easyforms-bulkbar__clear" onClick={() => setSelected([])}>Clear</button>
+          <button type="button" className="activeforms-bulkbar__clear" onClick={() => setSelected([])}>Clear</button>
         </div>
       )}
 
@@ -243,11 +243,11 @@ export default function Entries({ formId }) {
         </Empty></Card>
       ) : (
         <Card pad={false}>
-          <div className="easyforms-table-scroll">
-            <table className="easyforms-table easyforms-entries-table">
+          <div className="activeforms-table-scroll">
+            <table className="activeforms-table activeforms-entries-table">
               <thead>
                 <tr>
-                  <th className="easyforms-col-check">
+                  <th className="activeforms-col-check">
                     <input type="checkbox" checked={allOnPageSelected} onChange={toggleAll} aria-label="Select all" />
                   </th>
                   <SortTh label="#" col="serial" sort={sort} onSort={onSort} style={{ width: 70 }} />
@@ -255,7 +255,7 @@ export default function Entries({ formId }) {
                   <SortTh label="Status" col="status" sort={sort} onSort={onSort} />
                   <th>Submitter</th>
                   <SortTh label="Submitted" col="created_at" sort={sort} onSort={onSort} />
-                  <th className="easyforms-col-actions" aria-label="Actions" />
+                  <th className="activeforms-col-actions" aria-label="Actions" />
                 </tr>
               </thead>
               <tbody>
@@ -265,31 +265,31 @@ export default function Entries({ formId }) {
                   return (
                     <tr
                       key={entry.id}
-                      className={`easyforms-entry-row${entry.status === 'unread' ? ' is-unread' : ''}${checked ? ' is-selected' : ''}`}
+                      className={`activeforms-entry-row${entry.status === 'unread' ? ' is-unread' : ''}${checked ? ' is-selected' : ''}`}
                       onClick={() => goView(entry)}
                     >
-                      <td className="easyforms-col-check" onClick={(e) => e.stopPropagation()}>
+                      <td className="activeforms-col-check" onClick={(e) => e.stopPropagation()}>
                         <input type="checkbox" checked={checked} onChange={() => toggleOne(entry.id)} aria-label={`Select entry ${entry.serial}`} />
                       </td>
-                      <td className="easyforms-td-serial">
-                        <button type="button" className="easyforms-star" onClick={(e) => toggleFav(entry, e)} title={entry.is_favorite ? 'Unfavorite' : 'Favorite'}>
+                      <td className="activeforms-td-serial">
+                        <button type="button" className="activeforms-star" onClick={(e) => toggleFav(entry, e)} title={entry.is_favorite ? 'Unfavorite' : 'Favorite'}>
                           {entry.is_favorite ? '★' : '☆'}
                         </button>
                         <span>#{entry.serial}</span>
                       </td>
                       {columns.map((c) => (
-                        <td key={c} className="easyforms-td-value" title={formatValue(entry.response[c])}>
-                          {formatValue(entry.response[c]) || <span className="easyforms-muted">—</span>}
+                        <td key={c} className="activeforms-td-value" title={formatValue(entry.response[c])}>
+                          {formatValue(entry.response[c]) || <span className="activeforms-muted">—</span>}
                         </td>
                       ))}
                       <td><Badge tone={sm.tone}>{sm.label}</Badge></td>
-                      <td className="easyforms-td-user">{entry.user ? entry.user.name : '—'}</td>
-                      <td className="easyforms-td-time" title={entry.created_at}>{timeAgo(entry.created_at)}</td>
-                      <td className="easyforms-col-actions" onClick={(e) => e.stopPropagation()}>
-                        <div className="easyforms-row-actions">
-                          <button type="button" className="easyforms-iconbtn" title="View" onClick={() => goView(entry)}>👁</button>
-                          <button type="button" className="easyforms-iconbtn" title="Edit" onClick={() => { window.location.hash = `#/forms/${formId}/entries/${entry.id}?edit=1`; }}>✎</button>
-                          <button type="button" className="easyforms-iconbtn is-danger" title="Delete" onClick={(e) => deleteOne(entry, e)}>🗑</button>
+                      <td className="activeforms-td-user">{entry.user ? entry.user.name : '—'}</td>
+                      <td className="activeforms-td-time" title={entry.created_at}>{timeAgo(entry.created_at)}</td>
+                      <td className="activeforms-col-actions" onClick={(e) => e.stopPropagation()}>
+                        <div className="activeforms-row-actions">
+                          <button type="button" className="activeforms-iconbtn" title="View" onClick={() => goView(entry)}>👁</button>
+                          <button type="button" className="activeforms-iconbtn" title="Edit" onClick={() => { window.location.hash = `#/forms/${formId}/entries/${entry.id}?edit=1`; }}>✎</button>
+                          <button type="button" className="activeforms-iconbtn is-danger" title="Delete" onClick={(e) => deleteOne(entry, e)}>🗑</button>
                         </div>
                       </td>
                     </tr>
@@ -300,15 +300,15 @@ export default function Entries({ formId }) {
           </div>
 
           {/* Pagination */}
-          <div className="easyforms-pager">
-            <span className="easyforms-pager__total">Total {total}</span>
-            <select className="easyforms-select easyforms-select--pp" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))}>
+          <div className="activeforms-pager">
+            <span className="activeforms-pager__total">Total {total}</span>
+            <select className="activeforms-select activeforms-select--pp" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))}>
               {PER_PAGE_OPTIONS.map((n) => <option key={n} value={n}>{n}/page</option>)}
             </select>
-            <button className="easyforms-pager__btn" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} aria-label="Previous page">‹</button>
-            <span className="easyforms-pager__page">{page}</span>
-            <span className="easyforms-pager__total">of {pages}</span>
-            <button className="easyforms-pager__btn" disabled={page >= pages} onClick={() => setPage((p) => Math.min(pages, p + 1))} aria-label="Next page">›</button>
+            <button className="activeforms-pager__btn" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} aria-label="Previous page">‹</button>
+            <span className="activeforms-pager__page">{page}</span>
+            <span className="activeforms-pager__total">of {pages}</span>
+            <button className="activeforms-pager__btn" disabled={page >= pages} onClick={() => setPage((p) => Math.min(pages, p + 1))} aria-label="Next page">›</button>
           </div>
         </Card>
       )}

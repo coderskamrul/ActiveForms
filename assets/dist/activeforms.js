@@ -5369,7 +5369,7 @@ function ComingSoon({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_4__.Empty, {
         icon: "\uD83D\uDEA7",
         title: `${title} — coming soon`,
-        children: "This area is part of the EasyForms roadmap."
+        children: "This area is part of the ActiveForms roadmap."
       })
     })
   });
@@ -5438,7 +5438,7 @@ function App() {
   // the WP admin bar + side menu (this is a client-side hash route, so PHP can't
   // distinguish it). Always clean up so leaving the builder restores wp-admin.
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const cls = 'easyforms-builder-fullscreen';
+    const cls = 'activeforms-builder-fullscreen';
     document.body.classList.toggle(cls, inBuilder);
     document.documentElement.classList.toggle(cls, inBuilder);
     return () => {
@@ -5448,29 +5448,29 @@ function App() {
   }, [inBuilder]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Toast__WEBPACK_IMPORTED_MODULE_3__.ToastProvider, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-      className: "easyforms-app",
+      className: "activeforms-app",
       children: [!inBuilder && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("nav", {
-        className: "easyforms-topnav",
+        className: "activeforms-topnav",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("a", {
-          className: "easyforms-brand",
+          className: "activeforms-brand",
           href: "#/dashboard",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-            className: "easyforms-logo",
+            className: "activeforms-logo",
             children: (brand.shortName || 'E').slice(0, 1)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("b", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
               children: "Easy"
-            }), (brand.name || 'EasyForms').replace(/^easy/i, '')]
+            }), (brand.name || 'ActiveForms').replace(/^easy/i, '')]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-          className: "easyforms-nav",
+          className: "activeforms-nav",
           children: NAV.map(item => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: `#${item.path}`,
             className: active === item.key ? 'is-active' : '',
             children: (0,_config__WEBPACK_IMPORTED_MODULE_1__.t)(item.key, item.label)
           }, item.key))
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
-          className: "easyforms-topnav__search",
+          className: "activeforms-topnav__search",
           title: "Search",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             className: "dashicons dashicons-search",
@@ -5485,7 +5485,7 @@ function App() {
           })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("main", {
-        className: `easyforms-main${inBuilder ? ' is-builder' : ''}`,
+        className: `activeforms-main${inBuilder ? ' is-builder' : ''}`,
         children: renderPage(route)
       })]
     })
@@ -5507,8 +5507,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config */ "./src/config/index.js");
 /**
- * Nonce-aware REST client for the EasyForms admin app.
- * All admin data flows through easyforms/v1 routes (cookie + nonce auth).
+ * Nonce-aware REST client for the ActiveForms admin app.
+ * All admin data flows through activeforms/v1 routes (cookie + nonce auth).
  */
 
 const base = _config__WEBPACK_IMPORTED_MODULE_0__["default"].restUrl.replace(/\/$/, '');
@@ -5610,7 +5610,7 @@ function ShortcodeChip({
 }) {
   const [copied, setCopied] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   if (!formId) return null;
-  const code = `[easyforms id="${formId}"]`;
+  const code = `[activeforms id="${formId}"]`;
   const copy = () => {
     try {
       navigator.clipboard.writeText(code);
@@ -5620,7 +5620,7 @@ function ShortcodeChip({
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
     type: "button",
-    className: "easyforms-tb__chip",
+    className: "activeforms-tb__chip",
     onClick: copy,
     title: "Copy shortcode",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -5629,7 +5629,7 @@ function ShortcodeChip({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("code", {
       children: code
     }), copied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-      className: "easyforms-tb__chip__ok",
+      className: "activeforms-tb__chip__ok",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         name: "check",
         size: 12
@@ -5656,22 +5656,22 @@ function BuilderTopbar({
   onSave
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "easyforms-tb",
+    className: "activeforms-tb",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "easyforms-tb__left",
+      className: "activeforms-tb__left",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         type: "button",
-        className: "easyforms-tb__icon",
+        className: "activeforms-tb__icon",
         title: (0,_config__WEBPACK_IMPORTED_MODULE_3__.t)('back', 'Back'),
         onClick: () => (0,_router__WEBPACK_IMPORTED_MODULE_2__.go)('/forms'),
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           name: "back"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "easyforms-tb__hist",
+        className: "activeforms-tb__hist",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           type: "button",
-          className: "easyforms-tb__icon",
+          className: "activeforms-tb__icon",
           title: (0,_config__WEBPACK_IMPORTED_MODULE_3__.t)('undo', 'Undo'),
           disabled: !canUndo,
           onClick: onUndo,
@@ -5680,7 +5680,7 @@ function BuilderTopbar({
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           type: "button",
-          className: "easyforms-tb__icon",
+          className: "activeforms-tb__icon",
           title: (0,_config__WEBPACK_IMPORTED_MODULE_3__.t)('redo', 'Redo'),
           disabled: !canRedo,
           onClick: onRedo,
@@ -5689,21 +5689,21 @@ function BuilderTopbar({
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-        className: "easyforms-tb__title",
+        className: "activeforms-tb__title",
         value: title,
         onChange: e => onTitle(e.target.value),
         "aria-label": "Form title",
         spellCheck: false
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "easyforms-tb__center",
+      className: "activeforms-tb__center",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "easyforms-tb__devices",
+        className: "activeforms-tb__devices",
         role: "group",
         "aria-label": "Preview width",
         children: DEVICES.map(d => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           type: "button",
-          className: `easyforms-tb__dev${device === d.key ? ' is-active' : ''}`,
+          className: `activeforms-tb__dev${device === d.key ? ' is-active' : ''}`,
           title: d.label,
           "aria-pressed": device === d.key,
           onClick: () => onDevice(d.key),
@@ -5714,15 +5714,15 @@ function BuilderTopbar({
         }, d.key))
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "easyforms-tb__right",
+      className: "activeforms-tb__right",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ShortcodeChip, {
         formId: formId
       }), dirty && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-        className: "easyforms-tb__dirty",
+        className: "activeforms-tb__dirty",
         children: (0,_config__WEBPACK_IMPORTED_MODULE_3__.t)('unsaved', 'Unsaved changes')
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
         type: "button",
-        className: `easyforms-tb__btn${preview ? ' is-active' : ''}`,
+        className: `activeforms-tb__btn${preview ? ' is-active' : ''}`,
         onClick: onPreview,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           name: "eye",
@@ -5730,7 +5730,7 @@ function BuilderTopbar({
         }), " ", (0,_config__WEBPACK_IMPORTED_MODULE_3__.t)('previewDesign', 'Preview & Design')]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
         type: "button",
-        className: "easyforms-tb__btn easyforms-tb__btn--primary",
+        className: "activeforms-tb__btn activeforms-tb__btn--primary",
         onClick: onSave,
         disabled: saving,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -5794,10 +5794,10 @@ function ActionPill({
   onDuplicate
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    className: "easyforms-cv-pill",
+    className: "activeforms-cv-pill",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
       type: "button",
-      className: "easyforms-cv-pill__move",
+      className: "activeforms-cv-pill__move",
       title: "Drag to move",
       ...dragProps,
       onClick: e => e.stopPropagation(),
@@ -5806,7 +5806,7 @@ function ActionPill({
         size: 14
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-      className: "easyforms-cv-pill__sep"
+      className: "activeforms-cv-pill__sep"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
       type: "button",
       title: "Edit",
@@ -5870,7 +5870,7 @@ function SortableField({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     ref: setNodeRef,
     style: style,
-    className: `easyforms-cv-field${selectedId === field._id ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`,
+    className: `activeforms-cv-field${selectedId === field._id ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`,
     onClick: e => {
       e.stopPropagation();
       onSelect(field._id);
@@ -5906,19 +5906,19 @@ function Column({
   });
   const inner = column.fields || [];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-    className: "easyforms-cv-col",
+    className: "activeforms-cv-col",
     style: {
       flex: `${Math.max(5, column.width || 50)} 1 0`,
       minWidth: 0
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       ref: setNodeRef,
-      className: `easyforms-cv-col__zone${isOver ? ' is-over' : ''}${inner.length ? ' has-items' : ''}`,
+      className: `activeforms-cv-col__zone${isOver ? ' is-over' : ''}${inner.length ? ' has-items' : ''}`,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_2__.SortableContext, {
         items: inner.map(f => f._id),
         strategy: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_2__.verticalListSortingStrategy,
         children: inner.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "easyforms-cv-col__empty",
+          className: "activeforms-cv-col__empty",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
             name: "plus",
             size: 14
@@ -5956,7 +5956,7 @@ function ContainerField({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     ref: setNodeRef,
     style: style,
-    className: `easyforms-cv-field easyforms-cv-container${selected ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`,
+    className: `activeforms-cv-field activeforms-cv-container${selected ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`,
     onClick: e => {
       e.stopPropagation();
       common.onSelect(field._id);
@@ -5971,10 +5971,10 @@ function ContainerField({
       onDelete: common.onDelete,
       onDuplicate: common.onDuplicate
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
-      className: "easyforms-cv-container__tag",
+      className: "activeforms-cv-container__tag",
       children: [cols, " column", cols === 1 ? '' : 's']
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "easyforms-cv-container__cols",
+      className: "activeforms-cv-container__cols",
       children: (field.columns || []).map((col, ci) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Column, {
         containerId: field._id,
         colIndex: ci,
@@ -5992,7 +5992,7 @@ function StepChip({
 }) {
   const selected = common.selectedId === field._id;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    className: `easyforms-cv-step${selected ? ' is-selected' : ''}`,
+    className: `activeforms-cv-step${selected ? ' is-selected' : ''}`,
     onClick: e => {
       e.stopPropagation();
       common.onSelect(field._id);
@@ -6005,7 +6005,7 @@ function StepChip({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
       type: "button",
       title: "Delete step",
-      className: "easyforms-cv-step__rm",
+      className: "activeforms-cv-step__rm",
       onClick: e => {
         e.stopPropagation();
         common.onDelete(field._id);
@@ -6048,35 +6048,35 @@ function Canvas({
   const page = pages[step];
   const items = page.items;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-    className: `easyforms-cv easyforms-cv--${device}`,
+    className: `activeforms-cv activeforms-cv--${device}`,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-      className: "easyforms-cv__frame",
+      className: "activeforms-cv__frame",
       style: {
         maxWidth: WIDTHS[device] || '100%'
       },
       children: [hasSteps && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        className: "easyforms-cv-steps",
+        className: "activeforms-cv-steps",
         role: "tablist",
         children: pages.map((p, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
           type: "button",
           role: "tab",
           "aria-selected": i === step,
-          className: `easyforms-cv-steps__tab${i === step ? ' is-active' : ''}`,
+          className: `activeforms-cv-steps__tab${i === step ? ' is-active' : ''}`,
           onClick: () => onStep && onStep(i),
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            className: "easyforms-cv-steps__num",
+            className: "activeforms-cv-steps__num",
             children: i + 1
           }), p.header ? p.header.label || `Step ${i + 1}` : 'Step 1']
         }, i))
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: `easyforms-cv__sheet${isOver ? ' is-over' : ''}`,
+        className: `activeforms-cv__sheet${isOver ? ' is-over' : ''}`,
         ref: setNodeRef,
         onClick: () => onSelect(null),
         children: [page.header && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(StepChip, {
           field: page.header,
           common: common
         }), items.length === 0 && !page.header ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: `easyforms-cv__drop${isOver ? ' is-over' : ''}`,
+          className: `activeforms-cv__drop${isOver ? ' is-over' : ''}`,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "dashicons dashicons-feedback",
             "aria-hidden": "true"
@@ -6089,7 +6089,7 @@ function Canvas({
           items: items.map(f => f._id),
           strategy: _dnd_kit_sortable__WEBPACK_IMPORTED_MODULE_2__.verticalListSortingStrategy,
           children: [items.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            className: `easyforms-cv__drop${isOver ? ' is-over' : ''}`,
+            className: `activeforms-cv__drop${isOver ? ' is-over' : ''}`,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
               children: "Drop fields for this step"
             })
@@ -6212,9 +6212,9 @@ function ConditionalLogic({
     rules: rules.filter((_, idx) => idx !== i)
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "easyforms-cl",
+    className: "activeforms-cl",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "easyforms-cl__switch",
+      className: "activeforms-cl__switch",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
           children: "Enable Conditional Logic"
@@ -6228,11 +6228,11 @@ function ConditionalLogic({
         })
       })]
     }), cond.enabled && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "easyforms-cl__body",
+      className: "activeforms-cl__body",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "easyforms-cl__intro",
+        className: "activeforms-cl__intro",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-          className: "easyforms-select easyforms-select--inline",
+          className: "activeforms-select activeforms-select--inline",
           value: cond.action || 'show',
           onChange: e => patch({
             action: e.target.value
@@ -6247,7 +6247,7 @@ function ConditionalLogic({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           children: "this field if"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-          className: "easyforms-select easyforms-select--inline",
+          className: "activeforms-select activeforms-select--inline",
           value: cond.logic || 'all',
           onChange: e => patch({
             logic: e.target.value
@@ -6263,11 +6263,11 @@ function ConditionalLogic({
           children: "of these match:"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "easyforms-cl__rules",
+        className: "activeforms-cl__rules",
         children: rules.map((rule, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "easyforms-cl__rule",
+          className: "activeforms-cl__rule",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-            className: "easyforms-select",
+            className: "activeforms-select",
             value: rule.field,
             onChange: e => setRule(i, 'field', e.target.value),
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -6278,7 +6278,7 @@ function ConditionalLogic({
               children: f.label || f.key
             }, f.key))]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("select", {
-            className: "easyforms-select",
+            className: "activeforms-select",
             value: rule.operator,
             onChange: e => setRule(i, 'operator', e.target.value),
             children: OPERATORS.map(o => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -6286,13 +6286,13 @@ function ConditionalLogic({
               children: o.label
             }, o.value))
           }), !VALUELESS.includes(rule.operator) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: rule.value,
             placeholder: "Value",
             onChange: e => setRule(i, 'value', e.target.value)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
             type: "button",
-            className: "easyforms-cl__rm",
+            className: "activeforms-cl__rm",
             title: "Remove",
             onClick: () => removeRule(i),
             disabled: rules.length === 1,
@@ -6304,14 +6304,14 @@ function ConditionalLogic({
         }, i))
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
         type: "button",
-        className: "easyforms-btn easyforms-btn--sm",
+        className: "activeforms-btn activeforms-btn--sm",
         onClick: addRule,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
           name: "plus",
           size: 13
         }), " Add condition"]
       }), !fields.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-        className: "easyforms-cl__hint",
+        className: "activeforms-cl__hint",
         children: "Add other input fields first to build conditions."
       })]
     })]
@@ -6383,9 +6383,9 @@ function SubControl({
 }) {
   const ph = sub.placeholder || sub.label || '';
   const lp = sub.label_placement || 'top';
-  const lpClass = ` easyforms-subfield--lp-${lp}`;
+  const lpClass = ` activeforms-subfield--lp-${lp}`;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: `easyforms-subfield${lpClass}`,
+    className: `activeforms-subfield${lpClass}`,
     style: {
       flex: '1 1 0',
       minWidth: 0
@@ -6826,7 +6826,7 @@ function FieldPreview({
         justifyContent: justify
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: "easyforms-btn easyforms-btn--primary",
+        className: "activeforms-btn activeforms-btn--primary",
         children: field.label || 'Submit'
       })
     });
@@ -6852,7 +6852,7 @@ function FieldPreview({
   }
   const lp = field.label_placement || 'top';
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: `easyforms-mock easyforms-mock--lp-${lp}`,
+    className: `activeforms-mock activeforms-mock--lp-${lp}`,
     children: [lp !== 'hide' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
       className: "fld-label",
       children: [field.label || field.type, field.required && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
@@ -6915,12 +6915,12 @@ function History({
   lastSaved
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "easyforms-hist",
+    className: "activeforms-hist",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "easyforms-hist__row",
+      className: "activeforms-hist__row",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
         type: "button",
-        className: "easyforms-btn",
+        className: "activeforms-btn",
         disabled: !canUndo,
         onClick: onUndo,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -6929,7 +6929,7 @@ function History({
         }), " Undo"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
         type: "button",
-        className: "easyforms-btn",
+        className: "activeforms-btn",
         disabled: !canRedo,
         onClick: onRedo,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -6938,9 +6938,9 @@ function History({
         }), " Redo"]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "easyforms-hist__meta",
+      className: "activeforms-hist__meta",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "easyforms-hist__stat",
+        className: "activeforms-hist__stat",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
           className: "num",
           children: depth
@@ -6950,9 +6950,9 @@ function History({
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "easyforms-hist__card",
+      className: "activeforms-hist__card",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "easyforms-hist__card-head",
+        className: "activeforms-hist__card-head",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           name: "history",
           size: 15
@@ -7039,15 +7039,15 @@ function Inspector({
   history
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    className: "easyforms-insp-pane",
+    className: "activeforms-insp-pane",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "easyforms-insp-tabs",
+      className: "activeforms-insp-tabs",
       role: "tablist",
       children: TABS.map(tab => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
         type: "button",
         role: "tab",
         "aria-selected": active === tab.key,
-        className: `easyforms-insp-tab${active === tab.key ? ' is-active' : ''}`,
+        className: `activeforms-insp-tab${active === tab.key ? ' is-active' : ''}`,
         onClick: () => onTab(tab.key),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           name: tab.icon,
@@ -7057,7 +7057,7 @@ function Inspector({
         })]
       }, tab.key))
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "easyforms-insp-body",
+      className: "activeforms-insp-body",
       children: [active === 'fields' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Palette_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         definitions: defs.fields,
         categories: defs.categories,
@@ -7162,31 +7162,6 @@ const PRO_FIELDS = [{
   label: 'Signature',
   icon: 'edit',
   category: 'advanced'
-}, {
-  type: 'payment_item',
-  label: 'Payment Item',
-  icon: 'cart',
-  category: 'payment'
-}, {
-  type: 'custom_amount',
-  label: 'Custom Amount',
-  icon: 'money-alt',
-  category: 'payment'
-}, {
-  type: 'quantity',
-  label: 'Item Quantity',
-  icon: 'plus-alt',
-  category: 'payment'
-}, {
-  type: 'subscription',
-  label: 'Subscription',
-  icon: 'update',
-  category: 'payment'
-}, {
-  type: 'payment_method',
-  label: 'Payment Method',
-  icon: 'bank',
-  category: 'payment'
 }];
 const COLUMN_PRESETS = [{
   cols: 1,
@@ -7237,7 +7212,7 @@ function PaletteItem({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
     ref: setNodeRef,
     type: "button",
-    className: `easyforms-pal-item${isDragging ? ' is-dragging' : ''}`,
+    className: `activeforms-pal-item${isDragging ? ' is-dragging' : ''}`,
     onClick: () => onAdd(def),
     ...listeners,
     ...attributes,
@@ -7246,7 +7221,7 @@ function PaletteItem({
       className: `dashicons dashicons-${def.icon || 'forms'}`,
       "aria-hidden": "true"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-      className: "easyforms-pal-item__label",
+      className: "activeforms-pal-item__label",
       children: def.label
     })]
   });
@@ -7257,16 +7232,16 @@ function ProItem({
   def
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-    className: "easyforms-pal-item is-pro",
+    className: "activeforms-pal-item is-pro",
     title: `${def.label} — Pro`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
       className: `dashicons dashicons-${def.icon || 'lock'}`,
       "aria-hidden": "true"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-      className: "easyforms-pal-item__label",
+      className: "activeforms-pal-item__label",
       children: def.label
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-      className: "easyforms-pal-item__pro",
+      className: "activeforms-pal-item__pro",
       children: "PRO"
     })]
   });
@@ -7281,16 +7256,16 @@ function Group({
   count
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: `easyforms-pal-acc${open ? ' is-open' : ''}`,
+    className: `activeforms-pal-acc${open ? ' is-open' : ''}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
       type: "button",
-      className: "easyforms-pal-acc__head",
+      className: "activeforms-pal-acc__head",
       onClick: onToggle,
       "aria-expanded": open,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
         children: title
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
-        className: "easyforms-pal-acc__meta",
+        className: "activeforms-pal-acc__meta",
         children: [typeof count === 'number' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("em", {
           children: count
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -7299,9 +7274,9 @@ function Group({
         })]
       })]
     }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "easyforms-pal-acc__body",
+      className: "activeforms-pal-acc__body",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "easyforms-pal__grid",
+        className: "activeforms-pal__grid",
         children: children
       })
     })]
@@ -7370,11 +7345,6 @@ function Palette({
       title: 'Advanced Fields',
       free: byCat('advanced'),
       locked: teasers('advanced')
-    }, {
-      key: 'payment',
-      title: 'Payment Fields',
-      free: byCat('payment'),
-      locked: teasers('payment')
     }];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [definitions, containerDef, categories]);
@@ -7384,9 +7354,9 @@ function Palette({
     return next;
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "easyforms-pal",
+    className: "activeforms-pal",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "easyforms-pal__search",
+      className: "activeforms-pal__search",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "search",
         size: 15
@@ -7398,7 +7368,7 @@ function Palette({
         "aria-label": "Search fields"
       }), query && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         type: "button",
-        className: "easyforms-pal__clear",
+        className: "activeforms-pal__clear",
         onClick: () => setQuery(''),
         "aria-label": "Clear",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -7407,7 +7377,7 @@ function Palette({
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "easyforms-pal__body",
+      className: "activeforms-pal__body",
       children: sections.map(sec => {
         const free = sec.free.filter(d => match(d.label));
         const locked = sec.locked.filter(d => match(d.label));
@@ -7495,10 +7465,10 @@ function Section({
 }) {
   const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initial);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: `easyforms-sec${open ? ' is-open' : ''}`,
+    className: `activeforms-sec${open ? ' is-open' : ''}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
       type: "button",
-      className: "easyforms-sec__head",
+      className: "activeforms-sec__head",
       onClick: () => setOpen(o => !o),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
         children: title
@@ -7507,7 +7477,7 @@ function Section({
         size: 15
       })]
     }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "easyforms-sec__body",
+      className: "activeforms-sec__body",
       children: children
     })]
   });
@@ -7520,11 +7490,11 @@ function Row({
   children
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-form-row",
+    className: "activeforms-form-row",
     children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
       children: label
     }), children, hint && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "easyforms-help-text",
+      className: "activeforms-help-text",
       children: hint
     })]
   });
@@ -7546,25 +7516,25 @@ function OptionsEditor({
   }]);
   const remove = i => onChange(list.filter((_, idx) => idx !== i));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-opts",
+    className: "activeforms-opts",
     children: [list.map((o, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-opts__row",
+      className: "activeforms-opts__row",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "drag",
         size: 14
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-        className: "easyforms-input",
+        className: "activeforms-input",
         value: o.label,
         onChange: e => update(i, 'label', e.target.value),
         placeholder: "Label"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-        className: "easyforms-input easyforms-input--val",
+        className: "activeforms-input activeforms-input--val",
         value: o.value ?? '',
         onChange: e => update(i, 'value', e.target.value),
         placeholder: "Value"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
-        className: "easyforms-opts__rm",
+        className: "activeforms-opts__rm",
         onClick: () => remove(i),
         title: "Remove",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -7574,7 +7544,7 @@ function OptionsEditor({
       })]
     }, i)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
       type: "button",
-      className: "easyforms-btn easyforms-btn--sm",
+      className: "activeforms-btn activeforms-btn--sm",
       onClick: add,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "plus",
@@ -7590,14 +7560,14 @@ function LabelPlacementPicker({
   onChange
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-form-row",
+    className: "activeforms-form-row",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
       children: "Label Placement"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "easyforms-seg__group easyforms-seg__group--wrap",
+      className: "activeforms-seg__group activeforms-seg__group--wrap",
       children: LABEL_PLACEMENTS.map(([v, l]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
-        className: `easyforms-seg__btn${(value || 'top') === v ? ' is-active' : ''}`,
+        className: `activeforms-seg__btn${(value || 'top') === v ? ' is-active' : ''}`,
         onClick: () => onChange(v),
         children: l
       }, v))
@@ -7612,20 +7582,20 @@ function OnOff({
   onChange
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-seg",
+    className: "activeforms-seg",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-      className: "easyforms-seg__label",
+      className: "activeforms-seg__label",
       children: label
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-seg__group",
+      className: "activeforms-seg__group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
-        className: `easyforms-seg__btn${value ? ' is-active' : ''}`,
+        className: `activeforms-seg__btn${value ? ' is-active' : ''}`,
         onClick: () => onChange(true),
         children: "On"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
-        className: `easyforms-seg__btn${!value ? ' is-active' : ''}`,
+        className: `activeforms-seg__btn${!value ? ' is-active' : ''}`,
         onClick: () => onChange(false),
         children: "Off"
       })]
@@ -7645,15 +7615,15 @@ function CountryOptions({
   const list = value.country_list || [];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-seg",
+      className: "activeforms-seg",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "easyforms-seg__label",
+        className: "activeforms-seg__label",
         children: "Country List"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "easyforms-seg__group",
+        className: "activeforms-seg__group",
         children: [['all', 'All'], ['include', 'Show selected'], ['exclude', 'Hide selected']].map(([v, l]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           type: "button",
-          className: `easyforms-seg__btn${mode === v ? ' is-active' : ''}`,
+          className: `activeforms-seg__btn${mode === v ? ' is-active' : ''}`,
           onClick: () => onChange({
             country_list_mode: v
           }),
@@ -7665,7 +7635,7 @@ function CountryOptions({
       hint: "Ctrl / Cmd-click to select multiple.",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
         multiple: true,
-        className: "easyforms-input",
+        className: "activeforms-input",
         style: {
           height: 170
         },
@@ -7723,11 +7693,11 @@ function SubFieldsEditor({
     onChange(next);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    className: "easyforms-subfe",
+    className: "activeforms-subfe",
     children: list.map((sub, i) => {
       const open = openKey === sub.key;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: `easyforms-subfe__item${dragIndex === i ? ' is-dragging' : ''}`,
+        className: `activeforms-subfe__item${dragIndex === i ? ' is-dragging' : ''}`,
         draggable: reorderable,
         onDragStart: reorderable ? () => setDragIndex(i) : undefined,
         onDragOver: reorderable ? e => e.preventDefault() : undefined,
@@ -7737,16 +7707,16 @@ function SubFieldsEditor({
         } : undefined,
         onDragEnd: reorderable ? () => setDragIndex(null) : undefined,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "easyforms-subfe__head",
+          className: "activeforms-subfe__head",
           children: [reorderable && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-            className: "easyforms-subfe__handle",
+            className: "activeforms-subfe__handle",
             title: "Drag to reorder",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
               name: "drag",
               size: 14
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("label", {
-            className: "easyforms-subfe__toggle",
+            className: "activeforms-subfe__toggle",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
               type: "checkbox",
               checked: !!sub.visible,
@@ -7757,7 +7727,7 @@ function SubFieldsEditor({
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
             type: "button",
-            className: "easyforms-subfe__caret",
+            className: "activeforms-subfe__caret",
             onClick: () => setOpenKey(open ? null : sub.key),
             "aria-expanded": open,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -7766,11 +7736,11 @@ function SubFieldsEditor({
             })
           })]
         }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "easyforms-subfe__body",
+          className: "activeforms-subfe__body",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
             label: "Label",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              className: "easyforms-input",
+              className: "activeforms-input",
               value: sub.label || '',
               onChange: e => patch(i, 'label', e.target.value)
             })
@@ -7780,25 +7750,25 @@ function SubFieldsEditor({
           }), sub.type !== 'country' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
             label: "Placeholder",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              className: "easyforms-input",
+              className: "activeforms-input",
               value: sub.placeholder || '',
               onChange: e => patch(i, 'placeholder', e.target.value)
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "easyforms-seg",
+            className: "activeforms-seg",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-              className: "easyforms-seg__label",
+              className: "activeforms-seg__label",
               children: "Required"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-              className: "easyforms-seg__group",
+              className: "activeforms-seg__group",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                 type: "button",
-                className: `easyforms-seg__btn${sub.required ? ' is-active' : ''}`,
+                className: `activeforms-seg__btn${sub.required ? ' is-active' : ''}`,
                 onClick: () => patch(i, 'required', true),
                 children: "Yes"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                 type: "button",
-                className: `easyforms-seg__btn${!sub.required ? ' is-active' : ''}`,
+                className: `activeforms-seg__btn${!sub.required ? ' is-active' : ''}`,
                 onClick: () => patch(i, 'required', false),
                 children: "No"
               })]
@@ -7833,20 +7803,20 @@ function RepeaterColumnsEditor({
   }]);
   const remove = i => onChange(list.length > 1 ? list.filter((_, idx) => idx !== i) : list);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-opts",
+    className: "activeforms-opts",
     children: [list.map((c, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-opts__row",
+      className: "activeforms-opts__row",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "drag",
         size: 14
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-        className: "easyforms-input",
+        className: "activeforms-input",
         value: c.label,
         onChange: e => update(i, e.target.value),
         placeholder: "Column label"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
-        className: "easyforms-opts__rm",
+        className: "activeforms-opts__rm",
         onClick: () => remove(i),
         title: "Remove",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -7856,7 +7826,7 @@ function RepeaterColumnsEditor({
       })]
     }, i)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
       type: "button",
-      className: "easyforms-btn easyforms-btn--sm",
+      className: "activeforms-btn activeforms-btn--sm",
       onClick: add,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "plus",
@@ -7903,10 +7873,10 @@ function ColumnsEditor({
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
       label: "Number of columns",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "easyforms-seg__group",
+        className: "activeforms-seg__group",
         children: [1, 2, 3, 4].map(n => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           type: "button",
-          className: `easyforms-seg__btn${count === n ? ' is-active' : ''}`,
+          className: `activeforms-seg__btn${count === n ? ' is-active' : ''}`,
           onClick: () => setCount(n),
           children: n
         }, n))
@@ -7915,9 +7885,9 @@ function ColumnsEditor({
       label: "Column widths (%)",
       hint: "Should add up to roughly 100%.",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "easyforms-colw",
+        className: "activeforms-colw",
         children: cols.map((c, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           type: "number",
           min: "10",
           max: "100",
@@ -7936,20 +7906,20 @@ function RequiredEditor({
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-seg",
+      className: "activeforms-seg",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "easyforms-seg__label",
+        className: "activeforms-seg__label",
         children: "Required"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-seg__group",
+        className: "activeforms-seg__group",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           type: "button",
-          className: `easyforms-seg__btn${field.required ? ' is-active' : ''}`,
+          className: `activeforms-seg__btn${field.required ? ' is-active' : ''}`,
           onClick: () => set('required', true),
           children: "Yes"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           type: "button",
-          className: `easyforms-seg__btn${!field.required ? ' is-active' : ''}`,
+          className: `activeforms-seg__btn${!field.required ? ' is-active' : ''}`,
           onClick: () => set('required', false),
           children: "No"
         })]
@@ -7958,7 +7928,7 @@ function RequiredEditor({
       label: "Custom Error Message",
       hint: "Shown when the field is left empty.",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-        className: "easyforms-input",
+        className: "activeforms-input",
         value: field.required_message || '',
         placeholder: "This field is required.",
         onChange: e => set('required_message', e.target.value)
@@ -7976,7 +7946,7 @@ function SettingsPanel({
 }) {
   if (!field) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-insp-empty",
+      className: "activeforms-insp-empty",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_icons_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         name: "sliders",
         size: 28
@@ -7993,9 +7963,9 @@ function SettingsPanel({
   const isInput = definition ? definition.isInput : true;
   const isChoice = CHOICE_TYPES.includes(type) || Array.isArray(field.options);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-insp",
+    className: "activeforms-insp",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-insp__title",
+      className: "activeforms-insp__title",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
         className: `dashicons dashicons-${definition && definition.icon || 'forms'}`,
         "aria-hidden": "true"
@@ -8012,26 +7982,26 @@ function SettingsPanel({
         label: "Step Title",
         hint: "Shown in the step indicator.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           value: field.label || '',
           onChange: e => set('label', e.target.value)
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-row-2",
+        className: "activeforms-row-2",
         style: {
           gridTemplateColumns: '1fr 1fr'
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Previous Button",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.prev_label || '',
             onChange: e => set('prev_label', e.target.value)
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Next Button",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.next_label || '',
             onChange: e => set('next_label', e.target.value)
           })
@@ -8042,7 +8012,7 @@ function SettingsPanel({
       children: type === 'html' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
         label: "HTML Content",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("textarea", {
-          className: "easyforms-textarea",
+          className: "activeforms-textarea",
           rows: 6,
           value: field.content || '',
           onChange: e => set('content', e.target.value)
@@ -8051,7 +8021,7 @@ function SettingsPanel({
         label: "Consent Text",
         hint: "Supports basic HTML for links.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("textarea", {
-          className: "easyforms-textarea",
+          className: "activeforms-textarea",
           rows: 3,
           value: field.content || '',
           onChange: e => set('content', e.target.value)
@@ -8060,7 +8030,7 @@ function SettingsPanel({
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: type === 'submit' ? 'Button Label' : 'Element Label',
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.label || '',
             onChange: e => set('label', e.target.value)
           })
@@ -8068,7 +8038,7 @@ function SettingsPanel({
           label: "Admin Field Label",
           hint: "Used in entries & exports. Defaults to the label.",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.admin_label || '',
             placeholder: field.label || '',
             onChange: e => set('admin_label', e.target.value)
@@ -8076,14 +8046,14 @@ function SettingsPanel({
         }), type === 'section' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Description",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.description || '',
             onChange: e => set('description', e.target.value)
           })
         }), !NO_PLACEHOLDER.includes(type) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Placeholder",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.placeholder || '',
             onChange: e => set('placeholder', e.target.value)
           })
@@ -8091,14 +8061,14 @@ function SettingsPanel({
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
             label: "Help Text",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              className: "easyforms-input",
+              className: "activeforms-input",
               value: field.help || '',
               onChange: e => set('help', e.target.value)
             })
           }), !NO_DEFAULT.includes(type) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
             label: "Default Value",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              className: "easyforms-input",
+              className: "activeforms-input",
               value: field.default || '',
               onChange: e => set('default', e.target.value)
             })
@@ -8106,10 +8076,10 @@ function SettingsPanel({
         }), type === 'submit' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Alignment",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-            className: "easyforms-seg__group",
+            className: "activeforms-seg__group",
             children: ['left', 'center', 'right'].map(a => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
               type: "button",
-              className: `easyforms-seg__btn${(field.align || 'left') === a ? ' is-active' : ''}`,
+              className: `activeforms-seg__btn${(field.align || 'left') === a ? ' is-active' : ''}`,
               onClick: () => set('align', a),
               children: a
             }, a))
@@ -8130,9 +8100,9 @@ function SettingsPanel({
         reorderable: true
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
         label: "Autocomplete Provider",
-        hint: "Address autocomplete. Google Places requires EasyForms Pro.",
+        hint: "Address autocomplete. Google Places requires ActiveForms Pro.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-          className: "easyforms-input easyforms-select",
+          className: "activeforms-input activeforms-select",
           value: field.autocomplete_provider || 'none',
           onChange: e => set('autocomplete_provider', e.target.value),
           children: AUTOCOMPLETE_PROVIDERS.map(p => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -8150,25 +8120,25 @@ function SettingsPanel({
     }), type === 'number' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Section, {
       title: "Number Range",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-row-2",
+        className: "activeforms-row-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Min",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.min || '',
             onChange: e => set('min', e.target.value)
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Max",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.max || '',
             onChange: e => set('max', e.target.value)
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Step",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.step || '',
             onChange: e => set('step', e.target.value)
           })
@@ -8180,7 +8150,7 @@ function SettingsPanel({
         label: "Field Mode",
         hint: "What this field collects. Only the relevant format is shown below.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-          className: "easyforms-input easyforms-select",
+          className: "activeforms-input activeforms-select",
           value: field.mode || 'date',
           onChange: e => set('mode', e.target.value),
           children: DATETIME_MODES.map(([v, l]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -8191,7 +8161,7 @@ function SettingsPanel({
       }), field.mode === 'time' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
         label: "Time Format",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-          className: "easyforms-input easyforms-select",
+          className: "activeforms-input activeforms-select",
           value: field.time_format || 'h:i K',
           onChange: e => set('time_format', e.target.value),
           children: TIME_FORMATS.map(([v, l]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -8202,7 +8172,7 @@ function SettingsPanel({
       }) : field.mode === 'datetime' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
         label: "Date & Time Format",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-          className: "easyforms-input easyforms-select",
+          className: "activeforms-input activeforms-select",
           value: field.datetime_format || 'm/d/Y h:i K',
           onChange: e => set('datetime_format', e.target.value),
           children: DATETIME_FORMATS.map(([v, l]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -8214,7 +8184,7 @@ function SettingsPanel({
         label: field.mode === 'range' ? 'Date Range Format' : 'Date Format',
         hint: field.mode === 'range' ? 'Applied to both the start and end dates.' : undefined,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-          className: "easyforms-input easyforms-select",
+          className: "activeforms-input activeforms-select",
           value: field.date_format || 'm/d/Y',
           onChange: e => set('date_format', e.target.value),
           children: DATE_FORMATS.map(([v, l]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -8230,26 +8200,26 @@ function SettingsPanel({
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
         label: "Rows",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           type: "number",
           value: field.rows || 3,
           onChange: e => set('rows', e.target.value)
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-seg",
+        className: "activeforms-seg",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "easyforms-seg__label",
+          className: "activeforms-seg__label",
           children: "Auto-resize"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "easyforms-seg__group",
+          className: "activeforms-seg__group",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
             type: "button",
-            className: `easyforms-seg__btn${field.auto_resize ? ' is-active' : ''}`,
+            className: `activeforms-seg__btn${field.auto_resize ? ' is-active' : ''}`,
             onClick: () => set('auto_resize', true),
             children: "On"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
             type: "button",
-            className: `easyforms-seg__btn${!field.auto_resize ? ' is-active' : ''}`,
+            className: `activeforms-seg__btn${!field.auto_resize ? ' is-active' : ''}`,
             onClick: () => set('auto_resize', false),
             children: "Off"
           })]
@@ -8261,7 +8231,7 @@ function SettingsPanel({
         label: "Mask Pattern",
         hint: "9 = digit, a = letter, * = any. e.g. (999) 999-9999",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input easyforms-input--mono",
+          className: "activeforms-input activeforms-input--mono",
           value: field.mask || '',
           placeholder: "(999) 999-9999",
           onChange: e => set('mask', e.target.value)
@@ -8272,7 +8242,7 @@ function SettingsPanel({
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
         label: "Editor Height (rows)",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           type: "number",
           min: "2",
           value: field.rows || 5,
@@ -8282,7 +8252,7 @@ function SettingsPanel({
     }), type === 'nps' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Section, {
       title: "Scale Labels",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-row-2",
+        className: "activeforms-row-2",
         style: {
           gridTemplateColumns: '1fr 1fr'
         },
@@ -8290,7 +8260,7 @@ function SettingsPanel({
           label: "Low Label",
           hint: "Shown under 0.",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.low_label ?? '',
             placeholder: "Not likely",
             onChange: e => set('low_label', e.target.value)
@@ -8299,7 +8269,7 @@ function SettingsPanel({
           label: "High Label",
           hint: "Shown under 10.",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             value: field.high_label ?? '',
             placeholder: "Very likely",
             onChange: e => set('high_label', e.target.value)
@@ -8312,19 +8282,19 @@ function SettingsPanel({
         label: "Allowed File Types",
         hint: "Comma-separated extensions, e.g. pdf, jpg, png. Leave blank for defaults.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           value: Array.isArray(field.allowed_types) ? field.allowed_types.join(', ') : field.allowed_types || '',
           onChange: e => set('allowed_types', e.target.value.split(',').map(s => s.trim()).filter(Boolean))
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-row-2",
+        className: "activeforms-row-2",
         style: {
           gridTemplateColumns: '1fr 1fr'
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Max Size (KB)",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             type: "number",
             min: "1",
             value: field.max_size || 5120,
@@ -8333,7 +8303,7 @@ function SettingsPanel({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Row, {
           label: "Max Files",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             type: "number",
             min: "1",
             value: field.max_files || 1,
@@ -8350,7 +8320,7 @@ function SettingsPanel({
         label: "Max Rows",
         hint: "0 = unlimited.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           type: "number",
           min: "0",
           value: field.max_rows || 0,
@@ -8390,7 +8360,7 @@ function SettingsPanel({
         label: "CSS Class",
         hint: "Space-separated classes added to the field wrapper.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           value: field.css_class || '',
           onChange: e => set('css_class', e.target.value)
         })
@@ -8398,7 +8368,7 @@ function SettingsPanel({
         label: "Field Key",
         hint: "Stable identifier used in smart codes & exports.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-          className: "easyforms-input easyforms-input--mono",
+          className: "activeforms-input activeforms-input--mono",
           value: field.key || '',
           readOnly: true
         })
@@ -8695,7 +8665,7 @@ function Icon({
   const path = PATHS[name];
   if (!path) return null;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-    className: "easyforms-ic",
+    className: "activeforms-ic",
     width: size,
     height: size,
     viewBox: "0 0 24 24",
@@ -9239,9 +9209,9 @@ function ToastProvider({
       notify
     },
     children: [children, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-toasts",
+      className: "activeforms-toasts",
       children: toasts.map(tst => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: `easyforms-toast easyforms-toast--${tst.type}`,
+        className: `activeforms-toast activeforms-toast--${tst.type}`,
         children: tst.message
       }, tst.id))
     })]
@@ -9281,9 +9251,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function Loading() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "easyforms-center",
+    className: "activeforms-center",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-spinner"
+      className: "activeforms-spinner"
     })
   });
 }
@@ -9295,7 +9265,7 @@ function Empty({
   children
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-empty",
+    className: "activeforms-empty",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "ico",
       children: icon
@@ -9314,7 +9284,7 @@ function Button({
   children,
   ...rest
 }) {
-  const cls = ['easyforms-btn', variant && `easyforms-btn--${variant}`, size && `easyforms-btn--${size}`].filter(Boolean).join(' ');
+  const cls = ['activeforms-btn', variant && `activeforms-btn--${variant}`, size && `activeforms-btn--${size}`].filter(Boolean).join(' ');
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
     type: "button",
     className: cls,
@@ -9330,10 +9300,10 @@ function Card({
   ...rest
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "easyforms-card",
+    className: "activeforms-card",
     ...rest,
     children: pad ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-card-pad",
+      className: "activeforms-card-pad",
       children: children
     }) : children
   });
@@ -9346,7 +9316,7 @@ function PageHead({
   actions
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-page-head",
+    className: "activeforms-page-head",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
         children: title
@@ -9369,7 +9339,7 @@ function Toggle({
   onChange
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
-    className: "easyforms-toggle",
+    className: "activeforms-toggle",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
       type: "checkbox",
       checked: !!checked,
@@ -9387,11 +9357,11 @@ function Field({
   children
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-form-row",
+    className: "activeforms-form-row",
     children: [label && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
       children: label
     }), children, help && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-help-text",
+      className: "activeforms-help-text",
       children: help
     })]
   });
@@ -9404,7 +9374,7 @@ function Text({
   ...rest
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-    className: "easyforms-input",
+    className: "activeforms-input",
     value: value ?? '',
     onChange: e => onChange(e.target.value),
     ...rest
@@ -9419,7 +9389,7 @@ function Badge({
   children,
   ...rest
 }) {
-  const cls = ['easyforms-badge', tone && `easyforms-badge--${tone}`].filter(Boolean).join(' ');
+  const cls = ['activeforms-badge', tone && `activeforms-badge--${tone}`].filter(Boolean).join(' ');
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
     className: cls,
     ...rest,
@@ -9446,15 +9416,15 @@ __webpack_require__.r(__webpack_exports__);
  */
 const fallback = {
   version: '1.0.0',
-  restUrl: '/wp-json/easyforms/v1',
-  restNamespace: 'easyforms/v1',
+  restUrl: '/wp-json/activeforms/v1',
+  restNamespace: 'activeforms/v1',
   nonce: '',
   adminUrl: '',
   assetsUrl: '',
   capabilities: {},
   brand: {
-    name: 'EasyForms',
-    shortName: 'EasyForms',
+    name: 'ActiveForms',
+    shortName: 'ActiveForms',
     tagline: 'Drag & Drop Form Builder'
   },
   designTokens: {},
@@ -9462,7 +9432,7 @@ const fallback = {
   dateFormat: 'F j, Y',
   strings: {}
 };
-const config = typeof window !== 'undefined' && window.EasyFormsConfig ? window.EasyFormsConfig : fallback;
+const config = typeof window !== 'undefined' && window.ActiveFormsConfig ? window.ActiveFormsConfig : fallback;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (config);
 
 /**
@@ -9804,7 +9774,7 @@ function Builder({
       await save();
     }
     const base = (_config__WEBPACK_IMPORTED_MODULE_6__["default"].home || '/').replace(/\/$/, '/');
-    window.open(`${base}?easyforms_preview=${idRef.current}`, '_blank', 'noopener');
+    window.open(`${base}?activeforms_preview=${idRef.current}`, '_blank', 'noopener');
   }, [dirty, save, notify]);
 
   // Keyboard shortcuts.
@@ -9844,7 +9814,7 @@ function Builder({
     label: f.admin_label || f.label || f.key
   }));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-    className: "easyforms-builder-shell",
+    className: "activeforms-builder-shell",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_builder_BuilderTopbar_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
       title: title,
       onTitle: setTitle,
@@ -9866,7 +9836,7 @@ function Builder({
       onDragEnd: onDragEnd,
       onDragCancel: () => setDrag(null),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-        className: "easyforms-builder-2",
+        className: "activeforms-builder-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_builder_Canvas_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
           fields: fields,
           selectedId: selectedId,
@@ -9901,7 +9871,7 @@ function Builder({
           easing: 'cubic-bezier(0.2, 0, 0, 1)'
         },
         children: drag ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-          className: "easyforms-drag-ghost",
+          className: "activeforms-drag-ghost",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             className: `dashicons dashicons-${drag.icon || 'forms'}`,
             "aria-hidden": "true"
@@ -9968,7 +9938,7 @@ function TrendBars({
         flex: 1,
         minWidth: 3,
         height: `${Math.max(4, d.count / max * 100)}%`,
-        background: 'var(--easyforms-color-primary, #4f46e5)',
+        background: 'var(--activeforms-color-primary, #4f46e5)',
         borderRadius: '3px 3px 0 0',
         opacity: 0.85
       }
@@ -9998,14 +9968,14 @@ function Dashboard() {
         children: "+ Add New Form"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "easyforms-grid easyforms-grid-4",
+      className: "activeforms-grid activeforms-grid-4",
       style: {
         marginBottom: 20
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         pad: false,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "easyforms-stat",
+          className: "activeforms-stat",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "num",
             children: totals.forms || 0
@@ -10017,7 +9987,7 @@ function Dashboard() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         pad: false,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "easyforms-stat",
+          className: "activeforms-stat",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "num",
             children: totals.entries || 0
@@ -10029,7 +9999,7 @@ function Dashboard() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         pad: false,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "easyforms-stat",
+          className: "activeforms-stat",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "num",
             children: totals.unread || 0
@@ -10041,7 +10011,7 @@ function Dashboard() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         pad: false,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "easyforms-stat",
+          className: "activeforms-stat",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "num",
             children: totals.entries && totals.forms ? Math.round(totals.entries / totals.forms) : 0
@@ -10052,7 +10022,7 @@ function Dashboard() {
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "easyforms-grid easyforms-grid-2",
+      className: "activeforms-grid activeforms-grid-2",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
           style: {
@@ -10089,7 +10059,7 @@ function Dashboard() {
             },
             children: f.title
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "easyforms-badge",
+            className: "activeforms-badge",
             children: f.count
           })]
         }, f.form_id))]
@@ -10192,7 +10162,7 @@ function FormPicker() {
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
       pad: false,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-        className: "easyforms-table easyforms-entries-table",
+        className: "activeforms-table activeforms-entries-table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -10219,7 +10189,7 @@ function FormPicker() {
                 textAlign: 'right'
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                className: "easyforms-btn easyforms-btn--sm",
+                className: "activeforms-btn activeforms-btn--sm",
                 href: `#/forms/${f.id}/entries`,
                 children: "View entries"
               })
@@ -10245,10 +10215,10 @@ function SortTh({
     style: style,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
       type: "button",
-      className: `easyforms-th-sort${active ? ' is-active' : ''}`,
+      className: `activeforms-th-sort${active ? ' is-active' : ''}`,
       onClick: () => onSort(col),
       children: [label, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "easyforms-th-sort__arrow",
+        className: "activeforms-th-sort__arrow",
         children: arrow
       })]
     })
@@ -10402,19 +10372,19 @@ function Entries({
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-entries-filters",
+      className: "activeforms-entries-filters",
       children: [FILTERS.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
         type: "button",
-        className: `easyforms-pill${filter === f.key ? ' is-active' : ''}`,
+        className: `activeforms-pill${filter === f.key ? ' is-active' : ''}`,
         onClick: () => setFilter(f.key),
         children: [f.label, counts[f.count] !== undefined && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "easyforms-pill__count",
+          className: "activeforms-pill__count",
           children: counts[f.count]
         })]
       }, f.key)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "easyforms-entries-filters__spacer"
+        className: "activeforms-entries-filters__spacer"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-search",
+        className: "activeforms-search",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
           className: "dashicons dashicons-search",
           "aria-hidden": "true"
@@ -10426,12 +10396,12 @@ function Entries({
         })]
       })]
     }), selected.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-bulkbar",
+      className: "activeforms-bulkbar",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-        className: "easyforms-bulkbar__count",
+        className: "activeforms-bulkbar__count",
         children: [selected.length, " selected"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-bulkbar__actions",
+        className: "activeforms-bulkbar__actions",
         children: [!isTrash && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Button, {
           size: "sm",
           disabled: busy,
@@ -10466,7 +10436,7 @@ function Entries({
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
-        className: "easyforms-bulkbar__clear",
+        className: "activeforms-bulkbar__clear",
         onClick: () => setSelected([]),
         children: "Clear"
       })]
@@ -10479,13 +10449,13 @@ function Entries({
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
       pad: false,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "easyforms-table-scroll",
+        className: "activeforms-table-scroll",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-          className: "easyforms-table easyforms-entries-table",
+          className: "activeforms-table activeforms-entries-table",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                className: "easyforms-col-check",
+                className: "activeforms-col-check",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                   type: "checkbox",
                   checked: allOnPageSelected,
@@ -10515,7 +10485,7 @@ function Entries({
                 sort: sort,
                 onSort: onSort
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                className: "easyforms-col-actions",
+                className: "activeforms-col-actions",
                 "aria-label": "Actions"
               })]
             })
@@ -10524,10 +10494,10 @@ function Entries({
               const sm = (0,_entriesUtils__WEBPACK_IMPORTED_MODULE_4__.statusMeta)(entry.status);
               const checked = selected.includes(entry.id);
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                className: `easyforms-entry-row${entry.status === 'unread' ? ' is-unread' : ''}${checked ? ' is-selected' : ''}`,
+                className: `activeforms-entry-row${entry.status === 'unread' ? ' is-unread' : ''}${checked ? ' is-selected' : ''}`,
                 onClick: () => goView(entry),
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  className: "easyforms-col-check",
+                  className: "activeforms-col-check",
                   onClick: e => e.stopPropagation(),
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
                     type: "checkbox",
@@ -10536,10 +10506,10 @@ function Entries({
                     "aria-label": `Select entry ${entry.serial}`
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
-                  className: "easyforms-td-serial",
+                  className: "activeforms-td-serial",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                     type: "button",
-                    className: "easyforms-star",
+                    className: "activeforms-star",
                     onClick: e => toggleFav(entry, e),
                     title: entry.is_favorite ? 'Unfavorite' : 'Favorite',
                     children: entry.is_favorite ? '★' : '☆'
@@ -10547,10 +10517,10 @@ function Entries({
                     children: ["#", entry.serial]
                   })]
                 }), columns.map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  className: "easyforms-td-value",
+                  className: "activeforms-td-value",
                   title: (0,_entriesUtils__WEBPACK_IMPORTED_MODULE_4__.formatValue)(entry.response[c]),
                   children: (0,_entriesUtils__WEBPACK_IMPORTED_MODULE_4__.formatValue)(entry.response[c]) || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                    className: "easyforms-muted",
+                    className: "activeforms-muted",
                     children: "\u2014"
                   })
                 }, c)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
@@ -10559,26 +10529,26 @@ function Entries({
                     children: sm.label
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  className: "easyforms-td-user",
+                  className: "activeforms-td-user",
                   children: entry.user ? entry.user.name : '—'
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  className: "easyforms-td-time",
+                  className: "activeforms-td-time",
                   title: entry.created_at,
                   children: timeAgo(entry.created_at)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                  className: "easyforms-col-actions",
+                  className: "activeforms-col-actions",
                   onClick: e => e.stopPropagation(),
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                    className: "easyforms-row-actions",
+                    className: "activeforms-row-actions",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                       type: "button",
-                      className: "easyforms-iconbtn",
+                      className: "activeforms-iconbtn",
                       title: "View",
                       onClick: () => goView(entry),
                       children: "\uD83D\uDC41"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                       type: "button",
-                      className: "easyforms-iconbtn",
+                      className: "activeforms-iconbtn",
                       title: "Edit",
                       onClick: () => {
                         window.location.hash = `#/forms/${formId}/entries/${entry.id}?edit=1`;
@@ -10586,7 +10556,7 @@ function Entries({
                       children: "\u270E"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                       type: "button",
-                      className: "easyforms-iconbtn is-danger",
+                      className: "activeforms-iconbtn is-danger",
                       title: "Delete",
                       onClick: e => deleteOne(entry, e),
                       children: "\uD83D\uDDD1"
@@ -10598,12 +10568,12 @@ function Entries({
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-pager",
+        className: "activeforms-pager",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-          className: "easyforms-pager__total",
+          className: "activeforms-pager__total",
           children: ["Total ", total]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-          className: "easyforms-select easyforms-select--pp",
+          className: "activeforms-select activeforms-select--pp",
           value: perPage,
           onChange: e => setPerPage(Number(e.target.value)),
           children: PER_PAGE_OPTIONS.map(n => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("option", {
@@ -10611,19 +10581,19 @@ function Entries({
             children: [n, "/page"]
           }, n))
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-          className: "easyforms-pager__btn",
+          className: "activeforms-pager__btn",
           disabled: page <= 1,
           onClick: () => setPage(p => Math.max(1, p - 1)),
           "aria-label": "Previous page",
           children: "\u2039"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "easyforms-pager__page",
+          className: "activeforms-pager__page",
           children: page
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-          className: "easyforms-pager__total",
+          className: "activeforms-pager__total",
           children: ["of ", pages]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-          className: "easyforms-pager__btn",
+          className: "activeforms-pager__btn",
           disabled: page >= pages,
           onClick: () => setPage(p => Math.min(pages, p + 1)),
           "aria-label": "Next page",
@@ -10688,12 +10658,12 @@ function MetaRow({
 }) {
   if (children === null || children === undefined || children === '') return null;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-meta-row",
+    className: "activeforms-meta-row",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-      className: "easyforms-meta-row__label",
+      className: "activeforms-meta-row__label",
       children: label
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-      className: "easyforms-meta-row__value",
+      className: "activeforms-meta-row__value",
       children: children
     })]
   });
@@ -10711,9 +10681,9 @@ function FieldEditor({
 }) {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "easyforms-subgrid",
+      className: "activeforms-subgrid",
       children: Object.keys(value).map(sub => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-        className: "easyforms-input",
+        className: "activeforms-input",
         placeholder: sub,
         value: value[sub] ?? '',
         onChange: e => onChange({
@@ -10725,21 +10695,21 @@ function FieldEditor({
   }
   if (Array.isArray(value)) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-      className: "easyforms-input",
+      className: "activeforms-input",
       value: value.join(', '),
       onChange: e => onChange(e.target.value.split(',').map(s => s.trim()).filter(Boolean))
     });
   }
   if (field && field.type === 'textarea') {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("textarea", {
-      className: "easyforms-textarea",
+      className: "activeforms-textarea",
       rows: 3,
       value: value ?? '',
       onChange: e => onChange(e.target.value)
     });
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-    className: "easyforms-input",
+    className: "activeforms-input",
     value: value ?? '',
     onChange: e => onChange(e.target.value)
   });
@@ -10855,11 +10825,11 @@ function EntryDetail({
     window.location.hash = `#/forms/${formId}/entries/${id}`;
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-entry-detail",
+    className: "activeforms-entry-detail",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-detail-head",
+      className: "activeforms-detail-head",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-breadcrumb",
+        className: "activeforms-breadcrumb",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
           href: backToList,
           children: "Entries"
@@ -10868,12 +10838,12 @@ function EntryDetail({
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("b", {
           children: ["Serial #", entry.serial]
         }), !!entry.is_favorite && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "easyforms-star is-on",
+          className: "activeforms-star is-on",
           title: "Favorited",
           children: "\u2605"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "easyforms-detail-nav",
+        className: "activeforms-detail-nav",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Button, {
           disabled: !neighbors.older,
           onClick: () => navTo(neighbors.older),
@@ -10890,17 +10860,17 @@ function EntryDetail({
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-detail-grid",
+      className: "activeforms-detail-grid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "easyforms-detail-card-head",
+          className: "activeforms-detail-card-head",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
             children: "Form Entry Data"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "easyforms-detail-card-head__actions",
+            className: "activeforms-detail-card-head__actions",
             children: [!editing && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
               type: "button",
-              className: "easyforms-star",
+              className: "activeforms-star",
               onClick: toggleFav,
               title: entry.is_favorite ? 'Unfavorite' : 'Favorite',
               children: entry.is_favorite ? '★' : '☆'
@@ -10927,20 +10897,20 @@ function EntryDetail({
           icon: "\uD83D\uDCCB",
           title: "No field data"
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "easyforms-entry-fields",
+          className: "activeforms-entry-fields",
           children: keys.map(key => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "easyforms-entry-field",
+            className: "activeforms-entry-field",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "easyforms-entry-field__label",
+              className: "activeforms-entry-field__label",
               children: labelFor(key)
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "easyforms-entry-field__value",
+              className: "activeforms-entry-field__value",
               children: editing ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(FieldEditor, {
                 field: fieldMap[key],
                 value: draft[key],
                 onChange: v => setField(key, v)
               }) : (0,_entriesUtils__WEBPACK_IMPORTED_MODULE_4__.formatValue)(entry.response[key]) || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                className: "easyforms-muted",
+                className: "activeforms-muted",
                 children: "\u2014 empty \u2014"
               })
             })]
@@ -10948,24 +10918,24 @@ function EntryDetail({
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "easyforms-detail-card-head",
+          className: "activeforms-detail-card-head",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
             children: "Submission Info"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "easyforms-meta-list",
+          className: "activeforms-meta-list",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(MetaRow, {
             label: "Submission ID",
             children: ["#", entry.serial]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(MetaRow, {
             label: "Status",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-              className: "easyforms-meta-status",
+              className: "activeforms-meta-status",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Badge, {
                 tone: sm.tone,
                 children: sm.label
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-                className: "easyforms-select easyforms-select--status",
+                className: "activeforms-select activeforms-select--status",
                 value: entry.status,
                 onChange: e => changeStatus(e.target.value),
                 children: STATUS_OPTIONS.map(o => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -11017,12 +10987,12 @@ function EntryDetail({
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(MetaRow, {
             label: "User Agent",
             children: meta.user_agent ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("code", {
-              className: "easyforms-ua",
+              className: "activeforms-ua",
               children: meta.user_agent
             }) : null
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "easyforms-detail-actions",
+          className: "activeforms-detail-actions",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Button, {
             variant: "danger",
             onClick: remove,
@@ -11080,7 +11050,7 @@ const STATUSES = [{
 /** Open the public, frontend-accurate preview for a form in a new tab. */
 function previewUrl(id) {
   const base = (_config__WEBPACK_IMPORTED_MODULE_2__["default"].home || '/').replace(/\/$/, '/');
-  return `${base}?easyforms_preview=${id}`;
+  return `${base}?activeforms_preview=${id}`;
 }
 
 /** Template picker modal. */
@@ -11097,13 +11067,13 @@ function TemplateModal({
   const blank = templates.find(tpl => tpl.id === 'blank');
   const rest = templates.filter(tpl => tpl.id !== 'blank' && (!q || tpl.name.toLowerCase().includes(q) || (tpl.description || '').toLowerCase().includes(q)));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-    className: "easyforms-tpl-overlay",
+    className: "activeforms-tpl-overlay",
     onClick: onClose,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "easyforms-tpl-modal",
+      className: "activeforms-tpl-modal",
       onClick: e => e.stopPropagation(),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "easyforms-tpl-modal__head",
+        className: "activeforms-tpl-modal__head",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
             children: "Create a new form"
@@ -11112,54 +11082,54 @@ function TemplateModal({
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           type: "button",
-          className: "easyforms-tpl-modal__close",
+          className: "activeforms-tpl-modal__close",
           onClick: onClose,
           "aria-label": "Close",
           children: "\u2715"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "easyforms-tpl-modal__bar",
+        className: "activeforms-tpl-modal__bar",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-          className: "easyforms-input",
+          className: "activeforms-input",
           placeholder: "Search templates\u2026",
           value: query,
           onChange: e => setQuery(e.target.value)
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "easyforms-tpl-modal__body",
+        className: "activeforms-tpl-modal__body",
         children: [blank && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
           type: "button",
-          className: "easyforms-tpl-card easyforms-tpl-card--blank",
+          className: "activeforms-tpl-card activeforms-tpl-card--blank",
           onClick: () => onCreate(blank),
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            className: "easyforms-tpl-card__icon dashicons dashicons-plus-alt2",
+            className: "activeforms-tpl-card__icon dashicons dashicons-plus-alt2",
             "aria-hidden": "true"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            className: "easyforms-tpl-card__name",
+            className: "activeforms-tpl-card__name",
             children: blank.name
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            className: "easyforms-tpl-card__desc",
+            className: "activeforms-tpl-card__desc",
             children: blank.description
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "easyforms-tpl-grid",
+          className: "activeforms-tpl-grid",
           children: rest.map(tpl => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
             type: "button",
-            className: "easyforms-tpl-card",
+            className: "activeforms-tpl-card",
             onClick: () => onCreate(tpl),
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-              className: `easyforms-tpl-card__icon dashicons dashicons-${tpl.icon || 'forms'}`,
+              className: `activeforms-tpl-card__icon dashicons dashicons-${tpl.icon || 'forms'}`,
               "aria-hidden": "true"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-              className: "easyforms-tpl-card__name",
+              className: "activeforms-tpl-card__name",
               children: tpl.name
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-              className: "easyforms-tpl-card__desc",
+              className: "activeforms-tpl-card__desc",
               children: tpl.description
             })]
           }, tpl.id))
         }), !templates.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "easyforms-empty",
+          className: "activeforms-empty",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
             children: "Loading templates\u2026"
           })
@@ -11174,7 +11144,7 @@ function Shortcode({
   id
 }) {
   const [copied, setCopied] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const code = `[easyforms id="${id}"]`;
+  const code = `[activeforms id="${id}"]`;
   const copy = () => {
     try {
       navigator.clipboard.writeText(code);
@@ -11184,7 +11154,7 @@ function Shortcode({
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
     type: "button",
-    className: "easyforms-sc",
+    className: "activeforms-sc",
     onClick: copy,
     title: "Copy shortcode",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
@@ -11193,7 +11163,7 @@ function Shortcode({
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("code", {
       children: code
     }), copied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-      className: "easyforms-sc__ok",
+      className: "activeforms-sc__ok",
       children: "Copied"
     })]
   });
@@ -11286,7 +11256,7 @@ function Forms() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `easyforms-${id}.json`;
+      a.download = `activeforms-${id}.json`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
@@ -11298,14 +11268,14 @@ function Forms() {
   const totalPages = Math.max(1, Math.ceil(total / perPage));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "easyforms-page-head",
+      className: "activeforms-page-head",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
         children: "Forms"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "easyforms-list-bar",
+      className: "activeforms-list-bar",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("select", {
-        className: "easyforms-select easyforms-select--status",
+        className: "activeforms-select activeforms-select--status",
         value: status,
         onChange: e => {
           setStatus(e.target.value);
@@ -11322,9 +11292,9 @@ function Forms() {
           className: "dashicons dashicons-plus-alt2"
         }), " Add New Form"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "easyforms-list-bar__spacer"
+        className: "activeforms-list-bar__spacer"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "easyforms-search",
+        className: "activeforms-search",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           className: "dashicons dashicons-search",
           "aria-hidden": "true"
@@ -11346,7 +11316,7 @@ function Forms() {
     }), data && items.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Card, {
       pad: false,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
-        className: "easyforms-table easyforms-forms-table",
+        className: "activeforms-table activeforms-forms-table",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
@@ -11372,15 +11342,15 @@ function Forms() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
           children: items.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-              className: "easyforms-td-id",
+              className: "activeforms-td-id",
               children: f.id
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-                className: "easyforms-form-title",
+                className: "activeforms-form-title",
                 href: `#/forms/${f.id}/edit`,
                 children: f.title
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                className: "easyforms-flinks",
+                className: "activeforms-flinks",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
                   href: `#/forms/${f.id}/edit`,
                   children: "Edit"
@@ -11409,7 +11379,7 @@ function Forms() {
                   onClick: () => remove(f.id),
                   children: "Delete"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-                  className: "easyforms-flinks__status",
+                  className: "activeforms-flinks__status",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Toggle, {
                     checked: f.status === 'published',
                     onChange: () => toggleStatus(f)
@@ -11428,7 +11398,7 @@ function Forms() {
                 textAlign: 'center'
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-                className: "easyforms-entries-link",
+                className: "activeforms-entries-link",
                 href: `#/forms/${f.id}/entries`,
                 children: f.entries ?? 0
               })
@@ -11436,12 +11406,12 @@ function Forms() {
           }, f.id))
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "easyforms-pager",
+        className: "activeforms-pager",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-          className: "easyforms-pager__total",
+          className: "activeforms-pager__total",
           children: ["Total ", total]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("select", {
-          className: "easyforms-select easyforms-select--pp",
+          className: "activeforms-select activeforms-select--pp",
           value: perPage,
           onChange: e => {
             setPerPage(Number(e.target.value));
@@ -11453,16 +11423,16 @@ function Forms() {
           }, n))
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           type: "button",
-          className: "easyforms-pager__btn",
+          className: "activeforms-pager__btn",
           disabled: page <= 1,
           onClick: () => setPage(p => p - 1),
           children: "\u2039"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-          className: "easyforms-pager__page",
+          className: "activeforms-pager__page",
           children: page
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           type: "button",
-          className: "easyforms-pager__btn",
+          className: "activeforms-pager__btn",
           disabled: page >= totalPages,
           onClick: () => setPage(p => p + 1),
           children: "\u203A"
@@ -11545,14 +11515,14 @@ function ConfigModal({
     },
     onClick: onClose,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "easyforms-card",
+      className: "activeforms-card",
       style: {
         width: 460,
         maxWidth: '92vw'
       },
       onClick: e => e.stopPropagation(),
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "easyforms-card-pad",
+        className: "activeforms-card-pad",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
           style: {
             marginTop: 0
@@ -11566,7 +11536,7 @@ function ConfigModal({
         }), (integration.globalFields || []).map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Field, {
           label: f.label,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             type: f.type === 'password' ? 'password' : 'text',
             value: values[f.key] || '',
             onChange: e => setValues({
@@ -11612,7 +11582,7 @@ function Integrations() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.PageHead, {
       title: "Integrations",
-      subtitle: "Connect EasyForms to your favorite tools"
+      subtitle: "Connect ActiveForms to your favorite tools"
     }), Object.entries(grouped).map(([cat, items]) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       style: {
         marginBottom: 22
@@ -11623,11 +11593,11 @@ function Integrations() {
         },
         children: CAT_LABELS[cat] || cat
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "easyforms-grid easyforms-grid-4",
+        className: "activeforms-grid activeforms-grid-4",
         children: items.map(i => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
           pad: false,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "easyforms-card-pad",
+            className: "activeforms-card-pad",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
               style: {
                 display: 'flex',
@@ -11637,7 +11607,7 @@ function Integrations() {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
                 children: i.title
               }), i.configured && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-                className: "easyforms-badge easyforms-badge--published",
+                className: "activeforms-badge activeforms-badge--published",
                 children: "Ready"
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -11653,15 +11623,7 @@ function Integrations() {
           })
         }, i.slug))
       })]
-    }, cat)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Card, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        style: {
-          margin: 0,
-          color: 'var(--_muted)'
-        },
-        children: "40+ more integrations (HubSpot, Salesforce, ActiveCampaign, Zapier, Google Sheets, Twilio, and more) are available in EasyForms Pro."
-      })
-    }), active && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ConfigModal, {
+    }, cat)), active && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(ConfigModal, {
       integration: active,
       onClose: () => setActive(null),
       onSaved: () => {
@@ -11836,7 +11798,7 @@ function FieldChart({
           style: {
             width: `${b.count / total * 100}%`,
             height: '100%',
-            background: 'var(--easyforms-color-primary, #4f46e5)',
+            background: 'var(--activeforms-color-primary, #4f46e5)',
             borderRadius: 999
           }
         })
@@ -11888,7 +11850,7 @@ function OverviewTab({
   }));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-grid easyforms-grid-4 easyforms-rep-stats",
+      className: "activeforms-grid activeforms-grid-4 activeforms-rep-stats",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.StatCard, {
         icon: "feedback",
         label: "Total Submissions",
@@ -11908,7 +11870,7 @@ function OverviewTab({
         value: data.cards.forms.value
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-rep-row easyforms-rep-row--2-1",
+      className: "activeforms-rep-row activeforms-rep-row--2-1",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.ChartCard, {
         title: "Overview Chart",
         right: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.Segmented, {
@@ -11933,7 +11895,7 @@ function OverviewTab({
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.Gauge, {
           percentage: data.completion.percentage
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "easyforms-rep-gauge-stats",
+          className: "activeforms-rep-gauge-stats",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "num",
@@ -11954,7 +11916,7 @@ function OverviewTab({
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-rep-row easyforms-rep-row--2",
+      className: "activeforms-rep-row activeforms-rep-row--2",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.ChartCard, {
         title: "Top Performing Forms",
         right: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.Segmented, {
@@ -12037,7 +11999,7 @@ function PaymentsTab({
   }));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-grid easyforms-grid-4 easyforms-rep-stats",
+      className: "activeforms-grid activeforms-grid-4 activeforms-rep-stats",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.StatCard, {
         icon: "money-alt",
         label: "Total Revenue",
@@ -12059,7 +12021,7 @@ function PaymentsTab({
         color: "#16a34a",
         format: money
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_reports_charts_jsx__WEBPACK_IMPORTED_MODULE_4__.ChartEmpty, {
-        children: "No payments collected in this range. Payment fields are part of the EasyForms roadmap."
+        children: "No payments collected in this range. Payment fields are part of the ActiveForms roadmap."
       })
     })]
   });
@@ -12089,7 +12051,7 @@ function SubmissionsTab({
         children: "Add dropdown, radio, checkbox, or country fields to see analytics."
       })
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "easyforms-grid easyforms-grid-2",
+      className: "activeforms-grid activeforms-grid-2",
       children: fieldReport.fields.map(f => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(FieldChart, {
         field: f
       }, f.key))
@@ -12172,9 +12134,9 @@ function Reports({
     }));
   }, [formId]);
   const filters = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "easyforms-rep-filters",
+    className: "activeforms-rep-filters",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", {
-      className: "easyforms-select",
+      className: "activeforms-select",
       value: formId,
       onChange: e => setFormId(Number(e.target.value)),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -12185,7 +12147,7 @@ function Reports({
         children: f.title
       }, f.id))]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
-      className: "easyforms-select",
+      className: "activeforms-select",
       value: preset,
       onChange: e => setPreset(e.target.value),
       children: PRESETS.map(p => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -12193,7 +12155,7 @@ function Reports({
         children: p.label
       }, p.value))
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-      className: "easyforms-rep-range",
+      className: "activeforms-rep-range",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
         className: "dashicons dashicons-calendar-alt",
         "aria-hidden": "true"
@@ -12206,7 +12168,7 @@ function Reports({
       subtitle: "A brief look at your overall form performance",
       actions: filters
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "easyforms-tabs easyforms-rep-tabs",
+      className: "activeforms-tabs activeforms-rep-tabs",
       children: TABS.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "button",
         className: tab === t.key ? 'is-active' : '',
@@ -12214,7 +12176,7 @@ function Reports({
         children: t.label
       }, t.key))
     }), data === null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_3__.Loading, {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "easyforms-rep",
+      className: "activeforms-rep",
       children: [tab === 'overview' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(OverviewTab, {
         data: data
       }), tab === 'payments' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(PaymentsTab, {
@@ -12325,28 +12287,28 @@ function Settings() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.PageHead, {
       title: "Settings",
-      subtitle: "Configure global defaults, protection, and account preferences for EasyForms."
+      subtitle: "Configure global defaults, protection, and account preferences for ActiveForms."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "easyforms-settings",
+      className: "activeforms-settings",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("nav", {
-        className: "easyforms-settings__rail",
+        className: "activeforms-settings__rail",
         "aria-label": "Settings sections",
         children: _settings_tabs_jsx__WEBPACK_IMPORTED_MODULE_5__.GROUP_ORDER.map(group => {
           const items = _settings_tabs_jsx__WEBPACK_IMPORTED_MODULE_5__.TABS.filter(t => t.group === group);
           if (!items.length) return null;
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "easyforms-settings__group",
+            className: "activeforms-settings__group",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-              className: "easyforms-settings__group-label",
+              className: "activeforms-settings__group-label",
               children: group
             }), items.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
               href: `#/settings/${t.key}`,
-              className: `easyforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`,
+              className: `activeforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`,
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
                 className: `dashicons dashicons-${t.icon}`,
                 "aria-hidden": "true"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                className: "easyforms-settings__navitem-label",
+                className: "activeforms-settings__navitem-label",
                 children: t.label
               }), t.badge && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_2__.Badge, {
                 tone: t.badge.tone,
@@ -12356,9 +12318,9 @@ function Settings() {
           }, group);
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "easyforms-settings__panel",
+        className: "activeforms-settings__panel",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "easyforms-settings__panel-head",
+          className: "activeforms-settings__panel-head",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
               children: activeTab.label
@@ -12372,7 +12334,7 @@ function Settings() {
             children: saving ? 'Saving…' : 'Save Changes'
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "easyforms-settings__sections",
+          className: "activeforms-settings__sections",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Content, {
             settings: settings,
             setField: setField,
@@ -12513,22 +12475,22 @@ function StatCard({
   const hasDelta = delta !== null && delta !== undefined;
   const up = hasDelta && delta >= 0;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-card easyforms-rep-stat",
+    className: "activeforms-card activeforms-rep-stat",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-rep-stat__icon",
+      className: "activeforms-rep-stat__icon",
       "aria-hidden": "true",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         className: `dashicons dashicons-${icon}`
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "easyforms-rep-stat__body",
+      className: "activeforms-rep-stat__body",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "easyforms-rep-stat__label",
+        className: "activeforms-rep-stat__label",
         children: label
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "easyforms-rep-stat__value",
+        className: "activeforms-rep-stat__value",
         children: [value, hasDelta && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-          className: `easyforms-rep-delta${up ? ' is-up' : ' is-down'}`,
+          className: `activeforms-rep-delta${up ? ' is-up' : ' is-down'}`,
           children: [up ? '▲' : '▼', " ", Math.abs(delta), "%"]
         })]
       })]
@@ -12544,9 +12506,9 @@ function ChartCard({
   children
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-card easyforms-rep-card",
+    className: "activeforms-card activeforms-rep-card",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "easyforms-rep-card__head",
+      className: "activeforms-rep-card__head",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
           children: title
@@ -12554,11 +12516,11 @@ function ChartCard({
           children: subtitle
         })]
       }), right && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "easyforms-rep-card__tools",
+        className: "activeforms-rep-card__tools",
         children: right
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-rep-card__body",
+      className: "activeforms-rep-card__body",
       children: children
     })]
   });
@@ -12571,7 +12533,7 @@ function Segmented({
   options
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "easyforms-rep-seg",
+    className: "activeforms-rep-seg",
     role: "group",
     children: options.map(o => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
       type: "button",
@@ -12587,7 +12549,7 @@ function ChartEmpty({
   children = 'No data available for the selected range.'
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-rep-empty",
+    className: "activeforms-rep-empty",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
       className: "dashicons dashicons-chart-area",
       "aria-hidden": "true"
@@ -12633,10 +12595,10 @@ function LineBarChart({
   const labelEvery = Math.max(1, Math.ceil(n / 8));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "easyforms-rep-legend",
+      className: "activeforms-rep-legend",
       children: series.map(s => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
         type: "button",
-        className: `easyforms-rep-legend__item${hidden[s.key] ? ' is-off' : ''}`,
+        className: `activeforms-rep-legend__item${hidden[s.key] ? ' is-off' : ''}`,
         onClick: () => setHidden(h => ({
           ...h,
           [s.key]: !h[s.key]
@@ -12649,7 +12611,7 @@ function LineBarChart({
         }), s.label]
       }, s.key))
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-      className: "easyforms-rep-svg",
+      className: "activeforms-rep-svg",
       viewBox: `0 0 ${W} ${H}`,
       role: "img",
       children: [gridVals.map((v, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("g", {
@@ -12658,12 +12620,12 @@ function LineBarChart({
           x2: W - padR,
           y1: y(v),
           y2: y(v),
-          className: "easyforms-rep-grid"
+          className: "activeforms-rep-grid"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("text", {
           x: padL - 6,
           y: y(v) + 3,
           textAnchor: "end",
-          className: "easyforms-rep-axis",
+          className: "activeforms-rep-axis",
           children: v
         })]
       }, i)), mode === 'bar' ? active.map((s, si) => {
@@ -12699,7 +12661,7 @@ function LineBarChart({
         x: colX(i),
         y: H - 8,
         textAnchor: "middle",
-        className: "easyforms-rep-axis",
+        className: "activeforms-rep-axis",
         children: shortDay(l)
       }, i))]
     })]
@@ -12728,26 +12690,26 @@ function Gauge({
   const polar = ang => `${cx + r * Math.cos(ang)},${cy - r * Math.sin(ang)}`;
   const arc = (from, to) => `M ${polar(from)} A ${r} ${r} 0 0 1 ${polar(to)}`;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
-    className: "easyforms-rep-gauge",
+    className: "activeforms-rep-gauge",
     viewBox: `0 0 ${W} ${H}`,
     role: "img",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
       d: arc(a0, 0),
-      className: "easyforms-rep-gauge__track"
+      className: "activeforms-rep-gauge__track"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
       d: arc(a0, a1),
-      className: "easyforms-rep-gauge__fill"
+      className: "activeforms-rep-gauge__fill"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("text", {
       x: cx,
       y: cy - 30,
       textAnchor: "middle",
-      className: "easyforms-rep-gauge__pct",
+      className: "activeforms-rep-gauge__pct",
       children: percentage
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("text", {
       x: cx,
       y: cy - 12,
       textAnchor: "middle",
-      className: "easyforms-rep-gauge__lbl",
+      className: "activeforms-rep-gauge__lbl",
       children: "PERCENTAGE (%)"
     })]
   });
@@ -12756,29 +12718,29 @@ function Gauge({
 /** Horizontal bars for ranked items (top forms, countries). */
 function HBars({
   items,
-  color = 'var(--easyforms-color-primary, #4f46e5)',
+  color = 'var(--activeforms-color-primary, #4f46e5)',
   format
 }) {
   const max = Math.max(1, ...items.map(i => i.value));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "easyforms-rep-hbars",
+    className: "activeforms-rep-hbars",
     children: items.map((it, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "easyforms-rep-hbar",
+      className: "activeforms-rep-hbar",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "easyforms-rep-hbar__label",
+        className: "activeforms-rep-hbar__label",
         title: it.label,
         children: it.label
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "easyforms-rep-hbar__track",
+        className: "activeforms-rep-hbar__track",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "easyforms-rep-hbar__fill",
+          className: "activeforms-rep-hbar__fill",
           style: {
             width: `${it.value / max * 100}%`,
             background: color
           }
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "easyforms-rep-hbar__val",
+        className: "activeforms-rep-hbar__val",
         children: format ? format(it.value) : it.value
       })]
     }, i))
@@ -12809,12 +12771,12 @@ function Heatmap({
     return Math.min(4, 1 + Math.floor(v / max * 3.999));
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "easyforms-rep-heat",
+    className: "activeforms-rep-heat",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "easyforms-rep-heat__corner",
+            className: "activeforms-rep-heat__corner",
             children: "Day"
           }), hours.map(h => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
             children: hourLabel(h)
@@ -12826,18 +12788,18 @@ function Heatmap({
             children: DOW[di]
           }), hours.map(h => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              className: `easyforms-rep-cell s${shade(row[h])}`,
+              className: `activeforms-rep-cell s${shade(row[h])}`,
               title: `${DOW[di]} ${hourLabel(h)} — ${row[h]}`
             })
           }, h))]
         }, di))
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "easyforms-rep-heat__legend",
+      className: "activeforms-rep-heat__legend",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         children: "Low"
       }), [0, 1, 2, 3, 4].map(s => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-        className: `easyforms-rep-cell s${s}`
+        className: `activeforms-rep-cell s${s}`
       }, s)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         children: "High"
       })]
@@ -12909,11 +12871,11 @@ function Section({
   children
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
-    className: `easyforms-set-section${locked ? ' is-locked' : ''}`,
+    className: `activeforms-set-section${locked ? ' is-locked' : ''}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("header", {
-      className: "easyforms-set-section__head",
+      className: "activeforms-set-section__head",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "easyforms-set-section__head-top",
+        className: "activeforms-set-section__head-top",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
           children: title
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Mark, {
@@ -12923,7 +12885,7 @@ function Section({
         children: description
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "easyforms-set-section__body",
+      className: "activeforms-set-section__body",
       children: children
     })]
   });
@@ -12943,22 +12905,22 @@ function Row({
   toggle = false,
   children
 }) {
-  const cls = ['easyforms-set-row', disabled && 'is-disabled', stacked && 'is-stacked'].filter(Boolean).join(' ');
+  const cls = ['activeforms-set-row', disabled && 'is-disabled', stacked && 'is-stacked'].filter(Boolean).join(' ');
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: cls,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "easyforms-set-row__label",
+      className: "activeforms-set-row__label",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-        className: "easyforms-set-row__title",
+        className: "activeforms-set-row__title",
         children: [title, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Mark, {
           badge: badge
         })]
       }), description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        className: "easyforms-set-row__desc",
+        className: "activeforms-set-row__desc",
         children: description
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: `easyforms-set-row__control${toggle ? ' easyforms-set-row__control--toggle' : ''}`,
+      className: `activeforms-set-row__control${toggle ? ' activeforms-set-row__control--toggle' : ''}`,
       children: children
     })]
   });
@@ -12970,7 +12932,7 @@ function Note({
   children
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "easyforms-set-note",
+    className: "activeforms-set-note",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
       className: `dashicons dashicons-${icon}`,
       "aria-hidden": "true"
@@ -12988,7 +12950,7 @@ function Segmented({
   disabled = false
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "easyforms-seg",
+    className: "activeforms-seg",
     role: "group",
     children: options.map(o => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
       type: "button",
@@ -13008,7 +12970,7 @@ function Select({
   disabled = false
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("select", {
-    className: "easyforms-select",
+    className: "activeforms-select",
     value: value,
     disabled: disabled,
     onChange: e => onChange(e.target.value),
@@ -13189,7 +13151,7 @@ function GeneralTab({
         badge: _parts_jsx__WEBPACK_IMPORTED_MODULE_2__.SOON,
         disabled: true,
         toggle: true,
-        description: "Unload third-party scripts on EasyForms admin screens to prevent conflicts.",
+        description: "Unload third-party scripts on ActiveForms admin screens to prevent conflicts.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_1__.Toggle, {
           checked: false,
           onChange: () => {}
@@ -13336,7 +13298,7 @@ function SpamTab({
           stacked: true,
           description: "The private key used for server-side verification. Stored securely.",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            className: "easyforms-input",
+            className: "activeforms-input",
             type: "password",
             value: r.secret_key || '',
             onChange: e => setRecaptcha('secret_key', e.target.value),
@@ -13380,7 +13342,7 @@ function PrivacyTab({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Section, {
       title: "Data Collection",
-      description: "Control what EasyForms stores alongside each submission.",
+      description: "Control what ActiveForms stores alongside each submission.",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Row, {
         title: "Disable IP Logging",
         badge: _parts_jsx__WEBPACK_IMPORTED_MODULE_2__.SOON,
@@ -13417,14 +13379,14 @@ function PrivacyTab({
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Section, {
       title: "Data Cleanup",
-      description: "What happens to your forms and entries when EasyForms is removed.",
+      description: "What happens to your forms and entries when ActiveForms is removed.",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Note, {
         icon: "warning",
         children: "Deleting all data is permanent. Forms, entries, and settings cannot be recovered after uninstall."
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Row, {
         title: "Remove All Data on Uninstall",
         toggle: true,
-        description: "Drop all EasyForms tables and options when the plugin is deleted.",
+        description: "Drop all ActiveForms tables and options when the plugin is deleted.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_1__.Toggle, {
           checked: !!settings.remove_data_on_uninstall,
           onChange: v => setField('remove_data_on_uninstall', v)
@@ -13510,10 +13472,10 @@ function EmailTab() {
         disabled: true,
         description: "Appended to the bottom of every notification email.",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
-          className: "easyforms-textarea",
+          className: "activeforms-textarea",
           rows: 3,
           disabled: true,
-          placeholder: "Powered by EasyForms"
+          placeholder: "Powered by ActiveForms"
         })
       })
     })]
@@ -13527,7 +13489,7 @@ function PaymentsTab() {
     description: "Collect payments directly through your forms. This area unlocks once the Payments module ships.",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Note, {
       icon: "cart",
-      children: "Stripe and PayPal gateways, currency selection, and per-form pricing are on the EasyForms roadmap."
+      children: "Stripe and PayPal gateways, currency selection, and per-form pricing are on the ActiveForms roadmap."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Row, {
       title: "Default Currency",
       badge: _parts_jsx__WEBPACK_IMPORTED_MODULE_2__.SOON,
@@ -13562,7 +13524,7 @@ function PermissionsTab() {
     description: "Choose which user roles can manage forms, view entries, and change settings.",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Note, {
       icon: "groups",
-      children: "Granular role-based access control is coming. For now, EasyForms is available to administrators."
+      children: "Granular role-based access control is coming. For now, ActiveForms is available to administrators."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Row, {
       title: "Manage Forms",
       badge: _parts_jsx__WEBPACK_IMPORTED_MODULE_2__.SOON,
@@ -13597,16 +13559,16 @@ function LicenseTab() {
     title: "License & Add-ons",
     badge: _parts_jsx__WEBPACK_IMPORTED_MODULE_2__.PRO,
     locked: true,
-    description: "Activate EasyForms Pro to unlock premium fields, integrations, and priority support.",
+    description: "Activate ActiveForms Pro to unlock premium fields, integrations, and priority support.",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Note, {
       icon: "admin-network",
-      children: "Enter your license key here once EasyForms Pro is installed to receive automatic updates."
+      children: "Enter your license key here once ActiveForms Pro is installed to receive automatic updates."
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_parts_jsx__WEBPACK_IMPORTED_MODULE_2__.Row, {
       title: "License Key",
       badge: _parts_jsx__WEBPACK_IMPORTED_MODULE_2__.PRO,
       stacked: true,
       disabled: true,
-      description: "Found in your WPDeveloper account dashboard.",
+      description: "Found in your PluginShift account dashboard.",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_ui__WEBPACK_IMPORTED_MODULE_1__.Text, {
         value: "",
         disabled: true,
@@ -48604,7 +48566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _theme_builder_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme/builder.scss */ "./src/theme/builder.scss");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /**
- * EasyForms admin entry point.
+ * ActiveForms admin entry point.
  *
  * Mounts the React app into the node printed by Admin\Menu::render_app().
  */
@@ -48614,7 +48576,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const mount = document.getElementById('easyforms-app');
+const mount = document.getElementById('activeforms-app');
 if (mount) {
   mount.innerHTML = '';
   (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(mount).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}));
@@ -48623,4 +48585,4 @@ if (mount) {
 
 /******/ })()
 ;
-//# sourceMappingURL=easyforms.js.map
+//# sourceMappingURL=activeforms.js.map

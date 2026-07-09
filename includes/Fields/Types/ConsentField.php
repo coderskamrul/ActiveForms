@@ -2,13 +2,13 @@
 /**
  * Consent fields: Terms & Conditions and GDPR agreement.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,8 +49,8 @@ class ConsentField extends AbstractField {
 		$schema             = parent::default_schema();
 		$schema['required'] = true;
 		$schema['content']  = 'terms' === $this->type
-			? __( 'I have read and agree to the Terms & Conditions.', 'easyforms' )
-			: __( 'I consent to having this website store my submitted information.', 'easyforms' );
+			? __( 'I have read and agree to the Terms & Conditions.', 'activeforms' )
+			: __( 'I consent to having this website store my submitted information.', 'activeforms' );
 		return $schema;
 	}
 
@@ -66,7 +66,7 @@ class ConsentField extends AbstractField {
 	 */
 	public function validate( $value, $field ) {
 		if ( $this->is_required( $field ) && empty( $value ) ) {
-			return __( 'You must accept to continue.', 'easyforms' );
+			return __( 'You must accept to continue.', 'activeforms' );
 		}
 		return true;
 	}
@@ -79,9 +79,9 @@ class ConsentField extends AbstractField {
 		$content = Arr::get( $field, 'content', '' );
 		$checked = $value ? ' checked' : '';
 
-		$control = '<label class="easyforms-consent" for="easyforms-' . $key . '">';
+		$control = '<label class="activeforms-consent" for="activeforms-' . $key . '">';
 		$control .= sprintf(
-			'<input type="checkbox" id="easyforms-%1$s" name="%1$s" value="1"%2$s%3$s /> ',
+			'<input type="checkbox" id="activeforms-%1$s" name="%1$s" value="1"%2$s%3$s /> ',
 			$key,
 			$this->is_required( $field ) ? ' required' : '',
 			$checked

@@ -2,13 +2,13 @@
 /**
  * Global settings REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
-use EasyForms\Core\Config;
-use EasyForms\Core\Settings;
+use ActiveForms\Core\Config;
+use ActiveForms\Core\Settings;
 
 defined( 'ABSPATH' ) || exit;
 

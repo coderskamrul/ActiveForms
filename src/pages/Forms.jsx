@@ -19,7 +19,7 @@ const STATUSES = [
 /** Open the public, frontend-accurate preview for a form in a new tab. */
 function previewUrl(id) {
   const base = (config.home || '/').replace(/\/$/, '/');
-  return `${base}?easyforms_preview=${id}`;
+  return `${base}?activeforms_preview=${id}`;
 }
 
 /** Template picker modal. */
@@ -36,36 +36,36 @@ function TemplateModal({ onClose, onCreate }) {
   const rest = templates.filter((tpl) => tpl.id !== 'blank' && (!q || tpl.name.toLowerCase().includes(q) || (tpl.description || '').toLowerCase().includes(q)));
 
   return (
-    <div className="easyforms-tpl-overlay" onClick={onClose}>
-      <div className="easyforms-tpl-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="easyforms-tpl-modal__head">
+    <div className="activeforms-tpl-overlay" onClick={onClose}>
+      <div className="activeforms-tpl-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="activeforms-tpl-modal__head">
           <div>
             <h2>Create a new form</h2>
             <p>Start from scratch or pick a ready-made template.</p>
           </div>
-          <button type="button" className="easyforms-tpl-modal__close" onClick={onClose} aria-label="Close">✕</button>
+          <button type="button" className="activeforms-tpl-modal__close" onClick={onClose} aria-label="Close">✕</button>
         </div>
-        <div className="easyforms-tpl-modal__bar">
-          <input className="easyforms-input" placeholder="Search templates…" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <div className="activeforms-tpl-modal__bar">
+          <input className="activeforms-input" placeholder="Search templates…" value={query} onChange={(e) => setQuery(e.target.value)} />
         </div>
-        <div className="easyforms-tpl-modal__body">
+        <div className="activeforms-tpl-modal__body">
           {blank && (
-            <button type="button" className="easyforms-tpl-card easyforms-tpl-card--blank" onClick={() => onCreate(blank)}>
-              <span className="easyforms-tpl-card__icon dashicons dashicons-plus-alt2" aria-hidden="true" />
-              <span className="easyforms-tpl-card__name">{blank.name}</span>
-              <span className="easyforms-tpl-card__desc">{blank.description}</span>
+            <button type="button" className="activeforms-tpl-card activeforms-tpl-card--blank" onClick={() => onCreate(blank)}>
+              <span className="activeforms-tpl-card__icon dashicons dashicons-plus-alt2" aria-hidden="true" />
+              <span className="activeforms-tpl-card__name">{blank.name}</span>
+              <span className="activeforms-tpl-card__desc">{blank.description}</span>
             </button>
           )}
-          <div className="easyforms-tpl-grid">
+          <div className="activeforms-tpl-grid">
             {rest.map((tpl) => (
-              <button key={tpl.id} type="button" className="easyforms-tpl-card" onClick={() => onCreate(tpl)}>
-                <span className={`easyforms-tpl-card__icon dashicons dashicons-${tpl.icon || 'forms'}`} aria-hidden="true" />
-                <span className="easyforms-tpl-card__name">{tpl.name}</span>
-                <span className="easyforms-tpl-card__desc">{tpl.description}</span>
+              <button key={tpl.id} type="button" className="activeforms-tpl-card" onClick={() => onCreate(tpl)}>
+                <span className={`activeforms-tpl-card__icon dashicons dashicons-${tpl.icon || 'forms'}`} aria-hidden="true" />
+                <span className="activeforms-tpl-card__name">{tpl.name}</span>
+                <span className="activeforms-tpl-card__desc">{tpl.description}</span>
               </button>
             ))}
           </div>
-          {!templates.length && <div className="easyforms-empty"><p>Loading templates…</p></div>}
+          {!templates.length && <div className="activeforms-empty"><p>Loading templates…</p></div>}
         </div>
       </div>
     </div>
@@ -75,15 +75,15 @@ function TemplateModal({ onClose, onCreate }) {
 /** A copy-to-clipboard shortcode chip. */
 function Shortcode({ id }) {
   const [copied, setCopied] = useState(false);
-  const code = `[easyforms id="${id}"]`;
+  const code = `[activeforms id="${id}"]`;
   const copy = () => {
     try { navigator.clipboard.writeText(code); setCopied(true); setTimeout(() => setCopied(false), 1300); } catch (e) { /* noop */ }
   };
   return (
-    <button type="button" className="easyforms-sc" onClick={copy} title="Copy shortcode">
+    <button type="button" className="activeforms-sc" onClick={copy} title="Copy shortcode">
       <span className="dashicons dashicons-shortcode" aria-hidden="true" />
       <code>{code}</code>
-      {copied && <span className="easyforms-sc__ok">Copied</span>}
+      {copied && <span className="activeforms-sc__ok">Copied</span>}
     </button>
   );
 }
@@ -141,7 +141,7 @@ export default function Forms() {
       const blob = new Blob([JSON.stringify(form, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = `easyforms-${id}.json`; a.click();
+      a.href = url; a.download = `activeforms-${id}.json`; a.click();
       URL.revokeObjectURL(url);
     } catch (e) { notify(e.message, 'error'); }
   };
@@ -152,17 +152,17 @@ export default function Forms() {
 
   return (
     <div>
-      <div className="easyforms-page-head">
+      <div className="activeforms-page-head">
         <h1>Forms</h1>
       </div>
 
-      <div className="easyforms-list-bar">
-        <select className="easyforms-select easyforms-select--status" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
+      <div className="activeforms-list-bar">
+        <select className="activeforms-select activeforms-select--status" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
           {STATUSES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
         </select>
         <Button variant="primary" onClick={() => setShowTpl(true)}><span className="dashicons dashicons-plus-alt2" /> Add New Form</Button>
-        <div className="easyforms-list-bar__spacer" />
-        <div className="easyforms-search">
+        <div className="activeforms-list-bar__spacer" />
+        <div className="activeforms-search">
           <span className="dashicons dashicons-search" aria-hidden="true" />
           <input placeholder="Search Forms" value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
         </div>
@@ -176,7 +176,7 @@ export default function Forms() {
 
       {data && items.length > 0 && (
         <Card pad={false}>
-          <table className="easyforms-table easyforms-forms-table">
+          <table className="activeforms-table activeforms-forms-table">
             <thead>
               <tr>
                 <th style={{ width: 60 }}>ID</th>
@@ -188,10 +188,10 @@ export default function Forms() {
             <tbody>
               {items.map((f) => (
                 <tr key={f.id}>
-                  <td className="easyforms-td-id">{f.id}</td>
+                  <td className="activeforms-td-id">{f.id}</td>
                   <td>
-                    <a className="easyforms-form-title" href={`#/forms/${f.id}/edit`}>{f.title}</a>
-                    <div className="easyforms-flinks">
+                    <a className="activeforms-form-title" href={`#/forms/${f.id}/edit`}>{f.title}</a>
+                    <div className="activeforms-flinks">
                       <a href={`#/forms/${f.id}/edit`}>Edit</a>
                       <a href={`#/forms/${f.id}/edit`}>Settings</a>
                       <a href={`#/forms/${f.id}/entries`}>Entries</a>
@@ -199,7 +199,7 @@ export default function Forms() {
                       <button type="button" onClick={() => duplicate(f.id)}>Duplicate</button>
                       <button type="button" onClick={() => exportForm(f.id)}>Export</button>
                       <button type="button" className="is-danger" onClick={() => remove(f.id)}>Delete</button>
-                      <span className="easyforms-flinks__status">
+                      <span className="activeforms-flinks__status">
                         <Toggle checked={f.status === 'published'} onChange={() => toggleStatus(f)} />
                         <em className={f.status === 'published' ? 'is-active' : ''}>{f.status === 'published' ? 'Active' : 'Draft'}</em>
                       </span>
@@ -207,21 +207,21 @@ export default function Forms() {
                   </td>
                   <td><Shortcode id={f.id} /></td>
                   <td style={{ textAlign: 'center' }}>
-                    <a className="easyforms-entries-link" href={`#/forms/${f.id}/entries`}>{f.entries ?? 0}</a>
+                    <a className="activeforms-entries-link" href={`#/forms/${f.id}/entries`}>{f.entries ?? 0}</a>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div className="easyforms-pager">
-            <span className="easyforms-pager__total">Total {total}</span>
-            <select className="easyforms-select easyforms-select--pp" value={perPage} onChange={(e) => { setPerPage(Number(e.target.value)); setPage(1); }}>
+          <div className="activeforms-pager">
+            <span className="activeforms-pager__total">Total {total}</span>
+            <select className="activeforms-select activeforms-select--pp" value={perPage} onChange={(e) => { setPerPage(Number(e.target.value)); setPage(1); }}>
               {[10, 20, 50].map((n) => <option key={n} value={n}>{n}/page</option>)}
             </select>
-            <button type="button" className="easyforms-pager__btn" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>‹</button>
-            <span className="easyforms-pager__page">{page}</span>
-            <button type="button" className="easyforms-pager__btn" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>›</button>
+            <button type="button" className="activeforms-pager__btn" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>‹</button>
+            <span className="activeforms-pager__page">{page}</span>
+            <button type="button" className="activeforms-pager__btn" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>›</button>
           </div>
         </Card>
       )}

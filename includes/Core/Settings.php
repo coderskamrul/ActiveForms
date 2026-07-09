@@ -8,12 +8,12 @@
  * goes through here, which keeps the REST controller free to evolve the option
  * shape without hunting down every reader.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
-use EasyForms\Support\Arr;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 

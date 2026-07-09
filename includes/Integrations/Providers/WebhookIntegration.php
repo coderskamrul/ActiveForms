@@ -2,12 +2,12 @@
 /**
  * Generic webhook integration.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Integrations\Providers;
+namespace ActiveForms\Integrations\Providers;
 
-use EasyForms\Integrations\AbstractIntegration;
+use ActiveForms\Integrations\AbstractIntegration;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ class WebhookIntegration extends AbstractIntegration {
 	 */
 	public function __construct() {
 		$this->slug     = 'webhook';
-		$this->title    = __( 'Webhook', 'easyforms' );
+		$this->title    = __( 'Webhook', 'activeforms' );
 		$this->category = 'automation';
 	}
 
@@ -37,11 +37,11 @@ class WebhookIntegration extends AbstractIntegration {
 	 */
 	public function feed_settings_fields() {
 		return array(
-			array( 'key' => 'url', 'type' => 'url', 'label' => __( 'Request URL', 'easyforms' ), 'required' => true ),
+			array( 'key' => 'url', 'type' => 'url', 'label' => __( 'Request URL', 'activeforms' ), 'required' => true ),
 			array(
 				'key'     => 'method',
 				'type'    => 'select',
-				'label'   => __( 'Method', 'easyforms' ),
+				'label'   => __( 'Method', 'activeforms' ),
 				'options' => array(
 					array( 'value' => 'POST', 'label' => 'POST' ),
 					array( 'value' => 'PUT', 'label' => 'PUT' ),
@@ -63,7 +63,7 @@ class WebhookIntegration extends AbstractIntegration {
 	public function process( $feed, $entry, $form ) {
 		$url = isset( $feed['url'] ) ? esc_url_raw( $feed['url'] ) : '';
 		if ( ! $url ) {
-			return new \WP_Error( 'easyforms_webhook_url', __( 'Webhook URL is missing.', 'easyforms' ) );
+			return new \WP_Error( 'activeforms_webhook_url', __( 'Webhook URL is missing.', 'activeforms' ) );
 		}
 
 		$method = isset( $feed['method'] ) && 'PUT' === $feed['method'] ? 'PUT' : 'POST';

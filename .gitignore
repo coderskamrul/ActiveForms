@@ -1,5 +1,5 @@
 node_modules/
-easyforms.zip
+activeforms.zip
 *.log
 .DS_Store
 assets/dist/*.LICENSE.txt

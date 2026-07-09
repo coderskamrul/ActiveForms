@@ -2,10 +2,10 @@
 /**
  * Minimal service container.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 

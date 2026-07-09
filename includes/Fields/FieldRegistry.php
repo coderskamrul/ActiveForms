@@ -2,26 +2,26 @@
 /**
  * Field type registry.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields;
+namespace ActiveForms\Fields;
 
-use EasyForms\Fields\Types\InputField;
-use EasyForms\Fields\Types\TextareaField;
-use EasyForms\Fields\Types\ChoiceField;
-use EasyForms\Fields\Types\NameField;
-use EasyForms\Fields\Types\AddressField;
-use EasyForms\Fields\Types\DateTimeField;
-use EasyForms\Fields\Types\CountryField;
-use EasyForms\Fields\Types\ConsentField;
-use EasyForms\Fields\Types\LayoutField;
+use ActiveForms\Fields\Types\InputField;
+use ActiveForms\Fields\Types\TextareaField;
+use ActiveForms\Fields\Types\ChoiceField;
+use ActiveForms\Fields\Types\NameField;
+use ActiveForms\Fields\Types\AddressField;
+use ActiveForms\Fields\Types\DateTimeField;
+use ActiveForms\Fields\Types\CountryField;
+use ActiveForms\Fields\Types\ConsentField;
+use ActiveForms\Fields\Types\LayoutField;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Central registry of all field types. Core fields register here; the Pro
- * add-on appends advanced fields via the easyforms/register_fields action.
+ * add-on appends advanced fields via the activeforms/register_fields action.
  */
 class FieldRegistry {
 

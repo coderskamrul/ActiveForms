@@ -1,8 +1,8 @@
 /**
- * EasyForms webpack build.
+ * ActiveForms webpack build.
  *
  * Two entries:
- *   - dist/easyforms   → the React admin app  (assets/dist/easyforms.{js,css})
+ *   - dist/activeforms   → the React admin app  (assets/dist/activeforms.{js,css})
  *   - frontend/form    → the public form JS+SCSS (assets/frontend/form.{js,css})
  *
  * SCSS is compiled with sass and extracted to standalone CSS files that the PHP
@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      'dist/easyforms': path.resolve(__dirname, 'src/main.jsx'),
+      'dist/activeforms': path.resolve(__dirname, 'src/main.jsx'),
       'frontend/form': path.resolve(__dirname, 'src/frontend/form.js'),
     },
     output: {

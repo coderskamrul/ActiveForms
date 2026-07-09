@@ -2,14 +2,14 @@
 /**
  * Country dropdown field.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
-use EasyForms\Support\Countries;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
+use ActiveForms\Support\Countries;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,10 +58,10 @@ class CountryField extends AbstractField {
 	 */
 	public function render( $field, $value = null ) {
 		$value      = null === $value ? Arr::get( $field, 'default', '' ) : $value;
-		$searchable = ! empty( $field['searchable'] ) ? ' data-easyforms-searchable="1"' : '';
+		$searchable = ! empty( $field['searchable'] ) ? ' data-activeforms-searchable="1"' : '';
 
-		$control  = '<select class="easyforms-input easyforms-select easyforms-country"' . $this->input_attrs( $field ) . $searchable . '>';
-		$control .= '<option value="">' . esc_html__( '— Select Country —', 'easyforms' ) . '</option>';
+		$control  = '<select class="activeforms-input activeforms-select activeforms-country"' . $this->input_attrs( $field ) . $searchable . '>';
+		$control .= '<option value="">' . esc_html__( '— Select Country —', 'activeforms' ) . '</option>';
 		foreach ( Countries::resolve( $field ) as $code => $label ) {
 			$control .= sprintf(
 				'<option value="%1$s"%2$s>%3$s</option>',

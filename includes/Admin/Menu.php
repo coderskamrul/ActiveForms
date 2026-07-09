@@ -2,17 +2,17 @@
 /**
  * Admin menu registration.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Admin;
+namespace ActiveForms\Admin;
 
-use EasyForms\Core\Config;
+use ActiveForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the top-level EasyForms menu. All sub-screens are routed
+ * Registers the top-level ActiveForms menu. All sub-screens are routed
  * client-side by the React app, so each menu item renders the same mount node
  * with a different default route via the URL hash.
  */
@@ -37,8 +37,8 @@ class Menu {
 		$slug = Config::MENU_SLUG;
 
 		add_menu_page(
-			__( 'EasyForms', 'easyforms' ),
-			__( 'EasyForms', 'easyforms' ),
+			__( 'ActiveForms', 'activeforms' ),
+			__( 'ActiveForms', 'activeforms' ),
 			$cap,
 			$slug,
 			array( $this, 'render_app' ),
@@ -47,13 +47,13 @@ class Menu {
 		);
 
 		$subpages = array(
-			''            => __( 'Dashboard', 'easyforms' ),
-			'#/forms'     => __( 'All Forms', 'easyforms' ),
-			'#/forms/new' => __( 'Add New', 'easyforms' ),
-			'#/entries'   => __( 'Entries', 'easyforms' ),
-			'#/reports'   => __( 'Reports', 'easyforms' ),
-			'#/integrations' => __( 'Integrations', 'easyforms' ),
-			'#/settings'  => __( 'Settings', 'easyforms' ),
+			''            => __( 'Dashboard', 'activeforms' ),
+			'#/forms'     => __( 'All Forms', 'activeforms' ),
+			'#/forms/new' => __( 'Add New', 'activeforms' ),
+			'#/entries'   => __( 'Entries', 'activeforms' ),
+			'#/reports'   => __( 'Reports', 'activeforms' ),
+			'#/integrations' => __( 'Integrations', 'activeforms' ),
+			'#/settings'  => __( 'Settings', 'activeforms' ),
 		);
 
 		foreach ( $subpages as $hash => $label ) {
@@ -74,8 +74,8 @@ class Menu {
 	 * @return void
 	 */
 	public function render_app() {
-		echo '<div class="wrap easyforms-wrap"><div id="easyforms-app" data-theme="light">';
-		echo '<div class="easyforms-loading"><span class="spinner is-active"></span> ' . esc_html__( 'Loading EasyForms…', 'easyforms' ) . '</div>';
+		echo '<div class="wrap activeforms-wrap"><div id="activeforms-app" data-theme="light">';
+		echo '<div class="activeforms-loading"><span class="spinner is-active"></span> ' . esc_html__( 'Loading ActiveForms…', 'activeforms' ) . '</div>';
 		echo '</div></div>';
 	}
 }

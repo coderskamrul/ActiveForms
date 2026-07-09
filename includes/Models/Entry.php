@@ -2,12 +2,12 @@
 /**
  * Entry (submission) data-mapper model.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Models;
+namespace ActiveForms\Models;
 
-use EasyForms\Core\Config;
+use ActiveForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 

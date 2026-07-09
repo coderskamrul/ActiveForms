@@ -2,13 +2,13 @@
 /**
  * Mailchimp email-marketing integration.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Integrations\Providers;
+namespace ActiveForms\Integrations\Providers;
 
-use EasyForms\Integrations\AbstractIntegration;
-use EasyForms\Support\Arr;
+use ActiveForms\Integrations\AbstractIntegration;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class MailchimpIntegration extends AbstractIntegration {
 	 */
 	public function __construct() {
 		$this->slug     = 'mailchimp';
-		$this->title    = __( 'Mailchimp', 'easyforms' );
+		$this->title    = __( 'Mailchimp', 'activeforms' );
 		$this->category = 'email_marketing';
 	}
 
@@ -31,7 +31,7 @@ class MailchimpIntegration extends AbstractIntegration {
 	 */
 	public function global_settings_fields() {
 		return array(
-			array( 'key' => 'api_key', 'type' => 'password', 'label' => __( 'API Key', 'easyforms' ), 'required' => true ),
+			array( 'key' => 'api_key', 'type' => 'password', 'label' => __( 'API Key', 'activeforms' ), 'required' => true ),
 		);
 	}
 
@@ -40,8 +40,8 @@ class MailchimpIntegration extends AbstractIntegration {
 	 */
 	public function feed_settings_fields() {
 		return array(
-			array( 'key' => 'list_id', 'type' => 'text', 'label' => __( 'Audience / List ID', 'easyforms' ), 'required' => true ),
-			array( 'key' => 'email_field', 'type' => 'field_map', 'label' => __( 'Email field', 'easyforms' ), 'required' => true ),
+			array( 'key' => 'list_id', 'type' => 'text', 'label' => __( 'Audience / List ID', 'activeforms' ), 'required' => true ),
+			array( 'key' => 'email_field', 'type' => 'field_map', 'label' => __( 'Email field', 'activeforms' ), 'required' => true ),
 		);
 	}
 
@@ -60,7 +60,7 @@ class MailchimpIntegration extends AbstractIntegration {
 		$settings = $this->settings();
 		$api_key  = isset( $settings['api_key'] ) ? $settings['api_key'] : '';
 		if ( ! $api_key || false === strpos( $api_key, '-' ) ) {
-			return new \WP_Error( 'easyforms_mc_key', __( 'Mailchimp API key is not configured.', 'easyforms' ) );
+			return new \WP_Error( 'activeforms_mc_key', __( 'Mailchimp API key is not configured.', 'activeforms' ) );
 		}
 
 		$dc       = substr( strrchr( $api_key, '-' ), 1 );
@@ -74,7 +74,7 @@ class MailchimpIntegration extends AbstractIntegration {
 		}
 
 		if ( ! is_email( $email ) || ! $list_id ) {
-			return new \WP_Error( 'easyforms_mc_email', __( 'A valid email and list ID are required.', 'easyforms' ) );
+			return new \WP_Error( 'activeforms_mc_email', __( 'A valid email and list ID are required.', 'activeforms' ) );
 		}
 
 		$url = sprintf( 'https://%s.api.mailchimp.com/3.0/lists/%s/members/%s', $dc, $list_id, md5( strtolower( $email ) ) );

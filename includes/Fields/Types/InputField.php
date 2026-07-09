@@ -2,14 +2,14 @@
 /**
  * Generic single-input field (text, email, url, number, password, hidden, mask).
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Core\Settings;
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
+use ActiveForms\Core\Settings;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -81,24 +81,24 @@ class InputField extends AbstractField {
 		}
 
 		if ( 'email' === $this->type && ! is_email( $value ) ) {
-			return Settings::message( 'invalid_email', __( 'Please enter a valid email address.', 'easyforms' ) );
+			return Settings::message( 'invalid_email', __( 'Please enter a valid email address.', 'activeforms' ) );
 		}
 		if ( 'url' === $this->type && ! wp_http_validate_url( $value ) ) {
-			return Settings::message( 'invalid_url', __( 'Please enter a valid URL.', 'easyforms' ) );
+			return Settings::message( 'invalid_url', __( 'Please enter a valid URL.', 'activeforms' ) );
 		}
 		if ( 'number' === $this->type ) {
 			if ( ! is_numeric( $value ) ) {
-				return Settings::message( 'invalid_number', __( 'Please enter a valid number.', 'easyforms' ) );
+				return Settings::message( 'invalid_number', __( 'Please enter a valid number.', 'activeforms' ) );
 			}
 			$min = Arr::get( $field, 'min', '' );
 			$max = Arr::get( $field, 'max', '' );
 			if ( '' !== $min && $value < $min ) {
 				/* translators: %s: minimum value. */
-				return sprintf( __( 'Value must be at least %s.', 'easyforms' ), $min );
+				return sprintf( __( 'Value must be at least %s.', 'activeforms' ), $min );
 			}
 			if ( '' !== $max && $value > $max ) {
 				/* translators: %s: maximum value. */
-				return sprintf( __( 'Value must be at most %s.', 'easyforms' ), $max );
+				return sprintf( __( 'Value must be at most %s.', 'activeforms' ), $max );
 			}
 		}
 
@@ -122,12 +122,12 @@ class InputField extends AbstractField {
 		if ( 'masked_text' === $this->type ) {
 			$mask = Arr::get( $field, 'mask', '' );
 			if ( '' !== $mask ) {
-				$extra .= ' data-easyforms-mask="' . esc_attr( $mask ) . '"';
+				$extra .= ' data-activeforms-mask="' . esc_attr( $mask ) . '"';
 			}
 		}
 
 		$control = sprintf(
-			'<input type="%1$s" class="easyforms-input" value="%2$s"%3$s%4$s />',
+			'<input type="%1$s" class="activeforms-input" value="%2$s"%3$s%4$s />',
 			esc_attr( $this->input_type ),
 			esc_attr( $value ),
 			$this->input_attrs( $field ),

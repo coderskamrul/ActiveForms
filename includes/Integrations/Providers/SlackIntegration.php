@@ -2,13 +2,13 @@
 /**
  * Slack notification integration.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Integrations\Providers;
+namespace ActiveForms\Integrations\Providers;
 
-use EasyForms\Integrations\AbstractIntegration;
-use EasyForms\Support\Arr;
+use ActiveForms\Integrations\AbstractIntegration;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class SlackIntegration extends AbstractIntegration {
 	 */
 	public function __construct() {
 		$this->slug     = 'slack';
-		$this->title    = __( 'Slack', 'easyforms' );
+		$this->title    = __( 'Slack', 'activeforms' );
 		$this->category = 'notification';
 	}
 
@@ -38,7 +38,7 @@ class SlackIntegration extends AbstractIntegration {
 	 */
 	public function feed_settings_fields() {
 		return array(
-			array( 'key' => 'webhook_url', 'type' => 'url', 'label' => __( 'Slack Webhook URL', 'easyforms' ), 'required' => true ),
+			array( 'key' => 'webhook_url', 'type' => 'url', 'label' => __( 'Slack Webhook URL', 'activeforms' ), 'required' => true ),
 		);
 	}
 
@@ -55,10 +55,10 @@ class SlackIntegration extends AbstractIntegration {
 	public function process( $feed, $entry, $form ) {
 		$url = isset( $feed['webhook_url'] ) ? esc_url_raw( $feed['webhook_url'] ) : '';
 		if ( ! $url ) {
-			return new \WP_Error( 'easyforms_slack_url', __( 'Slack webhook URL is missing.', 'easyforms' ) );
+			return new \WP_Error( 'activeforms_slack_url', __( 'Slack webhook URL is missing.', 'activeforms' ) );
 		}
 
-		$lines = array( '*' . Arr::get( $form, 'title', __( 'New submission', 'easyforms' ) ) . '*' );
+		$lines = array( '*' . Arr::get( $form, 'title', __( 'New submission', 'activeforms' ) ) . '*' );
 		foreach ( (array) Arr::get( $entry, 'response', array() ) as $key => $value ) {
 			$value   = is_array( $value ) ? implode( ', ', $value ) : $value;
 			$lines[] = $key . ': ' . wp_strip_all_tags( (string) $value );

@@ -2,13 +2,13 @@
 /**
  * Date / time field.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,10 +61,10 @@ class DateTimeField extends AbstractField {
 		$icon     = 'time' === $mode ? $this->clock_svg() : $this->calendar_svg();
 
 		$control = sprintf(
-			'<div class="easyforms-dp-field">'
-				. '<input type="text" class="easyforms-input easyforms-datepicker" id="easyforms-%1$s" name="%1$s" value="%2$s" placeholder="%3$s" autocomplete="off" readonly'
-				. ' data-easyforms-datepicker data-ef-mode="%4$s" data-ef-format="%5$s"%6$s />'
-				. '<span class="easyforms-dp-icon" aria-hidden="true">%7$s</span>'
+			'<div class="activeforms-dp-field">'
+				. '<input type="text" class="activeforms-input activeforms-datepicker" id="activeforms-%1$s" name="%1$s" value="%2$s" placeholder="%3$s" autocomplete="off" readonly'
+				. ' data-activeforms-datepicker data-ef-mode="%4$s" data-ef-format="%5$s"%6$s />'
+				. '<span class="activeforms-dp-icon" aria-hidden="true">%7$s</span>'
 				. '</div>',
 			$key,
 			esc_attr( $value ),
@@ -118,14 +118,14 @@ class DateTimeField extends AbstractField {
 	private function default_placeholder( $mode ) {
 		switch ( $mode ) {
 			case 'time':
-				return __( 'Select a time', 'easyforms' );
+				return __( 'Select a time', 'activeforms' );
 			case 'datetime':
-				return __( 'Select date & time', 'easyforms' );
+				return __( 'Select date & time', 'activeforms' );
 			case 'range':
-				return __( 'Select a date range', 'easyforms' );
+				return __( 'Select a date range', 'activeforms' );
 			case 'date':
 			default:
-				return __( 'Select a date', 'easyforms' );
+				return __( 'Select a date', 'activeforms' );
 		}
 	}
 

@@ -1,16 +1,16 @@
 <?php
 /**
- * [easyforms] shortcode + frontend asset loading.
+ * [activeforms] shortcode + frontend asset loading.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Frontend;
+namespace ActiveForms\Frontend;
 
-use EasyForms\Core\Container;
-use EasyForms\Core\Config;
-use EasyForms\Models\Form;
-use EasyForms\Support\Arr;
+use ActiveForms\Core\Container;
+use ActiveForms\Core\Config;
+use ActiveForms\Models\Form;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,7 +49,7 @@ class Shortcode {
 	 * @return void
 	 */
 	public function register() {
-		add_shortcode( 'easyforms', array( $this, 'render' ) );
+		add_shortcode( 'activeforms', array( $this, 'render' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 	}
 
@@ -59,13 +59,13 @@ class Shortcode {
 	 * @return void
 	 */
 	public function register_assets() {
-		wp_register_style( 'easyforms-frontend', EASYFORMS_URL . 'assets/frontend/form.css', array(), Config::asset_version( 'assets/frontend/form.css' ) );
-		wp_register_script( 'easyforms-frontend', EASYFORMS_URL . 'assets/frontend/form.js', array(), Config::asset_version( 'assets/frontend/form.js' ), true );
+		wp_register_style( 'activeforms-frontend', ACTIVEFORMS_URL . 'assets/frontend/form.css', array(), Config::asset_version( 'assets/frontend/form.css' ) );
+		wp_register_script( 'activeforms-frontend', ACTIVEFORMS_URL . 'assets/frontend/form.js', array(), Config::asset_version( 'assets/frontend/form.js' ), true );
 		wp_localize_script(
-			'easyforms-frontend',
-			'EasyFormsFront',
+			'activeforms-frontend',
+			'ActiveFormsFront',
 			array(
-				'restUrl' => esc_url_raw( rest_url( 'easyforms/v1/submit' ) ),
+				'restUrl' => esc_url_raw( rest_url( 'activeforms/v1/submit' ) ),
 				'nonce'   => wp_create_nonce( 'wp_rest' ),
 			)
 		);
@@ -84,7 +84,7 @@ class Shortcode {
 				'type' => '',
 			),
 			$atts,
-			'easyforms'
+			'activeforms'
 		);
 
 		$form = Form::find( (int) $atts['id'] );
@@ -93,8 +93,8 @@ class Shortcode {
 		}
 
 		if ( ! $this->assets_loaded ) {
-			wp_enqueue_style( 'easyforms-frontend' );
-			wp_enqueue_script( 'easyforms-frontend' );
+			wp_enqueue_style( 'activeforms-frontend' );
+			wp_enqueue_script( 'activeforms-frontend' );
 			$this->assets_loaded = true;
 		}
 

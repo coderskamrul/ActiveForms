@@ -67,12 +67,12 @@ const AUTOCOMPLETE_PROVIDERS = [
 function Section({ title, children, open: initial = true }) {
   const [open, setOpen] = useState(initial);
   return (
-    <div className={`easyforms-sec${open ? ' is-open' : ''}`}>
-      <button type="button" className="easyforms-sec__head" onClick={() => setOpen((o) => !o)}>
+    <div className={`activeforms-sec${open ? ' is-open' : ''}`}>
+      <button type="button" className="activeforms-sec__head" onClick={() => setOpen((o) => !o)}>
         <span>{title}</span>
         <Icon name={open ? 'chevronDown' : 'chevronRight'} size={15} />
       </button>
-      {open && <div className="easyforms-sec__body">{children}</div>}
+      {open && <div className="activeforms-sec__body">{children}</div>}
     </div>
   );
 }
@@ -80,10 +80,10 @@ function Section({ title, children, open: initial = true }) {
 /** Labeled text input row. */
 function Row({ label, hint, children }) {
   return (
-    <div className="easyforms-form-row">
+    <div className="activeforms-form-row">
       {label && <label>{label}</label>}
       {children}
-      {hint && <div className="easyforms-help-text">{hint}</div>}
+      {hint && <div className="activeforms-help-text">{hint}</div>}
     </div>
   );
 }
@@ -96,16 +96,16 @@ function OptionsEditor({ options, onChange }) {
   const remove = (i) => onChange(list.filter((_, idx) => idx !== i));
 
   return (
-    <div className="easyforms-opts">
+    <div className="activeforms-opts">
       {list.map((o, i) => (
-        <div className="easyforms-opts__row" key={i}>
+        <div className="activeforms-opts__row" key={i}>
           <Icon name="drag" size={14} />
-          <input className="easyforms-input" value={o.label} onChange={(e) => update(i, 'label', e.target.value)} placeholder="Label" />
-          <input className="easyforms-input easyforms-input--val" value={o.value ?? ''} onChange={(e) => update(i, 'value', e.target.value)} placeholder="Value" />
-          <button type="button" className="easyforms-opts__rm" onClick={() => remove(i)} title="Remove"><Icon name="close" size={13} /></button>
+          <input className="activeforms-input" value={o.label} onChange={(e) => update(i, 'label', e.target.value)} placeholder="Label" />
+          <input className="activeforms-input activeforms-input--val" value={o.value ?? ''} onChange={(e) => update(i, 'value', e.target.value)} placeholder="Value" />
+          <button type="button" className="activeforms-opts__rm" onClick={() => remove(i)} title="Remove"><Icon name="close" size={13} /></button>
         </div>
       ))}
-      <button type="button" className="easyforms-btn easyforms-btn--sm" onClick={add}><Icon name="plus" size={13} /> Add Option</button>
+      <button type="button" className="activeforms-btn activeforms-btn--sm" onClick={add}><Icon name="plus" size={13} /> Add Option</button>
     </div>
   );
 }
@@ -113,11 +113,11 @@ function OptionsEditor({ options, onChange }) {
 /** Label-placement segmented control (used per field AND per sub-field). */
 function LabelPlacementPicker({ value, onChange }) {
   return (
-    <div className="easyforms-form-row">
+    <div className="activeforms-form-row">
       <label>Label Placement</label>
-      <div className="easyforms-seg__group easyforms-seg__group--wrap">
+      <div className="activeforms-seg__group activeforms-seg__group--wrap">
         {LABEL_PLACEMENTS.map(([v, l]) => (
-          <button key={v} type="button" className={`easyforms-seg__btn${(value || 'top') === v ? ' is-active' : ''}`} onClick={() => onChange(v)}>{l}</button>
+          <button key={v} type="button" className={`activeforms-seg__btn${(value || 'top') === v ? ' is-active' : ''}`} onClick={() => onChange(v)}>{l}</button>
         ))}
       </div>
     </div>
@@ -127,11 +127,11 @@ function LabelPlacementPicker({ value, onChange }) {
 /** On/off segmented control. */
 function OnOff({ label, value, onChange }) {
   return (
-    <div className="easyforms-seg">
-      <span className="easyforms-seg__label">{label}</span>
-      <div className="easyforms-seg__group">
-        <button type="button" className={`easyforms-seg__btn${value ? ' is-active' : ''}`} onClick={() => onChange(true)}>On</button>
-        <button type="button" className={`easyforms-seg__btn${!value ? ' is-active' : ''}`} onClick={() => onChange(false)}>Off</button>
+    <div className="activeforms-seg">
+      <span className="activeforms-seg__label">{label}</span>
+      <div className="activeforms-seg__group">
+        <button type="button" className={`activeforms-seg__btn${value ? ' is-active' : ''}`} onClick={() => onChange(true)}>On</button>
+        <button type="button" className={`activeforms-seg__btn${!value ? ' is-active' : ''}`} onClick={() => onChange(false)}>Off</button>
       </div>
     </div>
   );
@@ -146,11 +146,11 @@ function CountryOptions({ value, onChange }) {
   const list = value.country_list || [];
   return (
     <>
-      <div className="easyforms-seg">
-        <span className="easyforms-seg__label">Country List</span>
-        <div className="easyforms-seg__group">
+      <div className="activeforms-seg">
+        <span className="activeforms-seg__label">Country List</span>
+        <div className="activeforms-seg__group">
           {[['all', 'All'], ['include', 'Show selected'], ['exclude', 'Hide selected']].map(([v, l]) => (
-            <button key={v} type="button" className={`easyforms-seg__btn${mode === v ? ' is-active' : ''}`} onClick={() => onChange({ country_list_mode: v })}>{l}</button>
+            <button key={v} type="button" className={`activeforms-seg__btn${mode === v ? ' is-active' : ''}`} onClick={() => onChange({ country_list_mode: v })}>{l}</button>
           ))}
         </div>
       </div>
@@ -158,7 +158,7 @@ function CountryOptions({ value, onChange }) {
         <Row label={mode === 'include' ? 'Countries to show' : 'Countries to hide'} hint="Ctrl / Cmd-click to select multiple.">
           <select
             multiple
-            className="easyforms-input"
+            className="activeforms-input"
             style={{ height: 170 }}
             value={list}
             onChange={(e) => onChange({ country_list: Array.from(e.target.selectedOptions).map((o) => o.value) })}
@@ -195,41 +195,41 @@ function SubFieldsEditor({ fields, onChange, reorderable = false }) {
   };
 
   return (
-    <div className="easyforms-subfe">
+    <div className="activeforms-subfe">
       {list.map((sub, i) => {
         const open = openKey === sub.key;
         return (
           <div
             key={sub.key || i}
-            className={`easyforms-subfe__item${dragIndex === i ? ' is-dragging' : ''}`}
+            className={`activeforms-subfe__item${dragIndex === i ? ' is-dragging' : ''}`}
             draggable={reorderable}
             onDragStart={reorderable ? () => setDragIndex(i) : undefined}
             onDragOver={reorderable ? (e) => e.preventDefault() : undefined}
             onDrop={reorderable ? () => { move(dragIndex, i); setDragIndex(null); } : undefined}
             onDragEnd={reorderable ? () => setDragIndex(null) : undefined}
           >
-            <div className="easyforms-subfe__head">
-              {reorderable && <span className="easyforms-subfe__handle" title="Drag to reorder"><Icon name="drag" size={14} /></span>}
-              <label className="easyforms-subfe__toggle">
+            <div className="activeforms-subfe__head">
+              {reorderable && <span className="activeforms-subfe__handle" title="Drag to reorder"><Icon name="drag" size={14} /></span>}
+              <label className="activeforms-subfe__toggle">
                 <input type="checkbox" checked={!!sub.visible} onChange={(e) => patch(i, 'visible', e.target.checked)} />
                 <span className={sub.visible ? 'is-on' : ''}>{sub.label || sub.key}</span>
               </label>
-              <button type="button" className="easyforms-subfe__caret" onClick={() => setOpenKey(open ? null : sub.key)} aria-expanded={open}>
+              <button type="button" className="activeforms-subfe__caret" onClick={() => setOpenKey(open ? null : sub.key)} aria-expanded={open}>
                 <Icon name={open ? 'chevronDown' : 'chevronRight'} size={14} />
               </button>
             </div>
             {open && (
-              <div className="easyforms-subfe__body">
-                <Row label="Label"><input className="easyforms-input" value={sub.label || ''} onChange={(e) => patch(i, 'label', e.target.value)} /></Row>
+              <div className="activeforms-subfe__body">
+                <Row label="Label"><input className="activeforms-input" value={sub.label || ''} onChange={(e) => patch(i, 'label', e.target.value)} /></Row>
                 <LabelPlacementPicker value={sub.label_placement} onChange={(v) => patch(i, 'label_placement', v)} />
                 {sub.type !== 'country' && (
-                  <Row label="Placeholder"><input className="easyforms-input" value={sub.placeholder || ''} onChange={(e) => patch(i, 'placeholder', e.target.value)} /></Row>
+                  <Row label="Placeholder"><input className="activeforms-input" value={sub.placeholder || ''} onChange={(e) => patch(i, 'placeholder', e.target.value)} /></Row>
                 )}
-                <div className="easyforms-seg">
-                  <span className="easyforms-seg__label">Required</span>
-                  <div className="easyforms-seg__group">
-                    <button type="button" className={`easyforms-seg__btn${sub.required ? ' is-active' : ''}`} onClick={() => patch(i, 'required', true)}>Yes</button>
-                    <button type="button" className={`easyforms-seg__btn${!sub.required ? ' is-active' : ''}`} onClick={() => patch(i, 'required', false)}>No</button>
+                <div className="activeforms-seg">
+                  <span className="activeforms-seg__label">Required</span>
+                  <div className="activeforms-seg__group">
+                    <button type="button" className={`activeforms-seg__btn${sub.required ? ' is-active' : ''}`} onClick={() => patch(i, 'required', true)}>Yes</button>
+                    <button type="button" className={`activeforms-seg__btn${!sub.required ? ' is-active' : ''}`} onClick={() => patch(i, 'required', false)}>No</button>
                   </div>
                 </div>
                 {sub.type === 'country' && <CountryOptions value={sub} onChange={(p) => patchMany(i, p)} />}
@@ -251,15 +251,15 @@ function RepeaterColumnsEditor({ columns, onChange }) {
   const remove = (i) => onChange(list.length > 1 ? list.filter((_, idx) => idx !== i) : list);
 
   return (
-    <div className="easyforms-opts">
+    <div className="activeforms-opts">
       {list.map((c, i) => (
-        <div className="easyforms-opts__row" key={i}>
+        <div className="activeforms-opts__row" key={i}>
           <Icon name="drag" size={14} />
-          <input className="easyforms-input" value={c.label} onChange={(e) => update(i, e.target.value)} placeholder="Column label" />
-          <button type="button" className="easyforms-opts__rm" onClick={() => remove(i)} title="Remove"><Icon name="close" size={13} /></button>
+          <input className="activeforms-input" value={c.label} onChange={(e) => update(i, e.target.value)} placeholder="Column label" />
+          <button type="button" className="activeforms-opts__rm" onClick={() => remove(i)} title="Remove"><Icon name="close" size={13} /></button>
         </div>
       ))}
-      <button type="button" className="easyforms-btn easyforms-btn--sm" onClick={add}><Icon name="plus" size={13} /> Add Column</button>
+      <button type="button" className="activeforms-btn activeforms-btn--sm" onClick={add}><Icon name="plus" size={13} /> Add Column</button>
     </div>
   );
 }
@@ -289,16 +289,16 @@ function ColumnsEditor({ field, set }) {
   return (
     <>
       <Row label="Number of columns">
-        <div className="easyforms-seg__group">
+        <div className="activeforms-seg__group">
           {[1, 2, 3, 4].map((n) => (
-            <button key={n} type="button" className={`easyforms-seg__btn${count === n ? ' is-active' : ''}`} onClick={() => setCount(n)}>{n}</button>
+            <button key={n} type="button" className={`activeforms-seg__btn${count === n ? ' is-active' : ''}`} onClick={() => setCount(n)}>{n}</button>
           ))}
         </div>
       </Row>
       <Row label="Column widths (%)" hint="Should add up to roughly 100%.">
-        <div className="easyforms-colw">
+        <div className="activeforms-colw">
           {cols.map((c, i) => (
-            <input key={i} className="easyforms-input" type="number" min="10" max="100" value={c.width || 0} onChange={(e) => setWidth(i, e.target.value)} />
+            <input key={i} className="activeforms-input" type="number" min="10" max="100" value={c.width || 0} onChange={(e) => setWidth(i, e.target.value)} />
           ))}
         </div>
       </Row>
@@ -310,16 +310,16 @@ function ColumnsEditor({ field, set }) {
 function RequiredEditor({ field, set }) {
   return (
     <>
-      <div className="easyforms-seg">
-        <span className="easyforms-seg__label">Required</span>
-        <div className="easyforms-seg__group">
-          <button type="button" className={`easyforms-seg__btn${field.required ? ' is-active' : ''}`} onClick={() => set('required', true)}>Yes</button>
-          <button type="button" className={`easyforms-seg__btn${!field.required ? ' is-active' : ''}`} onClick={() => set('required', false)}>No</button>
+      <div className="activeforms-seg">
+        <span className="activeforms-seg__label">Required</span>
+        <div className="activeforms-seg__group">
+          <button type="button" className={`activeforms-seg__btn${field.required ? ' is-active' : ''}`} onClick={() => set('required', true)}>Yes</button>
+          <button type="button" className={`activeforms-seg__btn${!field.required ? ' is-active' : ''}`} onClick={() => set('required', false)}>No</button>
         </div>
       </div>
       {field.required && (
         <Row label="Custom Error Message" hint="Shown when the field is left empty.">
-          <input className="easyforms-input" value={field.required_message || ''} placeholder="This field is required." onChange={(e) => set('required_message', e.target.value)} />
+          <input className="activeforms-input" value={field.required_message || ''} placeholder="This field is required." onChange={(e) => set('required_message', e.target.value)} />
         </Row>
       )}
     </>
@@ -330,7 +330,7 @@ function RequiredEditor({ field, set }) {
 export default function SettingsPanel({ field, definition, onChange, allFields = [] }) {
   if (!field) {
     return (
-      <div className="easyforms-insp-empty">
+      <div className="activeforms-insp-empty">
         <Icon name="sliders" size={28} />
         <p>Select a field on the canvas to customize it.</p>
       </div>
@@ -343,8 +343,8 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
   const isChoice = CHOICE_TYPES.includes(type) || Array.isArray(field.options);
 
   return (
-    <div className="easyforms-insp">
-      <div className="easyforms-insp__title">
+    <div className="activeforms-insp">
+      <div className="activeforms-insp__title">
         <span className={`dashicons dashicons-${(definition && definition.icon) || 'forms'}`} aria-hidden="true" />
         {(definition && definition.label) || type}
       </div>
@@ -358,11 +358,11 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {type === 'step' && (
         <Section title="Step / Page Break">
           <Row label="Step Title" hint="Shown in the step indicator.">
-            <input className="easyforms-input" value={field.label || ''} onChange={(e) => set('label', e.target.value)} />
+            <input className="activeforms-input" value={field.label || ''} onChange={(e) => set('label', e.target.value)} />
           </Row>
-          <div className="easyforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
-            <Row label="Previous Button"><input className="easyforms-input" value={field.prev_label || ''} onChange={(e) => set('prev_label', e.target.value)} /></Row>
-            <Row label="Next Button"><input className="easyforms-input" value={field.next_label || ''} onChange={(e) => set('next_label', e.target.value)} /></Row>
+          <div className="activeforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            <Row label="Previous Button"><input className="activeforms-input" value={field.prev_label || ''} onChange={(e) => set('prev_label', e.target.value)} /></Row>
+            <Row label="Next Button"><input className="activeforms-input" value={field.next_label || ''} onChange={(e) => set('next_label', e.target.value)} /></Row>
           </div>
         </Section>
       )}
@@ -371,49 +371,49 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       <Section title="General">
         {type === 'html' ? (
           <Row label="HTML Content">
-            <textarea className="easyforms-textarea" rows={6} value={field.content || ''} onChange={(e) => set('content', e.target.value)} />
+            <textarea className="activeforms-textarea" rows={6} value={field.content || ''} onChange={(e) => set('content', e.target.value)} />
           </Row>
         ) : (type === 'terms' || type === 'gdpr') ? (
           <Row label="Consent Text" hint="Supports basic HTML for links.">
-            <textarea className="easyforms-textarea" rows={3} value={field.content || ''} onChange={(e) => set('content', e.target.value)} />
+            <textarea className="activeforms-textarea" rows={3} value={field.content || ''} onChange={(e) => set('content', e.target.value)} />
           </Row>
         ) : (
           <>
             <Row label={type === 'submit' ? 'Button Label' : 'Element Label'}>
-              <input className="easyforms-input" value={field.label || ''} onChange={(e) => set('label', e.target.value)} />
+              <input className="activeforms-input" value={field.label || ''} onChange={(e) => set('label', e.target.value)} />
             </Row>
             {isInput && (
               <Row label="Admin Field Label" hint="Used in entries & exports. Defaults to the label.">
-                <input className="easyforms-input" value={field.admin_label || ''} placeholder={field.label || ''} onChange={(e) => set('admin_label', e.target.value)} />
+                <input className="activeforms-input" value={field.admin_label || ''} placeholder={field.label || ''} onChange={(e) => set('admin_label', e.target.value)} />
               </Row>
             )}
             {type === 'section' && (
               <Row label="Description">
-                <input className="easyforms-input" value={field.description || ''} onChange={(e) => set('description', e.target.value)} />
+                <input className="activeforms-input" value={field.description || ''} onChange={(e) => set('description', e.target.value)} />
               </Row>
             )}
             {!NO_PLACEHOLDER.includes(type) && (
               <Row label="Placeholder">
-                <input className="easyforms-input" value={field.placeholder || ''} onChange={(e) => set('placeholder', e.target.value)} />
+                <input className="activeforms-input" value={field.placeholder || ''} onChange={(e) => set('placeholder', e.target.value)} />
               </Row>
             )}
             {isInput && (
               <>
                 <Row label="Help Text">
-                  <input className="easyforms-input" value={field.help || ''} onChange={(e) => set('help', e.target.value)} />
+                  <input className="activeforms-input" value={field.help || ''} onChange={(e) => set('help', e.target.value)} />
                 </Row>
                 {!NO_DEFAULT.includes(type) && (
                   <Row label="Default Value">
-                    <input className="easyforms-input" value={field.default || ''} onChange={(e) => set('default', e.target.value)} />
+                    <input className="activeforms-input" value={field.default || ''} onChange={(e) => set('default', e.target.value)} />
                   </Row>
                 )}
               </>
             )}
             {type === 'submit' && (
               <Row label="Alignment">
-                <div className="easyforms-seg__group">
+                <div className="activeforms-seg__group">
                   {['left', 'center', 'right'].map((a) => (
-                    <button key={a} type="button" className={`easyforms-seg__btn${(field.align || 'left') === a ? ' is-active' : ''}`} onClick={() => set('align', a)}>{a}</button>
+                    <button key={a} type="button" className={`activeforms-seg__btn${(field.align || 'left') === a ? ' is-active' : ''}`} onClick={() => set('align', a)}>{a}</button>
                   ))}
                 </div>
               </Row>
@@ -432,8 +432,8 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {type === 'address' && (
         <Section title="Address Fields">
           <SubFieldsEditor fields={field.fields || []} onChange={(f) => set('fields', f)} reorderable />
-          <Row label="Autocomplete Provider" hint="Address autocomplete. Google Places requires EasyForms Pro.">
-            <select className="easyforms-input easyforms-select" value={field.autocomplete_provider || 'none'} onChange={(e) => set('autocomplete_provider', e.target.value)}>
+          <Row label="Autocomplete Provider" hint="Address autocomplete. Google Places requires ActiveForms Pro.">
+            <select className="activeforms-input activeforms-select" value={field.autocomplete_provider || 'none'} onChange={(e) => set('autocomplete_provider', e.target.value)}>
               {AUTOCOMPLETE_PROVIDERS.map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
             </select>
           </Row>
@@ -448,10 +448,10 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
 
       {type === 'number' && (
         <Section title="Number Range">
-          <div className="easyforms-row-2">
-            <Row label="Min"><input className="easyforms-input" value={field.min || ''} onChange={(e) => set('min', e.target.value)} /></Row>
-            <Row label="Max"><input className="easyforms-input" value={field.max || ''} onChange={(e) => set('max', e.target.value)} /></Row>
-            <Row label="Step"><input className="easyforms-input" value={field.step || ''} onChange={(e) => set('step', e.target.value)} /></Row>
+          <div className="activeforms-row-2">
+            <Row label="Min"><input className="activeforms-input" value={field.min || ''} onChange={(e) => set('min', e.target.value)} /></Row>
+            <Row label="Max"><input className="activeforms-input" value={field.max || ''} onChange={(e) => set('max', e.target.value)} /></Row>
+            <Row label="Step"><input className="activeforms-input" value={field.step || ''} onChange={(e) => set('step', e.target.value)} /></Row>
           </div>
         </Section>
       )}
@@ -459,25 +459,25 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {type === 'date_time' && (
         <Section title="Date & Time">
           <Row label="Field Mode" hint="What this field collects. Only the relevant format is shown below.">
-            <select className="easyforms-input easyforms-select" value={field.mode || 'date'} onChange={(e) => set('mode', e.target.value)}>
+            <select className="activeforms-input activeforms-select" value={field.mode || 'date'} onChange={(e) => set('mode', e.target.value)}>
               {DATETIME_MODES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
             </select>
           </Row>
           {field.mode === 'time' ? (
             <Row label="Time Format">
-              <select className="easyforms-input easyforms-select" value={field.time_format || 'h:i K'} onChange={(e) => set('time_format', e.target.value)}>
+              <select className="activeforms-input activeforms-select" value={field.time_format || 'h:i K'} onChange={(e) => set('time_format', e.target.value)}>
                 {TIME_FORMATS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select>
             </Row>
           ) : field.mode === 'datetime' ? (
             <Row label="Date & Time Format">
-              <select className="easyforms-input easyforms-select" value={field.datetime_format || 'm/d/Y h:i K'} onChange={(e) => set('datetime_format', e.target.value)}>
+              <select className="activeforms-input activeforms-select" value={field.datetime_format || 'm/d/Y h:i K'} onChange={(e) => set('datetime_format', e.target.value)}>
                 {DATETIME_FORMATS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select>
             </Row>
           ) : (
             <Row label={field.mode === 'range' ? 'Date Range Format' : 'Date Format'} hint={field.mode === 'range' ? 'Applied to both the start and end dates.' : undefined}>
-              <select className="easyforms-input easyforms-select" value={field.date_format || 'm/d/Y'} onChange={(e) => set('date_format', e.target.value)}>
+              <select className="activeforms-input activeforms-select" value={field.date_format || 'm/d/Y'} onChange={(e) => set('date_format', e.target.value)}>
                 {DATE_FORMATS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select>
             </Row>
@@ -490,12 +490,12 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
 
       {type === 'textarea' && (
         <Section title="Appearance">
-          <Row label="Rows"><input className="easyforms-input" type="number" value={field.rows || 3} onChange={(e) => set('rows', e.target.value)} /></Row>
-          <div className="easyforms-seg">
-            <span className="easyforms-seg__label">Auto-resize</span>
-            <div className="easyforms-seg__group">
-              <button type="button" className={`easyforms-seg__btn${field.auto_resize ? ' is-active' : ''}`} onClick={() => set('auto_resize', true)}>On</button>
-              <button type="button" className={`easyforms-seg__btn${!field.auto_resize ? ' is-active' : ''}`} onClick={() => set('auto_resize', false)}>Off</button>
+          <Row label="Rows"><input className="activeforms-input" type="number" value={field.rows || 3} onChange={(e) => set('rows', e.target.value)} /></Row>
+          <div className="activeforms-seg">
+            <span className="activeforms-seg__label">Auto-resize</span>
+            <div className="activeforms-seg__group">
+              <button type="button" className={`activeforms-seg__btn${field.auto_resize ? ' is-active' : ''}`} onClick={() => set('auto_resize', true)}>On</button>
+              <button type="button" className={`activeforms-seg__btn${!field.auto_resize ? ' is-active' : ''}`} onClick={() => set('auto_resize', false)}>Off</button>
             </div>
           </div>
         </Section>
@@ -504,22 +504,22 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {type === 'masked_text' && (
         <Section title="Input Mask">
           <Row label="Mask Pattern" hint="9 = digit, a = letter, * = any. e.g. (999) 999-9999">
-            <input className="easyforms-input easyforms-input--mono" value={field.mask || ''} placeholder="(999) 999-9999" onChange={(e) => set('mask', e.target.value)} />
+            <input className="activeforms-input activeforms-input--mono" value={field.mask || ''} placeholder="(999) 999-9999" onChange={(e) => set('mask', e.target.value)} />
           </Row>
         </Section>
       )}
 
       {type === 'rich_text' && (
         <Section title="Appearance">
-          <Row label="Editor Height (rows)"><input className="easyforms-input" type="number" min="2" value={field.rows || 5} onChange={(e) => set('rows', e.target.value)} /></Row>
+          <Row label="Editor Height (rows)"><input className="activeforms-input" type="number" min="2" value={field.rows || 5} onChange={(e) => set('rows', e.target.value)} /></Row>
         </Section>
       )}
 
       {type === 'nps' && (
         <Section title="Scale Labels">
-          <div className="easyforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
-            <Row label="Low Label" hint="Shown under 0."><input className="easyforms-input" value={field.low_label ?? ''} placeholder="Not likely" onChange={(e) => set('low_label', e.target.value)} /></Row>
-            <Row label="High Label" hint="Shown under 10."><input className="easyforms-input" value={field.high_label ?? ''} placeholder="Very likely" onChange={(e) => set('high_label', e.target.value)} /></Row>
+          <div className="activeforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            <Row label="Low Label" hint="Shown under 0."><input className="activeforms-input" value={field.low_label ?? ''} placeholder="Not likely" onChange={(e) => set('low_label', e.target.value)} /></Row>
+            <Row label="High Label" hint="Shown under 10."><input className="activeforms-input" value={field.high_label ?? ''} placeholder="Very likely" onChange={(e) => set('high_label', e.target.value)} /></Row>
           </div>
         </Section>
       )}
@@ -527,11 +527,11 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {UPLOAD_TYPES.includes(type) && (
         <Section title="Upload Rules">
           <Row label="Allowed File Types" hint="Comma-separated extensions, e.g. pdf, jpg, png. Leave blank for defaults.">
-            <input className="easyforms-input" value={Array.isArray(field.allowed_types) ? field.allowed_types.join(', ') : (field.allowed_types || '')} onChange={(e) => set('allowed_types', e.target.value.split(',').map((s) => s.trim()).filter(Boolean))} />
+            <input className="activeforms-input" value={Array.isArray(field.allowed_types) ? field.allowed_types.join(', ') : (field.allowed_types || '')} onChange={(e) => set('allowed_types', e.target.value.split(',').map((s) => s.trim()).filter(Boolean))} />
           </Row>
-          <div className="easyforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
-            <Row label="Max Size (KB)"><input className="easyforms-input" type="number" min="1" value={field.max_size || 5120} onChange={(e) => set('max_size', Number(e.target.value) || 0)} /></Row>
-            <Row label="Max Files"><input className="easyforms-input" type="number" min="1" value={field.max_files || 1} onChange={(e) => set('max_files', Math.max(1, Number(e.target.value) || 1))} /></Row>
+          <div className="activeforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            <Row label="Max Size (KB)"><input className="activeforms-input" type="number" min="1" value={field.max_size || 5120} onChange={(e) => set('max_size', Number(e.target.value) || 0)} /></Row>
+            <Row label="Max Files"><input className="activeforms-input" type="number" min="1" value={field.max_files || 1} onChange={(e) => set('max_files', Math.max(1, Number(e.target.value) || 1))} /></Row>
           </div>
         </Section>
       )}
@@ -539,7 +539,7 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {type === 'repeater' && (
         <Section title="Columns">
           <RepeaterColumnsEditor columns={field.columns || []} onChange={(cols) => set('columns', cols)} />
-          <Row label="Max Rows" hint="0 = unlimited."><input className="easyforms-input" type="number" min="0" value={field.max_rows || 0} onChange={(e) => set('max_rows', Math.max(0, Number(e.target.value) || 0))} /></Row>
+          <Row label="Max Rows" hint="0 = unlimited."><input className="activeforms-input" type="number" min="0" value={field.max_rows || 0} onChange={(e) => set('max_rows', Math.max(0, Number(e.target.value) || 0))} /></Row>
         </Section>
       )}
 
@@ -570,11 +570,11 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
           <LabelPlacementPicker value={field.label_placement} onChange={(v) => set('label_placement', v)} />
         )}
         <Row label="CSS Class" hint="Space-separated classes added to the field wrapper.">
-          <input className="easyforms-input" value={field.css_class || ''} onChange={(e) => set('css_class', e.target.value)} />
+          <input className="activeforms-input" value={field.css_class || ''} onChange={(e) => set('css_class', e.target.value)} />
         </Row>
         {isInput && (
           <Row label="Field Key" hint="Stable identifier used in smart codes & exports.">
-            <input className="easyforms-input easyforms-input--mono" value={field.key || ''} readOnly />
+            <input className="activeforms-input activeforms-input--mono" value={field.key || ''} readOnly />
           </Row>
         )}
       </Section>

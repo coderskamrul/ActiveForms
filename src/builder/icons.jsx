@@ -47,7 +47,7 @@ export default function Icon({ name, size = 16, ...rest }) {
   if (!path) return null;
   return (
     <svg
-      className="easyforms-ic"
+      className="activeforms-ic"
       width={size}
       height={size}
       viewBox="0 0 24 24"

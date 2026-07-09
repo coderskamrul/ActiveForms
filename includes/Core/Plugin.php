@@ -2,22 +2,22 @@
 /**
  * Plugin bootstrap / orchestrator.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
-use EasyForms\Admin\Menu;
-use EasyForms\Admin\AdminAssets;
-use EasyForms\Fields\FieldRegistry;
-use EasyForms\Integrations\IntegrationRegistry;
-use EasyForms\Notifications\SmartCodes;
-use EasyForms\Rest\RestServiceProvider;
-use EasyForms\Frontend\Shortcode;
-use EasyForms\Frontend\FormRenderer;
-use EasyForms\Frontend\SubmissionProcessor;
-use EasyForms\Frontend\PreviewPage;
-use EasyForms\Support\Logger;
+use ActiveForms\Admin\Menu;
+use ActiveForms\Admin\AdminAssets;
+use ActiveForms\Fields\FieldRegistry;
+use ActiveForms\Integrations\IntegrationRegistry;
+use ActiveForms\Notifications\SmartCodes;
+use ActiveForms\Rest\RestServiceProvider;
+use ActiveForms\Frontend\Shortcode;
+use ActiveForms\Frontend\FormRenderer;
+use ActiveForms\Frontend\SubmissionProcessor;
+use ActiveForms\Frontend\PreviewPage;
+use ActiveForms\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -101,11 +101,11 @@ final class Plugin {
 				$registry = new FieldRegistry();
 				$registry->register_defaults();
 				/**
-				 * Allow add-ons (EasyForms Pro) to register field types.
+				 * Allow add-ons (ActiveForms Pro) to register field types.
 				 *
 				 * @param FieldRegistry $registry Field registry.
 				 */
-				do_action( 'easyforms/register_fields', $registry );
+				do_action( 'activeforms/register_fields', $registry );
 				return $registry;
 			}
 		);
@@ -120,7 +120,7 @@ final class Plugin {
 				 *
 				 * @param IntegrationRegistry $registry Integration registry.
 				 */
-				do_action( 'easyforms/register_integrations', $registry );
+				do_action( 'activeforms/register_integrations', $registry );
 				return $registry;
 			}
 		);
@@ -164,11 +164,11 @@ final class Plugin {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		/**
-		 * Fires once EasyForms has finished booting its core subsystems.
+		 * Fires once ActiveForms has finished booting its core subsystems.
 		 *
 		 * @param Plugin $plugin Plugin instance.
 		 */
-		do_action( 'easyforms/booted', $this );
+		do_action( 'activeforms/booted', $this );
 	}
 
 	/**
@@ -177,6 +177,6 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'easyforms', false, dirname( EASYFORMS_BASENAME ) . '/languages' );
+		load_plugin_textdomain( 'activeforms', false, dirname( ACTIVEFORMS_BASENAME ) . '/languages' );
 	}
 }

@@ -2,10 +2,10 @@
 /**
  * Field type contract.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields;
+namespace ActiveForms\Fields;
 
 defined( 'ABSPATH' ) || exit;
 

@@ -2,13 +2,13 @@
 /**
  * Non-input layout & content fields: section, html, container, submit.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,11 +55,11 @@ class LayoutField extends AbstractField {
 
 		switch ( $this->type ) {
 			case 'section':
-				$schema['label']       = __( 'Section', 'easyforms' );
+				$schema['label']       = __( 'Section', 'activeforms' );
 				$schema['description'] = '';
 				break;
 			case 'html':
-				$schema['content'] = '<p>' . esc_html__( 'Custom HTML content', 'easyforms' ) . '</p>';
+				$schema['content'] = '<p>' . esc_html__( 'Custom HTML content', 'activeforms' ) . '</p>';
 				break;
 			case 'container':
 				$schema['columns'] = array(
@@ -68,12 +68,12 @@ class LayoutField extends AbstractField {
 				);
 				break;
 			case 'step':
-				$schema['label']      = __( 'Step', 'easyforms' );
-				$schema['prev_label'] = __( 'Previous', 'easyforms' );
-				$schema['next_label'] = __( 'Next', 'easyforms' );
+				$schema['label']      = __( 'Step', 'activeforms' );
+				$schema['prev_label'] = __( 'Previous', 'activeforms' );
+				$schema['next_label'] = __( 'Next', 'activeforms' );
 				break;
 			case 'submit':
-				$schema['label']     = __( 'Submit', 'easyforms' );
+				$schema['label']     = __( 'Submit', 'activeforms' );
 				$schema['alignment'] = 'left';
 				break;
 		}
@@ -104,29 +104,29 @@ class LayoutField extends AbstractField {
 	public function render( $field, $value = null ) {
 		switch ( $this->type ) {
 			case 'section':
-				$out  = '<div class="easyforms-section">';
-				$out .= '<h3 class="easyforms-section-title">' . esc_html( Arr::get( $field, 'label', '' ) ) . '</h3>';
+				$out  = '<div class="activeforms-section">';
+				$out .= '<h3 class="activeforms-section-title">' . esc_html( Arr::get( $field, 'label', '' ) ) . '</h3>';
 				$desc = Arr::get( $field, 'description', '' );
 				if ( $desc ) {
-					$out .= '<p class="easyforms-section-desc">' . esc_html( $desc ) . '</p>';
+					$out .= '<p class="activeforms-section-desc">' . esc_html( $desc ) . '</p>';
 				}
 				$out .= '</div>';
 				return $out;
 
 			case 'html':
-				return '<div class="easyforms-html">' . wp_kses_post( Arr::get( $field, 'content', '' ) ) . '</div>';
+				return '<div class="activeforms-html">' . wp_kses_post( Arr::get( $field, 'content', '' ) ) . '</div>';
 
 			case 'submit':
 				$align = esc_attr( Arr::get( $field, 'alignment', 'left' ) );
-				$label = esc_html( Arr::get( $field, 'label', __( 'Submit', 'easyforms' ) ) );
-				return '<div class="easyforms-submit easyforms-submit--' . $align . '"><button type="submit" class="easyforms-btn easyforms-btn--primary">' . $label . '</button></div>';
+				$label = esc_html( Arr::get( $field, 'label', __( 'Submit', 'activeforms' ) ) );
+				return '<div class="activeforms-submit activeforms-submit--' . $align . '"><button type="submit" class="activeforms-btn activeforms-btn--primary">' . $label . '</button></div>';
 
 			case 'step':
 				$label = esc_html( Arr::get( $field, 'label', '' ) );
-				$out   = '<div class="easyforms-step-break" data-prev="' . esc_attr( Arr::get( $field, 'prev_label', __( 'Previous', 'easyforms' ) ) ) . '" data-next="' . esc_attr( Arr::get( $field, 'next_label', __( 'Next', 'easyforms' ) ) ) . '">';
-				$out  .= '<span class="easyforms-step-break__line"></span>';
+				$out   = '<div class="activeforms-step-break" data-prev="' . esc_attr( Arr::get( $field, 'prev_label', __( 'Previous', 'activeforms' ) ) ) . '" data-next="' . esc_attr( Arr::get( $field, 'next_label', __( 'Next', 'activeforms' ) ) ) . '">';
+				$out  .= '<span class="activeforms-step-break__line"></span>';
 				if ( $label ) {
-					$out .= '<span class="easyforms-step-break__label">' . $label . '</span>';
+					$out .= '<span class="activeforms-step-break__label">' . $label . '</span>';
 				}
 				$out .= '</div>';
 				return $out;

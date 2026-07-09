@@ -1,5 +1,5 @@
 /**
- * EasyForms admin entry point.
+ * ActiveForms admin entry point.
  *
  * Mounts the React app into the node printed by Admin\Menu::render_app().
  */
@@ -9,7 +9,7 @@ import App from './App.jsx';
 import './theme/app.scss';
 import './theme/builder.scss';
 
-const mount = document.getElementById('easyforms-app');
+const mount = document.getElementById('activeforms-app');
 
 if (mount) {
   mount.innerHTML = '';

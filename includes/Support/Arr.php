@@ -2,10 +2,10 @@
 /**
  * Array helper utilities.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Support;
+namespace ActiveForms\Support;
 
 defined( 'ABSPATH' ) || exit;
 

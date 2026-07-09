@@ -2,10 +2,10 @@
 /**
  * Deactivation routine (non-destructive).
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ class Deactivator {
 	 * @return void
 	 */
 	public static function deactivate() {
-		wp_clear_scheduled_hook( 'easyforms_process_scheduled_actions' );
-		delete_transient( 'easyforms_dashboard_stats' );
+		wp_clear_scheduled_hook( 'activeforms_process_scheduled_actions' );
+		delete_transient( 'activeforms_dashboard_stats' );
 	}
 }

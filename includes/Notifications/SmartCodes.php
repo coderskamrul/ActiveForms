@@ -2,12 +2,12 @@
 /**
  * Smart-code (merge-tag) parser.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Notifications;
+namespace ActiveForms\Notifications;
 
-use EasyForms\Support\Arr;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 

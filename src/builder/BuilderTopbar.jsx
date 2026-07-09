@@ -18,7 +18,7 @@ const DEVICES = [
 function ShortcodeChip({ formId }) {
   const [copied, setCopied] = useState(false);
   if (!formId) return null;
-  const code = `[easyforms id="${formId}"]`;
+  const code = `[activeforms id="${formId}"]`;
 
   const copy = () => {
     try {
@@ -29,10 +29,10 @@ function ShortcodeChip({ formId }) {
   };
 
   return (
-    <button type="button" className="easyforms-tb__chip" onClick={copy} title="Copy shortcode">
+    <button type="button" className="activeforms-tb__chip" onClick={copy} title="Copy shortcode">
       <Icon name="code" size={14} />
       <code>{code}</code>
-      {copied && <span className="easyforms-tb__chip__ok"><Icon name="check" size={12} /></span>}
+      {copied && <span className="activeforms-tb__chip__ok"><Icon name="check" size={12} /></span>}
     </button>
   );
 }
@@ -46,21 +46,21 @@ export default function BuilderTopbar({
   dirty, saving, onSave,
 }) {
   return (
-    <div className="easyforms-tb">
-      <div className="easyforms-tb__left">
-        <button type="button" className="easyforms-tb__icon" title={t('back', 'Back')} onClick={() => go('/forms')}>
+    <div className="activeforms-tb">
+      <div className="activeforms-tb__left">
+        <button type="button" className="activeforms-tb__icon" title={t('back', 'Back')} onClick={() => go('/forms')}>
           <Icon name="back" />
         </button>
-        <div className="easyforms-tb__hist">
-          <button type="button" className="easyforms-tb__icon" title={t('undo', 'Undo')} disabled={!canUndo} onClick={onUndo}>
+        <div className="activeforms-tb__hist">
+          <button type="button" className="activeforms-tb__icon" title={t('undo', 'Undo')} disabled={!canUndo} onClick={onUndo}>
             <Icon name="undo" />
           </button>
-          <button type="button" className="easyforms-tb__icon" title={t('redo', 'Redo')} disabled={!canRedo} onClick={onRedo}>
+          <button type="button" className="activeforms-tb__icon" title={t('redo', 'Redo')} disabled={!canRedo} onClick={onRedo}>
             <Icon name="redo" />
           </button>
         </div>
         <input
-          className="easyforms-tb__title"
+          className="activeforms-tb__title"
           value={title}
           onChange={(e) => onTitle(e.target.value)}
           aria-label="Form title"
@@ -68,13 +68,13 @@ export default function BuilderTopbar({
         />
       </div>
 
-      <div className="easyforms-tb__center">
-        <div className="easyforms-tb__devices" role="group" aria-label="Preview width">
+      <div className="activeforms-tb__center">
+        <div className="activeforms-tb__devices" role="group" aria-label="Preview width">
           {DEVICES.map((d) => (
             <button
               key={d.key}
               type="button"
-              className={`easyforms-tb__dev${device === d.key ? ' is-active' : ''}`}
+              className={`activeforms-tb__dev${device === d.key ? ' is-active' : ''}`}
               title={d.label}
               aria-pressed={device === d.key}
               onClick={() => onDevice(d.key)}
@@ -85,13 +85,13 @@ export default function BuilderTopbar({
         </div>
       </div>
 
-      <div className="easyforms-tb__right">
+      <div className="activeforms-tb__right">
         <ShortcodeChip formId={formId} />
-        {dirty && <span className="easyforms-tb__dirty">{t('unsaved', 'Unsaved changes')}</span>}
-        <button type="button" className={`easyforms-tb__btn${preview ? ' is-active' : ''}`} onClick={onPreview}>
+        {dirty && <span className="activeforms-tb__dirty">{t('unsaved', 'Unsaved changes')}</span>}
+        <button type="button" className={`activeforms-tb__btn${preview ? ' is-active' : ''}`} onClick={onPreview}>
           <Icon name="eye" size={15} /> {t('previewDesign', 'Preview & Design')}
         </button>
-        <button type="button" className="easyforms-tb__btn easyforms-tb__btn--primary" onClick={onSave} disabled={saving}>
+        <button type="button" className="activeforms-tb__btn activeforms-tb__btn--primary" onClick={onSave} disabled={saving}>
           <Icon name={saving ? 'history' : 'check'} size={15} />
           {saving ? 'Saving…' : t('saveForm', 'Save Form')}
         </button>

@@ -1,11 +1,11 @@
-* Plugin Name: **EasyForms**
-* Free Plugin Slug: **easyforms**
-* Pro Plugin: **EasyForms Pro**
-* Text Domain: **easyforms**
-* PHP Prefix: **easyforms_**
-* Class Prefix: **EasyForms\**
-* React Namespace: **EasyForms**
-* Gutenberg Namespace: **easyforms/**
+* Plugin Name: **ActiveForms**
+* Free Plugin Slug: **activeforms**
+* Pro Plugin: **ActiveForms Pro**
+* Text Domain: **activeforms**
+* PHP Prefix: **activeforms_**
+* Class Prefix: **ActiveForms\**
+* React Namespace: **ActiveForms**
+* Gutenberg Namespace: **activeforms/**
 
 Create a centralized global configuration and design system for this WordPress plugin so that Plugin Name, Plugin Slug, Prefix, Text Domain, REST Namespace, React Config, Option Keys, Translation Strings, and UI Styles are manageable from a single source.
 

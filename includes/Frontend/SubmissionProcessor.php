@@ -2,19 +2,19 @@
 /**
  * Public submission endpoint and processing pipeline.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Frontend;
+namespace ActiveForms\Frontend;
 
-use EasyForms\Core\Container;
-use EasyForms\Core\Config;
-use EasyForms\Models\Form;
-use EasyForms\Models\Entry;
-use EasyForms\Spam\SpamGuard;
-use EasyForms\Notifications\EmailNotifier;
-use EasyForms\Support\Arr;
-use EasyForms\Support\UserAgent;
+use ActiveForms\Core\Container;
+use ActiveForms\Core\Config;
+use ActiveForms\Models\Form;
+use ActiveForms\Models\Entry;
+use ActiveForms\Spam\SpamGuard;
+use ActiveForms\Notifications\EmailNotifier;
+use ActiveForms\Support\Arr;
+use ActiveForms\Support\UserAgent;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +47,7 @@ class SubmissionProcessor {
 	 */
 	public function register() {
 		add_action( 'rest_api_init', array( $this, 'register_route' ) );
-		add_action( 'easyforms_process_scheduled_actions', array( $this, 'process_queue' ) );
+		add_action( 'activeforms_process_scheduled_actions', array( $this, 'process_queue' ) );
 	}
 
 	/**
@@ -75,14 +75,14 @@ class SubmissionProcessor {
 	 */
 	public function handle( $request ) {
 		$payload = $request->get_params();
-		$form_id = isset( $payload['easyforms_form_id'] ) ? (int) $payload['easyforms_form_id'] : 0;
-		$nonce   = isset( $payload['easyforms_nonce'] ) ? $payload['easyforms_nonce'] : '';
+		$form_id = isset( $payload['activeforms_form_id'] ) ? (int) $payload['activeforms_form_id'] : 0;
+		$nonce   = isset( $payload['activeforms_nonce'] ) ? $payload['activeforms_nonce'] : '';
 
-		if ( ! $form_id || ! wp_verify_nonce( $nonce, 'easyforms_submit_' . $form_id ) ) {
+		if ( ! $form_id || ! wp_verify_nonce( $nonce, 'activeforms_submit_' . $form_id ) ) {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'Security check failed. Please refresh and try again.', 'easyforms' ),
+					'message' => __( 'Security check failed. Please refresh and try again.', 'activeforms' ),
 				),
 				403
 			);
@@ -93,7 +93,7 @@ class SubmissionProcessor {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'This form is not available.', 'easyforms' ),
+					'message' => __( 'This form is not available.', 'activeforms' ),
 				),
 				404
 			);
@@ -112,7 +112,7 @@ class SubmissionProcessor {
 		 * @param array $form    Form schema.
 		 * @param array $payload Raw payload.
 		 */
-		do_action( 'easyforms/before_validation', $form, $payload );
+		do_action( 'activeforms/before_validation', $form, $payload );
 
 		// Validate + sanitize.
 		$validator = new Validator( $this->container->get( 'fields' ) );
@@ -120,7 +120,7 @@ class SubmissionProcessor {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'Please correct the highlighted fields.', 'easyforms' ),
+					'message' => __( 'Please correct the highlighted fields.', 'activeforms' ),
 					'errors'  => $validator->errors(),
 				),
 				422
@@ -140,7 +140,7 @@ class SubmissionProcessor {
 			array(
 				'form_id'    => $form_id,
 				'response'   => $values,
-				'source_url' => isset( $payload['easyforms_source_url'] ) ? $payload['easyforms_source_url'] : '',
+				'source_url' => isset( $payload['activeforms_source_url'] ) ? $payload['activeforms_source_url'] : '',
 				'ip'         => $this->client_ip(),
 				'browser'    => $agent['browser'],
 				'device'     => $agent['device'],
@@ -167,7 +167,7 @@ class SubmissionProcessor {
 		 * @param array $entry Entry data.
 		 * @param array $form  Form schema.
 		 */
-		do_action( 'easyforms/after_submission', $entry, $form );
+		do_action( 'activeforms/after_submission', $entry, $form );
 
 		return new \WP_REST_Response(
 			array(
@@ -200,7 +200,7 @@ class SubmissionProcessor {
 			);
 		}
 
-		$message = Arr::get( $confirmation, 'message', __( 'Thank you! Your submission has been received.', 'easyforms' ) );
+		$message = Arr::get( $confirmation, 'message', __( 'Thank you! Your submission has been received.', 'activeforms' ) );
 		return array(
 			'type'    => 'message',
 			'message' => wp_kses_post( $codes->parse( $message, $entry, $form ) ),
@@ -251,7 +251,7 @@ class SubmissionProcessor {
 		/**
 		 * Hook for add-ons to drain the async integration queue.
 		 */
-		do_action( 'easyforms/process_queue', $this->container );
+		do_action( 'activeforms/process_queue', $this->container );
 	}
 
 	/**

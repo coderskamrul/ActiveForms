@@ -2,13 +2,13 @@
 /**
  * Server-side submission validator & sanitizer.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Frontend;
+namespace ActiveForms\Frontend;
 
-use EasyForms\Fields\FieldRegistry;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\FieldRegistry;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -85,7 +85,7 @@ class Validator {
 		 * @param array $values Sanitized values.
 		 * @param array $form   Form schema.
 		 */
-		$this->errors = apply_filters( 'easyforms/validation_errors', $this->errors, $this->values, $form );
+		$this->errors = apply_filters( 'activeforms/validation_errors', $this->errors, $this->values, $form );
 
 		return empty( $this->errors );
 	}

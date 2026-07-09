@@ -18,11 +18,11 @@ export const COL_PREFIX = 'col::';
 /** Floating action pill shared by field & container cards. */
 function ActionPill({ id, dragProps, onSelect, onDelete, onDuplicate }) {
   return (
-    <div className="easyforms-cv-pill">
-      <button type="button" className="easyforms-cv-pill__move" title="Drag to move" {...dragProps} onClick={(e) => e.stopPropagation()}>
+    <div className="activeforms-cv-pill">
+      <button type="button" className="activeforms-cv-pill__move" title="Drag to move" {...dragProps} onClick={(e) => e.stopPropagation()}>
         <Icon name="move" size={14} />
       </button>
-      <span className="easyforms-cv-pill__sep" />
+      <span className="activeforms-cv-pill__sep" />
       <button type="button" title="Edit" onClick={(e) => { e.stopPropagation(); onSelect(id); }}><Icon name="pencil" size={14} /></button>
       <button type="button" title="Duplicate" onClick={(e) => { e.stopPropagation(); onDuplicate(id); }}><Icon name="copy" size={14} /></button>
       <button type="button" className="is-danger" title="Delete" onClick={(e) => { e.stopPropagation(); onDelete(id); }}><Icon name="trash" size={14} /></button>
@@ -39,7 +39,7 @@ function SortableField({ field, selectedId, onSelect, onDelete, onDuplicate }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`easyforms-cv-field${selectedId === field._id ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`}
+      className={`activeforms-cv-field${selectedId === field._id ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`}
       onClick={(e) => { e.stopPropagation(); onSelect(field._id); }}
     >
       <ActionPill id={field._id} dragProps={{ ...listeners, ...attributes }} onSelect={onSelect} onDelete={onDelete} onDuplicate={onDuplicate} />
@@ -55,11 +55,11 @@ function Column({ containerId, colIndex, column, common }) {
   const inner = column.fields || [];
 
   return (
-    <div className="easyforms-cv-col" style={{ flex: `${Math.max(5, column.width || 50)} 1 0`, minWidth: 0 }}>
-      <div ref={setNodeRef} className={`easyforms-cv-col__zone${isOver ? ' is-over' : ''}${inner.length ? ' has-items' : ''}`}>
+    <div className="activeforms-cv-col" style={{ flex: `${Math.max(5, column.width || 50)} 1 0`, minWidth: 0 }}>
+      <div ref={setNodeRef} className={`activeforms-cv-col__zone${isOver ? ' is-over' : ''}${inner.length ? ' has-items' : ''}`}>
         <SortableContext items={inner.map((f) => f._id)} strategy={verticalListSortingStrategy}>
           {inner.length === 0
-            ? <div className="easyforms-cv-col__empty"><Icon name="plus" size={14} /> Drop field</div>
+            ? <div className="activeforms-cv-col__empty"><Icon name="plus" size={14} /> Drop field</div>
             : inner.map((f) => <SortableField key={f._id} field={f} {...common} />)}
         </SortableContext>
       </div>
@@ -78,12 +78,12 @@ function ContainerField({ field, common }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`easyforms-cv-field easyforms-cv-container${selected ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`}
+      className={`activeforms-cv-field activeforms-cv-container${selected ? ' is-selected' : ''}${isDragging ? ' is-dragging' : ''}`}
       onClick={(e) => { e.stopPropagation(); common.onSelect(field._id); }}
     >
       <ActionPill id={field._id} dragProps={{ ...listeners, ...attributes }} onSelect={common.onSelect} onDelete={common.onDelete} onDuplicate={common.onDuplicate} />
-      <span className="easyforms-cv-container__tag">{cols} column{cols === 1 ? '' : 's'}</span>
-      <div className="easyforms-cv-container__cols">
+      <span className="activeforms-cv-container__tag">{cols} column{cols === 1 ? '' : 's'}</span>
+      <div className="activeforms-cv-container__cols">
         {(field.columns || []).map((col, ci) => (
           <Column key={ci} containerId={field._id} colIndex={ci} column={col} common={common} />
         ))}
@@ -96,10 +96,10 @@ function ContainerField({ field, common }) {
 function StepChip({ field, common }) {
   const selected = common.selectedId === field._id;
   return (
-    <div className={`easyforms-cv-step${selected ? ' is-selected' : ''}`} onClick={(e) => { e.stopPropagation(); common.onSelect(field._id); }}>
+    <div className={`activeforms-cv-step${selected ? ' is-selected' : ''}`} onClick={(e) => { e.stopPropagation(); common.onSelect(field._id); }}>
       <Icon name="chevronRight" size={13} />
       <span>{field.label || 'Page Break'}</span>
-      <button type="button" title="Delete step" className="easyforms-cv-step__rm" onClick={(e) => { e.stopPropagation(); common.onDelete(field._id); }}>
+      <button type="button" title="Delete step" className="activeforms-cv-step__rm" onClick={(e) => { e.stopPropagation(); common.onDelete(field._id); }}>
         <Icon name="close" size={13} />
       </button>
     </div>
@@ -121,31 +121,31 @@ export default function Canvas({
   const items = page.items;
 
   return (
-    <div className={`easyforms-cv easyforms-cv--${device}`}>
-      <div className="easyforms-cv__frame" style={{ maxWidth: WIDTHS[device] || '100%' }}>
+    <div className={`activeforms-cv activeforms-cv--${device}`}>
+      <div className="activeforms-cv__frame" style={{ maxWidth: WIDTHS[device] || '100%' }}>
         {hasSteps && (
-          <div className="easyforms-cv-steps" role="tablist">
+          <div className="activeforms-cv-steps" role="tablist">
             {pages.map((p, i) => (
               <button
                 key={i}
                 type="button"
                 role="tab"
                 aria-selected={i === step}
-                className={`easyforms-cv-steps__tab${i === step ? ' is-active' : ''}`}
+                className={`activeforms-cv-steps__tab${i === step ? ' is-active' : ''}`}
                 onClick={() => onStep && onStep(i)}
               >
-                <span className="easyforms-cv-steps__num">{i + 1}</span>
+                <span className="activeforms-cv-steps__num">{i + 1}</span>
                 {p.header ? (p.header.label || `Step ${i + 1}`) : 'Step 1'}
               </button>
             ))}
           </div>
         )}
 
-        <div className={`easyforms-cv__sheet${isOver ? ' is-over' : ''}`} ref={setNodeRef} onClick={() => onSelect(null)}>
+        <div className={`activeforms-cv__sheet${isOver ? ' is-over' : ''}`} ref={setNodeRef} onClick={() => onSelect(null)}>
           {page.header && <StepChip field={page.header} common={common} />}
 
           {items.length === 0 && !page.header ? (
-            <div className={`easyforms-cv__drop${isOver ? ' is-over' : ''}`}>
+            <div className={`activeforms-cv__drop${isOver ? ' is-over' : ''}`}>
               <span className="dashicons dashicons-feedback" aria-hidden="true" />
               <p>{dropLabel}</p>
               <small>Drag a field from the right, or click one to add it.</small>
@@ -153,7 +153,7 @@ export default function Canvas({
           ) : (
             <SortableContext items={items.map((f) => f._id)} strategy={verticalListSortingStrategy}>
               {items.length === 0 && (
-                <div className={`easyforms-cv__drop${isOver ? ' is-over' : ''}`}><p>Drop fields for this step</p></div>
+                <div className={`activeforms-cv__drop${isOver ? ' is-over' : ''}`}><p>Drop fields for this step</p></div>
               )}
               {items.map((field) => (
                 field.type === 'container'

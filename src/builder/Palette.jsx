@@ -23,12 +23,6 @@ const PRO_FIELDS = [
   { type: 'nps', label: 'Net Promoter', icon: 'chart-bar', category: 'advanced' },
   { type: 'repeater', label: 'Repeater', icon: 'table-row-after', category: 'advanced' },
   { type: 'signature', label: 'Signature', icon: 'edit', category: 'advanced' },
-  { type: 'payment_item', label: 'Payment Item', icon: 'cart', category: 'payment' },
-  { type: 'custom_amount', label: 'Custom Amount', icon: 'money-alt', category: 'payment' },
-  { type: 'quantity', label: 'Item Quantity', icon: 'plus-alt', category: 'payment' },
-  { type: 'subscription', label: 'Subscription', icon: 'update', category: 'payment' },
-  
-  { type: 'payment_method', label: 'Payment Method', icon: 'bank', category: 'payment' },
 ];
 
 const COLUMN_PRESETS = [
@@ -63,14 +57,14 @@ function PaletteItem({ def, onAdd }) {
     <button
       ref={setNodeRef}
       type="button"
-      className={`easyforms-pal-item${isDragging ? ' is-dragging' : ''}`}
+      className={`activeforms-pal-item${isDragging ? ' is-dragging' : ''}`}
       onClick={() => onAdd(def)}
       {...listeners}
       {...attributes}
       title={`Add ${def.label}`}
     >
       <span className={`dashicons dashicons-${def.icon || 'forms'}`} aria-hidden="true" />
-      <span className="easyforms-pal-item__label">{def.label}</span>
+      <span className="activeforms-pal-item__label">{def.label}</span>
     </button>
   );
 }
@@ -78,10 +72,10 @@ function PaletteItem({ def, onAdd }) {
 /** A locked Pro teaser item. */
 function ProItem({ def }) {
   return (
-    <span className="easyforms-pal-item is-pro" title={`${def.label} — Pro`}>
+    <span className="activeforms-pal-item is-pro" title={`${def.label} — Pro`}>
       <span className={`dashicons dashicons-${def.icon || 'lock'}`} aria-hidden="true" />
-      <span className="easyforms-pal-item__label">{def.label}</span>
-      <span className="easyforms-pal-item__pro">PRO</span>
+      <span className="activeforms-pal-item__label">{def.label}</span>
+      <span className="activeforms-pal-item__pro">PRO</span>
     </span>
   );
 }
@@ -89,15 +83,15 @@ function ProItem({ def }) {
 /** One collapsible accordion group. */
 function Group({ title, open, onToggle, children, count }) {
   return (
-    <div className={`easyforms-pal-acc${open ? ' is-open' : ''}`}>
-      <button type="button" className="easyforms-pal-acc__head" onClick={onToggle} aria-expanded={open}>
+    <div className={`activeforms-pal-acc${open ? ' is-open' : ''}`}>
+      <button type="button" className="activeforms-pal-acc__head" onClick={onToggle} aria-expanded={open}>
         <span>{title}</span>
-        <span className="easyforms-pal-acc__meta">
+        <span className="activeforms-pal-acc__meta">
           {typeof count === 'number' && <em>{count}</em>}
           <Icon name={open ? 'chevronDown' : 'chevronRight'} size={15} />
         </span>
       </button>
-      {open && <div className="easyforms-pal-acc__body"><div className="easyforms-pal__grid">{children}</div></div>}
+      {open && <div className="activeforms-pal-acc__body"><div className="activeforms-pal__grid">{children}</div></div>}
     </div>
   );
 }
@@ -147,7 +141,6 @@ export default function Palette({ definitions, categories, onAdd }) {
       { key: 'layout', title: 'Layout', free: byCat('layout').filter((d) => d.type !== 'container'), locked: [] },
       { key: 'containers', title: 'Containers', free: presetItems, locked: [] },
       { key: 'advanced', title: 'Advanced Fields', free: byCat('advanced'), locked: teasers('advanced') },
-      { key: 'payment', title: 'Payment Fields', free: byCat('payment'), locked: teasers('payment') },
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [definitions, containerDef, categories]);
@@ -159,8 +152,8 @@ export default function Palette({ definitions, categories, onAdd }) {
   });
 
   return (
-    <div className="easyforms-pal">
-      <div className="easyforms-pal__search">
+    <div className="activeforms-pal">
+      <div className="activeforms-pal__search">
         <Icon name="search" size={15} />
         <input
           ref={searchRef}
@@ -170,13 +163,13 @@ export default function Palette({ definitions, categories, onAdd }) {
           aria-label="Search fields"
         />
         {query && (
-          <button type="button" className="easyforms-pal__clear" onClick={() => setQuery('')} aria-label="Clear">
+          <button type="button" className="activeforms-pal__clear" onClick={() => setQuery('')} aria-label="Clear">
             <Icon name="close" size={13} />
           </button>
         )}
       </div>
 
-      <div className="easyforms-pal__body">
+      <div className="activeforms-pal__body">
         {sections.map((sec) => {
           const free = sec.free.filter((d) => match(d.label));
           const locked = sec.locked.filter((d) => match(d.label));

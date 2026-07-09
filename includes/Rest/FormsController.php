@@ -2,13 +2,13 @@
 /**
  * Forms REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
-use EasyForms\Models\Form;
-use EasyForms\Builder\FormTemplates;
+use ActiveForms\Models\Form;
+use ActiveForms\Builder\FormTemplates;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -142,7 +142,7 @@ class FormsController extends AbstractController {
 	public function show( $request ) {
 		$form = Form::find( (int) $request['id'] );
 		if ( ! $form ) {
-			return $this->fail( __( 'Form not found.', 'easyforms' ), 404 );
+			return $this->fail( __( 'Form not found.', 'activeforms' ), 404 );
 		}
 		return $this->ok( $form );
 	}
@@ -162,7 +162,7 @@ class FormsController extends AbstractController {
 
 		$id = Form::create(
 			array(
-				'title'    => isset( $body['title'] ) ? sanitize_text_field( $body['title'] ) : __( 'Untitled Form', 'easyforms' ),
+				'title'    => isset( $body['title'] ) ? sanitize_text_field( $body['title'] ) : __( 'Untitled Form', 'activeforms' ),
 				'type'     => isset( $body['type'] ) ? sanitize_key( $body['type'] ) : 'classic',
 				'fields'   => isset( $body['fields'] ) ? $body['fields'] : ( isset( $seed['fields'] ) ? $seed['fields'] : array() ),
 				'settings' => isset( $body['settings'] ) ? $body['settings'] : ( isset( $seed['settings'] ) ? $seed['settings'] : array() ),
@@ -182,7 +182,7 @@ class FormsController extends AbstractController {
 		$id   = (int) $request['id'];
 		$form = Form::find( $id );
 		if ( ! $form ) {
-			return $this->fail( __( 'Form not found.', 'easyforms' ), 404 );
+			return $this->fail( __( 'Form not found.', 'activeforms' ), 404 );
 		}
 
 		$body = $request->get_json_params();
@@ -229,7 +229,7 @@ class FormsController extends AbstractController {
 	public function duplicate( $request ) {
 		$new_id = Form::duplicate( (int) $request['id'] );
 		if ( ! $new_id ) {
-			return $this->fail( __( 'Could not duplicate form.', 'easyforms' ), 400 );
+			return $this->fail( __( 'Could not duplicate form.', 'activeforms' ), 400 );
 		}
 		return $this->ok( Form::find( $new_id ), 201 );
 	}

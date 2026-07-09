@@ -2,12 +2,12 @@
 /**
  * Composite Address field.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Support\Arr;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -34,12 +34,12 @@ class AddressField extends AbstractCompositeField {
 	 */
 	protected function default_subfields() {
 		return array(
-			array( 'key' => 'address_line_1', 'label' => __( 'Address Line 1', 'easyforms' ), 'placeholder' => __( 'Address Line 1', 'easyforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'address_line_2', 'label' => __( 'Address Line 2', 'easyforms' ), 'placeholder' => __( 'Address Line 2', 'easyforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'city', 'label' => __( 'City', 'easyforms' ), 'placeholder' => __( 'City', 'easyforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'state', 'label' => __( 'State', 'easyforms' ), 'placeholder' => __( 'State', 'easyforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'zip', 'label' => __( 'Zip Code', 'easyforms' ), 'placeholder' => __( 'Zip', 'easyforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'country', 'label' => __( 'Country', 'easyforms' ), 'placeholder' => '', 'visible' => true, 'required' => false, 'type' => 'country' ),
+			array( 'key' => 'address_line_1', 'label' => __( 'Address Line 1', 'activeforms' ), 'placeholder' => __( 'Address Line 1', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'address_line_2', 'label' => __( 'Address Line 2', 'activeforms' ), 'placeholder' => __( 'Address Line 2', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'city', 'label' => __( 'City', 'activeforms' ), 'placeholder' => __( 'City', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'state', 'label' => __( 'State', 'activeforms' ), 'placeholder' => __( 'State', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'zip', 'label' => __( 'Zip Code', 'activeforms' ), 'placeholder' => __( 'Zip', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'country', 'label' => __( 'Country', 'activeforms' ), 'placeholder' => '', 'visible' => true, 'required' => false, 'type' => 'country' ),
 		);
 	}
 
@@ -58,11 +58,11 @@ class AddressField extends AbstractCompositeField {
 	public function render( $field, $value = null ) {
 		$value   = (array) $value;
 		$visible = $this->visible_subfields( $field );
-		$control = '<div class="easyforms-address">';
+		$control = '<div class="activeforms-address">';
 
 		// Two-column grid: chunk visible sub-fields into rows of two.
 		foreach ( array_chunk( $visible, 2 ) as $pair ) {
-			$control .= '<div class="easyforms-subfields easyforms-address__row">';
+			$control .= '<div class="activeforms-subfields activeforms-address__row">';
 			foreach ( $pair as $sub ) {
 				$control .= $this->subfield_control( $field, $sub, $value );
 			}

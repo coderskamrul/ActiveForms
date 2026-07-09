@@ -4,17 +4,17 @@
  *
  * Renders a saved form with the real FormRenderer + frontend stylesheet inside
  * a lightweight "browser window" chrome with device toggles, served at
- * `?easyforms_preview=<id>`. Restricted to users who can manage forms. Form
+ * `?activeforms_preview=<id>`. Restricted to users who can manage forms. Form
  * submission is disabled in preview so no entries are created.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Frontend;
+namespace ActiveForms\Frontend;
 
-use EasyForms\Core\Config;
-use EasyForms\Core\Container;
-use EasyForms\Models\Form;
+use ActiveForms\Core\Config;
+use ActiveForms\Core\Container;
+use ActiveForms\Models\Form;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,19 +54,19 @@ class PreviewPage {
 	 * @return void
 	 */
 	public function maybe_render() {
-		if ( ! isset( $_GET['easyforms_preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_GET['activeforms_preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
-		$id = absint( wp_unslash( $_GET['easyforms_preview'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$id = absint( wp_unslash( $_GET['activeforms_preview'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		if ( ! current_user_can( Config::cap( 'manage' ) ) ) {
-			wp_die( esc_html__( 'You are not allowed to preview EasyForms forms.', 'easyforms' ), 403 );
+			wp_die( esc_html__( 'You are not allowed to preview ActiveForms forms.', 'activeforms' ), 403 );
 		}
 
 		$form = Form::find( $id );
 		if ( ! $form ) {
-			wp_die( esc_html__( 'Form not found.', 'easyforms' ), 404 );
+			wp_die( esc_html__( 'Form not found.', 'activeforms' ), 404 );
 		}
 
 		$this->render( $form );
@@ -80,12 +80,12 @@ class PreviewPage {
 	 * @return void
 	 */
 	private function render( $form ) {
-		$title = isset( $form['title'] ) ? $form['title'] : __( 'Form Preview', 'easyforms' );
+		$title = isset( $form['title'] ) ? $form['title'] : __( 'Form Preview', 'activeforms' );
 
 		// Run the exact same asset pipeline the front end uses so the preview is
 		// a true representation. Firing wp_enqueue_scripts lets the shortcode and
 		// the Pro add-on register their frontend bundles (with localized data);
-		// rendering the form then triggers the easyforms/rendering_form filter
+		// rendering the form then triggers the activeforms/rendering_form filter
 		// that enqueues the Pro bundle, just like a real page.
 		do_action( 'wp_enqueue_scripts' );
 
@@ -95,14 +95,14 @@ class PreviewPage {
 		// The core bundle (form.css + form.js) always loads on the front end; the
 		// JS is what enhances the multi-select into a tag picker, applies input
 		// masks, turns searchable selects into dropdowns, etc.
-		wp_enqueue_style( 'easyforms-frontend' );
-		wp_enqueue_script( 'easyforms-frontend' );
+		wp_enqueue_style( 'activeforms-frontend' );
+		wp_enqueue_script( 'activeforms-frontend' );
 
-		// Print only EasyForms' own handles (core + Pro when present) so the clean
+		// Print only ActiveForms' own handles (core + Pro when present) so the clean
 		// preview window isn't polluted by theme/other-plugin assets.
-		$handles = array( 'easyforms-frontend' );
-		if ( wp_script_is( 'easyforms-pro-frontend', 'registered' ) || wp_style_is( 'easyforms-pro-frontend', 'registered' ) ) {
-			$handles[] = 'easyforms-pro-frontend';
+		$handles = array( 'activeforms-frontend' );
+		if ( wp_script_is( 'activeforms-pro-frontend', 'registered' ) || wp_style_is( 'activeforms-pro-frontend', 'registered' ) ) {
+			$handles[] = 'activeforms-pro-frontend';
 		}
 
 		nocache_headers();
@@ -115,26 +115,26 @@ class PreviewPage {
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="robots" content="noindex,nofollow" />
-	<title><?php echo esc_html( $title ); ?> — <?php esc_html_e( 'EasyForms Preview', 'easyforms' ); ?></title>
+	<title><?php echo esc_html( $title ); ?> — <?php esc_html_e( 'ActiveForms Preview', 'activeforms' ); ?></title>
 	<?php wp_print_styles( $handles ); ?>
 	<?php echo $this->inline_css(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </head>
-<body class="easyforms-preview-body">
-	<header class="easyforms-pvp__bar">
-		<div class="easyforms-pvp__name"><span class="dashicons dashicons-feedback"></span> <?php echo esc_html( $title ); ?></div>
-		<div class="easyforms-pvp__badge"><?php esc_html_e( 'Preview Only', 'easyforms' ); ?></div>
-		<div class="easyforms-pvp__devices" role="group" aria-label="<?php esc_attr_e( 'Preview width', 'easyforms' ); ?>">
+<body class="activeforms-preview-body">
+	<header class="activeforms-pvp__bar">
+		<div class="activeforms-pvp__name"><span class="dashicons dashicons-feedback"></span> <?php echo esc_html( $title ); ?></div>
+		<div class="activeforms-pvp__badge"><?php esc_html_e( 'Preview Only', 'activeforms' ); ?></div>
+		<div class="activeforms-pvp__devices" role="group" aria-label="<?php esc_attr_e( 'Preview width', 'activeforms' ); ?>">
 			<button type="button" data-device="desktop" class="is-active" title="Desktop">&#9633;</button>
 			<button type="button" data-device="tablet" title="Tablet">&#9645;</button>
 			<button type="button" data-device="mobile" title="Mobile">&#9647;</button>
 		</div>
-		<div class="easyforms-pvp__sc"><code>[easyforms id="<?php echo esc_attr( (int) $form['id'] ); ?>"]</code></div>
+		<div class="activeforms-pvp__sc"><code>[activeforms id="<?php echo esc_attr( (int) $form['id'] ); ?>"]</code></div>
 	</header>
 
-	<main class="easyforms-pvp__stage">
-		<div class="easyforms-pvp__window" id="easyforms-pvp-window">
-			<div class="easyforms-pvp__dots"><span></span><span></span><span></span></div>
-			<div class="easyforms-pvp__canvas">
+	<main class="activeforms-pvp__stage">
+		<div class="activeforms-pvp__window" id="activeforms-pvp-window">
+			<div class="activeforms-pvp__dots"><span></span><span></span><span></span></div>
+			<div class="activeforms-pvp__canvas">
 				<?php echo $form_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 		</div>
@@ -143,11 +143,11 @@ class PreviewPage {
 	<?php wp_print_scripts( $handles ); ?>
 	<script>
 		(function () {
-			var win = document.getElementById('easyforms-pvp-window');
+			var win = document.getElementById('activeforms-pvp-window');
 			var widths = { desktop: '100%', tablet: '768px', mobile: '390px' };
-			document.querySelectorAll('.easyforms-pvp__devices button').forEach(function (btn) {
+			document.querySelectorAll('.activeforms-pvp__devices button').forEach(function (btn) {
 				btn.addEventListener('click', function () {
-					document.querySelectorAll('.easyforms-pvp__devices button').forEach(function (b) { b.classList.remove('is-active'); });
+					document.querySelectorAll('.activeforms-pvp__devices button').forEach(function (b) { b.classList.remove('is-active'); });
 					btn.classList.add('is-active');
 					win.style.maxWidth = widths[btn.getAttribute('data-device')] || '100%';
 				});
@@ -156,13 +156,13 @@ class PreviewPage {
 			// during parse — before form.js attaches its own (on DOMContentLoaded)
 			// — and uses the capture phase + stopImmediatePropagation so the
 			// frontend AJAX submit handler never runs and no entry is created.
-			var form = document.querySelector('.easyforms-form');
+			var form = document.querySelector('.activeforms-form');
 			if (form) {
 				form.addEventListener('submit', function (e) {
 					e.preventDefault();
 					e.stopImmediatePropagation();
-					var msg = form.querySelector('.easyforms-form-message');
-					if (msg) { msg.className = 'easyforms-form-message easyforms-form-message--success'; msg.textContent = <?php echo wp_json_encode( __( 'Preview mode — submission is disabled.', 'easyforms' ) ); ?>; }
+					var msg = form.querySelector('.activeforms-form-message');
+					if (msg) { msg.className = 'activeforms-form-message activeforms-form-message--success'; msg.textContent = <?php echo wp_json_encode( __( 'Preview mode — submission is disabled.', 'activeforms' ) ); ?>; }
 				}, true);
 			}
 		})();
@@ -184,27 +184,27 @@ class PreviewPage {
 		$border  = isset( $tokens['color']['border'] ) ? $tokens['color']['border'] : '#e5e7eb';
 
 		$css = ':root{'
-			. '--easyforms-color-primary:' . $primary . ';'
-			. '--easyforms-color-primary-hover:' . $hover . ';'
-			. '--easyforms-color-border:' . $border . ';'
-			. '--easyforms-radius-md:8px;}'
-			. 'body.easyforms-preview-body{margin:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1f2937;}'
-			. '.easyforms-pvp__bar{display:flex;align-items:center;gap:16px;padding:12px 20px;background:#fff;border-bottom:1px solid ' . $border . ';position:sticky;top:0;z-index:10;}'
-			. '.easyforms-pvp__name{font-weight:700;display:flex;align-items:center;gap:8px;}'
-			. '.easyforms-pvp__badge{font-size:12px;font-weight:600;color:' . $primary . ';background:#eef2ff;padding:4px 10px;border-radius:999px;}'
-			. '.easyforms-pvp__devices{margin-left:auto;display:flex;gap:4px;background:#f3f4f6;padding:3px;border-radius:8px;}'
-			. '.easyforms-pvp__devices button{width:34px;height:28px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:15px;color:#6b7280;}'
-			. '.easyforms-pvp__devices button.is-active{background:#fff;color:' . $primary . ';box-shadow:0 1px 2px rgba(16,24,40,.1);}'
-			. '.easyforms-pvp__sc code{font-size:12px;background:#f3f4f6;border:1px solid ' . $border . ';padding:5px 10px;border-radius:6px;color:#374151;}'
-			. '.easyforms-pvp__stage{padding:32px 20px 64px;}'
-			. '.easyforms-pvp__window{max-width:100%;margin:0 auto;background:#fff;border:1px solid ' . $border . ';border-radius:14px;box-shadow:0 12px 32px rgba(16,24,40,.12);overflow:hidden;transition:max-width .25s ease;}'
-			. '.easyforms-pvp__dots{display:flex;gap:7px;padding:14px 18px;background:#f9fafb;border-bottom:1px solid ' . $border . ';}'
-			. '.easyforms-pvp__dots span{width:12px;height:12px;border-radius:50%;background:#e5e7eb;}'
-			. '.easyforms-pvp__dots span:nth-child(1){background:#f87171;}.easyforms-pvp__dots span:nth-child(2){background:#fbbf24;}.easyforms-pvp__dots span:nth-child(3){background:#34d399;}'
-			. '.easyforms-pvp__canvas{padding:36px;}'
+			. '--activeforms-color-primary:' . $primary . ';'
+			. '--activeforms-color-primary-hover:' . $hover . ';'
+			. '--activeforms-color-border:' . $border . ';'
+			. '--activeforms-radius-md:8px;}'
+			. 'body.activeforms-preview-body{margin:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1f2937;}'
+			. '.activeforms-pvp__bar{display:flex;align-items:center;gap:16px;padding:12px 20px;background:#fff;border-bottom:1px solid ' . $border . ';position:sticky;top:0;z-index:10;}'
+			. '.activeforms-pvp__name{font-weight:700;display:flex;align-items:center;gap:8px;}'
+			. '.activeforms-pvp__badge{font-size:12px;font-weight:600;color:' . $primary . ';background:#eef2ff;padding:4px 10px;border-radius:999px;}'
+			. '.activeforms-pvp__devices{margin-left:auto;display:flex;gap:4px;background:#f3f4f6;padding:3px;border-radius:8px;}'
+			. '.activeforms-pvp__devices button{width:34px;height:28px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:15px;color:#6b7280;}'
+			. '.activeforms-pvp__devices button.is-active{background:#fff;color:' . $primary . ';box-shadow:0 1px 2px rgba(16,24,40,.1);}'
+			. '.activeforms-pvp__sc code{font-size:12px;background:#f3f4f6;border:1px solid ' . $border . ';padding:5px 10px;border-radius:6px;color:#374151;}'
+			. '.activeforms-pvp__stage{padding:32px 20px 64px;}'
+			. '.activeforms-pvp__window{max-width:100%;margin:0 auto;background:#fff;border:1px solid ' . $border . ';border-radius:14px;box-shadow:0 12px 32px rgba(16,24,40,.12);overflow:hidden;transition:max-width .25s ease;}'
+			. '.activeforms-pvp__dots{display:flex;gap:7px;padding:14px 18px;background:#f9fafb;border-bottom:1px solid ' . $border . ';}'
+			. '.activeforms-pvp__dots span{width:12px;height:12px;border-radius:50%;background:#e5e7eb;}'
+			. '.activeforms-pvp__dots span:nth-child(1){background:#f87171;}.activeforms-pvp__dots span:nth-child(2){background:#fbbf24;}.activeforms-pvp__dots span:nth-child(3){background:#34d399;}'
+			. '.activeforms-pvp__canvas{padding:36px;}'
 			// Keep the frontend's column width + center it so the preview reads
 			// like a real page instead of sprawling edge-to-edge.
-			. '.easyforms-pvp__canvas .easyforms-form-wrap{margin:0 auto;}';
+			. '.activeforms-pvp__canvas .activeforms-form-wrap{margin:0 auto;}';
 
 		return '<style>' . $css . '</style>';
 	}

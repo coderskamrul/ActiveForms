@@ -2,10 +2,10 @@
 /**
  * Country list + helpers (full ISO 3166-1, flag emoji, list filtering).
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Support;
+namespace ActiveForms\Support;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -75,11 +75,11 @@ class Countries {
 		);
 
 		/**
-		 * Filter the EasyForms country list.
+		 * Filter the ActiveForms country list.
 		 *
 		 * @param array $list ISO code => name.
 		 */
-		return apply_filters( 'easyforms/countries', $list );
+		return apply_filters( 'activeforms/countries', $list );
 	}
 
 	/**

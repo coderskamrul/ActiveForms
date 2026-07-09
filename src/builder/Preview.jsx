@@ -13,7 +13,7 @@ const WIDTHS = { desktop: '100%', tablet: '768px', mobile: '390px' };
 /** Ensure the frontend stylesheet is present in the document head once. */
 function useFrontendStyles() {
   useEffect(() => {
-    const id = 'easyforms-frontend-css';
+    const id = 'activeforms-frontend-css';
     if (!document.getElementById(id) && config.assetsUrl) {
       const link = document.createElement('link');
       link.id = id;
@@ -41,14 +41,14 @@ export default function Preview({ title, fields, device = 'desktop' }) {
   }, [title, fields]);
 
   return (
-    <div className={`easyforms-cv easyforms-pv easyforms-cv--${device}`}>
-      <div className="easyforms-cv__frame" style={{ maxWidth: WIDTHS[device] || '100%' }}>
-        <div className="easyforms-pv__sheet">
-          {html === null && !error && <div className="easyforms-center"><div className="easyforms-spinner" /></div>}
-          {error && <div className="easyforms-pv__err">Preview failed: {error}</div>}
+    <div className={`activeforms-cv activeforms-pv activeforms-cv--${device}`}>
+      <div className="activeforms-cv__frame" style={{ maxWidth: WIDTHS[device] || '100%' }}>
+        <div className="activeforms-pv__sheet">
+          {html === null && !error && <div className="activeforms-center"><div className="activeforms-spinner" /></div>}
+          {error && <div className="activeforms-pv__err">Preview failed: {error}</div>}
           {html !== null && (
             <div
-              className="easyforms-pv__form"
+              className="activeforms-pv__form"
               onSubmitCapture={(e) => e.preventDefault()}
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: html }}

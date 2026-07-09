@@ -2,10 +2,10 @@
 /**
  * Integrations REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -59,7 +59,7 @@ class IntegrationsController extends AbstractController {
 		$slug     = sanitize_key( $request['slug'] );
 		$registry = $this->container->get( 'integrations' );
 		if ( ! $registry->get( $slug ) ) {
-			return $this->fail( __( 'Unknown integration.', 'easyforms' ), 404 );
+			return $this->fail( __( 'Unknown integration.', 'activeforms' ), 404 );
 		}
 
 		$body = $request->get_json_params();
@@ -67,7 +67,7 @@ class IntegrationsController extends AbstractController {
 		$body = isset( $body['settings'] ) ? $body['settings'] : $body;
 
 		$clean = is_array( $body ) ? map_deep( $body, 'sanitize_text_field' ) : array();
-		update_option( 'easyforms_integration_' . $slug, $clean );
+		update_option( 'activeforms_integration_' . $slug, $clean );
 
 		return $this->ok( $registry->get( $slug )->describe() );
 	}

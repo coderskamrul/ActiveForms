@@ -59,7 +59,7 @@ function GeneralTab({ settings, setField }) {
         <Row title="Form Editor Autosave" badge={SOON} disabled toggle description="Automatically save the builder while you work.">
           <Toggle checked={false} onChange={() => {}} />
         </Row>
-        <Row title="No-Conflict Mode" badge={SOON} disabled toggle description="Unload third-party scripts on EasyForms admin screens to prevent conflicts.">
+        <Row title="No-Conflict Mode" badge={SOON} disabled toggle description="Unload third-party scripts on ActiveForms admin screens to prevent conflicts.">
           <Toggle checked={false} onChange={() => {}} />
         </Row>
       </Section>
@@ -129,7 +129,7 @@ function SpamTab({ settings, setRecaptcha }) {
               <Text value={r.site_key} onChange={(v) => setRecaptcha('site_key', v)} placeholder="Site key" />
             </Row>
             <Row title="Secret Key" stacked description="The private key used for server-side verification. Stored securely.">
-              <input className="easyforms-input" type="password" value={r.secret_key || ''} onChange={(e) => setRecaptcha('secret_key', e.target.value)} placeholder="Secret key" />
+              <input className="activeforms-input" type="password" value={r.secret_key || ''} onChange={(e) => setRecaptcha('secret_key', e.target.value)} placeholder="Secret key" />
             </Row>
           </>
         )}
@@ -152,7 +152,7 @@ function SpamTab({ settings, setRecaptcha }) {
 function PrivacyTab({ settings, setField }) {
   return (
     <>
-      <Section title="Data Collection" description="Control what EasyForms stores alongside each submission.">
+      <Section title="Data Collection" description="Control what ActiveForms stores alongside each submission.">
         <Row title="Disable IP Logging" badge={SOON} disabled toggle description="Stop recording the submitter's IP address with each entry.">
           <Toggle checked={false} onChange={() => {}} />
         </Row>
@@ -164,9 +164,9 @@ function PrivacyTab({ settings, setField }) {
         </Row>
       </Section>
 
-      <Section title="Data Cleanup" description="What happens to your forms and entries when EasyForms is removed.">
+      <Section title="Data Cleanup" description="What happens to your forms and entries when ActiveForms is removed.">
         <Note icon="warning">Deleting all data is permanent. Forms, entries, and settings cannot be recovered after uninstall.</Note>
-        <Row title="Remove All Data on Uninstall" toggle description="Drop all EasyForms tables and options when the plugin is deleted.">
+        <Row title="Remove All Data on Uninstall" toggle description="Drop all ActiveForms tables and options when the plugin is deleted.">
           <Toggle checked={!!settings.remove_data_on_uninstall} onChange={(v) => setField('remove_data_on_uninstall', v)} />
         </Row>
       </Section>
@@ -199,7 +199,7 @@ function EmailTab() {
 
       <Section title="Email Appearance" badge={SOON} locked description="Branding applied to outgoing notification emails.">
         <Row title="Email Footer Text" badge={SOON} stacked disabled description="Appended to the bottom of every notification email.">
-          <textarea className="easyforms-textarea" rows={3} disabled placeholder="Powered by EasyForms" />
+          <textarea className="activeforms-textarea" rows={3} disabled placeholder="Powered by ActiveForms" />
         </Row>
       </Section>
     </>
@@ -209,7 +209,7 @@ function EmailTab() {
 function PaymentsTab() {
   return (
     <Section title="Payment Settings" badge={SOON} locked description="Collect payments directly through your forms. This area unlocks once the Payments module ships.">
-      <Note icon="cart">Stripe and PayPal gateways, currency selection, and per-form pricing are on the EasyForms roadmap.</Note>
+      <Note icon="cart">Stripe and PayPal gateways, currency selection, and per-form pricing are on the ActiveForms roadmap.</Note>
       <Row title="Default Currency" badge={SOON} disabled description="Currency used for new payment fields.">
         <Select value="usd" disabled options={[{ value: 'usd', label: 'USD — US Dollar' }]} />
       </Row>
@@ -223,7 +223,7 @@ function PaymentsTab() {
 function PermissionsTab() {
   return (
     <Section title="Permissions" badge={SOON} locked description="Choose which user roles can manage forms, view entries, and change settings.">
-      <Note icon="groups">Granular role-based access control is coming. For now, EasyForms is available to administrators.</Note>
+      <Note icon="groups">Granular role-based access control is coming. For now, ActiveForms is available to administrators.</Note>
       <Row title="Manage Forms" badge={SOON} disabled description="Roles allowed to create and edit forms.">
         <Select value="admin" disabled options={[{ value: 'admin', label: 'Administrator' }]} />
       </Row>
@@ -236,9 +236,9 @@ function PermissionsTab() {
 
 function LicenseTab() {
   return (
-    <Section title="License & Add-ons" badge={PRO} locked description="Activate EasyForms Pro to unlock premium fields, integrations, and priority support.">
-      <Note icon="admin-network">Enter your license key here once EasyForms Pro is installed to receive automatic updates.</Note>
-      <Row title="License Key" badge={PRO} stacked disabled description="Found in your WPDeveloper account dashboard.">
+    <Section title="License & Add-ons" badge={PRO} locked description="Activate ActiveForms Pro to unlock premium fields, integrations, and priority support.">
+      <Note icon="admin-network">Enter your license key here once ActiveForms Pro is installed to receive automatic updates.</Note>
+      <Row title="License Key" badge={PRO} stacked disabled description="Found in your PluginShift account dashboard.">
         <Text value="" disabled placeholder="XXXX-XXXX-XXXX-XXXX" />
       </Row>
     </Section>

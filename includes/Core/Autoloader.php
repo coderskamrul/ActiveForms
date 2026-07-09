@@ -2,15 +2,15 @@
 /**
  * Lightweight PSR-4 autoloader.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Maps the EasyForms\ namespace onto the includes/ directory without requiring
+ * Maps the ActiveForms\ namespace onto the includes/ directory without requiring
  * Composer in the distributed plugin.
  */
 class Autoloader {
@@ -32,7 +32,7 @@ class Autoloader {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $prefix   Namespace prefix, e.g. "EasyForms\".
+	 * @param string $prefix   Namespace prefix, e.g. "ActiveForms\".
 	 * @param string $base_dir Directory the prefix maps to.
 	 */
 	public function __construct( $prefix, $base_dir ) {

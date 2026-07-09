@@ -4,21 +4,21 @@
  */
 const fallback = {
   version: '1.0.0',
-  restUrl: '/wp-json/easyforms/v1',
-  restNamespace: 'easyforms/v1',
+  restUrl: '/wp-json/activeforms/v1',
+  restNamespace: 'activeforms/v1',
   nonce: '',
   adminUrl: '',
   assetsUrl: '',
   capabilities: {},
-  brand: { name: 'EasyForms', shortName: 'EasyForms', tagline: 'Drag & Drop Form Builder' },
+  brand: { name: 'ActiveForms', shortName: 'ActiveForms', tagline: 'Drag & Drop Form Builder' },
   designTokens: {},
   currencies: ['USD'],
   dateFormat: 'F j, Y',
   strings: {},
 };
 
-const config = typeof window !== 'undefined' && window.EasyFormsConfig
-  ? window.EasyFormsConfig
+const config = typeof window !== 'undefined' && window.ActiveFormsConfig
+  ? window.ActiveFormsConfig
   : fallback;
 
 export default config;

@@ -2,18 +2,18 @@
 /**
  * Base REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
-use EasyForms\Core\Config;
-use EasyForms\Core\Container;
+use ActiveForms\Core\Config;
+use ActiveForms\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared base for EasyForms REST controllers: namespace, permission helpers,
+ * Shared base for ActiveForms REST controllers: namespace, permission helpers,
  * and response shaping.
  */
 abstract class AbstractController {

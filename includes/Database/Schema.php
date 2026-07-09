@@ -2,17 +2,17 @@
 /**
  * Database schema installer.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Database;
+namespace ActiveForms\Database;
 
-use EasyForms\Core\Config;
+use ActiveForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Creates and upgrades EasyForms custom tables using dbDelta().
+ * Creates and upgrades ActiveForms custom tables using dbDelta().
  */
 class Schema {
 

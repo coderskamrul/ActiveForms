@@ -1,7 +1,7 @@
 {
-  "name": "easyforms",
+  "name": "activeforms",
   "version": "1.0.0",
-  "description": "EasyForms – Drag & Drop Form Builder for WordPress (React admin)",
+  "description": "ActiveForms – Drag & Drop Form Builder for WordPress (React admin)",
   "private": true,
   "engines": {
     "node": ">=20 <21"
@@ -10,7 +10,7 @@
     "start": "webpack --watch --mode development",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "makepot": "wp i18n make-pot . languages/easyforms.pot --domain=easyforms --slug=easyforms --exclude=node_modules,src,vendor,build,scripts,plugin-requirements",
+    "makepot": "wp i18n make-pot . languages/activeforms.pot --domain=activeforms --slug=activeforms --exclude=node_modules,src,vendor,build,scripts,plugin-requirements",
     "zip": "npm run build && node scripts/make-zip.mjs",
     "release": "npm run build && npm run makepot && node scripts/make-zip.mjs"
   },

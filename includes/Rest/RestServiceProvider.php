@@ -1,13 +1,13 @@
 <?php
 /**
- * Registers all EasyForms REST controllers.
+ * Registers all ActiveForms REST controllers.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
-use EasyForms\Core\Container;
+use ActiveForms\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -62,7 +62,7 @@ class RestServiceProvider {
 		 * @param array     $controllers Controller instances.
 		 * @param Container  $container   Service container.
 		 */
-		$controllers = apply_filters( 'easyforms/rest_controllers', $controllers, $this->container );
+		$controllers = apply_filters( 'activeforms/rest_controllers', $controllers, $this->container );
 
 		foreach ( $controllers as $controller ) {
 			if ( $controller instanceof AbstractController ) {

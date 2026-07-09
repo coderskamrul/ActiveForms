@@ -2,12 +2,12 @@
 /**
  * Activation routine.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
-use EasyForms\Database\Schema;
+use ActiveForms\Database\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,11 +29,11 @@ class Activator {
 			add_option( Config::OPTION_SETTINGS, self::default_settings() );
 		}
 
-		update_option( Config::OPTION_DB_VERSION, EASYFORMS_DB_VERSION, false );
+		update_option( Config::OPTION_DB_VERSION, ACTIVEFORMS_DB_VERSION, false );
 
 		// Stamp the install time once.
-		if ( false === get_option( 'easyforms_installed_at', false ) ) {
-			add_option( 'easyforms_installed_at', time(), '', false );
+		if ( false === get_option( 'activeforms_installed_at', false ) ) {
+			add_option( 'activeforms_installed_at', time(), '', false );
 		}
 	}
 

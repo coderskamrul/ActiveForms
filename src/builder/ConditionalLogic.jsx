@@ -42,8 +42,8 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
   const removeRule = (i) => patch({ rules: rules.filter((_, idx) => idx !== i) });
 
   return (
-    <div className="easyforms-cl">
-      <div className="easyforms-cl__switch">
+    <div className="activeforms-cl">
+      <div className="activeforms-cl__switch">
         <div>
           <strong>Enable Conditional Logic</strong>
           <p>Show or hide this field based on other answers.</p>
@@ -52,10 +52,10 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
       </div>
 
       {cond.enabled && (
-        <div className="easyforms-cl__body">
-          <div className="easyforms-cl__intro">
+        <div className="activeforms-cl__body">
+          <div className="activeforms-cl__intro">
             <select
-              className="easyforms-select easyforms-select--inline"
+              className="activeforms-select activeforms-select--inline"
               value={cond.action || 'show'}
               onChange={(e) => patch({ action: e.target.value })}
             >
@@ -64,7 +64,7 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
             </select>
             <span>this field if</span>
             <select
-              className="easyforms-select easyforms-select--inline"
+              className="activeforms-select activeforms-select--inline"
               value={cond.logic || 'all'}
               onChange={(e) => patch({ logic: e.target.value })}
             >
@@ -74,11 +74,11 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
             <span>of these match:</span>
           </div>
 
-          <div className="easyforms-cl__rules">
+          <div className="activeforms-cl__rules">
             {rules.map((rule, i) => (
-              <div className="easyforms-cl__rule" key={i}>
+              <div className="activeforms-cl__rule" key={i}>
                 <select
-                  className="easyforms-select"
+                  className="activeforms-select"
                   value={rule.field}
                   onChange={(e) => setRule(i, 'field', e.target.value)}
                 >
@@ -86,7 +86,7 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
                   {fields.map((f) => <option key={f.key} value={f.key}>{f.label || f.key}</option>)}
                 </select>
                 <select
-                  className="easyforms-select"
+                  className="activeforms-select"
                   value={rule.operator}
                   onChange={(e) => setRule(i, 'operator', e.target.value)}
                 >
@@ -94,7 +94,7 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
                 </select>
                 {!VALUELESS.includes(rule.operator) && (
                   <input
-                    className="easyforms-input"
+                    className="activeforms-input"
                     value={rule.value}
                     placeholder="Value"
                     onChange={(e) => setRule(i, 'value', e.target.value)}
@@ -102,7 +102,7 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
                 )}
                 <button
                   type="button"
-                  className="easyforms-cl__rm"
+                  className="activeforms-cl__rm"
                   title="Remove"
                   onClick={() => removeRule(i)}
                   disabled={rules.length === 1}
@@ -113,12 +113,12 @@ export default function ConditionalLogic({ conditional, fields, onChange }) {
             ))}
           </div>
 
-          <button type="button" className="easyforms-btn easyforms-btn--sm" onClick={addRule}>
+          <button type="button" className="activeforms-btn activeforms-btn--sm" onClick={addRule}>
             <Icon name="plus" size={13} /> Add condition
           </button>
 
           {!fields.length && (
-            <p className="easyforms-cl__hint">Add other input fields first to build conditions.</p>
+            <p className="activeforms-cl__hint">Add other input fields first to build conditions.</p>
           )}
         </div>
       )}

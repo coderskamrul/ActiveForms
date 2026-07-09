@@ -229,7 +229,7 @@ export default function Builder({ formId }) {
     if (!idRef.current) { notify('Save the form first to preview it.', 'error'); return; }
     if (dirty) { await save(); }
     const base = (config.home || '/').replace(/\/$/, '/');
-    window.open(`${base}?easyforms_preview=${idRef.current}`, '_blank', 'noopener');
+    window.open(`${base}?activeforms_preview=${idRef.current}`, '_blank', 'noopener');
   }, [dirty, save, notify]);
 
   // Keyboard shortcuts.
@@ -256,7 +256,7 @@ export default function Builder({ formId }) {
     .map((f) => ({ key: f.key, label: f.admin_label || f.label || f.key }));
 
   return (
-    <div className="easyforms-builder-shell">
+    <div className="activeforms-builder-shell">
       <BuilderTopbar
         title={title}
         onTitle={setTitle}
@@ -274,7 +274,7 @@ export default function Builder({ formId }) {
       />
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragCancel={() => setDrag(null)}>
-          <div className="easyforms-builder-2">
+          <div className="activeforms-builder-2">
             <Canvas
               fields={fields}
               selectedId={selectedId}
@@ -304,7 +304,7 @@ export default function Builder({ formId }) {
 
           <DragOverlay dropAnimation={{ duration: 180, easing: 'cubic-bezier(0.2, 0, 0, 1)' }}>
             {drag ? (
-              <div className="easyforms-drag-ghost">
+              <div className="activeforms-drag-ghost">
                 <span className={`dashicons dashicons-${drag.icon || 'forms'}`} aria-hidden="true" />
                 <span>{drag.label}</span>
               </div>

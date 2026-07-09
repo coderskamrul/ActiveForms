@@ -1,4 +1,4 @@
-=== EasyForms – Drag & Drop Form Builder ===
+=== ActiveForms – Drag & Drop Form Builder ===
 Contributors: pluginshift
 Tags: contact form, form builder, forms, drag and drop, survey
 Requires at least: 6.2
@@ -12,7 +12,7 @@ Build contact forms, surveys, quizzes, and lead-generation forms with a modern R
 
 == Description ==
 
-EasyForms is a fast, modern WordPress form builder. Create contact forms, surveys, quizzes,
+ActiveForms is a fast, modern WordPress form builder. Create contact forms, surveys, quizzes,
 conversational forms, and lead-generation forms with an intuitive drag-and-drop builder built in
 React. Collect and manage submissions, get instant email notifications, protect forms from spam,
 and connect to your favorite tools.
@@ -26,21 +26,21 @@ and connect to your favorite tools.
 * **Email notifications** – multiple notifications with merge tags (smart codes).
 * **Spam protection** – built-in honeypot plus optional reCAPTCHA, hCaptcha, or Cloudflare Turnstile.
 * **Reports** – response distribution charts for choice fields.
-* **Integrations** – Mailchimp, Slack, and Webhook included; 40+ more in EasyForms Pro.
+* **Integrations** – Mailchimp, Slack, and Webhook included; 40+ more in ActiveForms Pro.
 * **Templates** – start fast with prebuilt form templates.
-* **Developer friendly** – REST API (`easyforms/v1`), action/filter hooks, and extension registries.
+* **Developer friendly** – REST API (`activeforms/v1`), action/filter hooks, and extension registries.
 * **Centralized design system** – token-driven styling with light/dark support.
 
 = Shortcode =
 
-Embed any form with `[easyforms id="123"]`.
+Embed any form with `[activeforms id="123"]`.
 
 == Installation ==
 
-1. Upload the `easyforms` folder to `/wp-content/plugins/`, or install via the Plugins screen.
+1. Upload the `activeforms` folder to `/wp-content/plugins/`, or install via the Plugins screen.
 2. Activate the plugin through the **Plugins** menu in WordPress.
-3. Open **EasyForms** in the admin menu and create your first form.
-4. Place the form on any page with the `[easyforms id="123"]` shortcode.
+3. Open **ActiveForms** in the admin menu and create your first form.
+4. Place the form on any page with the `[activeforms id="123"]` shortcode.
 
 == Frequently Asked Questions ==
 
@@ -48,7 +48,7 @@ Embed any form with `[easyforms id="123"]`.
 No. Create unlimited forms and collect unlimited submissions.
 
 = How is form data stored? =
-EasyForms uses its own custom database tables (prefixed `easyforms_`) for performance and scalability.
+ActiveForms uses its own custom database tables (prefixed `activeforms_`) for performance and scalability.
 
 = Does it work without JavaScript on the frontend? =
 Forms are progressively enhanced; submissions are always validated and stored server-side.

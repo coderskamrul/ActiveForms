@@ -2,10 +2,10 @@
 /**
  * Base class for third-party integrations.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Integrations;
+namespace ActiveForms\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -101,7 +101,7 @@ abstract class AbstractIntegration {
 	 * @return array<string,mixed>
 	 */
 	protected function settings() {
-		$all = get_option( 'easyforms_integration_' . $this->slug, array() );
+		$all = get_option( 'activeforms_integration_' . $this->slug, array() );
 		return is_array( $all ) ? $all : array();
 	}
 }

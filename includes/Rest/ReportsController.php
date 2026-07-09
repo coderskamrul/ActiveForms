@@ -2,12 +2,12 @@
 /**
  * Reports / analytics REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
-use EasyForms\Reporting\Analytics;
+use ActiveForms\Reporting\Analytics;
 
 defined( 'ABSPATH' ) || exit;
 

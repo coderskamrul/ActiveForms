@@ -2,13 +2,13 @@
 /**
  * Choice fields: select, radio, checkbox, multiselect.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Fields\Types;
+namespace ActiveForms\Fields\Types;
 
-use EasyForms\Fields\AbstractField;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\AbstractField;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,11 +58,11 @@ class ChoiceField extends AbstractField {
 		$schema            = parent::default_schema();
 		$schema['options'] = array(
 			array(
-				'label' => __( 'Option 1', 'easyforms' ),
+				'label' => __( 'Option 1', 'activeforms' ),
 				'value' => 'option_1',
 			),
 			array(
-				'label' => __( 'Option 2', 'easyforms' ),
+				'label' => __( 'Option 2', 'activeforms' ),
 				'value' => 'option_2',
 			),
 		);
@@ -89,8 +89,8 @@ class ChoiceField extends AbstractField {
 		$key     = esc_attr( Arr::get( $field, 'key', '' ) );
 
 		if ( 'select' === $this->type ) {
-			$control = '<select class="easyforms-input easyforms-select"' . $this->input_attrs( $field ) . '>';
-			$control .= '<option value="">' . esc_html( Arr::get( $field, 'placeholder', __( '— Select —', 'easyforms' ) ) ) . '</option>';
+			$control = '<select class="activeforms-input activeforms-select"' . $this->input_attrs( $field ) . '>';
+			$control .= '<option value="">' . esc_html( Arr::get( $field, 'placeholder', __( '— Select —', 'activeforms' ) ) ) . '</option>';
 			foreach ( $options as $opt ) {
 				$control .= sprintf(
 					'<option value="%1$s"%2$s>%3$s</option>',
@@ -109,9 +109,9 @@ class ChoiceField extends AbstractField {
 		// required (it's visually hidden once enhanced and couldn't be focused).
 		if ( 'multiselect' === $this->type ) {
 			$values      = array_map( 'strval', (array) $value );
-			$placeholder = Arr::get( $field, 'placeholder', __( 'Select options…', 'easyforms' ) );
+			$placeholder = Arr::get( $field, 'placeholder', __( 'Select options…', 'activeforms' ) );
 			$control     = sprintf(
-				'<select multiple class="easyforms-input easyforms-multiselect" id="easyforms-%1$s" name="%1$s[]" data-easyforms-multiselect data-placeholder="%2$s">',
+				'<select multiple class="activeforms-input activeforms-multiselect" id="activeforms-%1$s" name="%1$s[]" data-activeforms-multiselect data-placeholder="%2$s">',
 				esc_attr( $key ),
 				esc_attr( $placeholder )
 			);
@@ -132,11 +132,11 @@ class ChoiceField extends AbstractField {
 		$name     = $multiple ? $key . '[]' : $key;
 		$values   = (array) $value;
 
-		$control = '<div class="easyforms-choices" role="group">';
+		$control = '<div class="activeforms-choices" role="group">';
 		foreach ( $options as $i => $opt ) {
-			$id      = 'easyforms-' . $key . '-' . $i;
+			$id      = 'activeforms-' . $key . '-' . $i;
 			$checked = in_array( $opt['value'], $values, true ) ? ' checked' : '';
-			$control .= '<label class="easyforms-choice" for="' . esc_attr( $id ) . '">';
+			$control .= '<label class="activeforms-choice" for="' . esc_attr( $id ) . '">';
 			$control .= sprintf(
 				'<input type="%1$s" id="%2$s" name="%3$s" value="%4$s"%5$s /> <span>%6$s</span>',
 				$multiple ? 'checkbox' : 'radio',

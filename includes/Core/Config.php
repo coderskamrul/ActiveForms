@@ -6,10 +6,10 @@
  * names, REST namespace, and design tokens. Both PHP and React consume values
  * that originate here so branding/white-label changes happen in one place.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Core;
+namespace ActiveForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,27 +21,27 @@ class Config {
 	/**
 	 * Text domain for translations.
 	 */
-	const TEXT_DOMAIN = 'easyforms';
+	const TEXT_DOMAIN = 'activeforms';
 
 	/**
 	 * REST API namespace.
 	 */
-	const REST_NAMESPACE = 'easyforms/v1';
+	const REST_NAMESPACE = 'activeforms/v1';
 
 	/**
 	 * Admin menu slug.
 	 */
-	const MENU_SLUG = 'easyforms';
+	const MENU_SLUG = 'activeforms';
 
 	/**
 	 * Option key holding global settings.
 	 */
-	const OPTION_SETTINGS = 'easyforms_settings';
+	const OPTION_SETTINGS = 'activeforms_settings';
 
 	/**
 	 * Option key holding the installed DB schema version.
 	 */
-	const OPTION_DB_VERSION = 'easyforms_db_version';
+	const OPTION_DB_VERSION = 'activeforms_db_version';
 
 	/**
 	 * Custom database table base names (without the WP prefix).
@@ -50,13 +50,13 @@ class Config {
 	 */
 	public static function tables() {
 		return array(
-			'forms'        => 'easyforms_forms',
-			'form_meta'    => 'easyforms_form_meta',
-			'entries'      => 'easyforms_entries',
-			'entry_meta'   => 'easyforms_entry_meta',
-			'entry_detail' => 'easyforms_entry_details',
-			'logs'         => 'easyforms_logs',
-			'scheduled'    => 'easyforms_scheduled_actions',
+			'forms'        => 'activeforms_forms',
+			'form_meta'    => 'activeforms_form_meta',
+			'entries'      => 'activeforms_entries',
+			'entry_meta'   => 'activeforms_entry_meta',
+			'entry_detail' => 'activeforms_entry_details',
+			'logs'         => 'activeforms_logs',
+			'scheduled'    => 'activeforms_scheduled_actions',
 		);
 	}
 
@@ -76,11 +76,11 @@ class Config {
 		);
 
 		/**
-		 * Filter the EasyForms capability map.
+		 * Filter the ActiveForms capability map.
 		 *
 		 * @param array $caps Capability map.
 		 */
-		return apply_filters( 'easyforms/capabilities', $caps );
+		return apply_filters( 'activeforms/capabilities', $caps );
 	}
 
 	/**
@@ -94,9 +94,9 @@ class Config {
 	 * @return string
 	 */
 	public static function asset_version( $relative ) {
-		$file = EASYFORMS_PATH . ltrim( $relative, '/' );
+		$file = ACTIVEFORMS_PATH . ltrim( $relative, '/' );
 		$mtime = file_exists( $file ) ? filemtime( $file ) : 0;
-		return $mtime ? EASYFORMS_VERSION . '.' . $mtime : EASYFORMS_VERSION;
+		return $mtime ? ACTIVEFORMS_VERSION . '.' . $mtime : ACTIVEFORMS_VERSION;
 	}
 
 	/**
@@ -178,11 +178,11 @@ class Config {
 		);
 
 		/**
-		 * Filter EasyForms design tokens (white-label / theming entry point).
+		 * Filter ActiveForms design tokens (white-label / theming entry point).
 		 *
 		 * @param array $tokens Design token tree.
 		 */
-		return apply_filters( 'easyforms/design_tokens', $tokens );
+		return apply_filters( 'activeforms/design_tokens', $tokens );
 	}
 
 	/**
@@ -193,11 +193,11 @@ class Config {
 	 */
 	public static function brand() {
 		return apply_filters(
-			'easyforms/brand',
+			'activeforms/brand',
 			array(
-				'name'      => __( 'EasyForms', 'easyforms' ),
-				'shortName' => __( 'EasyForms', 'easyforms' ),
-				'tagline'   => __( 'Drag & Drop Form Builder', 'easyforms' ),
+				'name'      => __( 'ActiveForms', 'activeforms' ),
+				'shortName' => __( 'ActiveForms', 'activeforms' ),
+				'tagline'   => __( 'Drag & Drop Form Builder', 'activeforms' ),
 			)
 		);
 	}

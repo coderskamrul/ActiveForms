@@ -2,14 +2,14 @@
 /**
  * Server-side form HTML renderer.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Frontend;
+namespace ActiveForms\Frontend;
 
-use EasyForms\Fields\FieldRegistry;
-use EasyForms\Spam\SpamGuard;
-use EasyForms\Support\Arr;
+use ActiveForms\Fields\FieldRegistry;
+use ActiveForms\Spam\SpamGuard;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -43,26 +43,26 @@ class FormRenderer {
 	public function render( $form ) {
 		$id     = (int) Arr::get( $form, 'id', 0 );
 		$schema = Arr::get( $form, 'fields', array() );
-		$nonce  = wp_create_nonce( 'easyforms_submit_' . $id );
+		$nonce  = wp_create_nonce( 'activeforms_submit_' . $id );
 
-		$html  = '<div class="easyforms-form-wrap" data-form-id="' . esc_attr( $id ) . '">';
-		$html .= '<form class="easyforms-form" method="post" data-form-id="' . esc_attr( $id ) . '" novalidate>';
-		$html .= '<input type="hidden" name="easyforms_form_id" value="' . esc_attr( $id ) . '" />';
-		$html .= '<input type="hidden" name="easyforms_nonce" value="' . esc_attr( $nonce ) . '" />';
+		$html  = '<div class="activeforms-form-wrap" data-form-id="' . esc_attr( $id ) . '">';
+		$html .= '<form class="activeforms-form" method="post" data-form-id="' . esc_attr( $id ) . '" novalidate>';
+		$html .= '<input type="hidden" name="activeforms_form_id" value="' . esc_attr( $id ) . '" />';
+		$html .= '<input type="hidden" name="activeforms_nonce" value="' . esc_attr( $nonce ) . '" />';
 
 		$guard = new SpamGuard();
 		$html .= $guard->honeypot_markup();
 
-		$html .= '<div class="easyforms-fields">';
+		$html .= '<div class="activeforms-fields">';
 		$html .= $this->render_fields( $schema );
 		$html .= '</div>';
 
 		if ( ! $this->has_submit( $schema ) ) {
-			$html .= '<div class="easyforms-submit easyforms-submit--left"><button type="submit" class="easyforms-btn easyforms-btn--primary">'
-				. esc_html__( 'Submit', 'easyforms' ) . '</button></div>';
+			$html .= '<div class="activeforms-submit activeforms-submit--left"><button type="submit" class="activeforms-btn activeforms-btn--primary">'
+				. esc_html__( 'Submit', 'activeforms' ) . '</button></div>';
 		}
 
-		$html .= '<div class="easyforms-form-message" role="status" aria-live="polite"></div>';
+		$html .= '<div class="activeforms-form-message" role="status" aria-live="polite"></div>';
 		$html .= '</form>';
 		$html .= '</div>';
 
@@ -72,7 +72,7 @@ class FormRenderer {
 		 * @param string $html Form HTML.
 		 * @param array  $form Form schema.
 		 */
-		return apply_filters( 'easyforms/rendering_form', $html, $form );
+		return apply_filters( 'activeforms/rendering_form', $html, $form );
 	}
 
 	/**
@@ -118,14 +118,14 @@ class FormRenderer {
 		$count   = count( $columns );
 		// Inline display:flex + gap so the side-by-side layout and the gap work
 		// even if the (cached) stylesheet is stale; CSS handles mobile stacking.
-		$html    = '<div class="easyforms-row easyforms-row--cols-' . esc_attr( $count ) . '" style="display:flex;flex-wrap:wrap;gap:20px;">';
+		$html    = '<div class="activeforms-row activeforms-row--cols-' . esc_attr( $count ) . '" style="display:flex;flex-wrap:wrap;gap:20px;">';
 
 		foreach ( $columns as $column ) {
 			$width = (int) Arr::get( $column, 'width', 100 );
 			$inner = Arr::get( $column, 'fields', array() );
 			// flex-grow tracks the column width so columns SHARE the row
 			// (flex-basis 0) instead of wrapping; CSS stacks them on mobile.
-			$html .= '<div class="easyforms-col" style="flex:' . esc_attr( max( 1, $width ) ) . ' 1 0;min-width:0;">';
+			$html .= '<div class="activeforms-col" style="flex:' . esc_attr( max( 1, $width ) ) . ' 1 0;min-width:0;">';
 			$html .= $this->render_fields( $inner );
 			$html .= '</div>';
 		}

@@ -2,12 +2,12 @@
 /**
  * Database-backed logger for integration/API events.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Support;
+namespace ActiveForms\Support;
 
-use EasyForms\Core\Config;
+use ActiveForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 

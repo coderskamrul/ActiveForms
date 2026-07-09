@@ -2,14 +2,14 @@
 /**
  * Integration registry.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Integrations;
+namespace ActiveForms\Integrations;
 
-use EasyForms\Integrations\Providers\WebhookIntegration;
-use EasyForms\Integrations\Providers\SlackIntegration;
-use EasyForms\Integrations\Providers\MailchimpIntegration;
+use ActiveForms\Integrations\Providers\WebhookIntegration;
+use ActiveForms\Integrations\Providers\SlackIntegration;
+use ActiveForms\Integrations\Providers\MailchimpIntegration;
 
 defined( 'ABSPATH' ) || exit;
 

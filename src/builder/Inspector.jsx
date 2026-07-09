@@ -24,15 +24,15 @@ export default function Inspector({
   history,
 }) {
   return (
-    <div className="easyforms-insp-pane">
-      <div className="easyforms-insp-tabs" role="tablist">
+    <div className="activeforms-insp-pane">
+      <div className="activeforms-insp-tabs" role="tablist">
         {TABS.map((tab) => (
           <button
             key={tab.key}
             type="button"
             role="tab"
             aria-selected={active === tab.key}
-            className={`easyforms-insp-tab${active === tab.key ? ' is-active' : ''}`}
+            className={`activeforms-insp-tab${active === tab.key ? ' is-active' : ''}`}
             onClick={() => onTab(tab.key)}
           >
             <Icon name={tab.icon} size={14} />
@@ -41,7 +41,7 @@ export default function Inspector({
         ))}
       </div>
 
-      <div className="easyforms-insp-body">
+      <div className="activeforms-insp-body">
         {active === 'fields' && (
           <Palette definitions={defs.fields} categories={defs.categories} onAdd={onAdd} />
         )}

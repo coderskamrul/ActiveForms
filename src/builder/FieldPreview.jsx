@@ -39,9 +39,9 @@ function visibleSubs(field) {
 function SubControl({ sub }) {
   const ph = sub.placeholder || sub.label || '';
   const lp = sub.label_placement || 'top';
-  const lpClass = ` easyforms-subfield--lp-${lp}`;
+  const lpClass = ` activeforms-subfield--lp-${lp}`;
   return (
-    <div className={`easyforms-subfield${lpClass}`} style={{ flex: '1 1 0', minWidth: 0 }}>
+    <div className={`activeforms-subfield${lpClass}`} style={{ flex: '1 1 0', minWidth: 0 }}>
       {sub.type === 'country' ? (
         <select disabled><option>— Select Country —</option></select>
       ) : (
@@ -241,7 +241,7 @@ export default function FieldPreview({ field }) {
     const justify = align === 'center' ? 'center' : align === 'right' ? 'flex-end' : 'flex-start';
     return (
       <div style={{ display: 'flex', justifyContent: justify }}>
-        <span className="easyforms-btn easyforms-btn--primary">{field.label || 'Submit'}</span>
+        <span className="activeforms-btn activeforms-btn--primary">{field.label || 'Submit'}</span>
       </div>
     );
   }
@@ -259,7 +259,7 @@ export default function FieldPreview({ field }) {
 
   const lp = field.label_placement || 'top';
   return (
-    <div className={`easyforms-mock easyforms-mock--lp-${lp}`}>
+    <div className={`activeforms-mock activeforms-mock--lp-${lp}`}>
       {lp !== 'hide' && (
         <span className="fld-label">
           {field.label || field.type}

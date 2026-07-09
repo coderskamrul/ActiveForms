@@ -1,48 +1,48 @@
 <?php
 /**
- * EasyForms uninstall routine.
+ * ActiveForms uninstall routine.
  *
  * Only removes data when the user opted in via the "Delete all data on
  * uninstall" setting. Otherwise form/entry data is preserved.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-$easyforms_settings = get_option( 'easyforms_settings', array() );
+$activeforms_settings = get_option( 'activeforms_settings', array() );
 
-if ( empty( $easyforms_settings['remove_data_on_uninstall'] ) ) {
+if ( empty( $activeforms_settings['remove_data_on_uninstall'] ) ) {
 	return;
 }
 
 global $wpdb;
 
 // Drop custom tables.
-$easyforms_tables = array(
-	'easyforms_forms',
-	'easyforms_form_meta',
-	'easyforms_entries',
-	'easyforms_entry_meta',
-	'easyforms_entry_details',
-	'easyforms_logs',
-	'easyforms_scheduled_actions',
+$activeforms_tables = array(
+	'activeforms_forms',
+	'activeforms_form_meta',
+	'activeforms_entries',
+	'activeforms_entry_meta',
+	'activeforms_entry_details',
+	'activeforms_logs',
+	'activeforms_scheduled_actions',
 );
 
-foreach ( $easyforms_tables as $easyforms_table ) {
-	$easyforms_name = $wpdb->prefix . $easyforms_table;
+foreach ( $activeforms_tables as $activeforms_table ) {
+	$activeforms_name = $wpdb->prefix . $activeforms_table;
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- uninstall cleanup.
-	$wpdb->query( "DROP TABLE IF EXISTS {$easyforms_name}" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$activeforms_name}" );
 }
 
 // Delete options.
-delete_option( 'easyforms_settings' );
-delete_option( 'easyforms_db_version' );
-delete_option( 'easyforms_installed_at' );
+delete_option( 'activeforms_settings' );
+delete_option( 'activeforms_db_version' );
+delete_option( 'activeforms_installed_at' );
 
-// Delete integration option rows (easyforms_integration_*).
+// Delete integration option rows (activeforms_integration_*).
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'easyforms_integration_%'" );
+$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'activeforms_integration_%'" );
 
 // Clear scheduled hooks.
-wp_clear_scheduled_hook( 'easyforms_process_scheduled_actions' );
+wp_clear_scheduled_hook( 'activeforms_process_scheduled_actions' );

@@ -2,14 +2,14 @@
 /**
  * Entries REST controller.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Rest;
+namespace ActiveForms\Rest;
 
-use EasyForms\Models\Entry;
-use EasyForms\Models\Form;
-use EasyForms\Support\Arr;
+use ActiveForms\Models\Entry;
+use ActiveForms\Models\Form;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -120,7 +120,7 @@ class EntriesController extends AbstractController {
 	public function show( $request ) {
 		$entry = Entry::find( (int) $request['id'] );
 		if ( ! $entry ) {
-			return $this->fail( __( 'Entry not found.', 'easyforms' ), 404 );
+			return $this->fail( __( 'Entry not found.', 'activeforms' ), 404 );
 		}
 		if ( 'unread' === $entry['status'] ) {
 			Entry::update( $entry['id'], array( 'status' => 'read' ) );
@@ -150,7 +150,7 @@ class EntriesController extends AbstractController {
 		if ( ! $user_id ) {
 			return array(
 				'id'        => 0,
-				'name'      => __( 'Guest', 'easyforms' ),
+				'name'      => __( 'Guest', 'activeforms' ),
 				'edit_link' => '',
 			);
 		}
@@ -159,7 +159,7 @@ class EntriesController extends AbstractController {
 		if ( ! $user ) {
 			return array(
 				'id'        => $user_id,
-				'name'      => __( 'Deleted user', 'easyforms' ),
+				'name'      => __( 'Deleted user', 'activeforms' ),
 				'edit_link' => '',
 			);
 		}
@@ -227,7 +227,7 @@ class EntriesController extends AbstractController {
 		$ids     = array_filter( $ids );
 
 		if ( empty( $ids ) ) {
-			return $this->fail( __( 'No entries selected.', 'easyforms' ), 422 );
+			return $this->fail( __( 'No entries selected.', 'activeforms' ), 422 );
 		}
 
 		$affected = 0;
@@ -256,7 +256,7 @@ class EntriesController extends AbstractController {
 					Entry::update( $id, array( 'is_favorite' => 'favorite' === $action ? 1 : 0 ) );
 					break;
 				default:
-					return $this->fail( __( 'Unknown bulk action.', 'easyforms' ), 422 );
+					return $this->fail( __( 'Unknown bulk action.', 'activeforms' ), 422 );
 			}
 			++$affected;
 		}
@@ -290,7 +290,7 @@ class EntriesController extends AbstractController {
 		$form_id = (int) $request['form_id'];
 		$form    = Form::find( $form_id );
 		if ( ! $form ) {
-			return $this->fail( __( 'Form not found.', 'easyforms' ), 404 );
+			return $this->fail( __( 'Form not found.', 'activeforms' ), 404 );
 		}
 
 		$result  = Entry::for_form( $form_id, array( 'per_page' => 5000, 'page' => 1 ) );

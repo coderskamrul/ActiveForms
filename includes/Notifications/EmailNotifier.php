@@ -2,12 +2,12 @@
 /**
  * Email notification dispatcher.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Notifications;
+namespace ActiveForms\Notifications;
 
-use EasyForms\Support\Arr;
+use ActiveForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -73,7 +73,7 @@ class EmailNotifier {
 			 * @param array $entry Entry data.
 			 */
 			$args = apply_filters(
-				'easyforms/notification_args',
+				'activeforms/notification_args',
 				array(
 					'to'      => $to,
 					'subject' => $subject,

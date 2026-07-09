@@ -29,9 +29,9 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={{ notify }}>
       {children}
-      <div className="easyforms-toasts">
+      <div className="activeforms-toasts">
         {toasts.map((tst) => (
-          <div key={tst.id} className={`easyforms-toast easyforms-toast--${tst.type}`}>{tst.message}</div>
+          <div key={tst.id} className={`activeforms-toast activeforms-toast--${tst.type}`}>{tst.message}</div>
         ))}
       </div>
     </ToastContext.Provider>

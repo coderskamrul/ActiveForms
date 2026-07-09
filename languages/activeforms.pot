@@ -2,8 +2,8 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: EasyForms – Drag & Drop Form Builder for WordPress 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/easyforms\n"
+"Project-Id-Version: ActiveForms – Drag & Drop Form Builder for WordPress 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/activeforms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,14 +12,14 @@ msgstr ""
 "POT-Creation-Date: 2026-06-09T18:15:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
-"X-Domain: easyforms\n"
+"X-Domain: activeforms\n"
 
 #. Plugin Name of the plugin
-msgid "EasyForms – Drag & Drop Form Builder for WordPress"
+msgid "ActiveForms – Drag & Drop Form Builder for WordPress"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://pluginshift.com/easyforms"
+msgid "https://pluginshift.com/activeforms"
 msgstr ""
 
 #. Description of the plugin
@@ -116,14 +116,14 @@ msgid "Are you sure you want to delete this?"
 msgstr ""
 
 #: includes/Admin/AdminAssets.php:186
-msgid "EasyForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
+msgid "ActiveForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
 msgstr ""
 
 #: includes/Admin/Menu.php:40
 #: includes/Admin/Menu.php:41
 #: includes/Core/Config.php:182
 #: includes/Core/Config.php:183
-msgid "EasyForms"
+msgid "ActiveForms"
 msgstr ""
 
 #: includes/Admin/Menu.php:51
@@ -135,7 +135,7 @@ msgid "Add New"
 msgstr ""
 
 #: includes/Admin/Menu.php:78
-msgid "Loading EasyForms…"
+msgid "Loading ActiveForms…"
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:90

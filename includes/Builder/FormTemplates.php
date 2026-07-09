@@ -2,10 +2,10 @@
 /**
  * Prebuilt form templates.
  *
- * @package EasyForms
+ * @package ActiveForms
  */
 
-namespace EasyForms\Builder;
+namespace ActiveForms\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,7 +58,7 @@ class FormTemplates {
 		 *
 		 * @param array $templates Template descriptors.
 		 */
-		return apply_filters( 'easyforms/templates', $templates );
+		return apply_filters( 'activeforms/templates', $templates );
 	}
 
 	/**
@@ -87,14 +87,14 @@ class FormTemplates {
 		return array(
 			'confirmation' => array(
 				'type'    => 'message',
-				'message' => __( 'Thank you! Your submission has been received.', 'easyforms' ),
+				'message' => __( 'Thank you! Your submission has been received.', 'activeforms' ),
 			),
 			'notifications' => array(
 				array(
 					'enabled' => true,
-					'name'    => __( 'Admin Notification', 'easyforms' ),
+					'name'    => __( 'Admin Notification', 'activeforms' ),
 					'to'      => get_bloginfo( 'admin_email' ),
-					'subject' => __( 'New Form Submission', 'easyforms' ),
+					'subject' => __( 'New Form Submission', 'activeforms' ),
 					'body'    => '{all.fields}',
 				),
 			),
@@ -111,48 +111,48 @@ class FormTemplates {
 
 		return array(
 			'blank'   => array(
-				'name'        => __( 'Blank Form', 'easyforms' ),
-				'description' => __( 'Start from scratch.', 'easyforms' ),
+				'name'        => __( 'Blank Form', 'activeforms' ),
+				'description' => __( 'Start from scratch.', 'activeforms' ),
 				'icon'        => 'plus',
 				'fields'      => array(
-					self::field( 'submit', 'submit', __( 'Submit', 'easyforms' ) ),
+					self::field( 'submit', 'submit', __( 'Submit', 'activeforms' ) ),
 				),
 				'settings'    => $settings,
 			),
 			'contact' => array(
-				'name'        => __( 'Contact Form', 'easyforms' ),
-				'description' => __( 'Name, email, and message.', 'easyforms' ),
+				'name'        => __( 'Contact Form', 'activeforms' ),
+				'description' => __( 'Name, email, and message.', 'activeforms' ),
 				'icon'        => 'email',
 				'category'    => 'general',
 				'fields'      => array(
-					self::field( 'name', 'name', __( 'Name', 'easyforms' ), array( 'required' => true, 'fields' => array( 'first' => array( 'visible' => true, 'label' => __( 'First Name', 'easyforms' ) ), 'last' => array( 'visible' => true, 'label' => __( 'Last Name', 'easyforms' ) ) ) ) ),
-					self::field( 'email', 'email', __( 'Email', 'easyforms' ), array( 'required' => true ) ),
-					self::field( 'text', 'subject', __( 'Subject', 'easyforms' ) ),
-					self::field( 'textarea', 'message', __( 'Message', 'easyforms' ), array( 'required' => true, 'rows' => 5 ) ),
-					self::field( 'submit', 'submit', __( 'Send Message', 'easyforms' ) ),
+					self::field( 'name', 'name', __( 'Name', 'activeforms' ), array( 'required' => true, 'fields' => array( 'first' => array( 'visible' => true, 'label' => __( 'First Name', 'activeforms' ) ), 'last' => array( 'visible' => true, 'label' => __( 'Last Name', 'activeforms' ) ) ) ) ),
+					self::field( 'email', 'email', __( 'Email', 'activeforms' ), array( 'required' => true ) ),
+					self::field( 'text', 'subject', __( 'Subject', 'activeforms' ) ),
+					self::field( 'textarea', 'message', __( 'Message', 'activeforms' ), array( 'required' => true, 'rows' => 5 ) ),
+					self::field( 'submit', 'submit', __( 'Send Message', 'activeforms' ) ),
 				),
 				'settings'    => $settings,
 			),
 			'support' => array(
-				'name'        => __( 'Support Request', 'easyforms' ),
-				'description' => __( 'Collect support tickets with priority.', 'easyforms' ),
+				'name'        => __( 'Support Request', 'activeforms' ),
+				'description' => __( 'Collect support tickets with priority.', 'activeforms' ),
 				'icon'        => 'sos',
 				'fields'      => array(
-					self::field( 'email', 'email', __( 'Email', 'easyforms' ), array( 'required' => true ) ),
-					self::field( 'select', 'priority', __( 'Priority', 'easyforms' ), array( 'options' => array( array( 'label' => __( 'Low', 'easyforms' ), 'value' => 'low' ), array( 'label' => __( 'High', 'easyforms' ), 'value' => 'high' ) ) ) ),
-					self::field( 'textarea', 'details', __( 'Details', 'easyforms' ), array( 'required' => true, 'rows' => 5 ) ),
-					self::field( 'submit', 'submit', __( 'Submit Ticket', 'easyforms' ) ),
+					self::field( 'email', 'email', __( 'Email', 'activeforms' ), array( 'required' => true ) ),
+					self::field( 'select', 'priority', __( 'Priority', 'activeforms' ), array( 'options' => array( array( 'label' => __( 'Low', 'activeforms' ), 'value' => 'low' ), array( 'label' => __( 'High', 'activeforms' ), 'value' => 'high' ) ) ) ),
+					self::field( 'textarea', 'details', __( 'Details', 'activeforms' ), array( 'required' => true, 'rows' => 5 ) ),
+					self::field( 'submit', 'submit', __( 'Submit Ticket', 'activeforms' ) ),
 				),
 				'settings'    => $settings,
 			),
 			'newsletter' => array(
-				'name'        => __( 'Newsletter Signup', 'easyforms' ),
-				'description' => __( 'Simple email capture.', 'easyforms' ),
+				'name'        => __( 'Newsletter Signup', 'activeforms' ),
+				'description' => __( 'Simple email capture.', 'activeforms' ),
 				'icon'        => 'megaphone',
 				'fields'      => array(
-					self::field( 'email', 'email', __( 'Email Address', 'easyforms' ), array( 'required' => true ) ),
-					self::field( 'gdpr', 'consent', __( 'Consent', 'easyforms' ) ),
-					self::field( 'submit', 'submit', __( 'Subscribe', 'easyforms' ) ),
+					self::field( 'email', 'email', __( 'Email Address', 'activeforms' ), array( 'required' => true ) ),
+					self::field( 'gdpr', 'consent', __( 'Consent', 'activeforms' ) ),
+					self::field( 'submit', 'submit', __( 'Subscribe', 'activeforms' ) ),
 				),
 				'settings'    => $settings,
 			),
