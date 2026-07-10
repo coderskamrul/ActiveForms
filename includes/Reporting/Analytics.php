@@ -48,8 +48,9 @@ class Analytics {
 		$prev_to   = gmdate( 'Y-m-d', strtotime( $from . ' -1 day' ) );
 		$prev_from = gmdate( 'Y-m-d', strtotime( $from . ' -' . ( $span + 1 ) . ' days' ) );
 
-		// Form clause reused across queries.
-		$fc     = $form_id ? ' AND form_id = ' . $form_id : '';
+		// Form clause reused across queries. $form_id is hard-cast to int above;
+		// re-casting inline keeps the interpolation self-evidently integer-only.
+		$fc     = $form_id ? ' AND form_id = ' . (int) $form_id : '';
 		$live   = " status NOT IN ('trashed','spam')";
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders
@@ -349,7 +350,7 @@ class Analytics {
 				continue;
 			}
 
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- {$detail} is a trusted, $wpdb->prefix-prefixed table name from Config::tables(); user input uses %d/%s placeholders.
 			$rows = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT field_value AS label, COUNT(*) AS count
@@ -360,6 +361,7 @@ class Analytics {
 				),
 				ARRAY_A
 			);
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 			$reports[] = array(
 				'key'    => $key,

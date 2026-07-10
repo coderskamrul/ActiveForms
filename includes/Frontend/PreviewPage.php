@@ -98,6 +98,13 @@ class PreviewPage {
 		wp_enqueue_style( 'activeforms-frontend' );
 		wp_enqueue_script( 'activeforms-frontend' );
 
+		// Attach the preview chrome CSS and the device-switcher / submit-disable JS
+		// as inline additions to the frontend handles, so they print through the
+		// normal wp_print_styles()/wp_print_scripts() pipeline instead of raw
+		// <style>/<script> tags.
+		wp_add_inline_style( 'activeforms-frontend', $this->preview_css() );
+		wp_add_inline_script( 'activeforms-frontend', $this->preview_js() );
+
 		// Print only ActiveForms' own handles (core + Pro when present) so the clean
 		// preview window isn't polluted by theme/other-plugin assets.
 		$handles = array( 'activeforms-frontend' );
@@ -117,7 +124,6 @@ class PreviewPage {
 	<meta name="robots" content="noindex,nofollow" />
 	<title><?php echo esc_html( $title ); ?> — <?php esc_html_e( 'ActiveForms Preview', 'activeforms' ); ?></title>
 	<?php wp_print_styles( $handles ); ?>
-	<?php echo $this->inline_css(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </head>
 <body class="activeforms-preview-body">
 	<header class="activeforms-pvp__bar">
@@ -141,47 +147,29 @@ class PreviewPage {
 	</main>
 
 	<?php wp_print_scripts( $handles ); ?>
-	<script>
-		(function () {
-			var win = document.getElementById('activeforms-pvp-window');
-			var widths = { desktop: '100%', tablet: '768px', mobile: '390px' };
-			document.querySelectorAll('.activeforms-pvp__devices button').forEach(function (btn) {
-				btn.addEventListener('click', function () {
-					document.querySelectorAll('.activeforms-pvp__devices button').forEach(function (b) { b.classList.remove('is-active'); });
-					btn.classList.add('is-active');
-					win.style.maxWidth = widths[btn.getAttribute('data-device')] || '100%';
-				});
-			});
-			// Disable real submission in preview. This listener is registered
-			// during parse — before form.js attaches its own (on DOMContentLoaded)
-			// — and uses the capture phase + stopImmediatePropagation so the
-			// frontend AJAX submit handler never runs and no entry is created.
-			var form = document.querySelector('.activeforms-form');
-			if (form) {
-				form.addEventListener('submit', function (e) {
-					e.preventDefault();
-					e.stopImmediatePropagation();
-					var msg = form.querySelector('.activeforms-form-message');
-					if (msg) { msg.className = 'activeforms-form-message activeforms-form-message--success'; msg.textContent = <?php echo wp_json_encode( __( 'Preview mode — submission is disabled.', 'activeforms' ) ); ?>; }
-				}, true);
-			}
-		})();
-	</script>
 </body>
 </html>
 		<?php
 	}
 
 	/**
-	 * Inline CSS for the preview chrome + design tokens.
+	 * Inline CSS rules for the preview chrome + design tokens.
+	 *
+	 * Colors come from the filterable design-token tree, so each is passed
+	 * through sanitize_hex_color() before it is interpolated into the CSS
+	 * context (a rogue filter cannot break out of the stylesheet).
 	 *
 	 * @return string
 	 */
-	private function inline_css() {
+	private function preview_css() {
 		$tokens  = Config::design_tokens();
-		$primary = isset( $tokens['color']['primary'] ) ? $tokens['color']['primary'] : '#4f46e5';
-		$hover   = isset( $tokens['color']['primaryHover'] ) ? $tokens['color']['primaryHover'] : '#4338ca';
-		$border  = isset( $tokens['color']['border'] ) ? $tokens['color']['border'] : '#e5e7eb';
+		$primary = sanitize_hex_color( isset( $tokens['color']['primary'] ) ? $tokens['color']['primary'] : '' );
+		$hover   = sanitize_hex_color( isset( $tokens['color']['primaryHover'] ) ? $tokens['color']['primaryHover'] : '' );
+		$border  = sanitize_hex_color( isset( $tokens['color']['border'] ) ? $tokens['color']['border'] : '' );
+
+		$primary = $primary ? $primary : '#4f46e5';
+		$hover   = $hover ? $hover : '#4338ca';
+		$border  = $border ? $border : '#e5e7eb';
 
 		$css = ':root{'
 			. '--activeforms-color-primary:' . $primary . ';'
@@ -206,6 +194,42 @@ class PreviewPage {
 			// like a real page instead of sprawling edge-to-edge.
 			. '.activeforms-pvp__canvas .activeforms-form-wrap{margin:0 auto;}';
 
-		return '<style>' . $css . '</style>';
+		return $css;
+	}
+
+	/**
+	 * Inline JS for the preview chrome: device-width switcher, plus a capture-
+	 * phase submit blocker so no entry is ever created in preview.
+	 *
+	 * Registered as an inline addition to the frontend script handle, so it runs
+	 * during parse — before form.js attaches its own DOMContentLoaded handler —
+	 * and the capture phase + stopImmediatePropagation keep the real AJAX submit
+	 * handler from firing.
+	 *
+	 * @return string
+	 */
+	private function preview_js() {
+		$message = wp_json_encode( __( 'Preview mode — submission is disabled.', 'activeforms' ) );
+
+		return '(function () {'
+			. 'var win = document.getElementById("activeforms-pvp-window");'
+			. 'var widths = { desktop: "100%", tablet: "768px", mobile: "390px" };'
+			. 'document.querySelectorAll(".activeforms-pvp__devices button").forEach(function (btn) {'
+			. 'btn.addEventListener("click", function () {'
+			. 'document.querySelectorAll(".activeforms-pvp__devices button").forEach(function (b) { b.classList.remove("is-active"); });'
+			. 'btn.classList.add("is-active");'
+			. 'win.style.maxWidth = widths[btn.getAttribute("data-device")] || "100%";'
+			. '});'
+			. '});'
+			. 'var form = document.querySelector(".activeforms-form");'
+			. 'if (form) {'
+			. 'form.addEventListener("submit", function (e) {'
+			. 'e.preventDefault();'
+			. 'e.stopImmediatePropagation();'
+			. 'var msg = form.querySelector(".activeforms-form-message");'
+			. 'if (msg) { msg.className = "activeforms-form-message activeforms-form-message--success"; msg.textContent = ' . $message . '; }'
+			. '}, true);'
+			. '}'
+			. '})();';
 	}
 }

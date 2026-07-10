@@ -313,7 +313,14 @@ class EntriesController extends AbstractController {
 		foreach ( $rows as $row ) {
 			$escaped = array_map(
 				function ( $cell ) {
-					return '"' . str_replace( '"', '""', (string) $cell ) . '"';
+					$cell = (string) $cell;
+					// Neutralize spreadsheet formula injection: a cell beginning with
+					// =, +, -, @, tab, or CR is prefixed with an apostrophe so the
+					// spreadsheet treats it as text instead of a formula.
+					if ( '' !== $cell && in_array( $cell[0], array( '=', '+', '-', '@', "\t", "\r" ), true ) ) {
+						$cell = "'" . $cell;
+					}
+					return '"' . str_replace( '"', '""', $cell ) . '"';
 				},
 				$row
 			);
@@ -324,6 +331,7 @@ class EntriesController extends AbstractController {
 			array(
 				'filename' => sanitize_file_name( $form['title'] . '-entries.csv' ),
 				'mime'     => 'text/csv',
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Benign: transports CSV bytes to the browser download handler, not code obfuscation.
 				'content'  => base64_encode( $csv ),
 			)
 		);

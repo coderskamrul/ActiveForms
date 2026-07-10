@@ -1,29 +1,12 @@
 /**
  * "Input Fields" tab — the draggable field library as collapsible accordions
- * with a focus-on-"/" search box. Free fields come from the registry; column
- * presets build containers in one click; Pro fields show as locked teasers.
+ * with a focus-on-"/" search box. Fields come from the registry; column
+ * presets build containers in one click.
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import Icon from './icons.jsx';
 import { t } from '../config';
-
-/* Pro field teasers (rendered locked). Mirrors the advanced/payment roadmap.
-   Phone and the upload fields sit in the General section so the slot is in the
-   right place whether or not the Pro add-on (which makes them functional) is
-   active — matching the General Fields layout users expect. */
-const PRO_FIELDS = [
-  { type: 'phone', label: 'Phone / Mobile', icon: 'phone', category: 'general' },
-  { type: 'file_upload', label: 'File Upload', icon: 'upload', category: 'general' },
-  { type: 'image_upload', label: 'Image Upload', icon: 'format-image', category: 'general' },
-  { type: 'rich_text', label: 'Rich Text', icon: 'editor-paragraph', category: 'advanced' },
-  { type: 'color', label: 'Color Picker', icon: 'art', category: 'advanced' },
-  { type: 'range', label: 'Range Slider', icon: 'leftright', category: 'advanced' },
-  { type: 'rating', label: 'Star Rating', icon: 'star-filled', category: 'advanced' },
-  { type: 'nps', label: 'Net Promoter', icon: 'chart-bar', category: 'advanced' },
-  { type: 'repeater', label: 'Repeater', icon: 'table-row-after', category: 'advanced' },
-  { type: 'signature', label: 'Signature', icon: 'edit', category: 'advanced' },
-];
 
 const COLUMN_PRESETS = [
   { cols: 1, label: 'One Column', icon: 'menu-alt' },
@@ -66,17 +49,6 @@ function PaletteItem({ def, onAdd }) {
       <span className={`dashicons dashicons-${def.icon || 'forms'}`} aria-hidden="true" />
       <span className="activeforms-pal-item__label">{def.label}</span>
     </button>
-  );
-}
-
-/** A locked Pro teaser item. */
-function ProItem({ def }) {
-  return (
-    <span className="activeforms-pal-item is-pro" title={`${def.label} — Pro`}>
-      <span className={`dashicons dashicons-${def.icon || 'lock'}`} aria-hidden="true" />
-      <span className="activeforms-pal-item__label">{def.label}</span>
-      <span className="activeforms-pal-item__pro">PRO</span>
-    </span>
   );
 }
 
@@ -124,23 +96,20 @@ export default function Palette({ definitions, categories, onAdd }) {
 
   const containerDef = useMemo(() => definitions.find((d) => d.type === 'container'), [definitions]);
 
-  // Assemble sections in display order. Registered fields (incl. ones the Pro
-  // add-on registers) render as draggable items; remaining Pro types show as
-  // locked teasers (deduped against whatever is actually registered).
+  // Assemble sections in display order. Registered fields render as draggable
+  // items.
   const sections = useMemo(() => {
-    const registered = new Set(definitions.map((d) => d.type));
     const byCat = (cat) => definitions.filter((d) => (d.category || 'general') === cat);
-    const teasers = (cat) => PRO_FIELDS.filter((p) => p.category === cat && !registered.has(p.type));
 
     const presetItems = containerDef
       ? COLUMN_PRESETS.map((p) => ({ ...containerDef, label: p.label, icon: p.icon, presetColumns: p.cols }))
       : [];
 
     return [
-      { key: 'general', title: catLabel('general', 'General Fields'), free: byCat('general').slice().sort(byGeneralOrder), locked: teasers('general').slice().sort(byGeneralOrder) },
-      { key: 'layout', title: 'Layout', free: byCat('layout').filter((d) => d.type !== 'container'), locked: [] },
-      { key: 'containers', title: 'Containers', free: presetItems, locked: [] },
-      { key: 'advanced', title: 'Advanced Fields', free: byCat('advanced'), locked: teasers('advanced') },
+      { key: 'general', title: catLabel('general', 'General Fields'), free: byCat('general').slice().sort(byGeneralOrder) },
+      { key: 'layout', title: 'Layout', free: byCat('layout').filter((d) => d.type !== 'container') },
+      { key: 'containers', title: 'Containers', free: presetItems },
+      { key: 'advanced', title: 'Advanced Fields', free: byCat('advanced') },
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [definitions, containerDef, categories]);
@@ -172,15 +141,13 @@ export default function Palette({ definitions, categories, onAdd }) {
       <div className="activeforms-pal__body">
         {sections.map((sec) => {
           const free = sec.free.filter((d) => match(d.label));
-          const locked = sec.locked.filter((d) => match(d.label));
-          if (!free.length && !locked.length) return null;
+          if (!free.length) return null;
           const open = q ? true : openKeys.has(sec.key);
           return (
-            <Group key={sec.key} title={sec.title} open={open} onToggle={() => toggle(sec.key)} count={free.length + locked.length}>
+            <Group key={sec.key} title={sec.title} open={open} onToggle={() => toggle(sec.key)} count={free.length}>
               {free.map((def) => (
                 <PaletteItem key={`${def.type}-${def.presetColumns || 0}`} def={def} onAdd={onAdd} />
               ))}
-              {locked.map((def) => <ProItem key={def.type} def={def} />)}
             </Group>
           );
         })}

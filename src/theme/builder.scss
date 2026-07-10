@@ -267,13 +267,6 @@
 .activeforms-pal-item .dashicons { font-size: 17px; width: 17px; height: 17px; flex: 0 0 17px; color: var(--_muted); }
 .activeforms-pal-item:hover .dashicons { color: var(--activeforms-color-primary); }
 .activeforms-pal-item__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.activeforms-pal-item.is-pro { cursor: not-allowed; color: var(--_muted); background: var(--_surface-alt); }
-.activeforms-pal-item.is-pro:hover { border-color: var(--_border); color: var(--_muted); background: var(--_surface-alt); transform: none; box-shadow: none; }
-.activeforms-pal-item.is-pro:hover .dashicons { color: var(--_muted); }
-.activeforms-pal-item__pro {
-  position: absolute; top: -7px; right: -6px; font-size: 8px; font-weight: 800; letter-spacing: .04em;
-  background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff; padding: 1px 5px; border-radius: 999px;
-}
 
 /* Inspector empty state */
 .activeforms-insp-empty { display: grid; place-items: center; gap: 10px; text-align: center; color: var(--_muted); padding: 60px 24px; }

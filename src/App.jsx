@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import config, { t } from './config';
 import { useRouter } from './router';
 import { ToastProvider } from './components/Toast';
-import { Empty, Card } from './components/ui';
 import Dashboard from './pages/Dashboard.jsx';
 import Forms from './pages/Forms.jsx';
 import Builder from './pages/Builder.jsx';
@@ -20,20 +19,11 @@ const NAV = [
   { path: '/forms', key: 'forms', label: 'Forms' },
   { path: '/entries', key: 'entries', label: 'Entries' },
   { path: '/reports', key: 'reports', label: 'Reports' },
-  { path: '/payments', key: 'payments', label: 'Payments' },
-  { path: '/integrations', key: 'integrations', label: 'Integrations' },
-  { path: '/tools', key: 'tools', label: 'Tools' },
+  // { path: '/payments', key: 'payments', label: 'Payments' },
+  // { path: '/integrations', key: 'integrations', label: 'Integrations' },
+  // { path: '/tools', key: 'tools', label: 'Tools' },
   { path: '/settings', key: 'settings', label: 'Settings' },
 ];
-
-/** Simple placeholder for sections not yet implemented. */
-function ComingSoon({ title }) {
-  return (
-    <div>
-      <Card><Empty icon="🚧" title={`${title} — coming soon`}>This area is part of the ActiveForms roadmap.</Empty></Card>
-    </div>
-  );
-}
 
 /**
  * Resolve the active page component from the route.
@@ -58,10 +48,6 @@ function renderPage(route) {
       return <Integrations />;
     case 'settings':
       return <Settings />;
-    case 'payments':
-      return <ComingSoon title="Payments" />;
-    case 'tools':
-      return <ComingSoon title="Tools" />;
     case 'dashboard':
     default:
       return <Dashboard />;
@@ -96,7 +82,7 @@ export default function App() {
           <nav className="activeforms-topnav">
             <a className="activeforms-brand" href="#/dashboard">
               <span className="activeforms-logo">{(brand.shortName || 'E').slice(0, 1)}</span>
-              <b><span>Easy</span>{(brand.name || 'ActiveForms').replace(/^easy/i, '')}</b>
+              <b>{(brand.name || 'ActiveForms').replace(/^easy/i, '')}</b>
             </a>
             <div className="activeforms-nav">
               {NAV.map((item) => (

@@ -160,12 +160,17 @@ class FormsController extends AbstractController {
 		$template = isset( $body['template'] ) ? sanitize_key( $body['template'] ) : '';
 		$seed     = $template ? FormTemplates::get( $template ) : array();
 
+		// User-supplied schema/settings are sanitized exactly as in update(); a
+		// template seed is trusted internal data and passes through untouched.
+		$fields   = isset( $body['fields'] ) ? $this->sanitize_schema( $body['fields'] ) : ( isset( $seed['fields'] ) ? $seed['fields'] : array() );
+		$settings = isset( $body['settings'] ) ? $this->sanitize_settings( $body['settings'] ) : ( isset( $seed['settings'] ) ? $seed['settings'] : array() );
+
 		$id = Form::create(
 			array(
 				'title'    => isset( $body['title'] ) ? sanitize_text_field( $body['title'] ) : __( 'Untitled Form', 'activeforms' ),
 				'type'     => isset( $body['type'] ) ? sanitize_key( $body['type'] ) : 'classic',
-				'fields'   => isset( $body['fields'] ) ? $body['fields'] : ( isset( $seed['fields'] ) ? $seed['fields'] : array() ),
-				'settings' => isset( $body['settings'] ) ? $body['settings'] : ( isset( $seed['settings'] ) ? $seed['settings'] : array() ),
+				'fields'   => $fields,
+				'settings' => $settings,
 			)
 		);
 

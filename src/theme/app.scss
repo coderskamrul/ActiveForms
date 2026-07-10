@@ -559,11 +559,6 @@ body.activeforms-builder-fullscreen {
 #activeforms-app[data-theme='dark'] .activeforms-set-note { background: rgba(79,70,229,.12); border-color: rgba(79,70,229,.4); }
 .activeforms-set-note .dashicons { color: var(--activeforms-color-primary, #4f46e5); flex: 0 0 auto; font-size: 16px; width: 16px; height: 16px; margin-top: 1px; }
 
-/* Badge tones for roadmap / premium markers */
-.activeforms-badge--soon { background: #fef3c7; color: #b45309; }
-.activeforms-badge--pro { background: linear-gradient(135deg, #4f46e5, #0ea5e9); color: #fff; }
-#activeforms-app[data-theme='dark'] .activeforms-badge--soon { background: rgba(217,119,6,.2); color: #fcd34d; }
-
 /* Code-style key/secret reveal helper */
 .activeforms-input-group { display: flex; gap: 8px; }
 .activeforms-input-group .activeforms-input { flex: 1; }

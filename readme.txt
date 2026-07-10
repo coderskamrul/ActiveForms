@@ -26,7 +26,7 @@ and connect to your favorite tools.
 * **Email notifications** – multiple notifications with merge tags (smart codes).
 * **Spam protection** – built-in honeypot plus optional reCAPTCHA, hCaptcha, or Cloudflare Turnstile.
 * **Reports** – response distribution charts for choice fields.
-* **Integrations** – Mailchimp, Slack, and Webhook included; 40+ more in ActiveForms Pro.
+* **Integrations** – Mailchimp, Slack, Webhook, and Google Sheets included.
 * **Templates** – start fast with prebuilt form templates.
 * **Developer friendly** – REST API (`activeforms/v1`), action/filter hooks, and extension registries.
 * **Centralized design system** – token-driven styling with light/dark support.
@@ -52,6 +52,18 @@ ActiveForms uses its own custom database tables (prefixed `activeforms_`) for pe
 
 = Does it work without JavaScript on the frontend? =
 Forms are progressively enhanced; submissions are always validated and stored server-side.
+
+== Development ==
+
+Development repository (full source + build tooling): https://github.com/coderskamrul/ActiveForms
+
+The React admin app and the public form script are compiled from the `src/` directory into `assets/dist/` and `assets/frontend/`. To regenerate the compiled assets from source:
+
+1. Install Node.js 20+ and npm.
+2. Run `npm install` to install the build dependencies.
+3. Run `npm run build` to compile `src/` into `assets/dist/` and `assets/frontend/`. The build uses webpack with two named entry points — `dist/activeforms` (the React admin app) and `frontend/form` (the public form script) — as configured in `webpack.config.js`.
+
+Use `npm run dev` for an unminified development build, or `npm start` to watch for changes.
 
 == Changelog ==
 

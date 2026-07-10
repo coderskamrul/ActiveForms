@@ -1,18 +1,12 @@
 /**
  * Presentational building blocks for the Settings experience.
  *
- * These are intentionally dumb: a Section is a titled card, a Row pairs a
- * label/description block with a control, and the badge constants mark a
- * control as roadmap ("Not Yet") or premium ("Pro"). New settings are added by
+ * These are intentionally dumb: a Section is a titled card and a Row pairs a
+ * label/description block with a control. New settings are added by
  * dropping more <Row>s into a <Section> — no layout plumbing required.
  */
 import React from 'react';
 import { Badge } from '../../components/ui';
-
-/** Roadmap marker for controls whose feature has not shipped yet. */
-export const SOON = { tone: 'soon', label: 'Not Yet' };
-/** Premium marker for add-on / Pro features. */
-export const PRO = { tone: 'pro', label: 'Pro' };
 
 /** Render a badge from a {tone,label} descriptor. */
 function Mark({ badge }) {

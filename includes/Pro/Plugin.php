@@ -64,7 +64,7 @@ final class Plugin {
 	}
 
 	/**
-	 * Register Pro field types (when licensed).
+	 * Register the bundled advanced field types.
 	 *
 	 * @param \ActiveForms\Fields\FieldRegistry $registry Field registry.
 	 * @return void
@@ -83,7 +83,7 @@ final class Plugin {
 	}
 
 	/**
-	 * Register Pro integrations (when licensed).
+	 * Register the bundled integrations.
 	 *
 	 * @param \ActiveForms\Integrations\IntegrationRegistry $registry Integration registry.
 	 * @return void

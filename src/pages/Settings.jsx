@@ -4,12 +4,12 @@
  * The rail (TABS) is grouped and scalable: adding a feature area is a one-line
  * entry plus a content component in ./settings/tabs.jsx. The active tab is
  * driven by the hash (#/settings/<tab>) so tabs are deep-linkable and the
- * browser back button works. Only "functional" tabs persist real settings and
- * surface a Save button; roadmap tabs preview where a feature will live.
+ * browser back button works. Each tab persists real settings and surfaces a
+ * Save button.
  */
 import React, { useEffect, useState } from 'react';
 import api from '../api/client';
-import { Loading, PageHead, Button, Badge } from '../components/ui';
+import { Loading, PageHead, Button } from '../components/ui';
 import { useToast } from '../components/Toast';
 import { useRouter } from '../router';
 import { TABS, GROUP_ORDER, TAB_CONTENT } from './settings/tabs.jsx';
@@ -72,7 +72,6 @@ export default function Settings() {
                   >
                     <span className={`dashicons dashicons-${t.icon}`} aria-hidden="true" />
                     <span className="activeforms-settings__navitem-label">{t.label}</span>
-                    {t.badge && <Badge tone={t.badge.tone}>{t.badge.label}</Badge>}
                   </a>
                 ))}
               </div>
@@ -84,13 +83,8 @@ export default function Settings() {
           <div className="activeforms-settings__panel-head">
             <div>
               <h2>{activeTab.label}</h2>
-              {!activeTab.functional && (
-                <p>This area previews a feature that isn't available yet. Its controls are disabled until the feature ships.</p>
-              )}
             </div>
-            {activeTab.functional && (
-              <Button variant="primary" onClick={save} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button>
-            )}
+            <Button variant="primary" onClick={save} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button>
           </div>
 
           <div className="activeforms-settings__sections">

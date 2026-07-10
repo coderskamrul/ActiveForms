@@ -52,7 +52,7 @@ class Menu {
 			'#/forms/new' => __( 'Add New', 'activeforms' ),
 			'#/entries'   => __( 'Entries', 'activeforms' ),
 			'#/reports'   => __( 'Reports', 'activeforms' ),
-			'#/integrations' => __( 'Integrations', 'activeforms' ),
+			// '#/integrations' => __( 'Integrations', 'activeforms' ),
 			'#/settings'  => __( 'Settings', 'activeforms' ),
 		);
 

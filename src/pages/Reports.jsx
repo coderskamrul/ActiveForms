@@ -193,7 +193,7 @@ function PaymentsTab({ data }) {
         <StatCard icon="feedback" label="Total Submissions" value={data.cards.submissions.value} delta={data.cards.submissions.delta} />
       </div>
       <ChartCard title="Revenue by Form">
-        {items.length ? <HBars items={items} color="#16a34a" format={money} /> : <ChartEmpty>No payments collected in this range. Payment fields are part of the ActiveForms roadmap.</ChartEmpty>}
+        {items.length ? <HBars items={items} color="#16a34a" format={money} /> : <ChartEmpty>No payments collected in this range.</ChartEmpty>}
       </ChartCard>
     </>
   );

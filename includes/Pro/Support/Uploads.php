@@ -130,7 +130,11 @@ class Uploads {
 		if ( ! @move_uploaded_file( $file['tmp_name'], $dest ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 			return new \WP_Error( 'activeforms_upload_move', __( 'Could not save the uploaded file.', 'activeforms' ) );
 		}
-		@chmod( $dest, 0644 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.chmod_chmod
+		// Mirror wp_handle_upload(): set predictable, readable perms on the moved
+		// upload. move_uploaded_file() is required here, so WP_Filesystem cannot own
+		// this step; FS_CHMOD_FILE is the same constant core uses.
+		$activeforms_perms = defined( 'FS_CHMOD_FILE' ) ? FS_CHMOD_FILE : 0644;
+		@chmod( $dest, $activeforms_perms ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod
 
 		return array(
 			'path' => $relative,
