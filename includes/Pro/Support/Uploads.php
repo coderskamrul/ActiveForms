@@ -117,31 +117,50 @@ class Uploads {
 			return new \WP_Error( 'activeforms_upload_size', sprintf( __( 'The file is too large (max %s KB).', 'activeforms' ), number_format_i18n( $max_kb ) ) );
 		}
 
-		$month = self::month_dir();
-		if ( '' === $month ) {
-			return new \WP_Error( 'activeforms_upload_dir', __( 'Could not prepare the upload directory.', 'activeforms' ) );
-		}
+		// Ensure the base directory + its listing guard exist.
+		self::base_dir();
 
-		$base     = pathinfo( $name, PATHINFO_FILENAME );
-		$unique   = $base . '-' . substr( md5( $name . microtime( true ) . wp_rand() ), 0, 8 ) . '.' . $real_ext;
-		$relative = $month . $unique;
-		$dest     = self::base_dir() . $relative;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 
-		if ( ! @move_uploaded_file( $file['tmp_name'], $dest ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		// Hand the move off to core's wp_handle_upload(), the sanctioned uploader
+		// (it performs the validated move, unique naming, and permissions). Route
+		// it into activeforms-pro/{Y}/{m}/ via the upload_dir filter, and keep the
+		// unguessable random filename via a unique_filename_callback.
+		$sub_ext    = $real_ext;
+		$dir_filter = static function ( $dirs ) {
+			$sub            = '/' . self::SUBDIR . '/' . gmdate( 'Y/m' );
+			$dirs['subdir'] = $sub;
+			$dirs['path']   = $dirs['basedir'] . $sub;
+			$dirs['url']    = $dirs['baseurl'] . $sub;
+			return $dirs;
+		};
+		$name_filter = static function ( $dir, $filename, $ext ) use ( $sub_ext ) {
+			$stub = pathinfo( $filename, PATHINFO_FILENAME );
+			return $stub . '-' . substr( md5( $filename . microtime( true ) . wp_rand() ), 0, 8 ) . '.' . $sub_ext;
+		};
+
+		add_filter( 'upload_dir', $dir_filter );
+		$moved = wp_handle_upload(
+			$file,
+			array(
+				'test_form'                => false,
+				'unique_filename_callback' => $name_filter,
+			)
+		);
+		remove_filter( 'upload_dir', $dir_filter );
+
+		if ( ! is_array( $moved ) || isset( $moved['error'] ) || empty( $moved['file'] ) ) {
 			return new \WP_Error( 'activeforms_upload_move', __( 'Could not save the uploaded file.', 'activeforms' ) );
 		}
-		// Mirror wp_handle_upload(): set predictable, readable perms on the moved
-		// upload. move_uploaded_file() is required here, so WP_Filesystem cannot own
-		// this step; FS_CHMOD_FILE is the same constant core uses.
-		$activeforms_perms = defined( 'FS_CHMOD_FILE' ) ? FS_CHMOD_FILE : 0644;
-		@chmod( $dest, $activeforms_perms ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_chmod
+
+		$relative = ltrim( str_replace( self::base_dir(), '', $moved['file'] ), '/' );
 
 		return array(
 			'path' => $relative,
-			'url'  => self::url_for( $relative ),
+			'url'  => ! empty( $moved['url'] ) ? $moved['url'] : self::url_for( $relative ),
 			'name' => $name,
 			'size' => $size,
-			'mime' => $real_mime,
+			'mime' => ! empty( $moved['type'] ) ? $moved['type'] : $real_mime,
 		);
 	}
 

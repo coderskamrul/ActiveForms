@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Central registry of all field types. Core fields register here; the Pro
- * add-on appends advanced fields via the activeforms/register_fields action.
+ * add-on appends advanced fields via the activeforms_register_fields action.
  */
 class FieldRegistry {
 

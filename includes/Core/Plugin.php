@@ -105,7 +105,7 @@ final class Plugin {
 				 *
 				 * @param FieldRegistry $registry Field registry.
 				 */
-				do_action( 'activeforms/register_fields', $registry );
+				do_action( 'activeforms_register_fields', $registry );
 				return $registry;
 			}
 		);
@@ -120,7 +120,7 @@ final class Plugin {
 				 *
 				 * @param IntegrationRegistry $registry Integration registry.
 				 */
-				do_action( 'activeforms/register_integrations', $registry );
+				do_action( 'activeforms_register_integrations', $registry );
 				return $registry;
 			}
 		);
@@ -160,8 +160,8 @@ final class Plugin {
 			( new AdminAssets( $this->container ) )->register();
 		}
 
-		// Translations.
-		add_action( 'init', array( $this, 'load_textdomain' ) );
+		// Translations for WordPress.org-hosted plugins load automatically since
+		// WP 4.6, so no manual load_plugin_textdomain() call is needed.
 
 		/**
 		 * Fires once ActiveForms has finished booting its core subsystems.
@@ -169,14 +169,5 @@ final class Plugin {
 		 * @param Plugin $plugin Plugin instance.
 		 */
 		do_action( 'activeforms/booted', $this );
-	}
-
-	/**
-	 * Load the plugin text domain.
-	 *
-	 * @return void
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain( 'activeforms', false, dirname( ACTIVEFORMS_BASENAME ) . '/languages' );
 	}
 }

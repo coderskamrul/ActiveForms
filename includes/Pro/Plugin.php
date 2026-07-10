@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Wires the former Pro features onto the free plugin's documented extension
- * points (activeforms/register_fields, activeforms/register_integrations). Since the
+ * points (activeforms_register_fields, activeforms_register_integrations). Since the
  * Pro add-on has been merged into ActiveForms, these features are always enabled.
  */
 final class Plugin {
@@ -54,8 +54,8 @@ final class Plugin {
 	private function __construct() {
 		( new UploadController() )->register();
 
-		add_action( 'activeforms/register_fields', array( $this, 'register_fields' ) );
-		add_action( 'activeforms/register_integrations', array( $this, 'register_integrations' ) );
+		add_action( 'activeforms_register_fields', array( $this, 'register_fields' ) );
+		add_action( 'activeforms_register_integrations', array( $this, 'register_integrations' ) );
 		// Register the Pro bundle alongside the free one...
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 20 );
 		// ...then enqueue it exactly when a form actually renders (the free plugin

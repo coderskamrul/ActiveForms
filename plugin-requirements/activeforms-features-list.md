@@ -350,7 +350,7 @@ Each integration supports per-form feeds, conditional logic on send, field mappi
   templates, integrations, reports. All routes have `permission_callback` and schema validation.
 - **Hooks**: documented actions/filters — `activeforms/before_validation`,
   `activeforms/after_submission`, `activeforms/form_schema`, `activeforms/rendering_form`,
-  `activeforms/notification_args`, `activeforms/register_fields`, `activeforms/register_integrations`,
+  `activeforms/notification_args`, `activeforms_register_fields`, `activeforms_register_integrations`,
   `activeforms/reportable_fields`, etc. Filters always return; actions documented with args.
 - **Registries**: `FieldRegistry`, `IntegrationRegistry`, `MigratorRegistry`, `GatewayRegistry`,
   `SmartCodeRegistry` — the Pro plugin and third parties extend via these.

@@ -152,7 +152,7 @@ class Schema {
 
 		foreach ( Config::tables() as $table ) {
 			$name = $wpdb->prefix . $table;
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- schema teardown.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- schema teardown.
 			$wpdb->query( "DROP TABLE IF EXISTS {$name}" );
 		}
 	}

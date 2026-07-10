@@ -87,6 +87,7 @@ class PreviewPage {
 		// the Pro add-on register their frontend bundles (with localized data);
 		// rendering the form then triggers the activeforms/rendering_form filter
 		// that enqueues the Pro bundle, just like a real page.
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Intentionally fires the WordPress core enqueue hook so registered frontend assets load on this standalone preview template.
 		do_action( 'wp_enqueue_scripts' );
 
 		$renderer  = $this->container->get( 'renderer' );

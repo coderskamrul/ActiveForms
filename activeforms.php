@@ -1,13 +1,12 @@
 <?php
 /**
- * Plugin Name:       ActiveForms – Drag & Drop Form Builder for WordPress
+ * Plugin Name:       ActiveForms
  * Description:       Create contact forms, surveys, quizzes, lead generation forms, and conversational forms with an intuitive drag and drop form builder.
  * Version:           1.0.0
  * Requires at least: 6.2
  * Requires PHP:      7.4
- * Author:            pluginshift
- * Author URI:        https://pluginshift.com
- * Plugin URI:        https://pluginshift.com/activeforms
+ * Author:            hasanedev
+ * Author URI:        https://profiles.wordpress.org/hasandev/
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       activeforms
@@ -72,7 +71,7 @@ add_action( 'plugins_loaded', 'activeforms', 9 );
 
 /**
  * Boot the merged Pro feature set. It wires field types, integrations, and the
- * upload endpoint onto the core's activeforms/register_* extension points, so it
+ * upload endpoint onto the core's activeforms_register_* extension points, so it
  * must run after the core has booted but before the lazy registries resolve.
  *
  * @return void

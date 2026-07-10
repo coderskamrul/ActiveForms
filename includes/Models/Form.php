@@ -38,7 +38,7 @@ class Form {
 		global $wpdb;
 		$table = self::table();
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ), ARRAY_A );
 
 		return $row ? self::hydrate( $row ) : null;
@@ -88,12 +88,12 @@ class Form {
 
 		// Total count.
 		$count_sql = "SELECT COUNT(*) FROM {$table} {$where}";
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$total = (int) $wpdb->get_var( $params ? $wpdb->prepare( $count_sql, $params ) : $count_sql );
 
 		$list_sql       = "SELECT * FROM {$table} {$where} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d";
 		$list_params    = array_merge( $params, array( $per_page, $offset ) );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$rows = $wpdb->get_results( $wpdb->prepare( $list_sql, $list_params ), ARRAY_A );
 
 		$items = array_map( array( __CLASS__, 'hydrate' ), $rows ? $rows : array() );
@@ -127,7 +127,7 @@ class Form {
 			'updated_at'  => $now,
 		);
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$wpdb->insert( self::table(), $insert );
 		return (int) $wpdb->insert_id;
 	}
@@ -161,7 +161,7 @@ class Form {
 			$update['settings'] = wp_json_encode( $data['settings'] );
 		}
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		return false !== $wpdb->update( self::table(), $update, array( 'id' => (int) $id ) );
 	}
 
@@ -196,13 +196,13 @@ class Form {
 		$tables = Config::tables();
 		$prefix = $wpdb->prefix;
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$wpdb->delete( $prefix . $tables['form_meta'], array( 'form_id' => $id ) );
 		$wpdb->delete( $prefix . $tables['entries'], array( 'form_id' => $id ) );
 		$wpdb->delete( $prefix . $tables['entry_meta'], array( 'form_id' => $id ) );
 		$wpdb->delete( $prefix . $tables['entry_detail'], array( 'form_id' => $id ) );
 		$result = $wpdb->delete( self::table(), array( 'id' => $id ) );
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 		return (bool) $result;
 	}
@@ -217,7 +217,7 @@ class Form {
 		global $wpdb;
 		$tables = Config::tables();
 		$table  = $wpdb->prefix . $tables['entries'];
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE form_id = %d AND status != 'trashed'", $id ) );
 	}
 

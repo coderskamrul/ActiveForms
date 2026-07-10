@@ -2,20 +2,24 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ActiveForms – Drag & Drop Form Builder for WordPress 1.0.0\n"
+"Project-Id-Version: ActiveForms 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/activeforms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-09T18:15:22+00:00\n"
+"POT-Creation-Date: 2026-07-10T10:05:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: activeforms\n"
 
 #. Plugin Name of the plugin
-msgid "ActiveForms – Drag & Drop Form Builder for WordPress"
+#: includes/Admin/Menu.php:40
+#: includes/Admin/Menu.php:41
+#: includes/Core/Config.php:198
+#: includes/Core/Config.php:199
+msgid "ActiveForms"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -34,96 +38,132 @@ msgstr ""
 msgid "https://pluginshift.com"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:116
+#: includes/Admin/AdminAssets.php:120
 #: includes/Admin/Menu.php:50
 msgid "Dashboard"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:117
+#: includes/Admin/AdminAssets.php:121
 msgid "Forms"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:118
+#: includes/Admin/AdminAssets.php:122
 #: includes/Admin/Menu.php:53
 msgid "Entries"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:119
+#: includes/Admin/AdminAssets.php:123
 #: includes/Admin/Menu.php:54
 msgid "Reports"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:120
+#: includes/Admin/AdminAssets.php:124
 #: includes/Admin/Menu.php:56
 msgid "Settings"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:121
-#: includes/Admin/Menu.php:55
+#: includes/Admin/AdminAssets.php:125
 msgid "Integrations"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:122
+#: includes/Admin/AdminAssets.php:126
 msgid "Add New Form"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:123
+#: includes/Admin/AdminAssets.php:127
 msgid "Save"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:124
+#: includes/Admin/AdminAssets.php:128
 msgid "Saved"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:125
+#: includes/Admin/AdminAssets.php:129
 msgid "Preview"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:126
+#: includes/Admin/AdminAssets.php:130
 msgid "Delete"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:127
+#: includes/Admin/AdminAssets.php:131
 msgid "Duplicate"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:128
+#: includes/Admin/AdminAssets.php:132
 msgid "Edit"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:129
+#: includes/Admin/AdminAssets.php:133
 msgid "Search…"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:130
+#: includes/Admin/AdminAssets.php:134
 msgid "No forms yet. Create your first form."
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:131
+#: includes/Admin/AdminAssets.php:135
 msgid "Field Library"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:132
+#: includes/Admin/AdminAssets.php:136
 msgid "Field Settings"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:133
+#: includes/Admin/AdminAssets.php:137
 msgid "Drag fields here to build your form"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:134
+#: includes/Admin/AdminAssets.php:138
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:186
-msgid "ActiveForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
+#: includes/Admin/AdminAssets.php:139
+msgid "Input Fields"
 msgstr ""
 
-#: includes/Admin/Menu.php:40
-#: includes/Admin/Menu.php:41
-#: includes/Core/Config.php:182
-#: includes/Core/Config.php:183
-msgid "ActiveForms"
+#: includes/Admin/AdminAssets.php:140
+msgid "Input Customization"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:141
+msgid "History"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:142
+msgid "Save Form"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:143
+msgid "Preview & Design"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:144
+msgid "Unsaved changes"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:145
+msgid "Search fields ( press / to focus )"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:146
+msgid "Undo"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:147
+msgid "Redo"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:148
+msgid "Conditional Logic"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:149
+msgid "Back"
+msgstr ""
+
+#: includes/Admin/AdminAssets.php:201
+msgid "ActiveForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
 msgstr ""
 
 #: includes/Admin/Menu.php:51
@@ -139,7 +179,7 @@ msgid "Loading ActiveForms…"
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:90
-#: includes/Frontend/SubmissionProcessor.php:190
+#: includes/Frontend/SubmissionProcessor.php:203
 msgid "Thank you! Your submission has been received."
 msgstr ""
 
@@ -160,8 +200,8 @@ msgid "Start from scratch."
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:118
-#: includes/Fields/Types/LayoutField.php:70
-#: includes/Fields/Types/LayoutField.php:115
+#: includes/Fields/Types/LayoutField.php:76
+#: includes/Fields/Types/LayoutField.php:121
 #: includes/Frontend/FormRenderer.php:62
 msgid "Submit"
 msgstr ""
@@ -179,14 +219,12 @@ msgid "Name"
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:128
-#: includes/Fields/Types/NameField.php:37
-#: includes/Fields/Types/NameField.php:49
+#: includes/Fields/Types/NameField.php:36
 msgid "First Name"
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:128
-#: includes/Fields/Types/NameField.php:39
-#: includes/Fields/Types/NameField.php:51
+#: includes/Fields/Types/NameField.php:38
 msgid "Last Name"
 msgstr ""
 
@@ -255,56 +293,50 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
-#: includes/Core/Activator.php:55
-#: includes/Fields/AbstractField.php:178
-msgid "This field is required."
-msgstr ""
-
-#: includes/Core/Activator.php:56
-#: includes/Fields/Types/InputField.php:81
-msgid "Please enter a valid email address."
-msgstr ""
-
-#: includes/Core/Activator.php:57
-#: includes/Fields/Types/InputField.php:84
-msgid "Please enter a valid URL."
-msgstr ""
-
-#: includes/Core/Activator.php:58
-#: includes/Fields/Types/InputField.php:88
-msgid "Please enter a valid number."
-msgstr ""
-
-#: includes/Core/Config.php:184
+#: includes/Core/Config.php:200
 msgid "Drag & Drop Form Builder"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:104
+#: includes/Fields/AbstractField.php:106
 msgid "Label"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:105
+#: includes/Fields/AbstractField.php:107
 msgid "Placeholder"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:106
+#: includes/Fields/AbstractField.php:108
 msgid "Help text"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:107
+#: includes/Fields/AbstractField.php:109
 msgid "Default value"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:108
+#: includes/Fields/AbstractField.php:110
 msgid "Required"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:109
+#: includes/Fields/AbstractField.php:111
 msgid "CSS class"
 msgstr ""
 
+#: includes/Fields/AbstractField.php:180
+msgid "This field is required."
+msgstr ""
+
+#. translators: %s: sub-field label.
+#: includes/Fields/Types/AbstractCompositeField.php:138
+msgid "%s is required."
+msgstr ""
+
+#: includes/Fields/Types/AbstractCompositeField.php:183
+#: includes/Fields/Types/CountryField.php:64
+msgid "— Select Country —"
+msgstr ""
+
 #: includes/Fields/Types/AddressField.php:37
-msgid "Street Address"
+msgid "Address Line 1"
 msgstr ""
 
 #: includes/Fields/Types/AddressField.php:38
@@ -316,77 +348,154 @@ msgid "City"
 msgstr ""
 
 #: includes/Fields/Types/AddressField.php:40
-msgid "State / Province"
+msgid "State"
 msgstr ""
 
 #: includes/Fields/Types/AddressField.php:41
-msgid "ZIP / Postal Code"
+msgid "Zip Code"
+msgstr ""
+
+#: includes/Fields/Types/AddressField.php:41
+msgid "Zip"
 msgstr ""
 
 #: includes/Fields/Types/AddressField.php:42
 msgid "Country"
 msgstr ""
 
-#: includes/Fields/Types/ChoiceField.php:51
+#: includes/Fields/Types/ChoiceField.php:61
 msgid "Option 1"
 msgstr ""
 
-#: includes/Fields/Types/ChoiceField.php:55
+#: includes/Fields/Types/ChoiceField.php:65
 msgid "Option 2"
 msgstr ""
 
-#: includes/Fields/Types/ChoiceField.php:83
+#: includes/Fields/Types/ChoiceField.php:93
 msgid "— Select —"
 msgstr ""
 
-#: includes/Fields/Types/ConsentField.php:50
+#: includes/Fields/Types/ChoiceField.php:112
+msgid "Select options…"
+msgstr ""
+
+#: includes/Fields/Types/ConsentField.php:52
 msgid "I have read and agree to the Terms & Conditions."
 msgstr ""
 
-#: includes/Fields/Types/ConsentField.php:51
+#: includes/Fields/Types/ConsentField.php:53
 msgid "I consent to having this website store my submitted information."
 msgstr ""
 
-#: includes/Fields/Types/ConsentField.php:67
+#: includes/Fields/Types/ConsentField.php:69
 msgid "You must accept to continue."
 msgstr ""
 
-#: includes/Fields/Types/CountryField.php:57
-msgid "— Select Country —"
+#: includes/Fields/Types/DateTimeField.php:121
+msgid "Select a time"
+msgstr ""
+
+#: includes/Fields/Types/DateTimeField.php:123
+msgid "Select date & time"
+msgstr ""
+
+#: includes/Fields/Types/DateTimeField.php:125
+msgid "Select a date range"
+msgstr ""
+
+#: includes/Fields/Types/DateTimeField.php:128
+msgid "Select a date"
+msgstr ""
+
+#: includes/Fields/Types/InputField.php:84
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: includes/Fields/Types/InputField.php:87
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: includes/Fields/Types/InputField.php:91
+#: includes/Pro/Fields/RangeField.php:57
+msgid "Please enter a valid number."
 msgstr ""
 
 #. translators: %s: minimum value.
-#: includes/Fields/Types/InputField.php:94
+#: includes/Fields/Types/InputField.php:97
 msgid "Value must be at least %s."
 msgstr ""
 
 #. translators: %s: maximum value.
-#: includes/Fields/Types/InputField.php:98
+#: includes/Fields/Types/InputField.php:101
 msgid "Value must be at most %s."
 msgstr ""
 
-#: includes/Fields/Types/LayoutField.php:57
+#: includes/Fields/Types/LayoutField.php:58
 msgid "Section"
 msgstr ""
 
-#: includes/Fields/Types/LayoutField.php:61
+#: includes/Fields/Types/LayoutField.php:62
 msgid "Custom HTML content"
 msgstr ""
 
-#: includes/Fields/Types/NameField.php:38
-#: includes/Fields/Types/NameField.php:50
+#: includes/Fields/Types/LayoutField.php:71
+msgid "Step"
+msgstr ""
+
+#: includes/Fields/Types/LayoutField.php:72
+#: includes/Fields/Types/LayoutField.php:126
+msgid "Previous"
+msgstr ""
+
+#: includes/Fields/Types/LayoutField.php:73
+#: includes/Fields/Types/LayoutField.php:126
+msgid "Next"
+msgstr ""
+
+#: includes/Fields/Types/NameField.php:37
 msgid "Middle Name"
 msgstr ""
 
-#: includes/Frontend/SubmissionProcessor.php:84
+#: includes/Frontend/PreviewPage.php:64
+msgid "You are not allowed to preview ActiveForms forms."
+msgstr ""
+
+#: includes/Frontend/PreviewPage.php:69
+#: includes/Rest/EntriesController.php:293
+#: includes/Rest/FormsController.php:145
+#: includes/Rest/FormsController.php:190
+msgid "Form not found."
+msgstr ""
+
+#: includes/Frontend/PreviewPage.php:83
+msgid "Form Preview"
+msgstr ""
+
+#: includes/Frontend/PreviewPage.php:126
+msgid "ActiveForms Preview"
+msgstr ""
+
+#: includes/Frontend/PreviewPage.php:132
+msgid "Preview Only"
+msgstr ""
+
+#: includes/Frontend/PreviewPage.php:133
+msgid "Preview width"
+msgstr ""
+
+#: includes/Frontend/PreviewPage.php:213
+msgid "Preview mode — submission is disabled."
+msgstr ""
+
+#: includes/Frontend/SubmissionProcessor.php:85
 msgid "Security check failed. Please refresh and try again."
 msgstr ""
 
-#: includes/Frontend/SubmissionProcessor.php:95
+#: includes/Frontend/SubmissionProcessor.php:96
 msgid "This form is not available."
 msgstr ""
 
-#: includes/Frontend/SubmissionProcessor.php:122
+#: includes/Frontend/SubmissionProcessor.php:123
 msgid "Please correct the highlighted fields."
 msgstr ""
 
@@ -447,7 +556,7 @@ msgid "Webhook URL is missing."
 msgstr ""
 
 #: includes/Models/Form.php:118
-#: includes/Rest/FormsController.php:165
+#: includes/Rest/FormsController.php:170
 msgid "Untitled Form"
 msgstr ""
 
@@ -456,37 +565,186 @@ msgstr ""
 msgid "%s (Copy)"
 msgstr ""
 
-#: includes/Reporting/Analytics.php:58
+#: includes/Pro/Fields/AbstractUploadField.php:150
+msgid "Choose a file or drag it here"
+msgstr ""
+
+#: includes/Pro/Fields/ColorField.php:25
+msgid "Color Picker"
+msgstr ""
+
+#: includes/Pro/Fields/FileUploadField.php:22
+msgid "File Upload"
+msgstr ""
+
+#: includes/Pro/Fields/ImageUploadField.php:22
+msgid "Image Upload"
+msgstr ""
+
+#: includes/Pro/Fields/NpsField.php:26
+msgid "Net Promoter"
+msgstr ""
+
+#: includes/Pro/Fields/NpsField.php:39
+#: includes/Pro/Fields/NpsField.php:75
+msgid "Not likely"
+msgstr ""
+
+#: includes/Pro/Fields/NpsField.php:40
+#: includes/Pro/Fields/NpsField.php:76
+msgid "Very likely"
+msgstr ""
+
+#: includes/Pro/Fields/NpsField.php:64
+msgid "Please choose a score between 0 and 10."
+msgstr ""
+
+#: includes/Pro/Fields/PhoneField.php:25
+msgid "Phone / Mobile"
+msgstr ""
+
+#: includes/Pro/Fields/PhoneField.php:51
+msgid "Please enter a valid phone number."
+msgstr ""
+
+#: includes/Pro/Fields/RangeField.php:25
+msgid "Range Slider"
+msgstr ""
+
+#: includes/Pro/Fields/RatingField.php:25
+msgid "Star Rating"
+msgstr ""
+
+#: includes/Pro/Fields/RatingField.php:58
+msgid "Please choose a valid rating."
+msgstr ""
+
+#: includes/Pro/Fields/RepeaterField.php:28
+msgid "Repeater"
+msgstr ""
+
+#: includes/Pro/Fields/RepeaterField.php:42
+#: includes/Pro/Fields/RepeaterField.php:70
+msgid "Item"
+msgstr ""
+
+#: includes/Pro/Fields/RepeaterField.php:43
+msgid "Detail"
+msgstr ""
+
+#: includes/Pro/Fields/RepeaterField.php:140
+msgid "Add Row"
+msgstr ""
+
+#: includes/Pro/Fields/RichTextField.php:26
+msgid "Rich Text"
+msgstr ""
+
+#: includes/Pro/Fields/SignatureField.php:28
+msgid "Signature"
+msgstr ""
+
+#: includes/Pro/Fields/SignatureField.php:70
+msgid "Clear"
+msgstr ""
+
+#: includes/Pro/Integrations/GoogleSheetsIntegration.php:43
+msgid "Service Account JSON"
+msgstr ""
+
+#: includes/Pro/Integrations/GoogleSheetsIntegration.php:56
+msgid "Spreadsheet ID"
+msgstr ""
+
+#: includes/Pro/Integrations/GoogleSheetsIntegration.php:61
+msgid "Worksheet name"
+msgstr ""
+
+#: includes/Pro/Rest/UploadController.php:61
+msgid "Security check failed."
+msgstr ""
+
+#: includes/Pro/Rest/UploadController.php:76
+msgid "No file was received."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:96
+msgid "No valid file was uploaded."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:99
+msgid "The file failed to upload. Please try again."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:110
+#: includes/Pro/Support/Uploads.php:113
+msgid "This file type is not allowed."
+msgstr ""
+
+#. translators: %s: maximum size in kilobytes.
+#: includes/Pro/Support/Uploads.php:117
+msgid "The file is too large (max %s KB)."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:153
+msgid "Could not save the uploaded file."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:175
+#: includes/Pro/Support/Uploads.php:183
+msgid "Invalid signature data."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:188
+msgid "Could not prepare the upload directory."
+msgstr ""
+
+#: includes/Pro/Support/Uploads.php:195
+msgid "Could not save the signature."
+msgstr ""
+
+#: includes/Reporting/Analytics.php:118
+#: includes/Reporting/Analytics.php:300
 msgid "(deleted form)"
 msgstr ""
 
-#: includes/Rest/BuilderController.php:43
+#: includes/Rest/BuilderController.php:80
 msgid "General Fields"
 msgstr ""
 
-#: includes/Rest/BuilderController.php:44
+#: includes/Rest/BuilderController.php:81
 msgid "Layout"
 msgstr ""
 
-#: includes/Rest/BuilderController.php:45
+#: includes/Rest/BuilderController.php:82
 msgid "Advanced (Pro)"
 msgstr ""
 
-#: includes/Rest/BuilderController.php:46
+#: includes/Rest/BuilderController.php:83
 msgid "Payment"
 msgstr ""
 
-#: includes/Rest/EntriesController.php:101
+#: includes/Rest/EntriesController.php:123
 msgid "Entry not found."
 msgstr ""
 
-#: includes/Rest/EntriesController.php:154
-#: includes/Rest/FormsController.php:145
-#: includes/Rest/FormsController.php:185
-msgid "Form not found."
+#: includes/Rest/EntriesController.php:153
+msgid "Guest"
 msgstr ""
 
-#: includes/Rest/FormsController.php:232
+#: includes/Rest/EntriesController.php:162
+msgid "Deleted user"
+msgstr ""
+
+#: includes/Rest/EntriesController.php:230
+msgid "No entries selected."
+msgstr ""
+
+#: includes/Rest/EntriesController.php:259
+msgid "Unknown bulk action."
+msgstr ""
+
+#: includes/Rest/FormsController.php:237
 msgid "Could not duplicate form."
 msgstr ""
 
@@ -494,18 +752,23 @@ msgstr ""
 msgid "Unknown integration."
 msgstr ""
 
-#: includes/Spam/SpamGuard.php:35
+#: includes/Spam/SpamGuard.php:40
 msgid "Your submission was flagged as spam."
 msgstr ""
 
-#: includes/Spam/SpamGuard.php:66
+#: includes/Spam/SpamGuard.php:71
 msgid "Leave this field empty"
 msgstr ""
 
-#: includes/Spam/SpamGuard.php:87
+#: includes/Spam/SpamGuard.php:92
 msgid "Please complete the captcha challenge."
 msgstr ""
 
-#: includes/Spam/SpamGuard.php:114
+#: includes/Spam/SpamGuard.php:119
 msgid "Captcha verification failed. Please try again."
+msgstr ""
+
+#: includes/Support/UserAgent.php:37
+#: includes/Support/UserAgent.php:120
+msgid "Unknown"
 msgstr ""

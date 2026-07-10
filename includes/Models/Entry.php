@@ -36,7 +36,7 @@ class Entry {
 	public static function find( $id ) {
 		global $wpdb;
 		$table = self::table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ), ARRAY_A );
 		return $row ? self::hydrate( $row ) : null;
 	}
@@ -92,12 +92,12 @@ class Entry {
 		$order     = 'ASC' === strtoupper( (string) $args['order'] ) ? 'ASC' : 'DESC';
 
 		$count_sql = "SELECT COUNT(*) FROM {$table} {$where}";
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$total = (int) $wpdb->get_var( $wpdb->prepare( $count_sql, $params ) );
 
 		$list_sql    = "SELECT * FROM {$table} {$where} ORDER BY {$orderby} {$order} LIMIT %d OFFSET %d";
 		$list_params = array_merge( $params, array( $per_page, $offset ) );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$rows = $wpdb->get_results( $wpdb->prepare( $list_sql, $list_params ), ARRAY_A );
 
 		return array(
@@ -117,7 +117,7 @@ class Entry {
 		$table   = self::table();
 		$form_id = (int) $form_id;
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT status, is_favorite, COUNT(*) AS c FROM {$table} WHERE form_id = %d GROUP BY status, is_favorite", $form_id ), ARRAY_A );
 
 		$counts = array(
@@ -160,10 +160,10 @@ class Entry {
 		$form_id = (int) $form_id;
 		$id      = (int) $id;
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$older = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE form_id = %d AND status != 'trashed' AND id < %d ORDER BY id DESC LIMIT 1", $form_id, $id ) );
 		$newer = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE form_id = %d AND status != 'trashed' AND id > %d ORDER BY id ASC LIMIT 1", $form_id, $id ) );
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 		return array(
 			'older' => $older ? (int) $older : null,
@@ -201,7 +201,7 @@ class Entry {
 			'updated_at'     => $now,
 		);
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$wpdb->insert( self::table(), $insert );
 		$entry_id = (int) $wpdb->insert_id;
 
@@ -233,16 +233,16 @@ class Entry {
 		$table  = $wpdb->prefix . $tables['entry_meta'];
 		$stored = is_scalar( $value ) ? (string) $value : wp_json_encode( $value );
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$exists = (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE entry_id = %d AND meta_key = %s", (int) $entry_id, (string) $key ) );
 
 		if ( $exists ) {
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Own entry_meta table, updated by primary key; meta_key/meta_value are our columns, not core post/user meta.
 			$wpdb->update( $table, array( 'meta_value' => $stored ), array( 'id' => $exists ) );
 			return;
 		}
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Own entry_meta table; meta_key/meta_value are our columns, not core post/user meta.
 		$wpdb->insert(
 			$table,
 			array(
@@ -253,6 +253,7 @@ class Entry {
 				'created_at' => current_time( 'mysql' ),
 			)
 		);
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
 	/**
@@ -266,7 +267,7 @@ class Entry {
 		$tables = Config::tables();
 		$table  = $wpdb->prefix . $tables['entry_meta'];
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT meta_key, meta_value FROM {$table} WHERE entry_id = %d", (int) $entry_id ), ARRAY_A );
 
 		$meta = array();
@@ -296,7 +297,7 @@ class Entry {
 			}
 		}
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$result = false !== $wpdb->update( self::table(), $update, array( 'id' => $id ) );
 
 		// An edited response must re-sync the flattened detail rows that power
@@ -305,7 +306,7 @@ class Entry {
 			$entry = self::find( $id );
 			if ( $entry ) {
 				$tables = Config::tables();
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 				$wpdb->delete( $wpdb->prefix . $tables['entry_detail'], array( 'entry_id' => $id ) );
 				self::store_details( (int) $entry['form_id'], $id, $data['response'] );
 			}
@@ -325,11 +326,11 @@ class Entry {
 		$id     = (int) $id;
 		$tables = Config::tables();
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$wpdb->delete( $wpdb->prefix . $tables['entry_detail'], array( 'entry_id' => $id ) );
 		$wpdb->delete( $wpdb->prefix . $tables['entry_meta'], array( 'entry_id' => $id ) );
 		$result = $wpdb->delete( self::table(), array( 'id' => $id ) );
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 		return (bool) $result;
 	}
@@ -343,7 +344,7 @@ class Entry {
 	protected static function next_serial( $form_id ) {
 		global $wpdb;
 		$table = self::table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$max = (int) $wpdb->get_var( $wpdb->prepare( "SELECT MAX(serial) FROM {$table} WHERE form_id = %d", $form_id ) );
 		return $max + 1;
 	}
@@ -364,7 +365,7 @@ class Entry {
 		foreach ( (array) $response as $key => $value ) {
 			if ( is_array( $value ) ) {
 				foreach ( $value as $sub => $sub_value ) {
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 					$wpdb->insert(
 						$table,
 						array(
@@ -377,7 +378,7 @@ class Entry {
 					);
 				}
 			} else {
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter
 				$wpdb->insert(
 					$table,
 					array(

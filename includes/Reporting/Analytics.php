@@ -53,7 +53,7 @@ class Analytics {
 		$fc     = $form_id ? ' AND form_id = ' . (int) $form_id : '';
 		$live   = " status NOT IN ('trashed','spam')";
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 		// ---- Stat cards ----
 		$submissions = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$entries} WHERE {$live}{$fc} AND created_at BETWEEN %s AND %s", $from_dt, $to_dt ) );
@@ -272,7 +272,7 @@ class Analytics {
 		$forms   = $wpdb->prefix . $tables['forms'];
 		$entries = $wpdb->prefix . $tables['entries'];
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		$total_forms   = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$forms}" );
 		$total_entries = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$entries} WHERE status != 'trashed'" );
 		$unread        = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$entries} WHERE status = 'unread'" );
@@ -350,7 +350,7 @@ class Analytics {
 				continue;
 			}
 
-			// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- {$detail} is a trusted, $wpdb->prefix-prefixed table name from Config::tables(); user input uses %d/%s placeholders.
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- {$detail} is a trusted, $wpdb->prefix-prefixed table name from Config::tables(); user input uses %d/%s placeholders.
 			$rows = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT field_value AS label, COUNT(*) AS count
@@ -361,7 +361,7 @@ class Analytics {
 				),
 				ARRAY_A
 			);
-			// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 			$reports[] = array(
 				'key'    => $key,

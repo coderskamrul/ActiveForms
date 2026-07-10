@@ -1,8 +1,8 @@
-=== ActiveForms – Drag & Drop Form Builder ===
-Contributors: pluginshift
+=== ActiveForms ===
+Contributors: hasandev
 Tags: contact form, form builder, forms, drag and drop, survey
 Requires at least: 6.2
-Tested up to: 6.8
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
