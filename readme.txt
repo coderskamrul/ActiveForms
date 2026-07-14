@@ -85,10 +85,13 @@ the plugin is deleted.
 
 == Development ==
 
+Development repository (full source + build tooling): https://github.com/coderskamrul/RadiusForms
+
 The compiled JavaScript and CSS in `assets/dist/` and `assets/frontend/` are minified builds. The
-complete, unminified, human-readable source is included with the plugin in the `src/` directory, and
-the build configuration (`package.json`, `webpack.config.js`) ships alongside it, so the compiled
-assets can be reproduced from the plugin as distributed.
+complete, unminified, human-readable source is also included with the plugin itself, in the `src/`
+directory, and the build configuration (`package.json`, `webpack.config.js`) ships alongside it — so
+the compiled assets can be reproduced either from the repository above or from the plugin exactly as
+distributed.
 
 To rebuild the assets from source:
 
