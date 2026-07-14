@@ -2,13 +2,13 @@
 /**
  * Base field implementation with shared rendering & validation helpers.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields;
+namespace RadiusForms\Fields;
 
-use ActiveForms\Core\Settings;
-use ActiveForms\Support\Arr;
+use RadiusForms\Core\Settings;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -103,12 +103,12 @@ abstract class AbstractField implements FieldInterface {
 	 */
 	protected function editor_settings() {
 		return array(
-			array( 'key' => 'label', 'type' => 'text', 'label' => __( 'Label', 'activeforms' ) ),
-			array( 'key' => 'placeholder', 'type' => 'text', 'label' => __( 'Placeholder', 'activeforms' ) ),
-			array( 'key' => 'help', 'type' => 'text', 'label' => __( 'Help text', 'activeforms' ) ),
-			array( 'key' => 'default', 'type' => 'text', 'label' => __( 'Default value', 'activeforms' ) ),
-			array( 'key' => 'required', 'type' => 'toggle', 'label' => __( 'Required', 'activeforms' ) ),
-			array( 'key' => 'css_class', 'type' => 'text', 'label' => __( 'CSS class', 'activeforms' ) ),
+			array( 'key' => 'label', 'type' => 'text', 'label' => __( 'Label', 'radiusforms' ) ),
+			array( 'key' => 'placeholder', 'type' => 'text', 'label' => __( 'Placeholder', 'radiusforms' ) ),
+			array( 'key' => 'help', 'type' => 'text', 'label' => __( 'Help text', 'radiusforms' ) ),
+			array( 'key' => 'default', 'type' => 'text', 'label' => __( 'Default value', 'radiusforms' ) ),
+			array( 'key' => 'required', 'type' => 'toggle', 'label' => __( 'Required', 'radiusforms' ) ),
+			array( 'key' => 'css_class', 'type' => 'text', 'label' => __( 'CSS class', 'radiusforms' ) ),
 		);
 	}
 
@@ -177,7 +177,7 @@ abstract class AbstractField implements FieldInterface {
 	 * @return string
 	 */
 	protected function required_message( $field ) {
-		return Settings::message( 'required', __( 'This field is required.', 'activeforms' ) );
+		return Settings::message( 'required', __( 'This field is required.', 'radiusforms' ) );
 	}
 
 	/**
@@ -200,21 +200,21 @@ abstract class AbstractField implements FieldInterface {
 		if ( '' === $placement ) {
 			$placement = Settings::default_label_placement();
 		}
-		$lp_class = ( $placement && 'top' !== $placement ) ? ' activeforms-field--lp-' . sanitize_html_class( $placement ) : '';
+		$lp_class = ( $placement && 'top' !== $placement ) ? ' radiusforms-field--lp-' . sanitize_html_class( $placement ) : '';
 
-		$html  = '<div class="activeforms-field activeforms-field--' . esc_attr( $this->type ) . $lp_class . ' ' . $css . '" data-field="' . $key . '">';
+		$html  = '<div class="radiusforms-field radiusforms-field--' . esc_attr( $this->type ) . $lp_class . ' ' . $css . '" data-field="' . $key . '">';
 		if ( $label && $this->input && 'hide' !== $placement ) {
-			$html .= '<label class="activeforms-label" for="activeforms-' . $key . '">' . esc_html( $label );
+			$html .= '<label class="radiusforms-label" for="radiusforms-' . $key . '">' . esc_html( $label );
 			if ( $required ) {
-				$html .= ' <span class="activeforms-required" aria-hidden="true">*</span>';
+				$html .= ' <span class="radiusforms-required" aria-hidden="true">*</span>';
 			}
 			$html .= '</label>';
 		}
-		$html .= '<div class="activeforms-control">' . $control . '</div>';
+		$html .= '<div class="radiusforms-control">' . $control . '</div>';
 		if ( $help ) {
-			$html .= '<small class="activeforms-help">' . esc_html( $help ) . '</small>';
+			$html .= '<small class="radiusforms-help">' . esc_html( $help ) . '</small>';
 		}
-		$html .= '<span class="activeforms-error" role="alert"></span>';
+		$html .= '<span class="radiusforms-error" role="alert"></span>';
 		$html .= '</div>';
 
 		return $html;
@@ -229,7 +229,7 @@ abstract class AbstractField implements FieldInterface {
 	protected function input_attrs( $field ) {
 		$key   = esc_attr( Arr::get( $field, 'key', '' ) );
 		$attrs = array(
-			'id'   => 'activeforms-' . $key,
+			'id'   => 'radiusforms-' . $key,
 			'name' => $key,
 		);
 

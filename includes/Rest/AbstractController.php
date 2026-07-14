@@ -2,18 +2,18 @@
 /**
  * Base REST controller.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Rest;
+namespace RadiusForms\Rest;
 
-use ActiveForms\Core\Config;
-use ActiveForms\Core\Container;
+use RadiusForms\Core\Config;
+use RadiusForms\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Shared base for ActiveForms REST controllers: namespace, permission helpers,
+ * Shared base for RadiusForms REST controllers: namespace, permission helpers,
  * and response shaping.
  */
 abstract class AbstractController {

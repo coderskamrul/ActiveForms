@@ -2,12 +2,12 @@
 /**
  * Async file upload REST endpoint (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Rest;
+namespace RadiusFormsPro\Rest;
 
-use ActiveFormsPro\Support\Uploads;
+use RadiusFormsPro\Support\Uploads;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ class UploadController {
 	/**
 	 * REST namespace for Pro routes.
 	 */
-	const NAMESPACE = 'activeforms-pro/v1';
+	const NAMESPACE = 'radiusforms-pro/v1';
 
 	/**
 	 * Register hooks.
@@ -58,7 +58,7 @@ class UploadController {
 	public function check( $request ) {
 		$nonce = $request->get_header( 'X-WP-Nonce' );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new \WP_Error( 'activeforms_bad_nonce', __( 'Security check failed.', 'activeforms' ), array( 'status' => 403 ) );
+			return new \WP_Error( 'radiusforms_bad_nonce', __( 'Security check failed.', 'radiusforms' ), array( 'status' => 403 ) );
 		}
 		return true;
 	}
@@ -73,7 +73,7 @@ class UploadController {
 		$files = $request->get_file_params();
 		if ( empty( $files['file'] ) ) {
 			return new \WP_REST_Response(
-				array( 'success' => false, 'message' => __( 'No file was received.', 'activeforms' ) ),
+				array( 'success' => false, 'message' => __( 'No file was received.', 'radiusforms' ) ),
 				400
 			);
 		}

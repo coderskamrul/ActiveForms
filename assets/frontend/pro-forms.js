@@ -1,5 +1,5 @@
 /**
- * ActiveForms Pro — frontend behaviors for advanced fields.
+ * RadiusForms Pro — frontend behaviors for advanced fields.
  *
  * Vanilla JS (no build step). Enhances markup rendered by the Pro field classes:
  *   - Signature : <canvas> pad → PNG data URL in a hidden input
@@ -13,7 +13,7 @@
 (function () {
   'use strict';
 
-  var cfg = window.ActiveFormsProFront || {};
+  var cfg = window.RadiusFormsProFront || {};
 
   /* ------------------------------------------------------------------ utils */
 
@@ -29,20 +29,20 @@
   }
 
   function setFieldError(root, message) {
-    var field = root.closest('.activeforms-field');
+    var field = root.closest('.radiusforms-field');
     if (!field) return;
-    var box = field.querySelector('.activeforms-error');
+    var box = field.querySelector('.radiusforms-error');
     if (box) box.textContent = message || '';
-    field.classList.toggle('activeforms-field--invalid', !!message);
+    field.classList.toggle('radiusforms-field--invalid', !!message);
   }
 
   /* -------------------------------------------------------------- signature */
 
   function initSignature(root) {
     if (!once(root, 'efProSig')) return;
-    var canvas = root.querySelector('.activeforms-signature__pad');
-    var input = root.querySelector('[data-activeforms-signature-input]');
-    var clear = root.querySelector('.activeforms-signature__clear');
+    var canvas = root.querySelector('.radiusforms-signature__pad');
+    var input = root.querySelector('[data-radiusforms-signature-input]');
+    var clear = root.querySelector('.radiusforms-signature__clear');
     if (!canvas || !input) return;
 
     var ctx = canvas.getContext('2d');
@@ -138,21 +138,21 @@
 
   function initRichText(root) {
     if (!once(root, 'efProRt')) return;
-    var textarea = root.querySelector('.activeforms-richtext__source');
+    var textarea = root.querySelector('.radiusforms-richtext__source');
     if (!textarea) return;
 
     var toolbar = document.createElement('div');
-    toolbar.className = 'activeforms-richtext__toolbar';
+    toolbar.className = 'radiusforms-richtext__toolbar';
 
     var editor = document.createElement('div');
-    editor.className = 'activeforms-richtext__editor';
+    editor.className = 'radiusforms-richtext__editor';
     editor.contentEditable = 'true';
     editor.innerHTML = textarea.value || '';
 
     RT_COMMANDS.forEach(function (item) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'activeforms-richtext__btn';
+      btn.className = 'radiusforms-richtext__btn';
       btn.title = item.title;
       btn.innerHTML = item.label;
       if (item.style) btn.setAttribute('style', item.style);
@@ -186,9 +186,9 @@
 
   function initRepeater(root) {
     if (!once(root, 'efProRep')) return;
-    var body = root.querySelector('.activeforms-repeater__rows');
-    var addBtn = root.querySelector('.activeforms-repeater__add');
-    var input = root.querySelector('[data-activeforms-repeater-input]');
+    var body = root.querySelector('.radiusforms-repeater__rows');
+    var addBtn = root.querySelector('.radiusforms-repeater__add');
+    var input = root.querySelector('[data-radiusforms-repeater-input]');
     if (!body || !input) return;
 
     var columns = [];
@@ -214,11 +214,11 @@
       body.innerHTML = '';
       rows.forEach(function (row, idx) {
         var tr = document.createElement('div');
-        tr.className = 'activeforms-repeater__row';
+        tr.className = 'radiusforms-repeater__row';
         columns.forEach(function (col) {
           var cell = document.createElement('input');
           cell.type = 'text';
-          cell.className = 'activeforms-input';
+          cell.className = 'radiusforms-input';
           cell.placeholder = col.label || col.key;
           cell.value = row[col.key] || '';
           cell.addEventListener('input', function () {
@@ -229,7 +229,7 @@
         });
         var rm = document.createElement('button');
         rm.type = 'button';
-        rm.className = 'activeforms-repeater__rm';
+        rm.className = 'radiusforms-repeater__rm';
         rm.setAttribute('aria-label', 'Remove row');
         rm.innerHTML = '&times;';
         rm.addEventListener('click', function () {
@@ -267,11 +267,11 @@
 
   function initUpload(root) {
     if (!once(root, 'efProUp')) return;
-    var fileInput = root.querySelector('.activeforms-upload__input');
-    var list = root.querySelector('.activeforms-upload__list');
-    var errorBox = root.querySelector('.activeforms-upload__error');
-    var hidden = root.querySelector('[data-activeforms-upload-input]');
-    var drop = root.querySelector('.activeforms-upload__drop');
+    var fileInput = root.querySelector('.radiusforms-upload__input');
+    var list = root.querySelector('.radiusforms-upload__list');
+    var errorBox = root.querySelector('.radiusforms-upload__error');
+    var hidden = root.querySelector('[data-radiusforms-upload-input]');
+    var drop = root.querySelector('.radiusforms-upload__drop');
     if (!fileInput || !hidden) return;
 
     var maxFiles = parseInt(root.getAttribute('data-max-files'), 10) || 1;
@@ -295,21 +295,21 @@
       list.innerHTML = '';
       files.forEach(function (f, idx) {
         var item = document.createElement('div');
-        item.className = 'activeforms-upload__item';
-        if (root.classList.contains('activeforms-upload--image') && f.url) {
+        item.className = 'radiusforms-upload__item';
+        if (root.classList.contains('radiusforms-upload--image') && f.url) {
           var thumb = document.createElement('span');
-          thumb.className = 'activeforms-upload__thumb';
+          thumb.className = 'radiusforms-upload__thumb';
           thumb.style.backgroundImage = 'url(' + f.url + ')';
           item.appendChild(thumb);
         }
         var name = document.createElement('span');
-        name.className = 'activeforms-upload__name';
+        name.className = 'radiusforms-upload__name';
         name.textContent = f.name + (f.size ? ' (' + humanSize(f.size) + ')' : '');
         item.appendChild(name);
 
         var rm = document.createElement('button');
         rm.type = 'button';
-        rm.className = 'activeforms-upload__rm';
+        rm.className = 'radiusforms-upload__rm';
         rm.innerHTML = '&times;';
         rm.setAttribute('aria-label', 'Remove file');
         rm.addEventListener('click', function () {
@@ -339,7 +339,7 @@
       if (!cfg.uploadUrl) { showError('Uploads are not configured.'); return; }
 
       var pending = document.createElement('div');
-      pending.className = 'activeforms-upload__item is-uploading';
+      pending.className = 'radiusforms-upload__item is-uploading';
       pending.textContent = file.name + ' …';
       list.appendChild(pending);
 
@@ -411,13 +411,13 @@
 
   function boot(scope) {
     var ctx = scope || document;
-    ctx.querySelectorAll('[data-activeforms-signature]').forEach(initSignature);
-    ctx.querySelectorAll('[data-activeforms-richtext]').forEach(initRichText);
-    ctx.querySelectorAll('[data-activeforms-repeater]').forEach(initRepeater);
-    ctx.querySelectorAll('[data-activeforms-upload]').forEach(initUpload);
+    ctx.querySelectorAll('[data-radiusforms-signature]').forEach(initSignature);
+    ctx.querySelectorAll('[data-radiusforms-richtext]').forEach(initRichText);
+    ctx.querySelectorAll('[data-radiusforms-repeater]').forEach(initRepeater);
+    ctx.querySelectorAll('[data-radiusforms-upload]').forEach(initUpload);
   }
 
   ready(function () { boot(document); });
   // Expose for forms injected after load (e.g. popups).
-  window.ActiveFormsProInit = boot;
+  window.RadiusFormsProInit = boot;
 })();

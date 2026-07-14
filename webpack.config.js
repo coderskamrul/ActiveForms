@@ -1,8 +1,8 @@
 /**
- * ActiveForms webpack build.
+ * RadiusForms webpack build.
  *
  * Two entries:
- *   - dist/activeforms   → the React admin app  (assets/dist/activeforms.{js,css})
+ *   - dist/radiusforms   → the React admin app  (assets/dist/radiusforms.{js,css})
  *   - frontend/form    → the public form JS+SCSS (assets/frontend/form.{js,css})
  *
  * SCSS is compiled with sass and extracted to standalone CSS files that the PHP
@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      'dist/activeforms': path.resolve(__dirname, 'src/main.jsx'),
+      'dist/radiusforms': path.resolve(__dirname, 'src/main.jsx'),
       'frontend/form': path.resolve(__dirname, 'src/frontend/form.js'),
     },
     output: {

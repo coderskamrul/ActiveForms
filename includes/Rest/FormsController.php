@@ -2,13 +2,13 @@
 /**
  * Forms REST controller.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Rest;
+namespace RadiusForms\Rest;
 
-use ActiveForms\Models\Form;
-use ActiveForms\Builder\FormTemplates;
+use RadiusForms\Models\Form;
+use RadiusForms\Builder\FormTemplates;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -142,7 +142,7 @@ class FormsController extends AbstractController {
 	public function show( $request ) {
 		$form = Form::find( (int) $request['id'] );
 		if ( ! $form ) {
-			return $this->fail( __( 'Form not found.', 'activeforms' ), 404 );
+			return $this->fail( __( 'Form not found.', 'radiusforms' ), 404 );
 		}
 		return $this->ok( $form );
 	}
@@ -167,7 +167,7 @@ class FormsController extends AbstractController {
 
 		$id = Form::create(
 			array(
-				'title'    => isset( $body['title'] ) ? sanitize_text_field( $body['title'] ) : __( 'Untitled Form', 'activeforms' ),
+				'title'    => isset( $body['title'] ) ? sanitize_text_field( $body['title'] ) : __( 'Untitled Form', 'radiusforms' ),
 				'type'     => isset( $body['type'] ) ? sanitize_key( $body['type'] ) : 'classic',
 				'fields'   => $fields,
 				'settings' => $settings,
@@ -187,7 +187,7 @@ class FormsController extends AbstractController {
 		$id   = (int) $request['id'];
 		$form = Form::find( $id );
 		if ( ! $form ) {
-			return $this->fail( __( 'Form not found.', 'activeforms' ), 404 );
+			return $this->fail( __( 'Form not found.', 'radiusforms' ), 404 );
 		}
 
 		$body = $request->get_json_params();
@@ -234,7 +234,7 @@ class FormsController extends AbstractController {
 	public function duplicate( $request ) {
 		$new_id = Form::duplicate( (int) $request['id'] );
 		if ( ! $new_id ) {
-			return $this->fail( __( 'Could not duplicate form.', 'activeforms' ), 400 );
+			return $this->fail( __( 'Could not duplicate form.', 'radiusforms' ), 400 );
 		}
 		return $this->ok( Form::find( $new_id ), 201 );
 	}

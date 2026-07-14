@@ -22,7 +22,7 @@ function TrendBars({ trend }) {
             flex: 1,
             minWidth: 3,
             height: `${Math.max(4, (d.count / max) * 100)}%`,
-            background: 'var(--activeforms-color-primary, #4f46e5)',
+            background: 'var(--radiusforms-color-primary, #4f46e5)',
             borderRadius: '3px 3px 0 0',
             opacity: 0.85,
           }}
@@ -52,19 +52,19 @@ export default function Dashboard() {
         actions={<Button variant="primary" onClick={() => go('/forms/new')}>+ Add New Form</Button>}
       />
 
-      <div className="activeforms-grid activeforms-grid-4" style={{ marginBottom: 20 }}>
-        <Card pad={false}><div className="activeforms-stat"><div className="num">{totals.forms || 0}</div><div className="lbl">Total Forms</div></div></Card>
-        <Card pad={false}><div className="activeforms-stat"><div className="num">{totals.entries || 0}</div><div className="lbl">Submissions</div></div></Card>
-        <Card pad={false}><div className="activeforms-stat"><div className="num">{totals.unread || 0}</div><div className="lbl">Unread</div></div></Card>
+      <div className="radiusforms-grid radiusforms-grid-4" style={{ marginBottom: 20 }}>
+        <Card pad={false}><div className="radiusforms-stat"><div className="num">{totals.forms || 0}</div><div className="lbl">Total Forms</div></div></Card>
+        <Card pad={false}><div className="radiusforms-stat"><div className="num">{totals.entries || 0}</div><div className="lbl">Submissions</div></div></Card>
+        <Card pad={false}><div className="radiusforms-stat"><div className="num">{totals.unread || 0}</div><div className="lbl">Unread</div></div></Card>
         <Card pad={false}>
-          <div className="activeforms-stat">
+          <div className="radiusforms-stat">
             <div className="num">{totals.entries && totals.forms ? Math.round(totals.entries / totals.forms) : 0}</div>
             <div className="lbl">Avg / Form</div>
           </div>
         </Card>
       </div>
 
-      <div className="activeforms-grid activeforms-grid-2">
+      <div className="radiusforms-grid radiusforms-grid-2">
         <Card>
           <h3 style={{ marginTop: 0 }}>Submissions — Last 30 Days</h3>
           <TrendBars trend={data.trend} />
@@ -75,7 +75,7 @@ export default function Dashboard() {
           {(data.topForms || []).map((f) => (
             <div key={f.form_id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--_border)' }}>
               <a href={`#/forms/${f.form_id}/entries`} style={{ textDecoration: 'none', color: 'var(--_text)', fontWeight: 600 }}>{f.title}</a>
-              <span className="activeforms-badge">{f.count}</span>
+              <span className="radiusforms-badge">{f.count}</span>
             </div>
           ))}
         </Card>

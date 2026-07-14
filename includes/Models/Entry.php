@@ -2,12 +2,12 @@
 /**
  * Entry (submission) data-mapper model.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Models;
+namespace RadiusForms\Models;
 
-use ActiveForms\Core\Config;
+use RadiusForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 

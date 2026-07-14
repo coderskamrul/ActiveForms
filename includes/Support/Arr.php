@@ -2,10 +2,10 @@
 /**
  * Array helper utilities.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Support;
+namespace RadiusForms\Support;
 
 defined( 'ABSPATH' ) || exit;
 

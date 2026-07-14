@@ -2,13 +2,13 @@
 /**
  * Spam protection coordinator.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Spam;
+namespace RadiusForms\Spam;
 
-use ActiveForms\Core\Config;
-use ActiveForms\Support\Arr;
+use RadiusForms\Core\Config;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,7 +24,7 @@ class SpamGuard {
 	 * or "phone" get auto-filled by browsers/password managers, which would
 	 * trip the honeypot for legitimate users.
 	 */
-	const HONEYPOT = 'activeforms_hp_field';
+	const HONEYPOT = 'radiusforms_hp_field';
 
 	/**
 	 * Inspect a submission for spam signals.
@@ -37,14 +37,14 @@ class SpamGuard {
 		// Honeypot: a hidden field bots tend to fill in.
 		$hp = isset( $payload[ self::HONEYPOT ] ) ? trim( (string) $payload[ self::HONEYPOT ] ) : '';
 		if ( '' !== $hp ) {
-			return __( 'Your submission was flagged as spam.', 'activeforms' );
+			return __( 'Your submission was flagged as spam.', 'radiusforms' );
 		}
 
 		$settings = Arr::get( $form, 'settings', array() );
 		$captcha  = Arr::get( $settings, 'captcha', array() );
 
 		if ( ! empty( $captcha['enabled'] ) ) {
-			$token  = isset( $payload['activeforms_captcha_token'] ) ? $payload['activeforms_captcha_token'] : '';
+			$token  = isset( $payload['radiusforms_captcha_token'] ) ? $payload['radiusforms_captcha_token'] : '';
 			$result = $this->verify_captcha( $token );
 			if ( true !== $result ) {
 				return $result;
@@ -58,7 +58,7 @@ class SpamGuard {
 		 * @param array       $form    Form schema.
 		 * @param array       $payload Posted payload.
 		 */
-		return apply_filters( 'activeforms/spam_check', true, $form, $payload );
+		return apply_filters( 'radiusforms/spam_check', true, $form, $payload );
 	}
 
 	/**
@@ -67,8 +67,8 @@ class SpamGuard {
 	 * @return string
 	 */
 	public function honeypot_markup() {
-		return '<div class="activeforms-hp" aria-hidden="true" style="position:absolute;left:-9999px;">'
-			. '<label>' . esc_html__( 'Leave this field empty', 'activeforms' ) . '</label>'
+		return '<div class="radiusforms-hp" aria-hidden="true" style="position:absolute;left:-9999px;">'
+			. '<label>' . esc_html__( 'Leave this field empty', 'radiusforms' ) . '</label>'
 			. '<input type="text" name="' . esc_attr( self::HONEYPOT ) . '" tabindex="-1" autocomplete="off" value="" />'
 			. '</div>';
 	}
@@ -89,7 +89,7 @@ class SpamGuard {
 			return true; // Not configured: do not block.
 		}
 		if ( ! $token ) {
-			return __( 'Please complete the captcha challenge.', 'activeforms' );
+			return __( 'Please complete the captcha challenge.', 'radiusforms' );
 		}
 
 		$endpoints = array(
@@ -116,7 +116,7 @@ class SpamGuard {
 
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 		if ( empty( $body['success'] ) ) {
-			return __( 'Captcha verification failed. Please try again.', 'activeforms' );
+			return __( 'Captcha verification failed. Please try again.', 'radiusforms' );
 		}
 
 		return true;

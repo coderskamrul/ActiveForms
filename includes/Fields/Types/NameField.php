@@ -2,12 +2,12 @@
 /**
  * Composite Name field (first / middle / last).
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Support\Arr;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -33,9 +33,9 @@ class NameField extends AbstractCompositeField {
 	 */
 	protected function default_subfields() {
 		return array(
-			array( 'key' => 'first', 'label' => __( 'First Name', 'activeforms' ), 'placeholder' => __( 'First Name', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'middle', 'label' => __( 'Middle Name', 'activeforms' ), 'placeholder' => __( 'Middle Name', 'activeforms' ), 'visible' => false, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'last', 'label' => __( 'Last Name', 'activeforms' ), 'placeholder' => __( 'Last Name', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'first', 'label' => __( 'First Name', 'radiusforms' ), 'placeholder' => __( 'First Name', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'middle', 'label' => __( 'Middle Name', 'radiusforms' ), 'placeholder' => __( 'Middle Name', 'radiusforms' ), 'visible' => false, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'last', 'label' => __( 'Last Name', 'radiusforms' ), 'placeholder' => __( 'Last Name', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
 		);
 	}
 
@@ -44,7 +44,7 @@ class NameField extends AbstractCompositeField {
 	 */
 	public function render( $field, $value = null ) {
 		$value   = (array) $value;
-		$control = '<div class="activeforms-subfields activeforms-name">';
+		$control = '<div class="radiusforms-subfields radiusforms-name">';
 		foreach ( $this->visible_subfields( $field ) as $sub ) {
 			$control .= $this->subfield_control( $field, $sub, $value );
 		}

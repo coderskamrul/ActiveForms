@@ -2,13 +2,13 @@
 /**
  * Net Promoter Score field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,7 +23,7 @@ class NpsField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'nps';
-		$this->label    = __( 'Net Promoter', 'activeforms' );
+		$this->label    = __( 'Net Promoter', 'radiusforms' );
 		$this->icon     = 'chart-bar';
 		$this->category = 'advanced';
 		$this->input    = true;
@@ -36,8 +36,8 @@ class NpsField extends AbstractField {
 		return array_merge(
 			parent::default_schema(),
 			array(
-				'low_label'  => __( 'Not likely', 'activeforms' ),
-				'high_label' => __( 'Very likely', 'activeforms' ),
+				'low_label'  => __( 'Not likely', 'radiusforms' ),
+				'high_label' => __( 'Very likely', 'radiusforms' ),
 			)
 		);
 	}
@@ -61,7 +61,7 @@ class NpsField extends AbstractField {
 			return true;
 		}
 		if ( (int) $value < 0 || (int) $value > 10 ) {
-			return __( 'Please choose a score between 0 and 10.', 'activeforms' );
+			return __( 'Please choose a score between 0 and 10.', 'radiusforms' );
 		}
 		return true;
 	}
@@ -72,20 +72,20 @@ class NpsField extends AbstractField {
 	public function render( $field, $value = null ) {
 		$value = (string) ( null === $value ? Arr::get( $field, 'default', '' ) : $value );
 		$key   = esc_attr( Arr::get( $field, 'key', '' ) );
-		$low   = esc_html( Arr::get( $field, 'low_label', __( 'Not likely', 'activeforms' ) ) );
-		$high  = esc_html( Arr::get( $field, 'high_label', __( 'Very likely', 'activeforms' ) ) );
+		$low   = esc_html( Arr::get( $field, 'low_label', __( 'Not likely', 'radiusforms' ) ) );
+		$high  = esc_html( Arr::get( $field, 'high_label', __( 'Very likely', 'radiusforms' ) ) );
 
-		$control = '<div class="activeforms-nps" role="radiogroup">';
+		$control = '<div class="radiusforms-nps" role="radiogroup">';
 		for ( $i = 0; $i <= 10; $i++ ) {
 			$control .= sprintf(
-				'<label class="activeforms-nps__opt"><input type="radio" name="%1$s" value="%2$d" %3$s /><span>%2$d</span></label>',
+				'<label class="radiusforms-nps__opt"><input type="radio" name="%1$s" value="%2$d" %3$s /><span>%2$d</span></label>',
 				$key,
 				$i,
 				checked( $value, (string) $i, false )
 			);
 		}
 		$control .= '</div>';
-		$control .= '<div class="activeforms-nps__labels"><span>' . $low . '</span><span>' . $high . '</span></div>';
+		$control .= '<div class="radiusforms-nps__labels"><span>' . $low . '</span><span>' . $high . '</span></div>';
 
 		return $this->wrap( $field, $control );
 	}

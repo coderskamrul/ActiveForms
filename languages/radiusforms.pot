@@ -1,29 +1,25 @@
-# Copyright (C) 2026 pluginshift
+# Copyright (C) 2026 hasanedev
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ActiveForms 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/activeforms\n"
+"Project-Id-Version: RadiusForms 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/radiusforms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-10T10:05:21+00:00\n"
+"POT-Creation-Date: 2026-07-14T06:16:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
-"X-Domain: activeforms\n"
+"X-Domain: radiusforms\n"
 
 #. Plugin Name of the plugin
 #: includes/Admin/Menu.php:40
 #: includes/Admin/Menu.php:41
 #: includes/Core/Config.php:198
 #: includes/Core/Config.php:199
-msgid "ActiveForms"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://pluginshift.com/activeforms"
+msgid "RadiusForms"
 msgstr ""
 
 #. Description of the plugin
@@ -31,11 +27,11 @@ msgid "Create contact forms, surveys, quizzes, lead generation forms, and conver
 msgstr ""
 
 #. Author of the plugin
-msgid "pluginshift"
+msgid "hasanedev"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://pluginshift.com"
+msgid "https://profiles.wordpress.org/hasandev/"
 msgstr ""
 
 #: includes/Admin/AdminAssets.php:120
@@ -163,7 +159,7 @@ msgid "Back"
 msgstr ""
 
 #: includes/Admin/AdminAssets.php:201
-msgid "ActiveForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
+msgid "RadiusForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
 msgstr ""
 
 #: includes/Admin/Menu.php:51
@@ -175,7 +171,7 @@ msgid "Add New"
 msgstr ""
 
 #: includes/Admin/Menu.php:78
-msgid "Loading ActiveForms…"
+msgid "Loading RadiusForms…"
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:90
@@ -457,7 +453,7 @@ msgid "Middle Name"
 msgstr ""
 
 #: includes/Frontend/PreviewPage.php:64
-msgid "You are not allowed to preview ActiveForms forms."
+msgid "You are not allowed to preview RadiusForms forms."
 msgstr ""
 
 #: includes/Frontend/PreviewPage.php:69
@@ -472,7 +468,7 @@ msgid "Form Preview"
 msgstr ""
 
 #: includes/Frontend/PreviewPage.php:126
-msgid "ActiveForms Preview"
+msgid "RadiusForms Preview"
 msgstr ""
 
 #: includes/Frontend/PreviewPage.php:132

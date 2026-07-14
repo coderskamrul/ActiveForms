@@ -19,7 +19,7 @@ const STATUSES = [
 /** Open the public, frontend-accurate preview for a form in a new tab. */
 function previewUrl(id) {
   const base = (config.home || '/').replace(/\/$/, '/');
-  return `${base}?activeforms_preview=${id}`;
+  return `${base}?radiusforms_preview=${id}`;
 }
 
 /** Template picker modal. */
@@ -36,36 +36,36 @@ function TemplateModal({ onClose, onCreate }) {
   const rest = templates.filter((tpl) => tpl.id !== 'blank' && (!q || tpl.name.toLowerCase().includes(q) || (tpl.description || '').toLowerCase().includes(q)));
 
   return (
-    <div className="activeforms-tpl-overlay" onClick={onClose}>
-      <div className="activeforms-tpl-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="activeforms-tpl-modal__head">
+    <div className="radiusforms-tpl-overlay" onClick={onClose}>
+      <div className="radiusforms-tpl-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="radiusforms-tpl-modal__head">
           <div>
             <h2>Create a new form</h2>
             <p>Start from scratch or pick a ready-made template.</p>
           </div>
-          <button type="button" className="activeforms-tpl-modal__close" onClick={onClose} aria-label="Close">✕</button>
+          <button type="button" className="radiusforms-tpl-modal__close" onClick={onClose} aria-label="Close">✕</button>
         </div>
-        <div className="activeforms-tpl-modal__bar">
-          <input className="activeforms-input" placeholder="Search templates…" value={query} onChange={(e) => setQuery(e.target.value)} />
+        <div className="radiusforms-tpl-modal__bar">
+          <input className="radiusforms-input" placeholder="Search templates…" value={query} onChange={(e) => setQuery(e.target.value)} />
         </div>
-        <div className="activeforms-tpl-modal__body">
+        <div className="radiusforms-tpl-modal__body">
           {blank && (
-            <button type="button" className="activeforms-tpl-card activeforms-tpl-card--blank" onClick={() => onCreate(blank)}>
-              <span className="activeforms-tpl-card__icon dashicons dashicons-plus-alt2" aria-hidden="true" />
-              <span className="activeforms-tpl-card__name">{blank.name}</span>
-              <span className="activeforms-tpl-card__desc">{blank.description}</span>
+            <button type="button" className="radiusforms-tpl-card radiusforms-tpl-card--blank" onClick={() => onCreate(blank)}>
+              <span className="radiusforms-tpl-card__icon dashicons dashicons-plus-alt2" aria-hidden="true" />
+              <span className="radiusforms-tpl-card__name">{blank.name}</span>
+              <span className="radiusforms-tpl-card__desc">{blank.description}</span>
             </button>
           )}
-          <div className="activeforms-tpl-grid">
+          <div className="radiusforms-tpl-grid">
             {rest.map((tpl) => (
-              <button key={tpl.id} type="button" className="activeforms-tpl-card" onClick={() => onCreate(tpl)}>
-                <span className={`activeforms-tpl-card__icon dashicons dashicons-${tpl.icon || 'forms'}`} aria-hidden="true" />
-                <span className="activeforms-tpl-card__name">{tpl.name}</span>
-                <span className="activeforms-tpl-card__desc">{tpl.description}</span>
+              <button key={tpl.id} type="button" className="radiusforms-tpl-card" onClick={() => onCreate(tpl)}>
+                <span className={`radiusforms-tpl-card__icon dashicons dashicons-${tpl.icon || 'forms'}`} aria-hidden="true" />
+                <span className="radiusforms-tpl-card__name">{tpl.name}</span>
+                <span className="radiusforms-tpl-card__desc">{tpl.description}</span>
               </button>
             ))}
           </div>
-          {!templates.length && <div className="activeforms-empty"><p>Loading templates…</p></div>}
+          {!templates.length && <div className="radiusforms-empty"><p>Loading templates…</p></div>}
         </div>
       </div>
     </div>
@@ -75,15 +75,15 @@ function TemplateModal({ onClose, onCreate }) {
 /** A copy-to-clipboard shortcode chip. */
 function Shortcode({ id }) {
   const [copied, setCopied] = useState(false);
-  const code = `[activeforms id="${id}"]`;
+  const code = `[radiusforms id="${id}"]`;
   const copy = () => {
     try { navigator.clipboard.writeText(code); setCopied(true); setTimeout(() => setCopied(false), 1300); } catch (e) { /* noop */ }
   };
   return (
-    <button type="button" className="activeforms-sc" onClick={copy} title="Copy shortcode">
+    <button type="button" className="radiusforms-sc" onClick={copy} title="Copy shortcode">
       <span className="dashicons dashicons-shortcode" aria-hidden="true" />
       <code>{code}</code>
-      {copied && <span className="activeforms-sc__ok">Copied</span>}
+      {copied && <span className="radiusforms-sc__ok">Copied</span>}
     </button>
   );
 }
@@ -141,7 +141,7 @@ export default function Forms() {
       const blob = new Blob([JSON.stringify(form, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = `activeforms-${id}.json`; a.click();
+      a.href = url; a.download = `radiusforms-${id}.json`; a.click();
       URL.revokeObjectURL(url);
     } catch (e) { notify(e.message, 'error'); }
   };
@@ -152,17 +152,17 @@ export default function Forms() {
 
   return (
     <div>
-      <div className="activeforms-page-head">
+      <div className="radiusforms-page-head">
         <h1>Forms</h1>
       </div>
 
-      <div className="activeforms-list-bar">
-        <select className="activeforms-select activeforms-select--status" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
+      <div className="radiusforms-list-bar">
+        <select className="radiusforms-select radiusforms-select--status" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
           {STATUSES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
         </select>
         <Button variant="primary" onClick={() => setShowTpl(true)}><span className="dashicons dashicons-plus-alt2" /> Add New Form</Button>
-        <div className="activeforms-list-bar__spacer" />
-        <div className="activeforms-search">
+        <div className="radiusforms-list-bar__spacer" />
+        <div className="radiusforms-search">
           <span className="dashicons dashicons-search" aria-hidden="true" />
           <input placeholder="Search Forms" value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
         </div>
@@ -176,7 +176,7 @@ export default function Forms() {
 
       {data && items.length > 0 && (
         <Card pad={false}>
-          <table className="activeforms-table activeforms-forms-table">
+          <table className="radiusforms-table radiusforms-forms-table">
             <thead>
               <tr>
                 <th style={{ width: 60 }}>ID</th>
@@ -188,10 +188,10 @@ export default function Forms() {
             <tbody>
               {items.map((f) => (
                 <tr key={f.id}>
-                  <td className="activeforms-td-id">{f.id}</td>
+                  <td className="radiusforms-td-id">{f.id}</td>
                   <td>
-                    <a className="activeforms-form-title" href={`#/forms/${f.id}/edit`}>{f.title}</a>
-                    <div className="activeforms-flinks">
+                    <a className="radiusforms-form-title" href={`#/forms/${f.id}/edit`}>{f.title}</a>
+                    <div className="radiusforms-flinks">
                       <a href={`#/forms/${f.id}/edit`}>Edit</a>
                       <a href={`#/forms/${f.id}/edit`}>Settings</a>
                       <a href={`#/forms/${f.id}/entries`}>Entries</a>
@@ -199,7 +199,7 @@ export default function Forms() {
                       <button type="button" onClick={() => duplicate(f.id)}>Duplicate</button>
                       <button type="button" onClick={() => exportForm(f.id)}>Export</button>
                       <button type="button" className="is-danger" onClick={() => remove(f.id)}>Delete</button>
-                      <span className="activeforms-flinks__status">
+                      <span className="radiusforms-flinks__status">
                         <Toggle checked={f.status === 'published'} onChange={() => toggleStatus(f)} />
                         <em className={f.status === 'published' ? 'is-active' : ''}>{f.status === 'published' ? 'Active' : 'Draft'}</em>
                       </span>
@@ -207,21 +207,21 @@ export default function Forms() {
                   </td>
                   <td><Shortcode id={f.id} /></td>
                   <td style={{ textAlign: 'center' }}>
-                    <a className="activeforms-entries-link" href={`#/forms/${f.id}/entries`}>{f.entries ?? 0}</a>
+                    <a className="radiusforms-entries-link" href={`#/forms/${f.id}/entries`}>{f.entries ?? 0}</a>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div className="activeforms-pager">
-            <span className="activeforms-pager__total">Total {total}</span>
-            <select className="activeforms-select activeforms-select--pp" value={perPage} onChange={(e) => { setPerPage(Number(e.target.value)); setPage(1); }}>
+          <div className="radiusforms-pager">
+            <span className="radiusforms-pager__total">Total {total}</span>
+            <select className="radiusforms-select radiusforms-select--pp" value={perPage} onChange={(e) => { setPerPage(Number(e.target.value)); setPage(1); }}>
               {[10, 20, 50].map((n) => <option key={n} value={n}>{n}/page</option>)}
             </select>
-            <button type="button" className="activeforms-pager__btn" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>‹</button>
-            <span className="activeforms-pager__page">{page}</span>
-            <button type="button" className="activeforms-pager__btn" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>›</button>
+            <button type="button" className="radiusforms-pager__btn" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>‹</button>
+            <span className="radiusforms-pager__page">{page}</span>
+            <button type="button" className="radiusforms-pager__btn" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>›</button>
           </div>
         </Card>
       )}

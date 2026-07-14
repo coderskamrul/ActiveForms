@@ -2,12 +2,12 @@
 /**
  * Email notification dispatcher.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Notifications;
+namespace RadiusForms\Notifications;
 
-use ActiveForms\Support\Arr;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -73,7 +73,7 @@ class EmailNotifier {
 			 * @param array $entry Entry data.
 			 */
 			$args = apply_filters(
-				'activeforms/notification_args',
+				'radiusforms/notification_args',
 				array(
 					'to'      => $to,
 					'subject' => $subject,

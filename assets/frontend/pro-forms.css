@@ -1,47 +1,47 @@
 /*
- * ActiveForms Pro — frontend styles for advanced fields.
+ * RadiusForms Pro — frontend styles for advanced fields.
  * Mirrors the free plugin's tokens (primary, border, radius) with neutral
  * fallbacks so it inherits theme overrides where present.
  */
 
 /* ----------------------------------------------------------- Net Promoter */
-.activeforms-form .activeforms-nps {
+.radiusforms-form .radiusforms-nps {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
-.activeforms-form .activeforms-nps__opt {
+.radiusforms-form .radiusforms-nps__opt {
   position: relative;
   flex: 1 1 36px;
   min-width: 36px;
 }
-.activeforms-form .activeforms-nps__opt input {
+.radiusforms-form .radiusforms-nps__opt input {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
-.activeforms-form .activeforms-nps__opt span {
+.radiusforms-form .radiusforms-nps__opt span {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 42px;
-  border: 1px solid var(--activeforms-color-border, #d1d5db);
-  border-radius: var(--activeforms-radius-md, 8px);
+  border: 1px solid var(--radiusforms-color-border, #d1d5db);
+  border-radius: var(--radiusforms-radius-md, 8px);
   font-weight: 600;
   cursor: pointer;
   transition: all .12s ease;
 }
-.activeforms-form .activeforms-nps__opt:hover span { border-color: var(--activeforms-color-primary, #4f46e5); }
-.activeforms-form .activeforms-nps__opt input:checked + span {
-  background: var(--activeforms-color-primary, #4f46e5);
-  border-color: var(--activeforms-color-primary, #4f46e5);
+.radiusforms-form .radiusforms-nps__opt:hover span { border-color: var(--radiusforms-color-primary, #4f46e5); }
+.radiusforms-form .radiusforms-nps__opt input:checked + span {
+  background: var(--radiusforms-color-primary, #4f46e5);
+  border-color: var(--radiusforms-color-primary, #4f46e5);
   color: #fff;
 }
-.activeforms-form .activeforms-nps__opt input:focus-visible + span {
+.radiusforms-form .radiusforms-nps__opt input:focus-visible + span {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
 }
-.activeforms-form .activeforms-nps__labels {
+.radiusforms-form .radiusforms-nps__labels {
   display: flex;
   justify-content: space-between;
   color: #6b7280;
@@ -50,11 +50,11 @@
 }
 
 /* -------------------------------------------------------------- Signature */
-.activeforms-form .activeforms-signature__pad {
+.radiusforms-form .radiusforms-signature__pad {
   width: 100%;
   height: 200px;
-  border: 1px dashed var(--activeforms-color-border, #d1d5db);
-  border-radius: var(--activeforms-radius-md, 8px);
+  border: 1px dashed var(--radiusforms-color-border, #d1d5db);
+  border-radius: var(--radiusforms-radius-md, 8px);
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
@@ -62,29 +62,29 @@
   touch-action: none;
   cursor: crosshair;
 }
-.activeforms-form .activeforms-signature__bar {
+.radiusforms-form .radiusforms-signature__bar {
   margin-top: 6px;
 }
-.activeforms-form .activeforms-signature__clear {
+.radiusforms-form .radiusforms-signature__clear {
   background: none;
   border: 0;
-  color: var(--activeforms-color-primary, #4f46e5);
+  color: var(--radiusforms-color-primary, #4f46e5);
   font-size: 13px;
   cursor: pointer;
   padding: 2px 0;
 }
 
 /* -------------------------------------------------------------- Rich text */
-.activeforms-form .activeforms-richtext__toolbar {
+.radiusforms-form .radiusforms-richtext__toolbar {
   display: flex;
   gap: 2px;
-  border: 1px solid var(--activeforms-color-border, #d1d5db);
+  border: 1px solid var(--radiusforms-color-border, #d1d5db);
   border-bottom: 0;
-  border-radius: var(--activeforms-radius-md, 8px) var(--activeforms-radius-md, 8px) 0 0;
+  border-radius: var(--radiusforms-radius-md, 8px) var(--radiusforms-radius-md, 8px) 0 0;
   padding: 6px;
   background: #f9fafb;
 }
-.activeforms-form .activeforms-richtext__btn {
+.radiusforms-form .radiusforms-richtext__btn {
   min-width: 30px;
   height: 30px;
   border: 1px solid transparent;
@@ -94,37 +94,37 @@
   font-size: 14px;
   line-height: 1;
 }
-.activeforms-form .activeforms-richtext__btn:hover {
-  border-color: var(--activeforms-color-border, #d1d5db);
+.radiusforms-form .radiusforms-richtext__btn:hover {
+  border-color: var(--radiusforms-color-border, #d1d5db);
 }
-.activeforms-form .activeforms-richtext__editor {
+.radiusforms-form .radiusforms-richtext__editor {
   min-height: 120px;
   padding: 11px 13px;
-  border: 1px solid var(--activeforms-color-border, #d1d5db);
-  border-radius: 0 0 var(--activeforms-radius-md, 8px) var(--activeforms-radius-md, 8px);
+  border: 1px solid var(--radiusforms-color-border, #d1d5db);
+  border-radius: 0 0 var(--radiusforms-radius-md, 8px) var(--radiusforms-radius-md, 8px);
   background: #fff;
   font-size: 15px;
   line-height: 1.5;
 }
-.activeforms-form .activeforms-richtext__editor:focus {
+.radiusforms-form .radiusforms-richtext__editor:focus {
   outline: none;
-  border-color: var(--activeforms-color-primary, #4f46e5);
+  border-color: var(--radiusforms-color-primary, #4f46e5);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 /* --------------------------------------------------------------- Repeater */
-.activeforms-form .activeforms-repeater__row {
+.radiusforms-form .radiusforms-repeater__row {
   display: flex;
   gap: 8px;
   margin-bottom: 8px;
   align-items: center;
 }
-.activeforms-form .activeforms-repeater__row .activeforms-input { flex: 1 1 0; }
-.activeforms-form .activeforms-repeater__rm {
+.radiusforms-form .radiusforms-repeater__row .radiusforms-input { flex: 1 1 0; }
+.radiusforms-form .radiusforms-repeater__rm {
   flex: 0 0 auto;
   width: 32px;
   height: 32px;
-  border: 1px solid var(--activeforms-color-border, #d1d5db);
+  border: 1px solid var(--radiusforms-color-border, #d1d5db);
   background: #fff;
   border-radius: 6px;
   cursor: pointer;
@@ -132,42 +132,42 @@
   font-size: 18px;
   line-height: 1;
 }
-.activeforms-form .activeforms-repeater__rm:hover { color: #dc2626; border-color: #dc2626; }
+.radiusforms-form .radiusforms-repeater__rm:hover { color: #dc2626; border-color: #dc2626; }
 
 /* ----------------------------------------------------------------- Upload */
-.activeforms-form .activeforms-upload__drop {
+.radiusforms-form .radiusforms-upload__drop {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 96px;
   padding: 18px;
-  border: 2px dashed var(--activeforms-color-border, #d1d5db);
-  border-radius: var(--activeforms-radius-md, 8px);
+  border: 2px dashed var(--radiusforms-color-border, #d1d5db);
+  border-radius: var(--radiusforms-radius-md, 8px);
   background: #f9fafb;
   color: #6b7280;
   text-align: center;
   cursor: pointer;
   transition: border-color .12s ease, background .12s ease;
 }
-.activeforms-form .activeforms-upload__drop:hover,
-.activeforms-form .activeforms-upload__drop.is-dragover {
-  border-color: var(--activeforms-color-primary, #4f46e5);
+.radiusforms-form .radiusforms-upload__drop:hover,
+.radiusforms-form .radiusforms-upload__drop.is-dragover {
+  border-color: var(--radiusforms-color-primary, #4f46e5);
   background: rgba(79, 70, 229, 0.05);
 }
-.activeforms-form .activeforms-upload__input { display: none; }
-.activeforms-form .activeforms-upload__list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-.activeforms-form .activeforms-upload__item {
+.radiusforms-form .radiusforms-upload__input { display: none; }
+.radiusforms-form .radiusforms-upload__list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.radiusforms-form .radiusforms-upload__item {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 8px 10px;
-  border: 1px solid var(--activeforms-color-border, #e5e7eb);
+  border: 1px solid var(--radiusforms-color-border, #e5e7eb);
   border-radius: 6px;
   background: #fff;
   font-size: 14px;
 }
-.activeforms-form .activeforms-upload__item.is-uploading { color: #6b7280; font-style: italic; }
-.activeforms-form .activeforms-upload__thumb {
+.radiusforms-form .radiusforms-upload__item.is-uploading { color: #6b7280; font-style: italic; }
+.radiusforms-form .radiusforms-upload__thumb {
   flex: 0 0 auto;
   width: 38px;
   height: 38px;
@@ -176,8 +176,8 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-.activeforms-form .activeforms-upload__name { flex: 1 1 auto; word-break: break-all; }
-.activeforms-form .activeforms-upload__rm {
+.radiusforms-form .radiusforms-upload__name { flex: 1 1 auto; word-break: break-all; }
+.radiusforms-form .radiusforms-upload__rm {
   flex: 0 0 auto;
   width: 26px;
   height: 26px;
@@ -188,5 +188,5 @@
   font-size: 18px;
   line-height: 1;
 }
-.activeforms-form .activeforms-upload__rm:hover { color: #dc2626; }
-.activeforms-form .activeforms-upload__error { color: #dc2626; font-size: 13px; margin-top: 6px; }
+.radiusforms-form .radiusforms-upload__rm:hover { color: #dc2626; }
+.radiusforms-form .radiusforms-upload__error { color: #dc2626; font-size: 13px; margin-top: 6px; }

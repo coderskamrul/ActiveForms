@@ -2,10 +2,10 @@
 /**
  * Prebuilt form templates.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Builder;
+namespace RadiusForms\Builder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,7 +58,7 @@ class FormTemplates {
 		 *
 		 * @param array $templates Template descriptors.
 		 */
-		return apply_filters( 'activeforms/templates', $templates );
+		return apply_filters( 'radiusforms/templates', $templates );
 	}
 
 	/**
@@ -87,14 +87,14 @@ class FormTemplates {
 		return array(
 			'confirmation' => array(
 				'type'    => 'message',
-				'message' => __( 'Thank you! Your submission has been received.', 'activeforms' ),
+				'message' => __( 'Thank you! Your submission has been received.', 'radiusforms' ),
 			),
 			'notifications' => array(
 				array(
 					'enabled' => true,
-					'name'    => __( 'Admin Notification', 'activeforms' ),
+					'name'    => __( 'Admin Notification', 'radiusforms' ),
 					'to'      => get_bloginfo( 'admin_email' ),
-					'subject' => __( 'New Form Submission', 'activeforms' ),
+					'subject' => __( 'New Form Submission', 'radiusforms' ),
 					'body'    => '{all.fields}',
 				),
 			),
@@ -111,48 +111,48 @@ class FormTemplates {
 
 		return array(
 			'blank'   => array(
-				'name'        => __( 'Blank Form', 'activeforms' ),
-				'description' => __( 'Start from scratch.', 'activeforms' ),
+				'name'        => __( 'Blank Form', 'radiusforms' ),
+				'description' => __( 'Start from scratch.', 'radiusforms' ),
 				'icon'        => 'plus',
 				'fields'      => array(
-					self::field( 'submit', 'submit', __( 'Submit', 'activeforms' ) ),
+					self::field( 'submit', 'submit', __( 'Submit', 'radiusforms' ) ),
 				),
 				'settings'    => $settings,
 			),
 			'contact' => array(
-				'name'        => __( 'Contact Form', 'activeforms' ),
-				'description' => __( 'Name, email, and message.', 'activeforms' ),
+				'name'        => __( 'Contact Form', 'radiusforms' ),
+				'description' => __( 'Name, email, and message.', 'radiusforms' ),
 				'icon'        => 'email',
 				'category'    => 'general',
 				'fields'      => array(
-					self::field( 'name', 'name', __( 'Name', 'activeforms' ), array( 'required' => true, 'fields' => array( 'first' => array( 'visible' => true, 'label' => __( 'First Name', 'activeforms' ) ), 'last' => array( 'visible' => true, 'label' => __( 'Last Name', 'activeforms' ) ) ) ) ),
-					self::field( 'email', 'email', __( 'Email', 'activeforms' ), array( 'required' => true ) ),
-					self::field( 'text', 'subject', __( 'Subject', 'activeforms' ) ),
-					self::field( 'textarea', 'message', __( 'Message', 'activeforms' ), array( 'required' => true, 'rows' => 5 ) ),
-					self::field( 'submit', 'submit', __( 'Send Message', 'activeforms' ) ),
+					self::field( 'name', 'name', __( 'Name', 'radiusforms' ), array( 'required' => true, 'fields' => array( 'first' => array( 'visible' => true, 'label' => __( 'First Name', 'radiusforms' ) ), 'last' => array( 'visible' => true, 'label' => __( 'Last Name', 'radiusforms' ) ) ) ) ),
+					self::field( 'email', 'email', __( 'Email', 'radiusforms' ), array( 'required' => true ) ),
+					self::field( 'text', 'subject', __( 'Subject', 'radiusforms' ) ),
+					self::field( 'textarea', 'message', __( 'Message', 'radiusforms' ), array( 'required' => true, 'rows' => 5 ) ),
+					self::field( 'submit', 'submit', __( 'Send Message', 'radiusforms' ) ),
 				),
 				'settings'    => $settings,
 			),
 			'support' => array(
-				'name'        => __( 'Support Request', 'activeforms' ),
-				'description' => __( 'Collect support tickets with priority.', 'activeforms' ),
+				'name'        => __( 'Support Request', 'radiusforms' ),
+				'description' => __( 'Collect support tickets with priority.', 'radiusforms' ),
 				'icon'        => 'sos',
 				'fields'      => array(
-					self::field( 'email', 'email', __( 'Email', 'activeforms' ), array( 'required' => true ) ),
-					self::field( 'select', 'priority', __( 'Priority', 'activeforms' ), array( 'options' => array( array( 'label' => __( 'Low', 'activeforms' ), 'value' => 'low' ), array( 'label' => __( 'High', 'activeforms' ), 'value' => 'high' ) ) ) ),
-					self::field( 'textarea', 'details', __( 'Details', 'activeforms' ), array( 'required' => true, 'rows' => 5 ) ),
-					self::field( 'submit', 'submit', __( 'Submit Ticket', 'activeforms' ) ),
+					self::field( 'email', 'email', __( 'Email', 'radiusforms' ), array( 'required' => true ) ),
+					self::field( 'select', 'priority', __( 'Priority', 'radiusforms' ), array( 'options' => array( array( 'label' => __( 'Low', 'radiusforms' ), 'value' => 'low' ), array( 'label' => __( 'High', 'radiusforms' ), 'value' => 'high' ) ) ) ),
+					self::field( 'textarea', 'details', __( 'Details', 'radiusforms' ), array( 'required' => true, 'rows' => 5 ) ),
+					self::field( 'submit', 'submit', __( 'Submit Ticket', 'radiusforms' ) ),
 				),
 				'settings'    => $settings,
 			),
 			'newsletter' => array(
-				'name'        => __( 'Newsletter Signup', 'activeforms' ),
-				'description' => __( 'Simple email capture.', 'activeforms' ),
+				'name'        => __( 'Newsletter Signup', 'radiusforms' ),
+				'description' => __( 'Simple email capture.', 'radiusforms' ),
 				'icon'        => 'megaphone',
 				'fields'      => array(
-					self::field( 'email', 'email', __( 'Email Address', 'activeforms' ), array( 'required' => true ) ),
-					self::field( 'gdpr', 'consent', __( 'Consent', 'activeforms' ) ),
-					self::field( 'submit', 'submit', __( 'Subscribe', 'activeforms' ) ),
+					self::field( 'email', 'email', __( 'Email Address', 'radiusforms' ), array( 'required' => true ) ),
+					self::field( 'gdpr', 'consent', __( 'Consent', 'radiusforms' ) ),
+					self::field( 'submit', 'submit', __( 'Subscribe', 'radiusforms' ) ),
 				),
 				'settings'    => $settings,
 			),

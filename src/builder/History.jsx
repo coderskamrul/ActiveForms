@@ -17,25 +17,25 @@ import Icon from './icons.jsx';
  */
 export default function History({ canUndo, canRedo, onUndo, onRedo, depth, lastSaved }) {
   return (
-    <div className="activeforms-hist">
-      <div className="activeforms-hist__row">
-        <button type="button" className="activeforms-btn" disabled={!canUndo} onClick={onUndo}>
+    <div className="radiusforms-hist">
+      <div className="radiusforms-hist__row">
+        <button type="button" className="radiusforms-btn" disabled={!canUndo} onClick={onUndo}>
           <Icon name="undo" size={15} /> Undo
         </button>
-        <button type="button" className="activeforms-btn" disabled={!canRedo} onClick={onRedo}>
+        <button type="button" className="radiusforms-btn" disabled={!canRedo} onClick={onRedo}>
           <Icon name="redo" size={15} /> Redo
         </button>
       </div>
 
-      <div className="activeforms-hist__meta">
-        <div className="activeforms-hist__stat">
+      <div className="radiusforms-hist__meta">
+        <div className="radiusforms-hist__stat">
           <span className="num">{depth}</span>
           <span className="lbl">undoable change{depth === 1 ? '' : 's'} this session</span>
         </div>
       </div>
 
-      <div className="activeforms-hist__card">
-        <div className="activeforms-hist__card-head"><Icon name="history" size={15} /> Saved version</div>
+      <div className="radiusforms-hist__card">
+        <div className="radiusforms-hist__card-head"><Icon name="history" size={15} /> Saved version</div>
         {lastSaved
           ? <p>Last saved <strong>{lastSaved}</strong>. Use Save Form to capture a new version.</p>
           : (

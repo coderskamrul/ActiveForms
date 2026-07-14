@@ -25,9 +25,9 @@ function wantsEdit() {
 function MetaRow({ label, children }) {
   if (children === null || children === undefined || children === '') return null;
   return (
-    <div className="activeforms-meta-row">
-      <span className="activeforms-meta-row__label">{label}</span>
-      <span className="activeforms-meta-row__value">{children}</span>
+    <div className="radiusforms-meta-row">
+      <span className="radiusforms-meta-row__label">{label}</span>
+      <span className="radiusforms-meta-row__value">{children}</span>
     </div>
   );
 }
@@ -40,11 +40,11 @@ function MetaRow({ label, children }) {
 function FieldEditor({ field, value, onChange }) {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
     return (
-      <div className="activeforms-subgrid">
+      <div className="radiusforms-subgrid">
         {Object.keys(value).map((sub) => (
           <input
             key={sub}
-            className="activeforms-input"
+            className="radiusforms-input"
             placeholder={sub}
             value={value[sub] ?? ''}
             onChange={(e) => onChange({ ...value, [sub]: e.target.value })}
@@ -56,16 +56,16 @@ function FieldEditor({ field, value, onChange }) {
   if (Array.isArray(value)) {
     return (
       <input
-        className="activeforms-input"
+        className="radiusforms-input"
         value={value.join(', ')}
         onChange={(e) => onChange(e.target.value.split(',').map((s) => s.trim()).filter(Boolean))}
       />
     );
   }
   if (field && field.type === 'textarea') {
-    return <textarea className="activeforms-textarea" rows={3} value={value ?? ''} onChange={(e) => onChange(e.target.value)} />;
+    return <textarea className="radiusforms-textarea" rows={3} value={value ?? ''} onChange={(e) => onChange(e.target.value)} />;
   }
-  return <input className="activeforms-input" value={value ?? ''} onChange={(e) => onChange(e.target.value)} />;
+  return <input className="radiusforms-input" value={value ?? ''} onChange={(e) => onChange(e.target.value)} />;
 }
 
 /** Entry detail page. */
@@ -133,29 +133,29 @@ export default function EntryDetail({ formId, entryId }) {
   const navTo = (id) => { window.location.hash = `#/forms/${formId}/entries/${id}`; };
 
   return (
-    <div className="activeforms-entry-detail">
+    <div className="radiusforms-entry-detail">
       {/* Header */}
-      <div className="activeforms-detail-head">
-        <div className="activeforms-breadcrumb">
+      <div className="radiusforms-detail-head">
+        <div className="radiusforms-breadcrumb">
           <a href={backToList}>Entries</a>
           <span>/</span>
           <b>Serial #{entry.serial}</b>
-          {!!entry.is_favorite && <span className="activeforms-star is-on" title="Favorited">★</span>}
+          {!!entry.is_favorite && <span className="radiusforms-star is-on" title="Favorited">★</span>}
         </div>
-        <div className="activeforms-detail-nav">
+        <div className="radiusforms-detail-nav">
           <Button disabled={!neighbors.older} onClick={() => navTo(neighbors.older)}>← Previous</Button>
           <Button disabled={!neighbors.newer} onClick={() => navTo(neighbors.newer)}>Next →</Button>
           <Button onClick={() => { window.location.hash = backToList; }}>View All</Button>
         </div>
       </div>
 
-      <div className="activeforms-detail-grid">
+      <div className="radiusforms-detail-grid">
         {/* Left: form data */}
         <Card>
-          <div className="activeforms-detail-card-head">
+          <div className="radiusforms-detail-card-head">
             <h2>Form Entry Data</h2>
-            <div className="activeforms-detail-card-head__actions">
-              {!editing && <button type="button" className="activeforms-star" onClick={toggleFav} title={entry.is_favorite ? 'Unfavorite' : 'Favorite'}>{entry.is_favorite ? '★' : '☆'}</button>}
+            <div className="radiusforms-detail-card-head__actions">
+              {!editing && <button type="button" className="radiusforms-star" onClick={toggleFav} title={entry.is_favorite ? 'Unfavorite' : 'Favorite'}>{entry.is_favorite ? '★' : '☆'}</button>}
               {editing ? (
                 <>
                   <Button size="sm" onClick={cancelEdit} disabled={saving}>Cancel</Button>
@@ -170,14 +170,14 @@ export default function EntryDetail({ formId, entryId }) {
           {keys.length === 0 ? (
             <Empty icon="📋" title="No field data" />
           ) : (
-            <div className="activeforms-entry-fields">
+            <div className="radiusforms-entry-fields">
               {keys.map((key) => (
-                <div className="activeforms-entry-field" key={key}>
-                  <div className="activeforms-entry-field__label">{labelFor(key)}</div>
-                  <div className="activeforms-entry-field__value">
+                <div className="radiusforms-entry-field" key={key}>
+                  <div className="radiusforms-entry-field__label">{labelFor(key)}</div>
+                  <div className="radiusforms-entry-field__value">
                     {editing
                       ? <FieldEditor field={fieldMap[key]} value={draft[key]} onChange={(v) => setField(key, v)} />
-                      : (formatValue(entry.response[key]) || <span className="activeforms-muted">— empty —</span>)}
+                      : (formatValue(entry.response[key]) || <span className="radiusforms-muted">— empty —</span>)}
                   </div>
                 </div>
               ))}
@@ -187,16 +187,16 @@ export default function EntryDetail({ formId, entryId }) {
 
         {/* Right: submission info */}
         <Card>
-          <div className="activeforms-detail-card-head">
+          <div className="radiusforms-detail-card-head">
             <h2>Submission Info</h2>
           </div>
 
-          <div className="activeforms-meta-list">
+          <div className="radiusforms-meta-list">
             <MetaRow label="Submission ID">#{entry.serial}</MetaRow>
             <MetaRow label="Status">
-              <span className="activeforms-meta-status">
+              <span className="radiusforms-meta-status">
                 <Badge tone={sm.tone}>{sm.label}</Badge>
-                <select className="activeforms-select activeforms-select--status" value={entry.status} onChange={(e) => changeStatus(e.target.value)}>
+                <select className="radiusforms-select radiusforms-select--status" value={entry.status} onChange={(e) => changeStatus(e.target.value)}>
                   {STATUS_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
               </span>
@@ -221,11 +221,11 @@ export default function EntryDetail({ formId, entryId }) {
               <MetaRow label="Last Updated">{entry.updated_at}</MetaRow>
             )}
             <MetaRow label="User Agent">
-              {meta.user_agent ? <code className="activeforms-ua">{meta.user_agent}</code> : null}
+              {meta.user_agent ? <code className="radiusforms-ua">{meta.user_agent}</code> : null}
             </MetaRow>
           </div>
 
-          <div className="activeforms-detail-actions">
+          <div className="radiusforms-detail-actions">
             <Button variant="danger" onClick={remove}>🗑 Delete entry</Button>
           </div>
         </Card>

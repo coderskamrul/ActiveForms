@@ -2,12 +2,12 @@
 /**
  * Database-backed logger for integration/API events.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Support;
+namespace RadiusForms\Support;
 
-use ActiveForms\Core\Config;
+use RadiusForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 

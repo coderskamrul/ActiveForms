@@ -2,10 +2,10 @@
 /**
  * Field type contract.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields;
+namespace RadiusForms\Fields;
 
 defined( 'ABSPATH' ) || exit;
 

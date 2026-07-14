@@ -2,17 +2,17 @@
 /**
  * Database schema installer.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Database;
+namespace RadiusForms\Database;
 
-use ActiveForms\Core\Config;
+use RadiusForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Creates and upgrades ActiveForms custom tables using dbDelta().
+ * Creates and upgrades RadiusForms custom tables using dbDelta().
  */
 class Schema {
 

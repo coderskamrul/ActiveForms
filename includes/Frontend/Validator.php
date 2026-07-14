@@ -2,13 +2,13 @@
 /**
  * Server-side submission validator & sanitizer.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Frontend;
+namespace RadiusForms\Frontend;
 
-use ActiveForms\Fields\FieldRegistry;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\FieldRegistry;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -85,7 +85,7 @@ class Validator {
 		 * @param array $values Sanitized values.
 		 * @param array $form   Form schema.
 		 */
-		$this->errors = apply_filters( 'activeforms/validation_errors', $this->errors, $this->values, $form );
+		$this->errors = apply_filters( 'radiusforms/validation_errors', $this->errors, $this->values, $form );
 
 		return empty( $this->errors );
 	}

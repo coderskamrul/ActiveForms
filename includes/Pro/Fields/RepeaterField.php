@@ -2,13 +2,13 @@
 /**
  * Repeater field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class RepeaterField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'repeater';
-		$this->label    = __( 'Repeater', 'activeforms' );
+		$this->label    = __( 'Repeater', 'radiusforms' );
 		$this->icon     = 'table-row-after';
 		$this->category = 'advanced';
 		$this->input    = true;
@@ -39,8 +39,8 @@ class RepeaterField extends AbstractField {
 			parent::default_schema(),
 			array(
 				'columns'  => array(
-					array( 'key' => 'col_1', 'label' => __( 'Item', 'activeforms' ) ),
-					array( 'key' => 'col_2', 'label' => __( 'Detail', 'activeforms' ) ),
+					array( 'key' => 'col_1', 'label' => __( 'Item', 'radiusforms' ) ),
+					array( 'key' => 'col_2', 'label' => __( 'Detail', 'radiusforms' ) ),
 				),
 				'max_rows' => 0,
 			)
@@ -67,7 +67,7 @@ class RepeaterField extends AbstractField {
 			);
 		}
 		if ( empty( $out ) ) {
-			$out[] = array( 'key' => 'col_1', 'label' => __( 'Item', 'activeforms' ) );
+			$out[] = array( 'key' => 'col_1', 'label' => __( 'Item', 'radiusforms' ) );
 		}
 		return $out;
 	}
@@ -131,15 +131,15 @@ class RepeaterField extends AbstractField {
 		$max     = (int) Arr::get( $field, 'max_rows', 0 );
 
 		$control  = sprintf(
-			'<div class="activeforms-repeater" data-activeforms-repeater data-columns="%1$s" data-max="%2$d">',
+			'<div class="radiusforms-repeater" data-radiusforms-repeater data-columns="%1$s" data-max="%2$d">',
 			esc_attr( wp_json_encode( $columns ) ),
 			$max
 		);
-		$control .= '<div class="activeforms-repeater__rows"></div>';
-		$control .= '<button type="button" class="activeforms-repeater__add activeforms-btn activeforms-btn--sm">'
-			. esc_html__( 'Add Row', 'activeforms' ) . '</button>';
+		$control .= '<div class="radiusforms-repeater__rows"></div>';
+		$control .= '<button type="button" class="radiusforms-repeater__add radiusforms-btn radiusforms-btn--sm">'
+			. esc_html__( 'Add Row', 'radiusforms' ) . '</button>';
 		$control .= sprintf(
-			'<input type="hidden" name="%1$s" id="activeforms-%1$s" value="%2$s" data-activeforms-repeater-input />',
+			'<input type="hidden" name="%1$s" id="radiusforms-%1$s" value="%2$s" data-radiusforms-repeater-input />',
 			$key,
 			esc_attr( wp_json_encode( array_values( $rows ) ) )
 		);

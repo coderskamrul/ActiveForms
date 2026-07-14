@@ -2,13 +2,13 @@
 /**
  * Star rating field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class RatingField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'rating';
-		$this->label    = __( 'Star Rating', 'activeforms' );
+		$this->label    = __( 'Star Rating', 'radiusforms' );
 		$this->icon     = 'star-filled';
 		$this->category = 'advanced';
 		$this->input    = true;
@@ -55,7 +55,7 @@ class RatingField extends AbstractField {
 		}
 		$max = max( 1, (int) Arr::get( $field, 'max_rating', 5 ) );
 		if ( (int) $value < 1 || (int) $value > $max ) {
-			return __( 'Please choose a valid rating.', 'activeforms' );
+			return __( 'Please choose a valid rating.', 'radiusforms' );
 		}
 		return true;
 	}
@@ -67,10 +67,10 @@ class RatingField extends AbstractField {
 		$value   = (int) ( null === $value ? Arr::get( $field, 'default', 0 ) : $value );
 		$max     = max( 1, (int) Arr::get( $field, 'max_rating', 5 ) );
 		$key     = esc_attr( Arr::get( $field, 'key', '' ) );
-		$control = '<div class="activeforms-rating" role="radiogroup">';
+		$control = '<div class="radiusforms-rating" role="radiogroup">';
 		for ( $i = 1; $i <= $max; $i++ ) {
 			$control .= sprintf(
-				'<label class="activeforms-rating__star"><input type="radio" name="%1$s" value="%2$d" %3$s /> <span aria-hidden="true">&#9733;</span></label>',
+				'<label class="radiusforms-rating__star"><input type="radio" name="%1$s" value="%2$d" %3$s /> <span aria-hidden="true">&#9733;</span></label>',
 				$key,
 				$i,
 				checked( $value, $i, false )

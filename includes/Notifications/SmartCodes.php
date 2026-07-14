@@ -2,12 +2,12 @@
 /**
  * Smart-code (merge-tag) parser.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Notifications;
+namespace RadiusForms\Notifications;
 
-use ActiveForms\Support\Arr;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 

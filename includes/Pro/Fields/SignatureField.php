@@ -2,14 +2,14 @@
 /**
  * Signature field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
-use ActiveFormsPro\Support\Uploads;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
+use RadiusFormsPro\Support\Uploads;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ class SignatureField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'signature';
-		$this->label    = __( 'Signature', 'activeforms' );
+		$this->label    = __( 'Signature', 'radiusforms' );
 		$this->icon     = 'edit';
 		$this->category = 'advanced';
 		$this->input    = true;
@@ -64,13 +64,13 @@ class SignatureField extends AbstractField {
 			$preview = ' style="background-image:url(' . esc_url( Uploads::url_for( $value ) ) . ')"';
 		}
 
-		$control  = '<div class="activeforms-signature" data-activeforms-signature>';
-		$control .= '<canvas class="activeforms-signature__pad" width="600" height="200"' . $preview . '></canvas>';
-		$control .= '<div class="activeforms-signature__bar">';
-		$control .= '<button type="button" class="activeforms-signature__clear">' . esc_html__( 'Clear', 'activeforms' ) . '</button>';
+		$control  = '<div class="radiusforms-signature" data-radiusforms-signature>';
+		$control .= '<canvas class="radiusforms-signature__pad" width="600" height="200"' . $preview . '></canvas>';
+		$control .= '<div class="radiusforms-signature__bar">';
+		$control .= '<button type="button" class="radiusforms-signature__clear">' . esc_html__( 'Clear', 'radiusforms' ) . '</button>';
 		$control .= '</div>';
 		$control .= sprintf(
-			'<input type="hidden" name="%1$s" id="activeforms-%1$s" value="%2$s" data-activeforms-signature-input />',
+			'<input type="hidden" name="%1$s" id="radiusforms-%1$s" value="%2$s" data-radiusforms-signature-input />',
 			$key,
 			esc_attr( $value )
 		);

@@ -8,12 +8,12 @@
  * goes through here, which keeps the REST controller free to evolve the option
  * shape without hunting down every reader.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Core;
+namespace RadiusForms\Core;
 
-use ActiveForms\Support\Arr;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 

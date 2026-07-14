@@ -1,13 +1,13 @@
 <?php
 /**
- * Registers all ActiveForms REST controllers.
+ * Registers all RadiusForms REST controllers.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Rest;
+namespace RadiusForms\Rest;
 
-use ActiveForms\Core\Container;
+use RadiusForms\Core\Container;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -62,7 +62,7 @@ class RestServiceProvider {
 		 * @param array     $controllers Controller instances.
 		 * @param Container  $container   Service container.
 		 */
-		$controllers = apply_filters( 'activeforms/rest_controllers', $controllers, $this->container );
+		$controllers = apply_filters( 'radiusforms/rest_controllers', $controllers, $this->container );
 
 		foreach ( $controllers as $controller ) {
 			if ( $controller instanceof AbstractController ) {

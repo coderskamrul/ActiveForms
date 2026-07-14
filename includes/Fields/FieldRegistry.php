@@ -2,26 +2,26 @@
 /**
  * Field type registry.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields;
+namespace RadiusForms\Fields;
 
-use ActiveForms\Fields\Types\InputField;
-use ActiveForms\Fields\Types\TextareaField;
-use ActiveForms\Fields\Types\ChoiceField;
-use ActiveForms\Fields\Types\NameField;
-use ActiveForms\Fields\Types\AddressField;
-use ActiveForms\Fields\Types\DateTimeField;
-use ActiveForms\Fields\Types\CountryField;
-use ActiveForms\Fields\Types\ConsentField;
-use ActiveForms\Fields\Types\LayoutField;
+use RadiusForms\Fields\Types\InputField;
+use RadiusForms\Fields\Types\TextareaField;
+use RadiusForms\Fields\Types\ChoiceField;
+use RadiusForms\Fields\Types\NameField;
+use RadiusForms\Fields\Types\AddressField;
+use RadiusForms\Fields\Types\DateTimeField;
+use RadiusForms\Fields\Types\CountryField;
+use RadiusForms\Fields\Types\ConsentField;
+use RadiusForms\Fields\Types\LayoutField;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Central registry of all field types. Core fields register here; the Pro
- * add-on appends advanced fields via the activeforms_register_fields action.
+ * add-on appends advanced fields via the radiusforms_register_fields action.
  */
 class FieldRegistry {
 

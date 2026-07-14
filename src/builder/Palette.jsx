@@ -40,14 +40,14 @@ function PaletteItem({ def, onAdd }) {
     <button
       ref={setNodeRef}
       type="button"
-      className={`activeforms-pal-item${isDragging ? ' is-dragging' : ''}`}
+      className={`radiusforms-pal-item${isDragging ? ' is-dragging' : ''}`}
       onClick={() => onAdd(def)}
       {...listeners}
       {...attributes}
       title={`Add ${def.label}`}
     >
       <span className={`dashicons dashicons-${def.icon || 'forms'}`} aria-hidden="true" />
-      <span className="activeforms-pal-item__label">{def.label}</span>
+      <span className="radiusforms-pal-item__label">{def.label}</span>
     </button>
   );
 }
@@ -55,15 +55,15 @@ function PaletteItem({ def, onAdd }) {
 /** One collapsible accordion group. */
 function Group({ title, open, onToggle, children, count }) {
   return (
-    <div className={`activeforms-pal-acc${open ? ' is-open' : ''}`}>
-      <button type="button" className="activeforms-pal-acc__head" onClick={onToggle} aria-expanded={open}>
+    <div className={`radiusforms-pal-acc${open ? ' is-open' : ''}`}>
+      <button type="button" className="radiusforms-pal-acc__head" onClick={onToggle} aria-expanded={open}>
         <span>{title}</span>
-        <span className="activeforms-pal-acc__meta">
+        <span className="radiusforms-pal-acc__meta">
           {typeof count === 'number' && <em>{count}</em>}
           <Icon name={open ? 'chevronDown' : 'chevronRight'} size={15} />
         </span>
       </button>
-      {open && <div className="activeforms-pal-acc__body"><div className="activeforms-pal__grid">{children}</div></div>}
+      {open && <div className="radiusforms-pal-acc__body"><div className="radiusforms-pal__grid">{children}</div></div>}
     </div>
   );
 }
@@ -121,8 +121,8 @@ export default function Palette({ definitions, categories, onAdd }) {
   });
 
   return (
-    <div className="activeforms-pal">
-      <div className="activeforms-pal__search">
+    <div className="radiusforms-pal">
+      <div className="radiusforms-pal__search">
         <Icon name="search" size={15} />
         <input
           ref={searchRef}
@@ -132,13 +132,13 @@ export default function Palette({ definitions, categories, onAdd }) {
           aria-label="Search fields"
         />
         {query && (
-          <button type="button" className="activeforms-pal__clear" onClick={() => setQuery('')} aria-label="Clear">
+          <button type="button" className="radiusforms-pal__clear" onClick={() => setQuery('')} aria-label="Clear">
             <Icon name="close" size={13} />
           </button>
         )}
       </div>
 
-      <div className="activeforms-pal__body">
+      <div className="radiusforms-pal__body">
         {sections.map((sec) => {
           const free = sec.free.filter((d) => match(d.label));
           if (!free.length) return null;

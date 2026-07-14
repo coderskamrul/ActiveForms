@@ -4,21 +4,21 @@
  */
 const fallback = {
   version: '1.0.0',
-  restUrl: '/wp-json/activeforms/v1',
-  restNamespace: 'activeforms/v1',
+  restUrl: '/wp-json/radiusforms/v1',
+  restNamespace: 'radiusforms/v1',
   nonce: '',
   adminUrl: '',
   assetsUrl: '',
   capabilities: {},
-  brand: { name: 'ActiveForms', shortName: 'ActiveForms', tagline: 'Drag & Drop Form Builder' },
+  brand: { name: 'RadiusForms', shortName: 'RadiusForms', tagline: 'Drag & Drop Form Builder' },
   designTokens: {},
   currencies: ['USD'],
   dateFormat: 'F j, Y',
   strings: {},
 };
 
-const config = typeof window !== 'undefined' && window.ActiveFormsConfig
-  ? window.ActiveFormsConfig
+const config = typeof window !== 'undefined' && window.RadiusFormsConfig
+  ? window.RadiusFormsConfig
   : fallback;
 
 export default config;

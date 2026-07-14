@@ -2,19 +2,19 @@
 /**
  * Admin React app asset loader + PHP→JS config bridge.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Admin;
+namespace RadiusForms\Admin;
 
-use ActiveForms\Core\Config;
-use ActiveForms\Core\Container;
-use ActiveForms\Support\Countries;
+use RadiusForms\Core\Config;
+use RadiusForms\Core\Container;
+use RadiusForms\Support\Countries;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Enqueues the built React bundle only on ActiveForms screens and publishes the
+ * Enqueues the built React bundle only on RadiusForms screens and publishes the
  * single localized config object the app reads at boot.
  */
 class AdminAssets {
@@ -45,7 +45,7 @@ class AdminAssets {
 	}
 
 	/**
-	 * Enqueue the app on ActiveForms admin pages.
+	 * Enqueue the app on RadiusForms admin pages.
 	 *
 	 * @param string $hook Current admin page hook.
 	 * @return void
@@ -55,19 +55,19 @@ class AdminAssets {
 			return;
 		}
 
-		$dist = ACTIVEFORMS_URL . 'assets/dist/';
-		$path = ACTIVEFORMS_PATH . 'assets/dist/';
+		$dist = RADIUSFORMS_URL . 'assets/dist/';
+		$path = RADIUSFORMS_PATH . 'assets/dist/';
 
-		$js_handle  = 'activeforms-app';
-		$css_handle = 'activeforms-app-css';
+		$js_handle  = 'radiusforms-app';
+		$css_handle = 'radiusforms-app-css';
 
-		if ( file_exists( $path . 'activeforms.css' ) ) {
+		if ( file_exists( $path . 'radiusforms.css' ) ) {
 			// Dashicons backs the builder field/palette iconography.
-			wp_enqueue_style( $css_handle, $dist . 'activeforms.css', array( 'dashicons' ), Config::asset_version( 'assets/dist/activeforms.css' ) );
+			wp_enqueue_style( $css_handle, $dist . 'radiusforms.css', array( 'dashicons' ), Config::asset_version( 'assets/dist/radiusforms.css' ) );
 		}
 
-		if ( file_exists( $path . 'activeforms.js' ) ) {
-			wp_enqueue_script( $js_handle, $dist . 'activeforms.js', array(), Config::asset_version( 'assets/dist/activeforms.js' ), true );
+		if ( file_exists( $path . 'radiusforms.js' ) ) {
+			wp_enqueue_script( $js_handle, $dist . 'radiusforms.js', array(), Config::asset_version( 'assets/dist/radiusforms.js' ), true );
 		} else {
 			// Build not present yet: show a helpful notice instead of a blank screen.
 			add_action( 'admin_notices', array( $this, 'build_notice' ) );
@@ -77,7 +77,7 @@ class AdminAssets {
 		// Emit design tokens as CSS variables so PHP and React stay in sync.
 		wp_add_inline_style( $css_handle, $this->tokens_css() );
 
-		wp_localize_script( $js_handle, 'ActiveFormsConfig', $this->config() );
+		wp_localize_script( $js_handle, 'RadiusFormsConfig', $this->config() );
 	}
 
 	/**
@@ -93,13 +93,13 @@ class AdminAssets {
 		}
 
 		return array(
-			'version'       => ACTIVEFORMS_VERSION,
+			'version'       => RADIUSFORMS_VERSION,
 			'restUrl'       => esc_url_raw( rest_url( Config::REST_NAMESPACE ) ),
 			'restNamespace' => Config::REST_NAMESPACE,
 			'nonce'         => wp_create_nonce( 'wp_rest' ),
 			'adminUrl'      => esc_url_raw( admin_url( 'admin.php?page=' . Config::MENU_SLUG ) ),
 			'home'          => esc_url_raw( home_url( '/' ) ),
-			'assetsUrl'     => esc_url_raw( ACTIVEFORMS_URL . 'assets/' ),
+			'assetsUrl'     => esc_url_raw( RADIUSFORMS_URL . 'assets/' ),
 			'capabilities'  => $user_caps,
 			'brand'         => Config::brand(),
 			'designTokens'  => Config::design_tokens(),
@@ -117,36 +117,36 @@ class AdminAssets {
 	 */
 	private function strings() {
 		return array(
-			'dashboard'    => __( 'Dashboard', 'activeforms' ),
-			'forms'        => __( 'Forms', 'activeforms' ),
-			'entries'      => __( 'Entries', 'activeforms' ),
-			'reports'      => __( 'Reports', 'activeforms' ),
-			'settings'     => __( 'Settings', 'activeforms' ),
-			'integrations' => __( 'Integrations', 'activeforms' ),
-			'addNew'       => __( 'Add New Form', 'activeforms' ),
-			'save'         => __( 'Save', 'activeforms' ),
-			'saved'        => __( 'Saved', 'activeforms' ),
-			'preview'      => __( 'Preview', 'activeforms' ),
-			'delete'       => __( 'Delete', 'activeforms' ),
-			'duplicate'    => __( 'Duplicate', 'activeforms' ),
-			'edit'         => __( 'Edit', 'activeforms' ),
-			'search'       => __( 'Search…', 'activeforms' ),
-			'noForms'      => __( 'No forms yet. Create your first form.', 'activeforms' ),
-			'fieldLibrary' => __( 'Field Library', 'activeforms' ),
-			'fieldSettings' => __( 'Field Settings', 'activeforms' ),
-			'dropHere'     => __( 'Drag fields here to build your form', 'activeforms' ),
-			'confirmDelete' => __( 'Are you sure you want to delete this?', 'activeforms' ),
-			'inputFields'  => __( 'Input Fields', 'activeforms' ),
-			'customize'    => __( 'Input Customization', 'activeforms' ),
-			'history'      => __( 'History', 'activeforms' ),
-			'saveForm'     => __( 'Save Form', 'activeforms' ),
-			'previewDesign' => __( 'Preview & Design', 'activeforms' ),
-			'unsaved'      => __( 'Unsaved changes', 'activeforms' ),
-			'searchFields' => __( 'Search fields ( press / to focus )', 'activeforms' ),
-			'undo'         => __( 'Undo', 'activeforms' ),
-			'redo'         => __( 'Redo', 'activeforms' ),
-			'conditionalLogic' => __( 'Conditional Logic', 'activeforms' ),
-			'back'         => __( 'Back', 'activeforms' ),
+			'dashboard'    => __( 'Dashboard', 'radiusforms' ),
+			'forms'        => __( 'Forms', 'radiusforms' ),
+			'entries'      => __( 'Entries', 'radiusforms' ),
+			'reports'      => __( 'Reports', 'radiusforms' ),
+			'settings'     => __( 'Settings', 'radiusforms' ),
+			'integrations' => __( 'Integrations', 'radiusforms' ),
+			'addNew'       => __( 'Add New Form', 'radiusforms' ),
+			'save'         => __( 'Save', 'radiusforms' ),
+			'saved'        => __( 'Saved', 'radiusforms' ),
+			'preview'      => __( 'Preview', 'radiusforms' ),
+			'delete'       => __( 'Delete', 'radiusforms' ),
+			'duplicate'    => __( 'Duplicate', 'radiusforms' ),
+			'edit'         => __( 'Edit', 'radiusforms' ),
+			'search'       => __( 'Search…', 'radiusforms' ),
+			'noForms'      => __( 'No forms yet. Create your first form.', 'radiusforms' ),
+			'fieldLibrary' => __( 'Field Library', 'radiusforms' ),
+			'fieldSettings' => __( 'Field Settings', 'radiusforms' ),
+			'dropHere'     => __( 'Drag fields here to build your form', 'radiusforms' ),
+			'confirmDelete' => __( 'Are you sure you want to delete this?', 'radiusforms' ),
+			'inputFields'  => __( 'Input Fields', 'radiusforms' ),
+			'customize'    => __( 'Input Customization', 'radiusforms' ),
+			'history'      => __( 'History', 'radiusforms' ),
+			'saveForm'     => __( 'Save Form', 'radiusforms' ),
+			'previewDesign' => __( 'Preview & Design', 'radiusforms' ),
+			'unsaved'      => __( 'Unsaved changes', 'radiusforms' ),
+			'searchFields' => __( 'Search fields ( press / to focus )', 'radiusforms' ),
+			'undo'         => __( 'Undo', 'radiusforms' ),
+			'redo'         => __( 'Redo', 'radiusforms' ),
+			'conditionalLogic' => __( 'Conditional Logic', 'radiusforms' ),
+			'back'         => __( 'Back', 'radiusforms' ),
 		);
 	}
 
@@ -157,25 +157,25 @@ class AdminAssets {
 	 */
 	private function tokens_css() {
 		$t   = Config::design_tokens();
-		$css = ':root, #activeforms-app {';
+		$css = ':root, #radiusforms-app {';
 
 		foreach ( $t['color'] as $key => $value ) {
-			$css .= '--activeforms-color-' . $this->kebab( $key ) . ':' . $value . ';';
+			$css .= '--radiusforms-color-' . $this->kebab( $key ) . ':' . $value . ';';
 		}
 		foreach ( $t['radius'] as $key => $value ) {
-			$css .= '--activeforms-radius-' . $key . ':' . $value . ';';
+			$css .= '--radiusforms-radius-' . $key . ':' . $value . ';';
 		}
 		foreach ( $t['shadow'] as $key => $value ) {
-			$css .= '--activeforms-shadow-' . $key . ':' . $value . ';';
+			$css .= '--radiusforms-shadow-' . $key . ':' . $value . ';';
 		}
 		foreach ( $t['space'] as $i => $value ) {
-			$css .= '--activeforms-space-' . $i . ':' . $value . ';';
+			$css .= '--radiusforms-space-' . $i . ':' . $value . ';';
 		}
-		$css .= '--activeforms-font:' . $t['font']['family'] . ';';
+		$css .= '--radiusforms-font:' . $t['font']['family'] . ';';
 		foreach ( $t['font']['size'] as $key => $value ) {
-			$css .= '--activeforms-font-' . $key . ':' . $value . ';';
+			$css .= '--radiusforms-font-' . $key . ':' . $value . ';';
 		}
-		$css .= '--activeforms-motion:' . $t['motion']['normal'] . ' ' . $t['motion']['easing'] . ';';
+		$css .= '--radiusforms-motion:' . $t['motion']['normal'] . ' ' . $t['motion']['easing'] . ';';
 		$css .= '}';
 
 		return $css;
@@ -198,7 +198,7 @@ class AdminAssets {
 	 */
 	public function build_notice() {
 		echo '<div class="notice notice-warning"><p>'
-			. esc_html__( 'ActiveForms admin assets have not been built yet. Run "nvm use 20 && npm install && npm run build" in the plugin directory.', 'activeforms' )
+			. esc_html__( 'RadiusForms admin assets have not been built yet. Run "nvm use 20 && npm install && npm run build" in the plugin directory.', 'radiusforms' )
 			. '</p></div>';
 	}
 }

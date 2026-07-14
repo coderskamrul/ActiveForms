@@ -2,12 +2,12 @@
 /**
  * Form data-mapper model.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Models;
+namespace RadiusForms\Models;
 
-use ActiveForms\Core\Config;
+use RadiusForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -115,7 +115,7 @@ class Form {
 		$now = current_time( 'mysql' );
 
 		$insert = array(
-			'title'       => isset( $data['title'] ) ? $data['title'] : __( 'Untitled Form', 'activeforms' ),
+			'title'       => isset( $data['title'] ) ? $data['title'] : __( 'Untitled Form', 'radiusforms' ),
 			'slug'        => isset( $data['slug'] ) ? sanitize_title( $data['slug'] ) : '',
 			'status'      => isset( $data['status'] ) ? $data['status'] : 'published',
 			'type'        => isset( $data['type'] ) ? $data['type'] : 'classic',
@@ -178,7 +178,7 @@ class Form {
 		}
 
 		/* translators: %s: original form title. */
-		$source['title'] = sprintf( __( '%s (Copy)', 'activeforms' ), $source['title'] );
+		$source['title'] = sprintf( __( '%s (Copy)', 'radiusforms' ), $source['title'] );
 		unset( $source['id'] );
 
 		return self::create( $source );

@@ -1,48 +1,48 @@
 <?php
 /**
- * ActiveForms uninstall routine.
+ * RadiusForms uninstall routine.
  *
  * Only removes data when the user opted in via the "Delete all data on
  * uninstall" setting. Otherwise form/entry data is preserved.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-$activeforms_settings = get_option( 'activeforms_settings', array() );
+$radiusforms_settings = get_option( 'radiusforms_settings', array() );
 
-if ( empty( $activeforms_settings['remove_data_on_uninstall'] ) ) {
+if ( empty( $radiusforms_settings['remove_data_on_uninstall'] ) ) {
 	return;
 }
 
 global $wpdb;
 
 // Drop custom tables.
-$activeforms_tables = array(
-	'activeforms_forms',
-	'activeforms_form_meta',
-	'activeforms_entries',
-	'activeforms_entry_meta',
-	'activeforms_entry_details',
-	'activeforms_logs',
-	'activeforms_scheduled_actions',
+$radiusforms_tables = array(
+	'radiusforms_forms',
+	'radiusforms_form_meta',
+	'radiusforms_entries',
+	'radiusforms_entry_meta',
+	'radiusforms_entry_details',
+	'radiusforms_logs',
+	'radiusforms_scheduled_actions',
 );
 
-foreach ( $activeforms_tables as $activeforms_table ) {
-	$activeforms_name = $wpdb->prefix . $activeforms_table;
+foreach ( $radiusforms_tables as $radiusforms_table ) {
+	$radiusforms_name = $wpdb->prefix . $radiusforms_table;
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- uninstall cleanup.
-	$wpdb->query( "DROP TABLE IF EXISTS {$activeforms_name}" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$radiusforms_name}" );
 }
 
 // Delete options.
-delete_option( 'activeforms_settings' );
-delete_option( 'activeforms_db_version' );
-delete_option( 'activeforms_installed_at' );
+delete_option( 'radiusforms_settings' );
+delete_option( 'radiusforms_db_version' );
+delete_option( 'radiusforms_installed_at' );
 
-// Delete integration option rows (activeforms_integration_*).
+// Delete integration option rows (radiusforms_integration_*).
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'activeforms_integration_%'" );
+$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'radiusforms_integration_%'" );
 
 // Clear scheduled hooks.
-wp_clear_scheduled_hook( 'activeforms_process_scheduled_actions' );
+wp_clear_scheduled_hook( 'radiusforms_process_scheduled_actions' );

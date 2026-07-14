@@ -2,17 +2,17 @@
 /**
  * Admin menu registration.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Admin;
+namespace RadiusForms\Admin;
 
-use ActiveForms\Core\Config;
+use RadiusForms\Core\Config;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Registers the top-level ActiveForms menu. All sub-screens are routed
+ * Registers the top-level RadiusForms menu. All sub-screens are routed
  * client-side by the React app, so each menu item renders the same mount node
  * with a different default route via the URL hash.
  */
@@ -37,8 +37,8 @@ class Menu {
 		$slug = Config::MENU_SLUG;
 
 		add_menu_page(
-			__( 'ActiveForms', 'activeforms' ),
-			__( 'ActiveForms', 'activeforms' ),
+			__( 'RadiusForms', 'radiusforms' ),
+			__( 'RadiusForms', 'radiusforms' ),
 			$cap,
 			$slug,
 			array( $this, 'render_app' ),
@@ -47,13 +47,13 @@ class Menu {
 		);
 
 		$subpages = array(
-			''            => __( 'Dashboard', 'activeforms' ),
-			'#/forms'     => __( 'All Forms', 'activeforms' ),
-			'#/forms/new' => __( 'Add New', 'activeforms' ),
-			'#/entries'   => __( 'Entries', 'activeforms' ),
-			'#/reports'   => __( 'Reports', 'activeforms' ),
-			// '#/integrations' => __( 'Integrations', 'activeforms' ),
-			'#/settings'  => __( 'Settings', 'activeforms' ),
+			''            => __( 'Dashboard', 'radiusforms' ),
+			'#/forms'     => __( 'All Forms', 'radiusforms' ),
+			'#/forms/new' => __( 'Add New', 'radiusforms' ),
+			'#/entries'   => __( 'Entries', 'radiusforms' ),
+			'#/reports'   => __( 'Reports', 'radiusforms' ),
+			// '#/integrations' => __( 'Integrations', 'radiusforms' ),
+			'#/settings'  => __( 'Settings', 'radiusforms' ),
 		);
 
 		foreach ( $subpages as $hash => $label ) {
@@ -74,8 +74,8 @@ class Menu {
 	 * @return void
 	 */
 	public function render_app() {
-		echo '<div class="wrap activeforms-wrap"><div id="activeforms-app" data-theme="light">';
-		echo '<div class="activeforms-loading"><span class="spinner is-active"></span> ' . esc_html__( 'Loading ActiveForms…', 'activeforms' ) . '</div>';
+		echo '<div class="wrap radiusforms-wrap"><div id="radiusforms-app" data-theme="light">';
+		echo '<div class="radiusforms-loading"><span class="spinner is-active"></span> ' . esc_html__( 'Loading RadiusForms…', 'radiusforms' ) . '</div>';
 		echo '</div></div>';
 	}
 }

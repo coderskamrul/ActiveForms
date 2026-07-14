@@ -2,10 +2,10 @@
 /**
  * Image upload field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,7 +19,7 @@ class ImageUploadField extends AbstractUploadField {
 	 */
 	public function __construct() {
 		$this->type     = 'image_upload';
-		$this->label    = __( 'Image Upload', 'activeforms' );
+		$this->label    = __( 'Image Upload', 'radiusforms' );
 		$this->icon     = 'format-image';
 		$this->category = 'general';
 		$this->input    = true;

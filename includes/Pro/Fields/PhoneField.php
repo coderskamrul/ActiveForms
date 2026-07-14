@@ -2,13 +2,13 @@
 /**
  * Phone / mobile field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class PhoneField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type       = 'phone';
-		$this->label      = __( 'Phone / Mobile', 'activeforms' );
+		$this->label      = __( 'Phone / Mobile', 'radiusforms' );
 		$this->icon       = 'phone';
 		$this->category   = 'general';
 		$this->input      = true;
@@ -48,7 +48,7 @@ class PhoneField extends AbstractField {
 			return true;
 		}
 		if ( ! preg_match( '/^[0-9 ()+\-.]{6,20}$/', (string) $value ) ) {
-			return __( 'Please enter a valid phone number.', 'activeforms' );
+			return __( 'Please enter a valid phone number.', 'radiusforms' );
 		}
 		return true;
 	}
@@ -59,7 +59,7 @@ class PhoneField extends AbstractField {
 	public function render( $field, $value = null ) {
 		$value   = null === $value ? Arr::get( $field, 'default', '' ) : $value;
 		$control = sprintf(
-			'<input type="tel" class="activeforms-input" value="%1$s"%2$s />',
+			'<input type="tel" class="radiusforms-input" value="%1$s"%2$s />',
 			esc_attr( $value ),
 			$this->input_attrs( $field )
 		);

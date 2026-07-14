@@ -2,14 +2,14 @@
 /**
  * Generic single-input field (text, email, url, number, password, hidden, mask).
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Core\Settings;
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Core\Settings;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -81,24 +81,24 @@ class InputField extends AbstractField {
 		}
 
 		if ( 'email' === $this->type && ! is_email( $value ) ) {
-			return Settings::message( 'invalid_email', __( 'Please enter a valid email address.', 'activeforms' ) );
+			return Settings::message( 'invalid_email', __( 'Please enter a valid email address.', 'radiusforms' ) );
 		}
 		if ( 'url' === $this->type && ! wp_http_validate_url( $value ) ) {
-			return Settings::message( 'invalid_url', __( 'Please enter a valid URL.', 'activeforms' ) );
+			return Settings::message( 'invalid_url', __( 'Please enter a valid URL.', 'radiusforms' ) );
 		}
 		if ( 'number' === $this->type ) {
 			if ( ! is_numeric( $value ) ) {
-				return Settings::message( 'invalid_number', __( 'Please enter a valid number.', 'activeforms' ) );
+				return Settings::message( 'invalid_number', __( 'Please enter a valid number.', 'radiusforms' ) );
 			}
 			$min = Arr::get( $field, 'min', '' );
 			$max = Arr::get( $field, 'max', '' );
 			if ( '' !== $min && $value < $min ) {
 				/* translators: %s: minimum value. */
-				return sprintf( __( 'Value must be at least %s.', 'activeforms' ), $min );
+				return sprintf( __( 'Value must be at least %s.', 'radiusforms' ), $min );
 			}
 			if ( '' !== $max && $value > $max ) {
 				/* translators: %s: maximum value. */
-				return sprintf( __( 'Value must be at most %s.', 'activeforms' ), $max );
+				return sprintf( __( 'Value must be at most %s.', 'radiusforms' ), $max );
 			}
 		}
 
@@ -122,12 +122,12 @@ class InputField extends AbstractField {
 		if ( 'masked_text' === $this->type ) {
 			$mask = Arr::get( $field, 'mask', '' );
 			if ( '' !== $mask ) {
-				$extra .= ' data-activeforms-mask="' . esc_attr( $mask ) . '"';
+				$extra .= ' data-radiusforms-mask="' . esc_attr( $mask ) . '"';
 			}
 		}
 
 		$control = sprintf(
-			'<input type="%1$s" class="activeforms-input" value="%2$s"%3$s%4$s />',
+			'<input type="%1$s" class="radiusforms-input" value="%2$s"%3$s%4$s />',
 			esc_attr( $this->input_type ),
 			esc_attr( $value ),
 			$this->input_attrs( $field ),

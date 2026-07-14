@@ -2,14 +2,14 @@
 /**
  * Shared base for upload-style fields (File, Image).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
-use ActiveFormsPro\Support\Uploads;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
+use RadiusFormsPro\Support\Uploads;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -139,25 +139,25 @@ abstract class AbstractUploadField extends AbstractField {
 		$allowed = $this->allowed_types( $field );
 
 		$control  = sprintf(
-			'<div class="activeforms-upload%5$s" data-activeforms-upload data-max-files="%1$d" data-max-size="%2$d" data-allowed="%3$s" data-key="%4$s">',
+			'<div class="radiusforms-upload%5$s" data-radiusforms-upload data-max-files="%1$d" data-max-size="%2$d" data-allowed="%3$s" data-key="%4$s">',
 			$this->max_files( $field ),
 			$this->max_size_kb( $field ),
 			esc_attr( implode( ',', $allowed ) ),
 			$key,
-			$this->images_only() ? ' activeforms-upload--image' : ''
+			$this->images_only() ? ' radiusforms-upload--image' : ''
 		);
-		$control .= '<label class="activeforms-upload__drop">';
-		$control .= '<span class="activeforms-upload__cta">' . esc_html__( 'Choose a file or drag it here', 'activeforms' ) . '</span>';
+		$control .= '<label class="radiusforms-upload__drop">';
+		$control .= '<span class="radiusforms-upload__cta">' . esc_html__( 'Choose a file or drag it here', 'radiusforms' ) . '</span>';
 		$control .= sprintf(
-			'<input type="file" class="activeforms-upload__input"%1$s%2$s />',
+			'<input type="file" class="radiusforms-upload__input"%1$s%2$s />',
 			$accept ? ' accept="' . esc_attr( $accept ) . '"' : '',
 			$this->max_files( $field ) > 1 ? ' multiple' : ''
 		);
 		$control .= '</label>';
-		$control .= '<div class="activeforms-upload__list"></div>';
-		$control .= '<div class="activeforms-upload__error" role="alert"></div>';
+		$control .= '<div class="radiusforms-upload__list"></div>';
+		$control .= '<div class="radiusforms-upload__error" role="alert"></div>';
 		$control .= sprintf(
-			'<input type="hidden" name="%1$s" id="activeforms-%1$s" value="%2$s" data-activeforms-upload-input />',
+			'<input type="hidden" name="%1$s" id="radiusforms-%1$s" value="%2$s" data-radiusforms-upload-input />',
 			$key,
 			esc_attr( wp_json_encode( $files ) )
 		);

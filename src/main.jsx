@@ -1,5 +1,5 @@
 /**
- * ActiveForms admin entry point.
+ * RadiusForms admin entry point.
  *
  * Mounts the React app into the node printed by Admin\Menu::render_app().
  */
@@ -9,7 +9,7 @@ import App from './App.jsx';
 import './theme/app.scss';
 import './theme/builder.scss';
 
-const mount = document.getElementById('activeforms-app');
+const mount = document.getElementById('radiusforms-app');
 
 if (mount) {
   mount.innerHTML = '';

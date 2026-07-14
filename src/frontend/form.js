@@ -1,5 +1,5 @@
 /**
- * ActiveForms frontend submit handler.
+ * RadiusForms frontend submit handler.
  *
  * Progressive enhancement: intercepts form submit, posts to the REST endpoint,
  * and renders inline validation errors / confirmation. Forms still validate
@@ -10,7 +10,7 @@ import './form.scss';
 (function () {
   'use strict';
 
-  var cfg = window.ActiveFormsFront || {};
+  var cfg = window.RadiusFormsFront || {};
 
   function serialize(form) {
     var data = {};
@@ -46,16 +46,16 @@ import './form.scss';
   }
 
   function clearErrors(form) {
-    form.querySelectorAll('.activeforms-error').forEach(function (e) { e.textContent = ''; });
-    form.querySelectorAll('.activeforms-field--invalid').forEach(function (e) { e.classList.remove('activeforms-field--invalid'); });
+    form.querySelectorAll('.radiusforms-error').forEach(function (e) { e.textContent = ''; });
+    form.querySelectorAll('.radiusforms-field--invalid').forEach(function (e) { e.classList.remove('radiusforms-field--invalid'); });
   }
 
   function showErrors(form, errors) {
     Object.keys(errors || {}).forEach(function (key) {
       var field = form.querySelector('[data-field="' + key + '"]');
       if (field) {
-        field.classList.add('activeforms-field--invalid');
-        var err = field.querySelector('.activeforms-error');
+        field.classList.add('radiusforms-field--invalid');
+        var err = field.querySelector('.radiusforms-error');
         if (err) err.textContent = errors[key];
       }
     });
@@ -70,7 +70,7 @@ import './form.scss';
       if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = '…'; }
 
       var payload = serialize(form);
-      payload.activeforms_source_url = window.location.href;
+      payload.radiusforms_source_url = window.location.href;
 
       fetch(cfg.restUrl, {
         method: 'POST',
@@ -81,18 +81,18 @@ import './form.scss';
         .then(function (r) { return r.json(); })
         .then(function (res) {
           if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Submit'; }
-          var msg = form.querySelector('.activeforms-form-message');
+          var msg = form.querySelector('.radiusforms-form-message');
           if (res.success) {
             if (res.confirmation && res.confirmation.type === 'redirect' && res.confirmation.url) {
               window.location.href = res.confirmation.url;
               return;
             }
             var html = (res.confirmation && res.confirmation.message) || 'Thank you!';
-            form.querySelector('.activeforms-fields').style.display = 'none';
-            if (msg) { msg.className = 'activeforms-form-message activeforms-form-message--success'; msg.innerHTML = html; }
+            form.querySelector('.radiusforms-fields').style.display = 'none';
+            if (msg) { msg.className = 'radiusforms-form-message radiusforms-form-message--success'; msg.innerHTML = html; }
           } else {
             if (res.errors) showErrors(form, res.errors);
-            if (msg) { msg.className = 'activeforms-form-message activeforms-form-message--error'; msg.textContent = res.message || 'Please check the form.'; }
+            if (msg) { msg.className = 'radiusforms-form-message radiusforms-form-message--error'; msg.textContent = res.message || 'Please check the form.'; }
           }
         })
         .catch(function () {
@@ -103,7 +103,7 @@ import './form.scss';
 
   // Apply a simple pattern mask to an input. Tokens: 9=digit, a=letter, *=any.
   function applyMask(el) {
-    var mask = el.getAttribute('data-activeforms-mask');
+    var mask = el.getAttribute('data-radiusforms-mask');
     if (!mask) return;
     function format(value) {
       var out = '';
@@ -137,7 +137,7 @@ import './form.scss';
     fit();
   }
 
-  // Turn a <select data-activeforms-searchable> into a searchable dropdown while
+  // Turn a <select data-radiusforms-searchable> into a searchable dropdown while
   // keeping the native select in the DOM so its value still submits.
   function searchableSelect(select) {
     if (select.dataset.efSearchable) return;
@@ -148,14 +148,14 @@ import './form.scss';
     });
 
     var wrap = document.createElement('div');
-    wrap.className = 'activeforms-ss';
+    wrap.className = 'radiusforms-ss';
     select.parentNode.insertBefore(wrap, select);
     wrap.appendChild(select);
-    select.classList.add('activeforms-ss__native');
+    select.classList.add('radiusforms-ss__native');
 
     var control = document.createElement('button');
     control.type = 'button';
-    control.className = 'activeforms-ss__control';
+    control.className = 'radiusforms-ss__control';
 
     function selectedLabel() {
       var o = select.options[select.selectedIndex];
@@ -164,13 +164,13 @@ import './form.scss';
     control.textContent = selectedLabel();
 
     var panel = document.createElement('div');
-    panel.className = 'activeforms-ss__panel';
+    panel.className = 'radiusforms-ss__panel';
     var search = document.createElement('input');
     search.type = 'text';
-    search.className = 'activeforms-ss__search';
+    search.className = 'radiusforms-ss__search';
     search.placeholder = 'Search…';
     var listEl = document.createElement('div');
-    listEl.className = 'activeforms-ss__list';
+    listEl.className = 'radiusforms-ss__list';
     panel.appendChild(search);
     panel.appendChild(listEl);
     wrap.appendChild(control);
@@ -191,7 +191,7 @@ import './form.scss';
         if (!opt.value && ql) return; // hide the placeholder while searching
         if (ql && opt.label.toLowerCase().indexOf(ql) === -1) return;
         var item = document.createElement('div');
-        item.className = 'activeforms-ss__item' + (opt.value === select.value ? ' is-sel' : '');
+        item.className = 'radiusforms-ss__item' + (opt.value === select.value ? ' is-sel' : '');
         item.textContent = opt.label;
         item.addEventListener('mousedown', function (e) {
           e.preventDefault();
@@ -229,18 +229,18 @@ import './form.scss';
     });
 
     var wrap = document.createElement('div');
-    wrap.className = 'activeforms-ms';
+    wrap.className = 'radiusforms-ms';
     select.parentNode.insertBefore(wrap, select);
     wrap.appendChild(select);
-    select.classList.add('activeforms-ms__native');
+    select.classList.add('radiusforms-ms__native');
 
     var control = document.createElement('div');
-    control.className = 'activeforms-ms__control';
+    control.className = 'radiusforms-ms__control';
     control.tabIndex = 0;
     wrap.appendChild(control);
 
     var panel = document.createElement('div');
-    panel.className = 'activeforms-ms__panel';
+    panel.className = 'radiusforms-ms__panel';
     wrap.appendChild(panel);
 
     function isSel(v) {
@@ -256,17 +256,17 @@ import './form.scss';
       var chosen = options.filter(function (o) { return isSel(o.value); });
       if (!chosen.length) {
         var ph = document.createElement('span');
-        ph.className = 'activeforms-ms__ph';
+        ph.className = 'radiusforms-ms__ph';
         ph.textContent = placeholder;
         control.appendChild(ph);
       } else {
         chosen.forEach(function (o) {
           var tag = document.createElement('span');
-          tag.className = 'activeforms-ms__tag';
+          tag.className = 'radiusforms-ms__tag';
           tag.textContent = o.label;
           var x = document.createElement('button');
           x.type = 'button';
-          x.className = 'activeforms-ms__remove';
+          x.className = 'radiusforms-ms__remove';
           x.setAttribute('aria-label', 'Remove ' + o.label);
           x.innerHTML = '&times;';
           x.addEventListener('click', function (e) { e.stopPropagation(); setSel(o.value, false); });
@@ -278,9 +278,9 @@ import './form.scss';
       options.forEach(function (o) {
         var item = document.createElement('div');
         var on = isSel(o.value);
-        item.className = 'activeforms-ms__item' + (on ? ' is-sel' : '');
+        item.className = 'radiusforms-ms__item' + (on ? ' is-sel' : '');
         var check = document.createElement('span');
-        check.className = 'activeforms-ms__check';
+        check.className = 'radiusforms-ms__check';
         check.textContent = on ? '✓' : '';
         var lbl = document.createElement('span');
         lbl.textContent = o.label;
@@ -345,9 +345,9 @@ import './form.scss';
     var hour, minute = today.getMinutes(), ampm = today.getHours() < 12 ? 'AM' : 'PM';
     hour = is24 ? today.getHours() : (((today.getHours() + 11) % 12) + 1);
 
-    var field = input.closest('.activeforms-dp-field') || input.parentNode;
+    var field = input.closest('.radiusforms-dp-field') || input.parentNode;
     var pop = document.createElement('div');
-    pop.className = 'activeforms-dp';
+    pop.className = 'radiusforms-dp';
     field.appendChild(pop);
 
     function stripTime(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
@@ -390,10 +390,10 @@ import './form.scss';
     }
 
     function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) { e.className = cls; } if (txt != null) { e.textContent = txt; } return e; }
-    function nav(txt, fn) { var b = el('button', 'activeforms-dp__nav', txt); b.type = 'button'; b.addEventListener('click', fn); return b; }
+    function nav(txt, fn) { var b = el('button', 'radiusforms-dp__nav', txt); b.type = 'button'; b.addEventListener('click', fn); return b; }
 
     function mkSelect(min, max, val, onCh) {
-      var s = el('select', 'activeforms-dp__sel');
+      var s = el('select', 'radiusforms-dp__sel');
       for (var i = min; i <= max; i++) { var o = el('option', '', efPad(i)); o.value = i; s.appendChild(o); }
       s.value = val;
       s.addEventListener('change', function () { onCh(parseInt(s.value, 10)); });
@@ -401,14 +401,14 @@ import './form.scss';
     }
 
     function buildCalendar() {
-      var cal = el('div', 'activeforms-dp__cal');
-      var head = el('div', 'activeforms-dp__head');
+      var cal = el('div', 'radiusforms-dp__cal');
+      var head = el('div', 'radiusforms-dp__head');
       
       // Previous month button
       head.appendChild(nav('‹', function () { view.setMonth(view.getMonth() - 1); build(); }));
       
       // Month dropdown
-      var monthSel = el('select', 'activeforms-dp__month-sel');
+      var monthSel = el('select', 'radiusforms-dp__month-sel');
       EF_MONTHS.forEach(function (month, idx) {
         var o = el('option', '', month);
         o.value = idx;
@@ -422,8 +422,8 @@ import './form.scss';
       head.appendChild(monthSel);
       
       // Year spinner input
-      var yearWrap = el('div', 'activeforms-dp__year-wrap');
-      var yearInput = el('input', 'activeforms-dp__year-input');
+      var yearWrap = el('div', 'radiusforms-dp__year-wrap');
+      var yearInput = el('input', 'radiusforms-dp__year-input');
       yearInput.type = 'number';
       yearInput.value = view.getFullYear();
       yearInput.min = '1900';
@@ -445,16 +445,16 @@ import './form.scss';
       
       cal.appendChild(head);
 
-      var dow = el('div', 'activeforms-dp__dow');
+      var dow = el('div', 'radiusforms-dp__dow');
       EF_DOW.forEach(function (w) { dow.appendChild(el('span', '', w)); });
       cal.appendChild(dow);
 
-      var grid = el('div', 'activeforms-dp__grid');
+      var grid = el('div', 'radiusforms-dp__grid');
       var first = new Date(view.getFullYear(), view.getMonth(), 1);
       var gridStart = new Date(view.getFullYear(), view.getMonth(), 1 - first.getDay());
       for (var i = 0; i < 42; i++) {
         var d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
-        var cell = el('button', 'activeforms-dp__day', String(d.getDate()));
+        var cell = el('button', 'radiusforms-dp__day', String(d.getDate()));
         cell.type = 'button';
         if (d.getMonth() !== view.getMonth()) { cell.classList.add('is-out'); }
         if (sameDay(d, today)) { cell.classList.add('is-today'); }
@@ -468,14 +468,14 @@ import './form.scss';
     }
 
     function buildTime() {
-      var t = el('div', 'activeforms-dp__time');
+      var t = el('div', 'radiusforms-dp__time');
       t.appendChild(mkSelect(is24 ? 0 : 1, is24 ? 23 : 12, hour, function (v) { hour = v; commit(false); }));
-      t.appendChild(el('span', 'activeforms-dp__colon', ':'));
+      t.appendChild(el('span', 'radiusforms-dp__colon', ':'));
       t.appendChild(mkSelect(0, 59, minute, function (v) { minute = v; commit(false); }));
       if (!is24) {
-        var ap = el('div', 'activeforms-dp__ampm');
+        var ap = el('div', 'radiusforms-dp__ampm');
         ['AM', 'PM'].forEach(function (p) {
-          var b = el('button', 'activeforms-dp__ap' + (ampm === p ? ' is-active' : ''), p);
+          var b = el('button', 'radiusforms-dp__ap' + (ampm === p ? ' is-active' : ''), p);
           b.type = 'button';
           b.addEventListener('click', function () { ampm = p; build(); commit(false); });
           ap.appendChild(b);
@@ -486,11 +486,11 @@ import './form.scss';
     }
 
     function buildFooter() {
-      var f = el('div', 'activeforms-dp__foot');
-      var clear = el('button', 'activeforms-dp__btn', 'Clear');
+      var f = el('div', 'radiusforms-dp__foot');
+      var clear = el('button', 'radiusforms-dp__btn', 'Clear');
       clear.type = 'button';
       clear.addEventListener('click', function () { start = null; end = null; input.value = ''; build(); });
-      var done = el('button', 'activeforms-dp__btn activeforms-dp__btn--primary', 'Done');
+      var done = el('button', 'radiusforms-dp__btn radiusforms-dp__btn--primary', 'Done');
       done.type = 'button';
       done.addEventListener('click', function () { commit(true); });
       f.appendChild(clear);
@@ -518,11 +518,11 @@ import './form.scss';
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.activeforms-form').forEach(handle);
-    document.querySelectorAll('[data-activeforms-mask]').forEach(applyMask);
-    document.querySelectorAll('[data-activeforms-autoresize]').forEach(autoResize);
-    document.querySelectorAll('select[data-activeforms-searchable]').forEach(searchableSelect);
-    document.querySelectorAll('select[data-activeforms-multiselect]').forEach(multiSelect);
-    document.querySelectorAll('[data-activeforms-datepicker]').forEach(datePicker);
+    document.querySelectorAll('.radiusforms-form').forEach(handle);
+    document.querySelectorAll('[data-radiusforms-mask]').forEach(applyMask);
+    document.querySelectorAll('[data-radiusforms-autoresize]').forEach(autoResize);
+    document.querySelectorAll('select[data-radiusforms-searchable]').forEach(searchableSelect);
+    document.querySelectorAll('select[data-radiusforms-multiselect]').forEach(multiSelect);
+    document.querySelectorAll('[data-radiusforms-datepicker]').forEach(datePicker);
   });
 })();

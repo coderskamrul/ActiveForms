@@ -2,13 +2,13 @@
 /**
  * Range slider field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class RangeField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'range';
-		$this->label    = __( 'Range Slider', 'activeforms' );
+		$this->label    = __( 'Range Slider', 'radiusforms' );
 		$this->icon     = 'leftright';
 		$this->category = 'advanced';
 		$this->input    = true;
@@ -54,7 +54,7 @@ class RangeField extends AbstractField {
 			return true;
 		}
 		if ( ! is_numeric( $value ) ) {
-			return __( 'Please enter a valid number.', 'activeforms' );
+			return __( 'Please enter a valid number.', 'radiusforms' );
 		}
 		return true;
 	}
@@ -69,7 +69,7 @@ class RangeField extends AbstractField {
 		$val  = null === $value ? Arr::get( $field, 'default', $min ) : $value;
 
 		$control = sprintf(
-			'<input type="range" class="activeforms-range" min="%1$s" max="%2$s" step="%3$s" value="%4$s"%5$s />',
+			'<input type="range" class="radiusforms-range" min="%1$s" max="%2$s" step="%3$s" value="%4$s"%5$s />',
 			esc_attr( $min ),
 			esc_attr( $max ),
 			esc_attr( $step ),

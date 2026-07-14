@@ -6,10 +6,10 @@
  * names, REST namespace, and design tokens. Both PHP and React consume values
  * that originate here so branding/white-label changes happen in one place.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Core;
+namespace RadiusForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,27 +21,27 @@ class Config {
 	/**
 	 * Text domain for translations.
 	 */
-	const TEXT_DOMAIN = 'activeforms';
+	const TEXT_DOMAIN = 'radiusforms';
 
 	/**
 	 * REST API namespace.
 	 */
-	const REST_NAMESPACE = 'activeforms/v1';
+	const REST_NAMESPACE = 'radiusforms/v1';
 
 	/**
 	 * Admin menu slug.
 	 */
-	const MENU_SLUG = 'activeforms';
+	const MENU_SLUG = 'radiusforms';
 
 	/**
 	 * Option key holding global settings.
 	 */
-	const OPTION_SETTINGS = 'activeforms_settings';
+	const OPTION_SETTINGS = 'radiusforms_settings';
 
 	/**
 	 * Option key holding the installed DB schema version.
 	 */
-	const OPTION_DB_VERSION = 'activeforms_db_version';
+	const OPTION_DB_VERSION = 'radiusforms_db_version';
 
 	/**
 	 * Custom database table base names (without the WP prefix).
@@ -50,13 +50,13 @@ class Config {
 	 */
 	public static function tables() {
 		return array(
-			'forms'        => 'activeforms_forms',
-			'form_meta'    => 'activeforms_form_meta',
-			'entries'      => 'activeforms_entries',
-			'entry_meta'   => 'activeforms_entry_meta',
-			'entry_detail' => 'activeforms_entry_details',
-			'logs'         => 'activeforms_logs',
-			'scheduled'    => 'activeforms_scheduled_actions',
+			'forms'        => 'radiusforms_forms',
+			'form_meta'    => 'radiusforms_form_meta',
+			'entries'      => 'radiusforms_entries',
+			'entry_meta'   => 'radiusforms_entry_meta',
+			'entry_detail' => 'radiusforms_entry_details',
+			'logs'         => 'radiusforms_logs',
+			'scheduled'    => 'radiusforms_scheduled_actions',
 		);
 	}
 
@@ -76,11 +76,11 @@ class Config {
 		);
 
 		/**
-		 * Filter the ActiveForms capability map.
+		 * Filter the RadiusForms capability map.
 		 *
 		 * @param array $caps Capability map.
 		 */
-		return apply_filters( 'activeforms/capabilities', $caps );
+		return apply_filters( 'radiusforms/capabilities', $caps );
 	}
 
 	/**
@@ -94,9 +94,9 @@ class Config {
 	 * @return string
 	 */
 	public static function asset_version( $relative ) {
-		$file = ACTIVEFORMS_PATH . ltrim( $relative, '/' );
+		$file = RADIUSFORMS_PATH . ltrim( $relative, '/' );
 		$mtime = file_exists( $file ) ? filemtime( $file ) : 0;
-		return $mtime ? ACTIVEFORMS_VERSION . '.' . $mtime : ACTIVEFORMS_VERSION;
+		return $mtime ? RADIUSFORMS_VERSION . '.' . $mtime : RADIUSFORMS_VERSION;
 	}
 
 	/**
@@ -178,11 +178,11 @@ class Config {
 		);
 
 		/**
-		 * Filter ActiveForms design tokens (white-label / theming entry point).
+		 * Filter RadiusForms design tokens (white-label / theming entry point).
 		 *
 		 * @param array $tokens Design token tree.
 		 */
-		return apply_filters( 'activeforms/design_tokens', $tokens );
+		return apply_filters( 'radiusforms/design_tokens', $tokens );
 	}
 
 	/**
@@ -193,11 +193,11 @@ class Config {
 	 */
 	public static function brand() {
 		return apply_filters(
-			'activeforms/brand',
+			'radiusforms/brand',
 			array(
-				'name'      => __( 'ActiveForms', 'activeforms' ),
-				'shortName' => __( 'ActiveForms', 'activeforms' ),
-				'tagline'   => __( 'Drag & Drop Form Builder', 'activeforms' ),
+				'name'      => __( 'RadiusForms', 'radiusforms' ),
+				'shortName' => __( 'RadiusForms', 'radiusforms' ),
+				'tagline'   => __( 'Drag & Drop Form Builder', 'radiusforms' ),
 			)
 		);
 	}

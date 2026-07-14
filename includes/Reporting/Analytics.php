@@ -2,14 +2,14 @@
 /**
  * Reporting aggregator.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Reporting;
+namespace RadiusForms\Reporting;
 
-use ActiveForms\Core\Config;
-use ActiveForms\Models\Form;
-use ActiveForms\Support\Arr;
+use RadiusForms\Core\Config;
+use RadiusForms\Models\Form;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -115,7 +115,7 @@ class Analytics {
 			$form        = Form::find( (int) $r['form_id'] );
 			$top_forms[] = array(
 				'form_id'  => (int) $r['form_id'],
-				'title'    => $form ? $form['title'] : __( '(deleted form)', 'activeforms' ),
+				'title'    => $form ? $form['title'] : __( '(deleted form)', 'radiusforms' ),
 				'count'    => (int) $r['count'],
 				'payments' => (int) $r['payments'],
 			);
@@ -297,7 +297,7 @@ class Analytics {
 			$form        = Form::find( (int) $row['form_id'] );
 			$top_forms[] = array(
 				'form_id' => (int) $row['form_id'],
-				'title'   => $form ? $form['title'] : __( '(deleted form)', 'activeforms' ),
+				'title'   => $form ? $form['title'] : __( '(deleted form)', 'radiusforms' ),
 				'count'   => (int) $row['count'],
 			);
 		}
@@ -340,7 +340,7 @@ class Analytics {
 		 *
 		 * @param array $reportable Reportable field types.
 		 */
-		$reportable = apply_filters( 'activeforms/reportable_fields', $reportable );
+		$reportable = apply_filters( 'radiusforms/reportable_fields', $reportable );
 
 		$flat    = Arr::flatten_fields( $form['fields'] );
 		$reports = array();

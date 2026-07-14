@@ -2,12 +2,12 @@
 /**
  * Composite Address field.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Support\Arr;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -34,12 +34,12 @@ class AddressField extends AbstractCompositeField {
 	 */
 	protected function default_subfields() {
 		return array(
-			array( 'key' => 'address_line_1', 'label' => __( 'Address Line 1', 'activeforms' ), 'placeholder' => __( 'Address Line 1', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'address_line_2', 'label' => __( 'Address Line 2', 'activeforms' ), 'placeholder' => __( 'Address Line 2', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'city', 'label' => __( 'City', 'activeforms' ), 'placeholder' => __( 'City', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'state', 'label' => __( 'State', 'activeforms' ), 'placeholder' => __( 'State', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'zip', 'label' => __( 'Zip Code', 'activeforms' ), 'placeholder' => __( 'Zip', 'activeforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
-			array( 'key' => 'country', 'label' => __( 'Country', 'activeforms' ), 'placeholder' => '', 'visible' => true, 'required' => false, 'type' => 'country' ),
+			array( 'key' => 'address_line_1', 'label' => __( 'Address Line 1', 'radiusforms' ), 'placeholder' => __( 'Address Line 1', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'address_line_2', 'label' => __( 'Address Line 2', 'radiusforms' ), 'placeholder' => __( 'Address Line 2', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'city', 'label' => __( 'City', 'radiusforms' ), 'placeholder' => __( 'City', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'state', 'label' => __( 'State', 'radiusforms' ), 'placeholder' => __( 'State', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'zip', 'label' => __( 'Zip Code', 'radiusforms' ), 'placeholder' => __( 'Zip', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+			array( 'key' => 'country', 'label' => __( 'Country', 'radiusforms' ), 'placeholder' => '', 'visible' => true, 'required' => false, 'type' => 'country' ),
 		);
 	}
 
@@ -58,11 +58,11 @@ class AddressField extends AbstractCompositeField {
 	public function render( $field, $value = null ) {
 		$value   = (array) $value;
 		$visible = $this->visible_subfields( $field );
-		$control = '<div class="activeforms-address">';
+		$control = '<div class="radiusforms-address">';
 
 		// Two-column grid: chunk visible sub-fields into rows of two.
 		foreach ( array_chunk( $visible, 2 ) as $pair ) {
-			$control .= '<div class="activeforms-subfields activeforms-address__row">';
+			$control .= '<div class="radiusforms-subfields radiusforms-address__row">';
 			foreach ( $pair as $sub ) {
 				$control .= $this->subfield_control( $field, $sub, $value );
 			}

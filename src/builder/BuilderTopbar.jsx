@@ -18,7 +18,7 @@ const DEVICES = [
 function ShortcodeChip({ formId }) {
   const [copied, setCopied] = useState(false);
   if (!formId) return null;
-  const code = `[activeforms id="${formId}"]`;
+  const code = `[radiusforms id="${formId}"]`;
 
   const copy = () => {
     try {
@@ -29,10 +29,10 @@ function ShortcodeChip({ formId }) {
   };
 
   return (
-    <button type="button" className="activeforms-tb__chip" onClick={copy} title="Copy shortcode">
+    <button type="button" className="radiusforms-tb__chip" onClick={copy} title="Copy shortcode">
       <Icon name="code" size={14} />
       <code>{code}</code>
-      {copied && <span className="activeforms-tb__chip__ok"><Icon name="check" size={12} /></span>}
+      {copied && <span className="radiusforms-tb__chip__ok"><Icon name="check" size={12} /></span>}
     </button>
   );
 }
@@ -46,21 +46,21 @@ export default function BuilderTopbar({
   dirty, saving, onSave,
 }) {
   return (
-    <div className="activeforms-tb">
-      <div className="activeforms-tb__left">
-        <button type="button" className="activeforms-tb__icon" title={t('back', 'Back')} onClick={() => go('/forms')}>
+    <div className="radiusforms-tb">
+      <div className="radiusforms-tb__left">
+        <button type="button" className="radiusforms-tb__icon" title={t('back', 'Back')} onClick={() => go('/forms')}>
           <Icon name="back" />
         </button>
-        <div className="activeforms-tb__hist">
-          <button type="button" className="activeforms-tb__icon" title={t('undo', 'Undo')} disabled={!canUndo} onClick={onUndo}>
+        <div className="radiusforms-tb__hist">
+          <button type="button" className="radiusforms-tb__icon" title={t('undo', 'Undo')} disabled={!canUndo} onClick={onUndo}>
             <Icon name="undo" />
           </button>
-          <button type="button" className="activeforms-tb__icon" title={t('redo', 'Redo')} disabled={!canRedo} onClick={onRedo}>
+          <button type="button" className="radiusforms-tb__icon" title={t('redo', 'Redo')} disabled={!canRedo} onClick={onRedo}>
             <Icon name="redo" />
           </button>
         </div>
         <input
-          className="activeforms-tb__title"
+          className="radiusforms-tb__title"
           value={title}
           onChange={(e) => onTitle(e.target.value)}
           aria-label="Form title"
@@ -68,13 +68,13 @@ export default function BuilderTopbar({
         />
       </div>
 
-      <div className="activeforms-tb__center">
-        <div className="activeforms-tb__devices" role="group" aria-label="Preview width">
+      <div className="radiusforms-tb__center">
+        <div className="radiusforms-tb__devices" role="group" aria-label="Preview width">
           {DEVICES.map((d) => (
             <button
               key={d.key}
               type="button"
-              className={`activeforms-tb__dev${device === d.key ? ' is-active' : ''}`}
+              className={`radiusforms-tb__dev${device === d.key ? ' is-active' : ''}`}
               title={d.label}
               aria-pressed={device === d.key}
               onClick={() => onDevice(d.key)}
@@ -85,13 +85,13 @@ export default function BuilderTopbar({
         </div>
       </div>
 
-      <div className="activeforms-tb__right">
+      <div className="radiusforms-tb__right">
         <ShortcodeChip formId={formId} />
-        {dirty && <span className="activeforms-tb__dirty">{t('unsaved', 'Unsaved changes')}</span>}
-        <button type="button" className={`activeforms-tb__btn${preview ? ' is-active' : ''}`} onClick={onPreview}>
+        {dirty && <span className="radiusforms-tb__dirty">{t('unsaved', 'Unsaved changes')}</span>}
+        <button type="button" className={`radiusforms-tb__btn${preview ? ' is-active' : ''}`} onClick={onPreview}>
           <Icon name="eye" size={15} /> {t('previewDesign', 'Preview & Design')}
         </button>
-        <button type="button" className="activeforms-tb__btn activeforms-tb__btn--primary" onClick={onSave} disabled={saving}>
+        <button type="button" className="radiusforms-tb__btn radiusforms-tb__btn--primary" onClick={onSave} disabled={saving}>
           <Icon name={saving ? 'history' : 'check'} size={15} />
           {saving ? 'Saving…' : t('saveForm', 'Save Form')}
         </button>

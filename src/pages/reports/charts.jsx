@@ -19,16 +19,16 @@ export function StatCard({ icon, label, value, delta }) {
   const hasDelta = delta !== null && delta !== undefined;
   const up = hasDelta && delta >= 0;
   return (
-    <div className="activeforms-card activeforms-rep-stat">
-      <div className="activeforms-rep-stat__icon" aria-hidden="true">
+    <div className="radiusforms-card radiusforms-rep-stat">
+      <div className="radiusforms-rep-stat__icon" aria-hidden="true">
         <span className={`dashicons dashicons-${icon}`} />
       </div>
-      <div className="activeforms-rep-stat__body">
-        <div className="activeforms-rep-stat__label">{label}</div>
-        <div className="activeforms-rep-stat__value">
+      <div className="radiusforms-rep-stat__body">
+        <div className="radiusforms-rep-stat__label">{label}</div>
+        <div className="radiusforms-rep-stat__value">
           {value}
           {hasDelta && (
-            <span className={`activeforms-rep-delta${up ? ' is-up' : ' is-down'}`}>
+            <span className={`radiusforms-rep-delta${up ? ' is-up' : ' is-down'}`}>
               {up ? '▲' : '▼'} {Math.abs(delta)}%
             </span>
           )}
@@ -41,15 +41,15 @@ export function StatCard({ icon, label, value, delta }) {
 /** Card header with a title and optional right-aligned controls. */
 export function ChartCard({ title, subtitle, right, children }) {
   return (
-    <div className="activeforms-card activeforms-rep-card">
-      <div className="activeforms-rep-card__head">
+    <div className="radiusforms-card radiusforms-rep-card">
+      <div className="radiusforms-rep-card__head">
         <div>
           <h3>{title}</h3>
           {subtitle && <p>{subtitle}</p>}
         </div>
-        {right && <div className="activeforms-rep-card__tools">{right}</div>}
+        {right && <div className="radiusforms-rep-card__tools">{right}</div>}
       </div>
-      <div className="activeforms-rep-card__body">{children}</div>
+      <div className="radiusforms-rep-card__body">{children}</div>
     </div>
   );
 }
@@ -57,7 +57,7 @@ export function ChartCard({ title, subtitle, right, children }) {
 /** Small segmented toggle used inside chart headers. */
 export function Segmented({ value, onChange, options }) {
   return (
-    <div className="activeforms-rep-seg" role="group">
+    <div className="radiusforms-rep-seg" role="group">
       {options.map((o) => (
         <button key={o.value} type="button" className={value === o.value ? 'is-active' : ''} onClick={() => onChange(o.value)}>
           {o.label}
@@ -70,7 +70,7 @@ export function Segmented({ value, onChange, options }) {
 /** Empty state shown inside a chart body when there's no data. */
 export function ChartEmpty({ children = 'No data available for the selected range.' }) {
   return (
-    <div className="activeforms-rep-empty">
+    <div className="radiusforms-rep-empty">
       <span className="dashicons dashicons-chart-area" aria-hidden="true" />
       <p>{children}</p>
     </div>
@@ -110,12 +110,12 @@ export function LineBarChart({ series, labels, mode = 'bar', height = 240 }) {
 
   return (
     <div>
-      <div className="activeforms-rep-legend">
+      <div className="radiusforms-rep-legend">
         {series.map((s) => (
           <button
             key={s.key}
             type="button"
-            className={`activeforms-rep-legend__item${hidden[s.key] ? ' is-off' : ''}`}
+            className={`radiusforms-rep-legend__item${hidden[s.key] ? ' is-off' : ''}`}
             onClick={() => setHidden((h) => ({ ...h, [s.key]: !h[s.key] }))}
           >
             <span className="dot" style={{ background: s.color }} />
@@ -123,11 +123,11 @@ export function LineBarChart({ series, labels, mode = 'bar', height = 240 }) {
           </button>
         ))}
       </div>
-      <svg className="activeforms-rep-svg" viewBox={`0 0 ${W} ${H}`} role="img">
+      <svg className="radiusforms-rep-svg" viewBox={`0 0 ${W} ${H}`} role="img">
         {gridVals.map((v, i) => (
           <g key={i}>
-            <line x1={padL} x2={W - padR} y1={y(v)} y2={y(v)} className="activeforms-rep-grid" />
-            <text x={padL - 6} y={y(v) + 3} textAnchor="end" className="activeforms-rep-axis">{v}</text>
+            <line x1={padL} x2={W - padR} y1={y(v)} y2={y(v)} className="radiusforms-rep-grid" />
+            <text x={padL - 6} y={y(v) + 3} textAnchor="end" className="radiusforms-rep-axis">{v}</text>
           </g>
         ))}
 
@@ -156,7 +156,7 @@ export function LineBarChart({ series, labels, mode = 'bar', height = 240 }) {
           ))}
 
         {labels.map((l, i) => (i % labelEvery === 0 || i === n - 1) && (
-          <text key={i} x={colX(i)} y={H - 8} textAnchor="middle" className="activeforms-rep-axis">{shortDay(l)}</text>
+          <text key={i} x={colX(i)} y={H - 8} textAnchor="middle" className="radiusforms-rep-axis">{shortDay(l)}</text>
         ))}
       </svg>
     </div>
@@ -183,27 +183,27 @@ export function Gauge({ percentage = 0 }) {
   const polar = (ang) => `${cx + r * Math.cos(ang)},${cy - r * Math.sin(ang)}`;
   const arc = (from, to) => `M ${polar(from)} A ${r} ${r} 0 0 1 ${polar(to)}`;
   return (
-    <svg className="activeforms-rep-gauge" viewBox={`0 0 ${W} ${H}`} role="img">
-      <path d={arc(a0, 0)} className="activeforms-rep-gauge__track" />
-      <path d={arc(a0, a1)} className="activeforms-rep-gauge__fill" />
-      <text x={cx} y={cy - 30} textAnchor="middle" className="activeforms-rep-gauge__pct">{percentage}</text>
-      <text x={cx} y={cy - 12} textAnchor="middle" className="activeforms-rep-gauge__lbl">PERCENTAGE (%)</text>
+    <svg className="radiusforms-rep-gauge" viewBox={`0 0 ${W} ${H}`} role="img">
+      <path d={arc(a0, 0)} className="radiusforms-rep-gauge__track" />
+      <path d={arc(a0, a1)} className="radiusforms-rep-gauge__fill" />
+      <text x={cx} y={cy - 30} textAnchor="middle" className="radiusforms-rep-gauge__pct">{percentage}</text>
+      <text x={cx} y={cy - 12} textAnchor="middle" className="radiusforms-rep-gauge__lbl">PERCENTAGE (%)</text>
     </svg>
   );
 }
 
 /** Horizontal bars for ranked items (top forms, countries). */
-export function HBars({ items, color = 'var(--activeforms-color-primary, #4f46e5)', format }) {
+export function HBars({ items, color = 'var(--radiusforms-color-primary, #4f46e5)', format }) {
   const max = Math.max(1, ...items.map((i) => i.value));
   return (
-    <div className="activeforms-rep-hbars">
+    <div className="radiusforms-rep-hbars">
       {items.map((it, i) => (
-        <div key={i} className="activeforms-rep-hbar">
-          <div className="activeforms-rep-hbar__label" title={it.label}>{it.label}</div>
-          <div className="activeforms-rep-hbar__track">
-            <div className="activeforms-rep-hbar__fill" style={{ width: `${(it.value / max) * 100}%`, background: color }} />
+        <div key={i} className="radiusforms-rep-hbar">
+          <div className="radiusforms-rep-hbar__label" title={it.label}>{it.label}</div>
+          <div className="radiusforms-rep-hbar__track">
+            <div className="radiusforms-rep-hbar__fill" style={{ width: `${(it.value / max) * 100}%`, background: color }} />
           </div>
-          <div className="activeforms-rep-hbar__val">{format ? format(it.value) : it.value}</div>
+          <div className="radiusforms-rep-hbar__val">{format ? format(it.value) : it.value}</div>
         </div>
       ))}
     </div>
@@ -230,11 +230,11 @@ export function Heatmap({ matrix, half = 'am' }) {
     return Math.min(4, 1 + Math.floor((v / max) * 3.999));
   };
   return (
-    <div className="activeforms-rep-heat">
+    <div className="radiusforms-rep-heat">
       <table>
         <thead>
           <tr>
-            <th className="activeforms-rep-heat__corner">Day</th>
+            <th className="radiusforms-rep-heat__corner">Day</th>
             {hours.map((h) => <th key={h}>{hourLabel(h)}</th>)}
           </tr>
         </thead>
@@ -244,16 +244,16 @@ export function Heatmap({ matrix, half = 'am' }) {
               <th>{DOW[di]}</th>
               {hours.map((h) => (
                 <td key={h}>
-                  <span className={`activeforms-rep-cell s${shade(row[h])}`} title={`${DOW[di]} ${hourLabel(h)} — ${row[h]}`} />
+                  <span className={`radiusforms-rep-cell s${shade(row[h])}`} title={`${DOW[di]} ${hourLabel(h)} — ${row[h]}`} />
                 </td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="activeforms-rep-heat__legend">
+      <div className="radiusforms-rep-heat__legend">
         <span>Low</span>
-        {[0, 1, 2, 3, 4].map((s) => <span key={s} className={`activeforms-rep-cell s${s}`} />)}
+        {[0, 1, 2, 3, 4].map((s) => <span key={s} className={`radiusforms-rep-cell s${s}`} />)}
         <span>High</span>
       </div>
     </div>

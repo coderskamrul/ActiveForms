@@ -2,14 +2,14 @@
 /**
  * Shared base for grouped fields with toggleable sub-fields (Name, Address).
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
-use ActiveForms\Support\Countries;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
+use RadiusForms\Support\Countries;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -135,7 +135,7 @@ abstract class AbstractCompositeField extends AbstractField {
 			}
 			if ( '' === trim( (string) Arr::get( $value, $sub['key'], '' ) ) ) {
 				/* translators: %s: sub-field label. */
-				return sprintf( __( '%s is required.', 'activeforms' ), $sub['label'] );
+				return sprintf( __( '%s is required.', 'radiusforms' ), $sub['label'] );
 			}
 		}
 		return true;
@@ -165,7 +165,7 @@ abstract class AbstractCompositeField extends AbstractField {
 	protected function subfield_control( $field, $sub, $value ) {
 		$key   = esc_attr( Arr::get( $field, 'key', '' ) );
 		$name  = $key . '[' . esc_attr( $sub['key'] ) . ']';
-		$id    = 'activeforms-' . $key . '-' . esc_attr( $sub['key'] );
+		$id    = 'radiusforms-' . $key . '-' . esc_attr( $sub['key'] );
 		$pval  = isset( $value[ $sub['key'] ] ) ? $value[ $sub['key'] ] : '';
 		$req   = ! empty( $sub['required'] ) ? ' required' : '';
 		$plabel = '' !== (string) $sub['placeholder'] ? $sub['placeholder'] : $sub['label'];
@@ -173,14 +173,14 @@ abstract class AbstractCompositeField extends AbstractField {
 		// Per-sub-field label placement: top (default) | right | bottom | left | hide.
 		$placement = Arr::get( $sub, 'label_placement', '' );
 		$placement = $placement ? $placement : 'top';
-		$lp_class  = ' activeforms-subfield--lp-' . sanitize_html_class( $placement );
+		$lp_class  = ' radiusforms-subfield--lp-' . sanitize_html_class( $placement );
 
-		$html = '<div class="activeforms-subfield' . $lp_class . '">';
+		$html = '<div class="radiusforms-subfield' . $lp_class . '">';
 
 		if ( 'country' === Arr::get( $sub, 'type', 'text' ) ) {
-			$searchable = ! empty( $sub['searchable'] ) ? ' data-activeforms-searchable="1"' : '';
-			$html .= '<select class="activeforms-input activeforms-select activeforms-country" name="' . $name . '" id="' . $id . '"' . $req . $searchable . '>';
-			$html .= '<option value="">' . esc_html__( '— Select Country —', 'activeforms' ) . '</option>';
+			$searchable = ! empty( $sub['searchable'] ) ? ' data-radiusforms-searchable="1"' : '';
+			$html .= '<select class="radiusforms-input radiusforms-select radiusforms-country" name="' . $name . '" id="' . $id . '"' . $req . $searchable . '>';
+			$html .= '<option value="">' . esc_html__( '— Select Country —', 'radiusforms' ) . '</option>';
 			foreach ( Countries::resolve( $sub ) as $code => $clabel ) {
 				$html .= sprintf(
 					'<option value="%1$s"%2$s>%3$s</option>',
@@ -192,7 +192,7 @@ abstract class AbstractCompositeField extends AbstractField {
 			$html .= '</select>';
 		} else {
 			$html .= sprintf(
-				'<input type="text" class="activeforms-input" name="%1$s" id="%2$s" placeholder="%3$s" value="%4$s"%5$s />',
+				'<input type="text" class="radiusforms-input" name="%1$s" id="%2$s" placeholder="%3$s" value="%4$s"%5$s />',
 				$name,
 				$id,
 				esc_attr( $plabel ),
@@ -202,9 +202,9 @@ abstract class AbstractCompositeField extends AbstractField {
 		}
 
 		if ( 'hide' !== $placement ) {
-			$html .= '<small class="activeforms-sublabel">' . esc_html( $sub['label'] );
+			$html .= '<small class="radiusforms-sublabel">' . esc_html( $sub['label'] );
 			if ( ! empty( $sub['required'] ) ) {
-				$html .= ' <span class="activeforms-required" aria-hidden="true">*</span>';
+				$html .= ' <span class="radiusforms-required" aria-hidden="true">*</span>';
 			}
 			$html .= '</small>';
 		}

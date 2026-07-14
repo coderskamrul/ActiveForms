@@ -2,22 +2,22 @@
 /**
  * Plugin bootstrap / orchestrator.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Core;
+namespace RadiusForms\Core;
 
-use ActiveForms\Admin\Menu;
-use ActiveForms\Admin\AdminAssets;
-use ActiveForms\Fields\FieldRegistry;
-use ActiveForms\Integrations\IntegrationRegistry;
-use ActiveForms\Notifications\SmartCodes;
-use ActiveForms\Rest\RestServiceProvider;
-use ActiveForms\Frontend\Shortcode;
-use ActiveForms\Frontend\FormRenderer;
-use ActiveForms\Frontend\SubmissionProcessor;
-use ActiveForms\Frontend\PreviewPage;
-use ActiveForms\Support\Logger;
+use RadiusForms\Admin\Menu;
+use RadiusForms\Admin\AdminAssets;
+use RadiusForms\Fields\FieldRegistry;
+use RadiusForms\Integrations\IntegrationRegistry;
+use RadiusForms\Notifications\SmartCodes;
+use RadiusForms\Rest\RestServiceProvider;
+use RadiusForms\Frontend\Shortcode;
+use RadiusForms\Frontend\FormRenderer;
+use RadiusForms\Frontend\SubmissionProcessor;
+use RadiusForms\Frontend\PreviewPage;
+use RadiusForms\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -101,11 +101,11 @@ final class Plugin {
 				$registry = new FieldRegistry();
 				$registry->register_defaults();
 				/**
-				 * Allow add-ons (ActiveForms Pro) to register field types.
+				 * Allow add-ons (RadiusForms Pro) to register field types.
 				 *
 				 * @param FieldRegistry $registry Field registry.
 				 */
-				do_action( 'activeforms_register_fields', $registry );
+				do_action( 'radiusforms_register_fields', $registry );
 				return $registry;
 			}
 		);
@@ -120,7 +120,7 @@ final class Plugin {
 				 *
 				 * @param IntegrationRegistry $registry Integration registry.
 				 */
-				do_action( 'activeforms_register_integrations', $registry );
+				do_action( 'radiusforms_register_integrations', $registry );
 				return $registry;
 			}
 		);
@@ -164,10 +164,10 @@ final class Plugin {
 		// WP 4.6, so no manual load_plugin_textdomain() call is needed.
 
 		/**
-		 * Fires once ActiveForms has finished booting its core subsystems.
+		 * Fires once RadiusForms has finished booting its core subsystems.
 		 *
 		 * @param Plugin $plugin Plugin instance.
 		 */
-		do_action( 'activeforms/booted', $this );
+		do_action( 'radiusforms/booted', $this );
 	}
 }

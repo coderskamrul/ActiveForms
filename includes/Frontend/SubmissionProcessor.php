@@ -2,19 +2,19 @@
 /**
  * Public submission endpoint and processing pipeline.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Frontend;
+namespace RadiusForms\Frontend;
 
-use ActiveForms\Core\Container;
-use ActiveForms\Core\Config;
-use ActiveForms\Models\Form;
-use ActiveForms\Models\Entry;
-use ActiveForms\Spam\SpamGuard;
-use ActiveForms\Notifications\EmailNotifier;
-use ActiveForms\Support\Arr;
-use ActiveForms\Support\UserAgent;
+use RadiusForms\Core\Container;
+use RadiusForms\Core\Config;
+use RadiusForms\Models\Form;
+use RadiusForms\Models\Entry;
+use RadiusForms\Spam\SpamGuard;
+use RadiusForms\Notifications\EmailNotifier;
+use RadiusForms\Support\Arr;
+use RadiusForms\Support\UserAgent;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +47,7 @@ class SubmissionProcessor {
 	 */
 	public function register() {
 		add_action( 'rest_api_init', array( $this, 'register_route' ) );
-		add_action( 'activeforms_process_scheduled_actions', array( $this, 'process_queue' ) );
+		add_action( 'radiusforms_process_scheduled_actions', array( $this, 'process_queue' ) );
 	}
 
 	/**
@@ -75,14 +75,14 @@ class SubmissionProcessor {
 	 */
 	public function handle( $request ) {
 		$payload = $request->get_params();
-		$form_id = isset( $payload['activeforms_form_id'] ) ? (int) $payload['activeforms_form_id'] : 0;
-		$nonce   = isset( $payload['activeforms_nonce'] ) ? $payload['activeforms_nonce'] : '';
+		$form_id = isset( $payload['radiusforms_form_id'] ) ? (int) $payload['radiusforms_form_id'] : 0;
+		$nonce   = isset( $payload['radiusforms_nonce'] ) ? $payload['radiusforms_nonce'] : '';
 
-		if ( ! $form_id || ! wp_verify_nonce( $nonce, 'activeforms_submit_' . $form_id ) ) {
+		if ( ! $form_id || ! wp_verify_nonce( $nonce, 'radiusforms_submit_' . $form_id ) ) {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'Security check failed. Please refresh and try again.', 'activeforms' ),
+					'message' => __( 'Security check failed. Please refresh and try again.', 'radiusforms' ),
 				),
 				403
 			);
@@ -93,7 +93,7 @@ class SubmissionProcessor {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'This form is not available.', 'activeforms' ),
+					'message' => __( 'This form is not available.', 'radiusforms' ),
 				),
 				404
 			);
@@ -112,7 +112,7 @@ class SubmissionProcessor {
 		 * @param array $form    Form schema.
 		 * @param array $payload Raw payload.
 		 */
-		do_action( 'activeforms/before_validation', $form, $payload );
+		do_action( 'radiusforms/before_validation', $form, $payload );
 
 		// Validate + sanitize.
 		$validator = new Validator( $this->container->get( 'fields' ) );
@@ -120,7 +120,7 @@ class SubmissionProcessor {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => __( 'Please correct the highlighted fields.', 'activeforms' ),
+					'message' => __( 'Please correct the highlighted fields.', 'radiusforms' ),
 					'errors'  => $validator->errors(),
 				),
 				422
@@ -140,7 +140,7 @@ class SubmissionProcessor {
 			array(
 				'form_id'    => $form_id,
 				'response'   => $values,
-				'source_url' => isset( $payload['activeforms_source_url'] ) ? $payload['activeforms_source_url'] : '',
+				'source_url' => isset( $payload['radiusforms_source_url'] ) ? $payload['radiusforms_source_url'] : '',
 				'ip'         => $this->client_ip(),
 				'browser'    => $agent['browser'],
 				'device'     => $agent['device'],
@@ -167,7 +167,7 @@ class SubmissionProcessor {
 		 * @param array $entry Entry data.
 		 * @param array $form  Form schema.
 		 */
-		do_action( 'activeforms/after_submission', $entry, $form );
+		do_action( 'radiusforms/after_submission', $entry, $form );
 
 		return new \WP_REST_Response(
 			array(
@@ -200,7 +200,7 @@ class SubmissionProcessor {
 			);
 		}
 
-		$message = Arr::get( $confirmation, 'message', __( 'Thank you! Your submission has been received.', 'activeforms' ) );
+		$message = Arr::get( $confirmation, 'message', __( 'Thank you! Your submission has been received.', 'radiusforms' ) );
 		return array(
 			'type'    => 'message',
 			'message' => wp_kses_post( $codes->parse( $message, $entry, $form ) ),
@@ -251,7 +251,7 @@ class SubmissionProcessor {
 		/**
 		 * Hook for add-ons to drain the async integration queue.
 		 */
-		do_action( 'activeforms/process_queue', $this->container );
+		do_action( 'radiusforms/process_queue', $this->container );
 	}
 
 	/**

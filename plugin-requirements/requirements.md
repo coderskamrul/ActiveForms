@@ -1,11 +1,11 @@
-* Plugin Name: **ActiveForms**
-* Free Plugin Slug: **activeforms**
-* Pro Plugin: **ActiveForms Pro**
-* Text Domain: **activeforms**
-* PHP Prefix: **activeforms_**
-* Class Prefix: **ActiveForms\**
-* React Namespace: **ActiveForms**
-* Gutenberg Namespace: **activeforms/**
+* Plugin Name: **RadiusForms**
+* Free Plugin Slug: **radiusforms**
+* Pro Plugin: **RadiusForms Pro**
+* Text Domain: **radiusforms**
+* PHP Prefix: **radiusforms_**
+* Class Prefix: **RadiusForms\**
+* React Namespace: **RadiusForms**
+* Gutenberg Namespace: **radiusforms/**
 
 Create a centralized global configuration and design system for this WordPress plugin so that Plugin Name, Plugin Slug, Prefix, Text Domain, REST Namespace, React Config, Option Keys, Translation Strings, and UI Styles are manageable from a single source.
 

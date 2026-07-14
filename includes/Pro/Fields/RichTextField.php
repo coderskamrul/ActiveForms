@@ -2,13 +2,13 @@
 /**
  * Rich text field (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Fields;
+namespace RadiusFormsPro\Fields;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,7 +23,7 @@ class RichTextField extends AbstractField {
 	 */
 	public function __construct() {
 		$this->type     = 'rich_text';
-		$this->label    = __( 'Rich Text', 'activeforms' );
+		$this->label    = __( 'Rich Text', 'radiusforms' );
 		$this->icon     = 'editor-paragraph';
 		$this->category = 'advanced';
 		$this->input    = true;
@@ -64,9 +64,9 @@ class RichTextField extends AbstractField {
 
 		$required = $this->is_required( $field ) ? ' required' : '';
 
-		$control  = '<div class="activeforms-richtext" data-activeforms-richtext>';
+		$control  = '<div class="radiusforms-richtext" data-radiusforms-richtext>';
 		$control .= sprintf(
-			'<textarea class="activeforms-richtext__source" name="%1$s" id="activeforms-%1$s" rows="%2$d"%3$s>%4$s</textarea>',
+			'<textarea class="radiusforms-richtext__source" name="%1$s" id="radiusforms-%1$s" rows="%2$d"%3$s>%4$s</textarea>',
 			$key,
 			$rows,
 			$required,

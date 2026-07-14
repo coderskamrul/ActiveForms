@@ -2,14 +2,14 @@
 /**
  * Country dropdown field.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
-use ActiveForms\Support\Countries;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
+use RadiusForms\Support\Countries;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,10 +58,10 @@ class CountryField extends AbstractField {
 	 */
 	public function render( $field, $value = null ) {
 		$value      = null === $value ? Arr::get( $field, 'default', '' ) : $value;
-		$searchable = ! empty( $field['searchable'] ) ? ' data-activeforms-searchable="1"' : '';
+		$searchable = ! empty( $field['searchable'] ) ? ' data-radiusforms-searchable="1"' : '';
 
-		$control  = '<select class="activeforms-input activeforms-select activeforms-country"' . $this->input_attrs( $field ) . $searchable . '>';
-		$control .= '<option value="">' . esc_html__( '— Select Country —', 'activeforms' ) . '</option>';
+		$control  = '<select class="radiusforms-input radiusforms-select radiusforms-country"' . $this->input_attrs( $field ) . $searchable . '>';
+		$control .= '<option value="">' . esc_html__( '— Select Country —', 'radiusforms' ) . '</option>';
 		foreach ( Countries::resolve( $field ) as $code => $label ) {
 			$control .= sprintf(
 				'<option value="%1$s"%2$s>%3$s</option>',

@@ -93,7 +93,7 @@ function SpamTab({ settings, setRecaptcha }) {
               <Text value={r.site_key} onChange={(v) => setRecaptcha('site_key', v)} placeholder="Site key" />
             </Row>
             <Row title="Secret Key" stacked description="The private key used for server-side verification. Stored securely.">
-              <input className="activeforms-input" type="password" value={r.secret_key || ''} onChange={(e) => setRecaptcha('secret_key', e.target.value)} placeholder="Secret key" />
+              <input className="radiusforms-input" type="password" value={r.secret_key || ''} onChange={(e) => setRecaptcha('secret_key', e.target.value)} placeholder="Secret key" />
             </Row>
           </>
         )}
@@ -106,9 +106,9 @@ function SpamTab({ settings, setRecaptcha }) {
 
 function PrivacyTab({ settings, setField }) {
   return (
-    <Section title="Data Cleanup" description="What happens to your forms and entries when ActiveForms is removed.">
+    <Section title="Data Cleanup" description="What happens to your forms and entries when RadiusForms is removed.">
       <Note icon="warning">Deleting all data is permanent. Forms, entries, and settings cannot be recovered after uninstall.</Note>
-      <Row title="Remove All Data on Uninstall" toggle description="Drop all ActiveForms tables and options when the plugin is deleted.">
+      <Row title="Remove All Data on Uninstall" toggle description="Drop all RadiusForms tables and options when the plugin is deleted.">
         <Toggle checked={!!settings.remove_data_on_uninstall} onChange={(v) => setField('remove_data_on_uninstall', v)} />
       </Row>
     </Section>

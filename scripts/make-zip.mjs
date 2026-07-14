@@ -1,7 +1,7 @@
 /**
- * Builds a distributable activeforms.zip containing only the files WordPress.org
- * needs. The archive nests everything under an "activeforms/" top-level folder so
- * it installs to wp-content/plugins/activeforms.
+ * Builds a distributable radiusforms.zip containing only the files WordPress.org
+ * needs. The archive nests everything under an "radiusforms/" top-level folder so
+ * it installs to wp-content/plugins/radiusforms.
  *
  * Run after `npm run build` (the `zip` / `release` npm scripts do this).
  */
@@ -10,7 +10,7 @@ import { join, relative, sep, extname } from 'path';
 import archiver from 'archiver';
 
 const root = process.cwd();
-const slug = 'activeforms';
+const slug = 'radiusforms';
 const outFile = join(root, `${slug}.zip`);
 
 // Directories and files excluded from the distributed build.

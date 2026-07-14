@@ -81,7 +81,7 @@ function FieldChart({ field }) {
             <span style={{ color: 'var(--_muted)' }}>{b.count} · {Math.round((b.count / total) * 100)}%</span>
           </div>
           <div style={{ height: 8, background: 'var(--_surface-alt)', borderRadius: 999 }}>
-            <div style={{ width: `${(b.count / total) * 100}%`, height: '100%', background: 'var(--activeforms-color-primary, #4f46e5)', borderRadius: 999 }} />
+            <div style={{ width: `${(b.count / total) * 100}%`, height: '100%', background: 'var(--radiusforms-color-primary, #4f46e5)', borderRadius: 999 }} />
           </div>
         </div>
       ))}
@@ -120,14 +120,14 @@ function OverviewTab({ data }) {
 
   return (
     <>
-      <div className="activeforms-grid activeforms-grid-4 activeforms-rep-stats">
+      <div className="radiusforms-grid radiusforms-grid-4 radiusforms-rep-stats">
         <StatCard icon="feedback" label="Total Submissions" value={data.cards.submissions.value} delta={data.cards.submissions.delta} />
         <StatCard icon="warning" label="Spam Submissions" value={data.cards.spam.value} />
         <StatCard icon="email" label="Unread Submissions" value={data.cards.unread.value} />
         <StatCard icon="feedback" label="Created Forms" value={data.cards.forms.value} />
       </div>
 
-      <div className="activeforms-rep-row activeforms-rep-row--2-1">
+      <div className="radiusforms-rep-row radiusforms-rep-row--2-1">
         <ChartCard
           title="Overview Chart"
           right={<Segmented value={chartMode} onChange={setChartMode} options={[{ value: 'line', label: 'Line' }, { value: 'bar', label: 'Bar' }]} />}
@@ -137,14 +137,14 @@ function OverviewTab({ data }) {
 
         <ChartCard title="Completion Rate" subtitle="Complete vs incomplete submissions">
           <Gauge percentage={data.completion.percentage} />
-          <div className="activeforms-rep-gauge-stats">
+          <div className="radiusforms-rep-gauge-stats">
             <div><span className="num">{data.completion.incomplete}</span><span className="lbl">Incomplete</span></div>
             <div><span className="num">{data.completion.complete}</span><span className="lbl">Complete</span></div>
           </div>
         </ChartCard>
       </div>
 
-      <div className="activeforms-rep-row activeforms-rep-row--2">
+      <div className="radiusforms-rep-row radiusforms-rep-row--2">
         <ChartCard
           title="Top Performing Forms"
           right={<Segmented value={topMetric} onChange={setTopMetric} options={[{ value: 'submissions', label: 'Submissions' }, { value: 'payments', label: 'Payments' }]} />}
@@ -187,7 +187,7 @@ function PaymentsTab({ data }) {
   const items = paidForms.map((f) => ({ label: f.title, value: f.payments }));
   return (
     <>
-      <div className="activeforms-grid activeforms-grid-4 activeforms-rep-stats">
+      <div className="radiusforms-grid radiusforms-grid-4 radiusforms-rep-stats">
         <StatCard icon="money-alt" label="Total Revenue" value={money(totalRevenue)} />
         <StatCard icon="cart" label="Paying Forms" value={paidForms.length} />
         <StatCard icon="feedback" label="Total Submissions" value={data.cards.submissions.value} delta={data.cards.submissions.delta} />
@@ -211,7 +211,7 @@ function SubmissionsTab({ data, formId, fieldReport }) {
       ) : (!fieldReport.fields || fieldReport.fields.length === 0) ? (
         <Card><Empty icon="📊" title="No reportable fields">Add dropdown, radio, checkbox, or country fields to see analytics.</Empty></Card>
       ) : (
-        <div className="activeforms-grid activeforms-grid-2">
+        <div className="radiusforms-grid radiusforms-grid-2">
           {fieldReport.fields.map((f) => <FieldChart key={f.key} field={f} />)}
         </div>
       )}
@@ -256,15 +256,15 @@ export default function Reports({ formId: routeFormId }) {
   }, [formId]);
 
   const filters = (
-    <div className="activeforms-rep-filters">
-      <select className="activeforms-select" value={formId} onChange={(e) => setFormId(Number(e.target.value))}>
+    <div className="radiusforms-rep-filters">
+      <select className="radiusforms-select" value={formId} onChange={(e) => setFormId(Number(e.target.value))}>
         <option value={0}>All Forms</option>
         {forms.map((f) => <option key={f.id} value={f.id}>{f.title}</option>)}
       </select>
-      <select className="activeforms-select" value={preset} onChange={(e) => setPreset(e.target.value)}>
+      <select className="radiusforms-select" value={preset} onChange={(e) => setPreset(e.target.value)}>
         {PRESETS.map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
       </select>
-      <span className="activeforms-rep-range"><span className="dashicons dashicons-calendar-alt" aria-hidden="true" /> {rangeLabel(range.from, range.to)}</span>
+      <span className="radiusforms-rep-range"><span className="dashicons dashicons-calendar-alt" aria-hidden="true" /> {rangeLabel(range.from, range.to)}</span>
     </div>
   );
 
@@ -272,14 +272,14 @@ export default function Reports({ formId: routeFormId }) {
     <div>
       <PageHead title="Reports" subtitle="A brief look at your overall form performance" actions={filters} />
 
-      <div className="activeforms-tabs activeforms-rep-tabs">
+      <div className="radiusforms-tabs radiusforms-rep-tabs">
         {TABS.map((t) => (
           <button key={t.key} type="button" className={tab === t.key ? 'is-active' : ''} onClick={() => setTab(t.key)}>{t.label}</button>
         ))}
       </div>
 
       {data === null ? <Loading /> : (
-        <div className="activeforms-rep">
+        <div className="radiusforms-rep">
           {tab === 'overview' && <OverviewTab data={data} />}
           {tab === 'payments' && <PaymentsTab data={data} />}
           {tab === 'submissions' && <SubmissionsTab data={data} formId={formId} fieldReport={fieldReport} />}

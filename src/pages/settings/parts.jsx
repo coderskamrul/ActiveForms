@@ -16,15 +16,15 @@ function Mark({ badge }) {
 /** A titled, optionally-badged card grouping related rows. */
 export function Section({ title, description, badge, locked = false, children }) {
   return (
-    <section className={`activeforms-set-section${locked ? ' is-locked' : ''}`}>
-      <header className="activeforms-set-section__head">
-        <div className="activeforms-set-section__head-top">
+    <section className={`radiusforms-set-section${locked ? ' is-locked' : ''}`}>
+      <header className="radiusforms-set-section__head">
+        <div className="radiusforms-set-section__head-top">
           <h3>{title}</h3>
           <Mark badge={badge} />
         </div>
         {description && <p>{description}</p>}
       </header>
-      <div className="activeforms-set-section__body">{children}</div>
+      <div className="radiusforms-set-section__body">{children}</div>
     </section>
   );
 }
@@ -36,17 +36,17 @@ export function Section({ title, description, badge, locked = false, children })
  */
 export function Row({ title, description, badge, disabled = false, stacked = false, toggle = false, children }) {
   const cls = [
-    'activeforms-set-row',
+    'radiusforms-set-row',
     disabled && 'is-disabled',
     stacked && 'is-stacked',
   ].filter(Boolean).join(' ');
   return (
     <div className={cls}>
-      <div className="activeforms-set-row__label">
-        <span className="activeforms-set-row__title">{title}<Mark badge={badge} /></span>
-        {description && <span className="activeforms-set-row__desc">{description}</span>}
+      <div className="radiusforms-set-row__label">
+        <span className="radiusforms-set-row__title">{title}<Mark badge={badge} /></span>
+        {description && <span className="radiusforms-set-row__desc">{description}</span>}
       </div>
-      <div className={`activeforms-set-row__control${toggle ? ' activeforms-set-row__control--toggle' : ''}`}>
+      <div className={`radiusforms-set-row__control${toggle ? ' radiusforms-set-row__control--toggle' : ''}`}>
         {children}
       </div>
     </div>
@@ -56,7 +56,7 @@ export function Row({ title, description, badge, disabled = false, stacked = fal
 /** A small inline informational callout shown inside a section body. */
 export function Note({ icon = 'info-outline', children }) {
   return (
-    <div className="activeforms-set-note">
+    <div className="radiusforms-set-note">
       <span className={`dashicons dashicons-${icon}`} aria-hidden="true" />
       <div>{children}</div>
     </div>
@@ -66,7 +66,7 @@ export function Note({ icon = 'info-outline', children }) {
 /** Segmented (single-choice) control — a compact alternative to radios. */
 export function Segmented({ value, onChange, options, disabled = false }) {
   return (
-    <div className="activeforms-seg" role="group">
+    <div className="radiusforms-seg" role="group">
       {options.map((o) => (
         <button
           key={o.value}
@@ -85,7 +85,7 @@ export function Segmented({ value, onChange, options, disabled = false }) {
 /** A native select bound to value/onChange with an options array. */
 export function Select({ value, onChange, options, disabled = false }) {
   return (
-    <select className="activeforms-select" value={value} disabled={disabled} onChange={(e) => onChange(e.target.value)}>
+    <select className="radiusforms-select" value={value} disabled={disabled} onChange={(e) => onChange(e.target.value)}>
       {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
     </select>
   );

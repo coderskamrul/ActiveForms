@@ -2,10 +2,10 @@
 /**
  * Base class for third-party integrations.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Integrations;
+namespace RadiusForms\Integrations;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -101,7 +101,7 @@ abstract class AbstractIntegration {
 	 * @return array<string,mixed>
 	 */
 	protected function settings() {
-		$all = get_option( 'activeforms_integration_' . $this->slug, array() );
+		$all = get_option( 'radiusforms_integration_' . $this->slug, array() );
 		return is_array( $all ) ? $all : array();
 	}
 }

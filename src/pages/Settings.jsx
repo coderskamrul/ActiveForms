@@ -54,24 +54,24 @@ export default function Settings() {
 
   return (
     <div>
-      <PageHead title="Settings" subtitle="Configure global defaults, protection, and account preferences for ActiveForms." />
+      <PageHead title="Settings" subtitle="Configure global defaults, protection, and account preferences for RadiusForms." />
 
-      <div className="activeforms-settings">
-        <nav className="activeforms-settings__rail" aria-label="Settings sections">
+      <div className="radiusforms-settings">
+        <nav className="radiusforms-settings__rail" aria-label="Settings sections">
           {GROUP_ORDER.map((group) => {
             const items = TABS.filter((t) => t.group === group);
             if (!items.length) return null;
             return (
-              <div className="activeforms-settings__group" key={group}>
-                <span className="activeforms-settings__group-label">{group}</span>
+              <div className="radiusforms-settings__group" key={group}>
+                <span className="radiusforms-settings__group-label">{group}</span>
                 {items.map((t) => (
                   <a
                     key={t.key}
                     href={`#/settings/${t.key}`}
-                    className={`activeforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`}
+                    className={`radiusforms-settings__navitem${t.key === activeKey ? ' is-active' : ''}`}
                   >
                     <span className={`dashicons dashicons-${t.icon}`} aria-hidden="true" />
-                    <span className="activeforms-settings__navitem-label">{t.label}</span>
+                    <span className="radiusforms-settings__navitem-label">{t.label}</span>
                   </a>
                 ))}
               </div>
@@ -79,15 +79,15 @@ export default function Settings() {
           })}
         </nav>
 
-        <div className="activeforms-settings__panel">
-          <div className="activeforms-settings__panel-head">
+        <div className="radiusforms-settings__panel">
+          <div className="radiusforms-settings__panel-head">
             <div>
               <h2>{activeTab.label}</h2>
             </div>
             <Button variant="primary" onClick={save} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button>
           </div>
 
-          <div className="activeforms-settings__sections">
+          <div className="radiusforms-settings__sections">
             <Content
               settings={settings}
               setField={setField}

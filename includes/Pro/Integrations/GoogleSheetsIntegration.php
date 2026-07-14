@@ -2,12 +2,12 @@
 /**
  * Google Sheets integration (Pro).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Integrations;
+namespace RadiusFormsPro\Integrations;
 
-use ActiveForms\Integrations\AbstractIntegration;
+use RadiusForms\Integrations\AbstractIntegration;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,7 +40,7 @@ class GoogleSheetsIntegration extends AbstractIntegration {
 			array(
 				'key'   => 'service_account',
 				'type'  => 'textarea',
-				'label' => __( 'Service Account JSON', 'activeforms' ),
+				'label' => __( 'Service Account JSON', 'radiusforms' ),
 			),
 		);
 	}
@@ -53,12 +53,12 @@ class GoogleSheetsIntegration extends AbstractIntegration {
 			array(
 				'key'   => 'spreadsheet_id',
 				'type'  => 'text',
-				'label' => __( 'Spreadsheet ID', 'activeforms' ),
+				'label' => __( 'Spreadsheet ID', 'radiusforms' ),
 			),
 			array(
 				'key'   => 'worksheet',
 				'type'  => 'text',
-				'label' => __( 'Worksheet name', 'activeforms' ),
+				'label' => __( 'Worksheet name', 'radiusforms' ),
 			),
 		);
 	}
@@ -82,7 +82,7 @@ class GoogleSheetsIntegration extends AbstractIntegration {
 		 * @param array $entry Entry data.
 		 * @param array $form  Form schema.
 		 */
-		do_action( 'activeforms_pro/google_sheets_dispatch', $feed, $entry, $form );
+		do_action( 'radiusforms_pro/google_sheets_dispatch', $feed, $entry, $form );
 		return true;
 	}
 }

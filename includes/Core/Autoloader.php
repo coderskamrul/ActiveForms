@@ -2,15 +2,15 @@
 /**
  * Lightweight PSR-4 autoloader.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Core;
+namespace RadiusForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Maps the ActiveForms\ namespace onto the includes/ directory without requiring
+ * Maps the RadiusForms\ namespace onto the includes/ directory without requiring
  * Composer in the distributed plugin.
  */
 class Autoloader {
@@ -32,7 +32,7 @@ class Autoloader {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $prefix   Namespace prefix, e.g. "ActiveForms\".
+	 * @param string $prefix   Namespace prefix, e.g. "RadiusForms\".
 	 * @param string $base_dir Directory the prefix maps to.
 	 */
 	public function __construct( $prefix, $base_dir ) {

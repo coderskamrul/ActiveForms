@@ -2,10 +2,10 @@
 /**
  * Country list + helpers (full ISO 3166-1, flag emoji, list filtering).
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Support;
+namespace RadiusForms\Support;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -75,11 +75,11 @@ class Countries {
 		);
 
 		/**
-		 * Filter the ActiveForms country list.
+		 * Filter the RadiusForms country list.
 		 *
 		 * @param array $list ISO code => name.
 		 */
-		return apply_filters( 'activeforms/countries', $list );
+		return apply_filters( 'radiusforms/countries', $list );
 	}
 
 	/**

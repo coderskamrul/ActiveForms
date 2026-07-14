@@ -1,14 +1,14 @@
-# ActiveForms — Project Requirements & Feature Specification
+# RadiusForms — Project Requirements & Feature Specification
 
-> **Plugin:** ActiveForms – Drag & Drop Form Builder for WordPress
-> **Free slug:** `activeforms` · **Pro:** ActiveForms Pro · **Text Domain:** `activeforms`
-> **Class namespace:** `ActiveForms\` · **PHP/option prefix:** `activeforms_` · **REST namespace:** `activeforms/v1`
-> **React namespace:** `ActiveForms` · **Block namespace:** `activeforms/`
+> **Plugin:** RadiusForms – Drag & Drop Form Builder for WordPress
+> **Free slug:** `radiusforms` · **Pro:** RadiusForms Pro · **Text Domain:** `radiusforms`
+> **Class namespace:** `RadiusForms\` · **PHP/option prefix:** `radiusforms_` · **REST namespace:** `radiusforms/v1`
+> **React namespace:** `RadiusForms` · **Block namespace:** `radiusforms/`
 > **Targets:** WordPress 6.2+, PHP 7.4+, Node.js 20 (frontend build), WordPress.org Plugin Directory.
 
-This document specifies the complete feature set ActiveForms delivers. It is derived from a full
+This document specifies the complete feature set RadiusForms delivers. It is derived from a full
 analysis of Fluent Forms (Free) and Fluent Forms Pro, and reframed as an **original implementation**
-with a distinct architecture, folder structure, and codebase. ActiveForms aims for feature parity with
+with a distinct architecture, folder structure, and codebase. RadiusForms aims for feature parity with
 the user-facing capabilities of both products while shipping a modern React admin and a clean,
 WordPress.org-compliant PHP backend.
 
@@ -16,12 +16,12 @@ WordPress.org-compliant PHP backend.
 
 ## 1. Product Vision & Principles
 
-| Principle | What it means for ActiveForms |
+| Principle | What it means for RadiusForms |
 | --- | --- |
 | **Modern, fast UI** | A single-page React admin (Vite build) with a drag-and-drop builder, instant preview, and a token-driven design system supporting light/dark mode. |
 | **Original codebase** | No code copied from Fluent Forms. Custom autoloader, service container, REST layer, field registry, and DB schema designed from scratch. |
 | **.org-ready** | Strict adherence to WordPress Plugin Directory guidelines: prefixing, escaping/sanitization, nonces, `permission_callback`, GPLv2+, no obfuscation, sandboxed assets. |
-| **Free + Pro split** | A free core that is fully usable, with Pro features gated behind an extensibility layer (hooks/registries) so ActiveForms Pro can attach without forking the core. |
+| **Free + Pro split** | A free core that is fully usable, with Pro features gated behind an extensibility layer (hooks/registries) so RadiusForms Pro can attach without forking the core. |
 | **Centralized config** | Plugin name, slug, prefixes, REST namespace, option keys, capabilities, design tokens, and translatable strings all flow from a single source of truth shared by PHP and React. |
 | **Scalable & white-label-ready** | Internal DB keys, namespaces, and option names stay stable even if branding changes. A theme/config object enables future rebranding by editing one place. |
 
@@ -29,17 +29,17 @@ WordPress.org-compliant PHP backend.
 
 ## 2. Architecture Overview (Original Design)
 
-ActiveForms deliberately uses a different architecture from Fluent Forms (which uses the WPFluent
-framework, Eloquent-style models, and a `boot/app.php` container). ActiveForms uses a lightweight,
+RadiusForms deliberately uses a different architecture from Fluent Forms (which uses the WPFluent
+framework, Eloquent-style models, and a `boot/app.php` container). RadiusForms uses a lightweight,
 purpose-built structure:
 
 ```
-activeforms/
-├── activeforms.php                  # Main bootstrap (header, constants, autoloader handoff)
+radiusforms/
+├── radiusforms.php                  # Main bootstrap (header, constants, autoloader handoff)
 ├── uninstall.php                  # Full data cleanup guarded by WP_UNINSTALL_PLUGIN
 ├── readme.txt                     # WordPress.org readme
 ├── package.json / vite.config.js  # Node 20 frontend toolchain
-├── includes/                      # PHP backend (PSR-4: ActiveForms\)
+├── includes/                      # PHP backend (PSR-4: RadiusForms\)
 │   ├── Core/                       # Plugin, Config, Container, Autoloader, Activator, Deactivator, I18n
 │   ├── Database/                   # Schema, Installer, Tables/*, Query builder helpers
 │   ├── Models/                     # Form, Entry, FormMeta, EntryMeta, Log (plain data-mapper objects)
@@ -56,7 +56,7 @@ activeforms/
 │   └── Support/                    # Helpers, Arr, Str, Sanitizer, Validator, Logger
 ├── src/                            # React app (JSX)
 │   ├── main.jsx                    # Entry; mounts router
-│   ├── config/                     # Reads window.ActiveFormsConfig (localized), design tokens
+│   ├── config/                     # Reads window.RadiusFormsConfig (localized), design tokens
 │   ├── theme/                      # CSS variables + light/dark; tokens.css
 │   ├── api/                        # REST client (nonce-aware fetch wrapper)
 │   ├── store/                      # Global state (forms, builder, entries)
@@ -71,12 +71,12 @@ activeforms/
 
 **Key technical choices**
 
-- **Autoloading:** A small custom PSR-4 autoloader (`ActiveForms\` → `includes/`). Composer optional for
+- **Autoloading:** A small custom PSR-4 autoloader (`RadiusForms\` → `includes/`). Composer optional for
   dev only; the distributed plugin does not require a vendor directory for core.
 - **Service container:** A minimal `Container` providing singletons for Config, DB, Logger, registries.
 - **Storage:** Custom tables (not CPT) for forms and entries, mirroring proven scalability, plus a
   meta table pattern. JSON columns hold the form schema and entry response.
-- **REST-first:** The React admin talks exclusively to `activeforms/v1` REST routes (cookie + nonce auth,
+- **REST-first:** The React admin talks exclusively to `radiusforms/v1` REST routes (cookie + nonce auth,
   capability-checked `permission_callback`). No `admin-ajax.php` for the admin app.
 - **Frontend submission:** Public form posts to a nonce-protected REST endpoint; progressive
   enhancement so forms work and validate server-side regardless of JS.
@@ -86,14 +86,14 @@ activeforms/
 ## 3. Centralized Configuration & Design System
 
 ### 3.1 PHP configuration (single source of truth)
-- Constants defined in the main file: `ACTIVEFORMS_VERSION`, `ACTIVEFORMS_FILE`, `ACTIVEFORMS_PATH`,
-  `ACTIVEFORMS_URL`, `ACTIVEFORMS_BASENAME`, `ACTIVEFORMS_MIN_PHP`, `ACTIVEFORMS_MIN_WP`.
-- `ActiveForms\Core\Config` exposes: text domain, REST namespace, capability map, option key names,
+- Constants defined in the main file: `RADIUSFORMS_VERSION`, `RADIUSFORMS_FILE`, `RADIUSFORMS_PATH`,
+  `RADIUSFORMS_URL`, `RADIUSFORMS_BASENAME`, `RADIUSFORMS_MIN_PHP`, `RADIUSFORMS_MIN_WP`.
+- `RadiusForms\Core\Config` exposes: text domain, REST namespace, capability map, option key names,
   DB table names, asset handles, and the design-token palette.
-- All option keys namespaced `activeforms_*`; all transients `activeforms_*`; all hooks `activeforms/*`.
+- All option keys namespaced `radiusforms_*`; all transients `radiusforms_*`; all hooks `radiusforms/*`.
 
 ### 3.2 PHP→React bridge
-- `wp_localize_script` (or `wp_add_inline_script` with a JSON blob) publishes `window.ActiveFormsConfig`
+- `wp_localize_script` (or `wp_add_inline_script` with a JSON blob) publishes `window.RadiusFormsConfig`
   containing: `restUrl`, `restNamespace`, `nonce`, `adminUrl`, `assetsUrl`, `capabilities`,
   `version`, `currencies`, `dateFormats`, `designTokens`, and a `strings` dictionary for i18n.
 - React reads this object once at boot; nothing about branding/prefix is hard-coded in JS.
@@ -112,8 +112,8 @@ activeforms/
 
 ## 4. Form Field Library
 
-ActiveForms ships every field type below. **Free** fields are in the core plugin; **Pro** fields are
-registered by ActiveForms Pro through the same `FieldRegistry` API. Each field declares: editor
+RadiusForms ships every field type below. **Free** fields are in the core plugin; **Pro** fields are
+registered by RadiusForms Pro through the same `FieldRegistry` API. Each field declares: editor
 settings schema, frontend render template, validation rules, sanitization callback, conditional-logic
 eligibility, and reporting eligibility.
 
@@ -294,7 +294,7 @@ eligibility, and reporting eligibility.
 
 Integrations are registered through an `IntegrationRegistry` with an `AbstractIntegration` contract
 (settings schema, field mapping, conditional feed, async dispatch via the scheduled-actions queue).
-Core ships a representative free set; ActiveForms Pro registers the full catalog.
+Core ships a representative free set; RadiusForms Pro registers the full catalog.
 
 **Free (core):** Mailchimp, Slack, Webhook, local CRM bridge, Mailpoet.
 
@@ -336,9 +336,9 @@ Each integration supports per-form feeds, conditional logic on send, field mappi
 
 ## 14. Output Surfaces (Shortcodes, Block, Widgets)
 
-- **Shortcode**: `[activeforms id="123"]`, `[activeforms id="123" type="conversational"]`,
-  plus user payment views `[activeforms_payments]`.
-- **Gutenberg block** (`activeforms/form`) with form picker + style controls (uses the design system).
+- **Shortcode**: `[radiusforms id="123"]`, `[radiusforms id="123" type="conversational"]`,
+  plus user payment views `[radiusforms_payments]`.
+- **Gutenberg block** (`radiusforms/form`) with form picker + style controls (uses the design system).
 - **Page builder widgets**: Elementor & Oxygen widgets registered conditionally.
 - **Sidebar widget** (classic) + **admin dashboard widget** (quick stats & recent entries).
 
@@ -346,18 +346,18 @@ Each integration supports per-form feeds, conditional logic on send, field mappi
 
 ## 15. Developer & Extensibility Layer
 
-- **REST API** (`activeforms/v1`): forms CRUD, entries CRUD + export, settings, builder schema,
+- **REST API** (`radiusforms/v1`): forms CRUD, entries CRUD + export, settings, builder schema,
   templates, integrations, reports. All routes have `permission_callback` and schema validation.
-- **Hooks**: documented actions/filters — `activeforms/before_validation`,
-  `activeforms/after_submission`, `activeforms/form_schema`, `activeforms/rendering_form`,
-  `activeforms/notification_args`, `activeforms_register_fields`, `activeforms_register_integrations`,
-  `activeforms/reportable_fields`, etc. Filters always return; actions documented with args.
+- **Hooks**: documented actions/filters — `radiusforms/before_validation`,
+  `radiusforms/after_submission`, `radiusforms/form_schema`, `radiusforms/rendering_form`,
+  `radiusforms/notification_args`, `radiusforms_register_fields`, `radiusforms_register_integrations`,
+  `radiusforms/reportable_fields`, etc. Filters always return; actions documented with args.
 - **Registries**: `FieldRegistry`, `IntegrationRegistry`, `MigratorRegistry`, `GatewayRegistry`,
   `SmartCodeRegistry` — the Pro plugin and third parties extend via these.
 - **Smart codes**: `{field.key}`, `{user.*}`, `{post.*}`, `{get.*}`, `{cookie.*}`, `{date.*}`,
   `{site.url}`, `{admin.email}`, payment/quiz codes.
-- **WP-CLI**: `wp activeforms` commands (export/import forms, prune entries, status).
-- **i18n**: every user-facing string wrapped with text domain `activeforms`; React strings localized
+- **WP-CLI**: `wp radiusforms` commands (export/import forms, prune entries, status).
+- **i18n**: every user-facing string wrapped with text domain `radiusforms`; React strings localized
   via the config `strings` dictionary; `/languages` domain path.
 
 ---
@@ -369,7 +369,7 @@ Each integration supports per-form feeds, conditional logic on send, field mappi
 - **Deactivation**: clear scheduled events & transients only (non-destructive).
 - **Uninstall** (`uninstall.php`, guarded by `WP_UNINSTALL_PLUGIN`): optionally drop tables, delete
   options/transients/user-meta, controlled by a "remove data on uninstall" setting.
-- **Conditional asset loading**: admin bundle only on ActiveForms screens; frontend assets only on
+- **Conditional asset loading**: admin bundle only on RadiusForms screens; frontend assets only on
   pages that actually render a form; small frontend CSS/JS footprint.
 - **Caching-friendly**, async integration dispatch via a scheduled-actions table.
 - **Accessibility**: ARIA roles, labels, focus management, keyboard nav, contrast-checked tokens.
@@ -382,15 +382,15 @@ Each integration supports per-form feeds, conditional logic on send, field mappi
 
 | Table | Purpose | Key columns |
 | --- | --- | --- |
-| `{prefix}activeforms_forms` | Form definitions | `id`, `title`, `slug`, `status`, `type`, `fields` (JSON), `settings` (JSON), `has_payment`, `created_by`, `created_at`, `updated_at` |
-| `{prefix}activeforms_form_meta` | Per-form metadata (notifications, integrations, style) | `id`, `form_id`, `meta_key`, `meta_value` (LONGTEXT), index on (`form_id`,`meta_key`) |
-| `{prefix}activeforms_entries` | Submissions | `id`, `form_id`, `serial`, `response` (JSON), `status`, `is_favorite`, `user_id`, `source_url`, `ip`, `country`, `browser`, `device`, `payment_status`, `payment_total`, `currency`, `created_at`, `updated_at` |
-| `{prefix}activeforms_entry_meta` | Per-entry metadata (notes, integration logs, payment refs) | `id`, `entry_id`, `form_id`, `meta_key`, `meta_value`, `created_at` |
-| `{prefix}activeforms_entry_details` | Flattened field values for fast reporting/search | `id`, `form_id`, `entry_id`, `field_key`, `sub_field`, `field_value` (LONGTEXT) |
-| `{prefix}activeforms_logs` | API/integration & system logs | `id`, `form_id`, `entry_id`, `component`, `status`, `title`, `message`, `created_at` |
-| `{prefix}activeforms_scheduled_actions` | Async/integration queue | `id`, `action`, `payload` (JSON), `status`, `scheduled_at`, `attempts` |
+| `{prefix}radiusforms_forms` | Form definitions | `id`, `title`, `slug`, `status`, `type`, `fields` (JSON), `settings` (JSON), `has_payment`, `created_by`, `created_at`, `updated_at` |
+| `{prefix}radiusforms_form_meta` | Per-form metadata (notifications, integrations, style) | `id`, `form_id`, `meta_key`, `meta_value` (LONGTEXT), index on (`form_id`,`meta_key`) |
+| `{prefix}radiusforms_entries` | Submissions | `id`, `form_id`, `serial`, `response` (JSON), `status`, `is_favorite`, `user_id`, `source_url`, `ip`, `country`, `browser`, `device`, `payment_status`, `payment_total`, `currency`, `created_at`, `updated_at` |
+| `{prefix}radiusforms_entry_meta` | Per-entry metadata (notes, integration logs, payment refs) | `id`, `entry_id`, `form_id`, `meta_key`, `meta_value`, `created_at` |
+| `{prefix}radiusforms_entry_details` | Flattened field values for fast reporting/search | `id`, `form_id`, `entry_id`, `field_key`, `sub_field`, `field_value` (LONGTEXT) |
+| `{prefix}radiusforms_logs` | API/integration & system logs | `id`, `form_id`, `entry_id`, `component`, `status`, `title`, `message`, `created_at` |
+| `{prefix}radiusforms_scheduled_actions` | Async/integration queue | `id`, `action`, `payload` (JSON), `status`, `scheduled_at`, `attempts` |
 
-All tables prefixed `activeforms_`, created with `dbDelta()`, `$wpdb->prefix`, and
+All tables prefixed `radiusforms_`, created with `dbDelta()`, `$wpdb->prefix`, and
 `$wpdb->get_charset_collate()`. Internal keys remain stable across rebrands.
 
 ---
@@ -422,10 +422,10 @@ All tables prefixed `activeforms_`, created with `dbDelta()`, `$wpdb->prefix`, a
 5. **M5 – Reporting & exports:** analytics dashboard, field reports, CSV/Excel/ODS/JSON export.
 6. **M6 – Integrations & payments (free set):** registry, Mailchimp/Slack/Webhook, Stripe.
 7. **M7 – Surfaces:** Gutenberg block, widgets, conversational mode, templates gallery.
-8. **M8 – Pro hooks:** registries/extension points finalized for ActiveForms Pro.
+8. **M8 – Pro hooks:** registries/extension points finalized for RadiusForms Pro.
 
 ---
 
-*This specification is the contract for ActiveForms development. Implementation follows WordPress
+*This specification is the contract for RadiusForms development. Implementation follows WordPress
 coding standards and the WordPress.org Plugin Directory guidelines, with an original codebase that
 shares no source with Fluent Forms.*

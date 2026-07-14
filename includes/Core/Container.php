@@ -2,10 +2,10 @@
 /**
  * Minimal service container.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Core;
+namespace RadiusForms\Core;
 
 defined( 'ABSPATH' ) || exit;
 

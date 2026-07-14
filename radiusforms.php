@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       ActiveForms
+ * Plugin Name:       RadiusForms
  * Description:       Create contact forms, surveys, quizzes, lead generation forms, and conversational forms with an intuitive drag and drop form builder.
  * Version:           1.0.0
  * Requires at least: 6.2
@@ -9,10 +9,10 @@
  * Author URI:        https://profiles.wordpress.org/hasandev/
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       activeforms
+ * Text Domain:       radiusforms
  * Domain Path:       /languages
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -23,30 +23,30 @@ defined( 'ABSPATH' ) || exit;
  * Branding may change; these internal identifiers stay stable.
  * --------------------------------------------------------------------------
  */
-define( 'ACTIVEFORMS_VERSION', '1.0.0' );
-define( 'ACTIVEFORMS_DB_VERSION', '1.0.0' );
-define( 'ACTIVEFORMS_FILE', __FILE__ );
-define( 'ACTIVEFORMS_PATH', plugin_dir_path( __FILE__ ) );
-define( 'ACTIVEFORMS_URL', plugin_dir_url( __FILE__ ) );
-define( 'ACTIVEFORMS_BASENAME', plugin_basename( __FILE__ ) );
-define( 'ACTIVEFORMS_MIN_PHP', '7.4' );
-define( 'ACTIVEFORMS_MIN_WP', '6.2' );
+define( 'RADIUSFORMS_VERSION', '1.0.0' );
+define( 'RADIUSFORMS_DB_VERSION', '1.0.0' );
+define( 'RADIUSFORMS_FILE', __FILE__ );
+define( 'RADIUSFORMS_PATH', plugin_dir_path( __FILE__ ) );
+define( 'RADIUSFORMS_URL', plugin_dir_url( __FILE__ ) );
+define( 'RADIUSFORMS_BASENAME', plugin_basename( __FILE__ ) );
+define( 'RADIUSFORMS_MIN_PHP', '7.4' );
+define( 'RADIUSFORMS_MIN_WP', '6.2' );
 
-require_once ACTIVEFORMS_PATH . 'includes/Core/Autoloader.php';
+require_once RADIUSFORMS_PATH . 'includes/Core/Autoloader.php';
 
 /**
- * Register the PSR-4 autoloader for the ActiveForms\ namespace.
+ * Register the PSR-4 autoloader for the RadiusForms\ namespace.
  */
-$activeforms_autoloader = new ActiveForms\Core\Autoloader( 'ActiveForms\\', ACTIVEFORMS_PATH . 'includes/' );
-$activeforms_autoloader->register();
+$radiusforms_autoloader = new RadiusForms\Core\Autoloader( 'RadiusForms\\', RADIUSFORMS_PATH . 'includes/' );
+$radiusforms_autoloader->register();
 
 /**
  * Register the autoloader for the formerly-separate Pro add-on, now merged into
- * this plugin under includes/Pro/. The ActiveFormsPro\ namespace is preserved so
+ * this plugin under includes/Pro/. The RadiusFormsPro\ namespace is preserved so
  * the merged classes needed no rewrites.
  */
-$activeforms_pro_autoloader = new ActiveForms\Core\Autoloader( 'ActiveFormsPro\\', ACTIVEFORMS_PATH . 'includes/Pro/' );
-$activeforms_pro_autoloader->register();
+$radiusforms_pro_autoloader = new RadiusForms\Core\Autoloader( 'RadiusFormsPro\\', RADIUSFORMS_PATH . 'includes/Pro/' );
+$radiusforms_pro_autoloader->register();
 
 /*
  * --------------------------------------------------------------------------
@@ -54,30 +54,30 @@ $activeforms_pro_autoloader->register();
  * delegate to dedicated classes; nothing destructive runs on deactivation.
  * --------------------------------------------------------------------------
  */
-register_activation_hook( __FILE__, array( 'ActiveForms\\Core\\Activator', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'ActiveForms\\Core\\Deactivator', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'RadiusForms\\Core\\Activator', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'RadiusForms\\Core\\Deactivator', 'deactivate' ) );
 
 /**
  * Boot the plugin once all plugins are loaded so that integrations can hook into
  * the registries before fields/routes are assembled.
  *
- * @return \ActiveForms\Core\Plugin
+ * @return \RadiusForms\Core\Plugin
  */
-function activeforms() {
-	return ActiveForms\Core\Plugin::instance();
+function radiusforms() {
+	return RadiusForms\Core\Plugin::instance();
 }
 
-add_action( 'plugins_loaded', 'activeforms', 9 );
+add_action( 'plugins_loaded', 'radiusforms', 9 );
 
 /**
  * Boot the merged Pro feature set. It wires field types, integrations, and the
- * upload endpoint onto the core's activeforms_register_* extension points, so it
+ * upload endpoint onto the core's radiusforms_register_* extension points, so it
  * must run after the core has booted but before the lazy registries resolve.
  *
  * @return void
  */
-function activeforms_pro() {
-	ActiveFormsPro\Plugin::instance();
+function radiusforms_pro() {
+	RadiusFormsPro\Plugin::instance();
 }
 
-add_action( 'activeforms/booted', 'activeforms_pro' );
+add_action( 'radiusforms/booted', 'radiusforms_pro' );

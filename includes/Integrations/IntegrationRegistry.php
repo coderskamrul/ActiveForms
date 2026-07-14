@@ -2,14 +2,14 @@
 /**
  * Integration registry.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Integrations;
+namespace RadiusForms\Integrations;
 
-use ActiveForms\Integrations\Providers\WebhookIntegration;
-use ActiveForms\Integrations\Providers\SlackIntegration;
-use ActiveForms\Integrations\Providers\MailchimpIntegration;
+use RadiusForms\Integrations\Providers\WebhookIntegration;
+use RadiusForms\Integrations\Providers\SlackIntegration;
+use RadiusForms\Integrations\Providers\MailchimpIntegration;
 
 defined( 'ABSPATH' ) || exit;
 

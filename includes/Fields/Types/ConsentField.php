@@ -2,13 +2,13 @@
 /**
  * Consent fields: Terms & Conditions and GDPR agreement.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,8 +49,8 @@ class ConsentField extends AbstractField {
 		$schema             = parent::default_schema();
 		$schema['required'] = true;
 		$schema['content']  = 'terms' === $this->type
-			? __( 'I have read and agree to the Terms & Conditions.', 'activeforms' )
-			: __( 'I consent to having this website store my submitted information.', 'activeforms' );
+			? __( 'I have read and agree to the Terms & Conditions.', 'radiusforms' )
+			: __( 'I consent to having this website store my submitted information.', 'radiusforms' );
 		return $schema;
 	}
 
@@ -66,7 +66,7 @@ class ConsentField extends AbstractField {
 	 */
 	public function validate( $value, $field ) {
 		if ( $this->is_required( $field ) && empty( $value ) ) {
-			return __( 'You must accept to continue.', 'activeforms' );
+			return __( 'You must accept to continue.', 'radiusforms' );
 		}
 		return true;
 	}
@@ -79,9 +79,9 @@ class ConsentField extends AbstractField {
 		$content = Arr::get( $field, 'content', '' );
 		$checked = $value ? ' checked' : '';
 
-		$control = '<label class="activeforms-consent" for="activeforms-' . $key . '">';
+		$control = '<label class="radiusforms-consent" for="radiusforms-' . $key . '">';
 		$control .= sprintf(
-			'<input type="checkbox" id="activeforms-%1$s" name="%1$s" value="1"%2$s%3$s /> ',
+			'<input type="checkbox" id="radiusforms-%1$s" name="%1$s" value="1"%2$s%3$s /> ',
 			$key,
 			$this->is_required( $field ) ? ' required' : '',
 			$checked

@@ -2,13 +2,13 @@
 /**
  * Slack notification integration.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Integrations\Providers;
+namespace RadiusForms\Integrations\Providers;
 
-use ActiveForms\Integrations\AbstractIntegration;
-use ActiveForms\Support\Arr;
+use RadiusForms\Integrations\AbstractIntegration;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class SlackIntegration extends AbstractIntegration {
 	 */
 	public function __construct() {
 		$this->slug     = 'slack';
-		$this->title    = __( 'Slack', 'activeforms' );
+		$this->title    = __( 'Slack', 'radiusforms' );
 		$this->category = 'notification';
 	}
 
@@ -38,7 +38,7 @@ class SlackIntegration extends AbstractIntegration {
 	 */
 	public function feed_settings_fields() {
 		return array(
-			array( 'key' => 'webhook_url', 'type' => 'url', 'label' => __( 'Slack Webhook URL', 'activeforms' ), 'required' => true ),
+			array( 'key' => 'webhook_url', 'type' => 'url', 'label' => __( 'Slack Webhook URL', 'radiusforms' ), 'required' => true ),
 		);
 	}
 
@@ -55,10 +55,10 @@ class SlackIntegration extends AbstractIntegration {
 	public function process( $feed, $entry, $form ) {
 		$url = isset( $feed['webhook_url'] ) ? esc_url_raw( $feed['webhook_url'] ) : '';
 		if ( ! $url ) {
-			return new \WP_Error( 'activeforms_slack_url', __( 'Slack webhook URL is missing.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_slack_url', __( 'Slack webhook URL is missing.', 'radiusforms' ) );
 		}
 
-		$lines = array( '*' . Arr::get( $form, 'title', __( 'New submission', 'activeforms' ) ) . '*' );
+		$lines = array( '*' . Arr::get( $form, 'title', __( 'New submission', 'radiusforms' ) ) . '*' );
 		foreach ( (array) Arr::get( $entry, 'response', array() ) as $key => $value ) {
 			$value   = is_array( $value ) ? implode( ', ', $value ) : $value;
 			$lines[] = $key . ': ' . wp_strip_all_tags( (string) $value );

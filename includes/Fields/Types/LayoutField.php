@@ -2,13 +2,13 @@
 /**
  * Non-input layout & content fields: section, html, container, submit.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,11 +55,11 @@ class LayoutField extends AbstractField {
 
 		switch ( $this->type ) {
 			case 'section':
-				$schema['label']       = __( 'Section', 'activeforms' );
+				$schema['label']       = __( 'Section', 'radiusforms' );
 				$schema['description'] = '';
 				break;
 			case 'html':
-				$schema['content'] = '<p>' . esc_html__( 'Custom HTML content', 'activeforms' ) . '</p>';
+				$schema['content'] = '<p>' . esc_html__( 'Custom HTML content', 'radiusforms' ) . '</p>';
 				break;
 			case 'container':
 				$schema['columns'] = array(
@@ -68,12 +68,12 @@ class LayoutField extends AbstractField {
 				);
 				break;
 			case 'step':
-				$schema['label']      = __( 'Step', 'activeforms' );
-				$schema['prev_label'] = __( 'Previous', 'activeforms' );
-				$schema['next_label'] = __( 'Next', 'activeforms' );
+				$schema['label']      = __( 'Step', 'radiusforms' );
+				$schema['prev_label'] = __( 'Previous', 'radiusforms' );
+				$schema['next_label'] = __( 'Next', 'radiusforms' );
 				break;
 			case 'submit':
-				$schema['label']     = __( 'Submit', 'activeforms' );
+				$schema['label']     = __( 'Submit', 'radiusforms' );
 				$schema['alignment'] = 'left';
 				break;
 		}
@@ -104,29 +104,29 @@ class LayoutField extends AbstractField {
 	public function render( $field, $value = null ) {
 		switch ( $this->type ) {
 			case 'section':
-				$out  = '<div class="activeforms-section">';
-				$out .= '<h3 class="activeforms-section-title">' . esc_html( Arr::get( $field, 'label', '' ) ) . '</h3>';
+				$out  = '<div class="radiusforms-section">';
+				$out .= '<h3 class="radiusforms-section-title">' . esc_html( Arr::get( $field, 'label', '' ) ) . '</h3>';
 				$desc = Arr::get( $field, 'description', '' );
 				if ( $desc ) {
-					$out .= '<p class="activeforms-section-desc">' . esc_html( $desc ) . '</p>';
+					$out .= '<p class="radiusforms-section-desc">' . esc_html( $desc ) . '</p>';
 				}
 				$out .= '</div>';
 				return $out;
 
 			case 'html':
-				return '<div class="activeforms-html">' . wp_kses_post( Arr::get( $field, 'content', '' ) ) . '</div>';
+				return '<div class="radiusforms-html">' . wp_kses_post( Arr::get( $field, 'content', '' ) ) . '</div>';
 
 			case 'submit':
 				$align = esc_attr( Arr::get( $field, 'alignment', 'left' ) );
-				$label = esc_html( Arr::get( $field, 'label', __( 'Submit', 'activeforms' ) ) );
-				return '<div class="activeforms-submit activeforms-submit--' . $align . '"><button type="submit" class="activeforms-btn activeforms-btn--primary">' . $label . '</button></div>';
+				$label = esc_html( Arr::get( $field, 'label', __( 'Submit', 'radiusforms' ) ) );
+				return '<div class="radiusforms-submit radiusforms-submit--' . $align . '"><button type="submit" class="radiusforms-btn radiusforms-btn--primary">' . $label . '</button></div>';
 
 			case 'step':
 				$label = esc_html( Arr::get( $field, 'label', '' ) );
-				$out   = '<div class="activeforms-step-break" data-prev="' . esc_attr( Arr::get( $field, 'prev_label', __( 'Previous', 'activeforms' ) ) ) . '" data-next="' . esc_attr( Arr::get( $field, 'next_label', __( 'Next', 'activeforms' ) ) ) . '">';
-				$out  .= '<span class="activeforms-step-break__line"></span>';
+				$out   = '<div class="radiusforms-step-break" data-prev="' . esc_attr( Arr::get( $field, 'prev_label', __( 'Previous', 'radiusforms' ) ) ) . '" data-next="' . esc_attr( Arr::get( $field, 'next_label', __( 'Next', 'radiusforms' ) ) ) . '">';
+				$out  .= '<span class="radiusforms-step-break__line"></span>';
 				if ( $label ) {
-					$out .= '<span class="activeforms-step-break__label">' . $label . '</span>';
+					$out .= '<span class="radiusforms-step-break__label">' . $label . '</span>';
 				}
 				$out .= '</div>';
 				return $out;

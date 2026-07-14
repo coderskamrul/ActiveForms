@@ -2,16 +2,16 @@
 /**
  * Upload storage helper for Pro fields (File, Image, Signature).
  *
- * @package ActiveFormsPro
+ * @package RadiusFormsPro
  */
 
-namespace ActiveFormsPro\Support;
+namespace RadiusFormsPro\Support;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Centralizes where ActiveForms Pro stores uploaded files and how they are
- * validated. Files live under wp-content/uploads/activeforms-pro/{Y}/{m}/ and are
+ * Centralizes where RadiusForms Pro stores uploaded files and how they are
+ * validated. Files live under wp-content/uploads/radiusforms-pro/{Y}/{m}/ and are
  * referenced from submissions by their path relative to that base.
  */
 class Uploads {
@@ -19,7 +19,7 @@ class Uploads {
 	/**
 	 * Sub-directory (under wp_upload_dir basedir) for Pro uploads.
 	 */
-	const SUBDIR = 'activeforms-pro';
+	const SUBDIR = 'radiusforms-pro';
 
 	/**
 	 * Absolute base directory for uploads, ensuring it exists and is protected.
@@ -93,10 +93,10 @@ class Uploads {
 	 */
 	public static function store_file( $file, $allowed = array(), $max_kb = 0 ) {
 		if ( ! isset( $file['tmp_name'] ) || ! is_uploaded_file( $file['tmp_name'] ) ) {
-			return new \WP_Error( 'activeforms_upload_invalid', __( 'No valid file was uploaded.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_upload_invalid', __( 'No valid file was uploaded.', 'radiusforms' ) );
 		}
 		if ( ! empty( $file['error'] ) ) {
-			return new \WP_Error( 'activeforms_upload_error', __( 'The file failed to upload. Please try again.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_upload_error', __( 'The file failed to upload. Please try again.', 'radiusforms' ) );
 		}
 
 		$name      = sanitize_file_name( (string) $file['name'] );
@@ -107,14 +107,14 @@ class Uploads {
 		$real_mime = $check['type'] ? $check['type'] : '';
 
 		if ( ! $real_ext || ! $real_mime ) {
-			return new \WP_Error( 'activeforms_upload_type', __( 'This file type is not allowed.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_upload_type', __( 'This file type is not allowed.', 'radiusforms' ) );
 		}
 		if ( ! empty( $allowed ) && ! in_array( $real_ext, array_map( 'strtolower', $allowed ), true ) ) {
-			return new \WP_Error( 'activeforms_upload_type', __( 'This file type is not allowed.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_upload_type', __( 'This file type is not allowed.', 'radiusforms' ) );
 		}
 		if ( $max_kb > 0 && $size > $max_kb * 1024 ) {
 			/* translators: %s: maximum size in kilobytes. */
-			return new \WP_Error( 'activeforms_upload_size', sprintf( __( 'The file is too large (max %s KB).', 'activeforms' ), number_format_i18n( $max_kb ) ) );
+			return new \WP_Error( 'radiusforms_upload_size', sprintf( __( 'The file is too large (max %s KB).', 'radiusforms' ), number_format_i18n( $max_kb ) ) );
 		}
 
 		// Ensure the base directory + its listing guard exist.
@@ -124,7 +124,7 @@ class Uploads {
 
 		// Hand the move off to core's wp_handle_upload(), the sanctioned uploader
 		// (it performs the validated move, unique naming, and permissions). Route
-		// it into activeforms-pro/{Y}/{m}/ via the upload_dir filter, and keep the
+		// it into radiusforms-pro/{Y}/{m}/ via the upload_dir filter, and keep the
 		// unguessable random filename via a unique_filename_callback.
 		$sub_ext    = $real_ext;
 		$dir_filter = static function ( $dirs ) {
@@ -150,7 +150,7 @@ class Uploads {
 		remove_filter( 'upload_dir', $dir_filter );
 
 		if ( ! is_array( $moved ) || isset( $moved['error'] ) || empty( $moved['file'] ) ) {
-			return new \WP_Error( 'activeforms_upload_move', __( 'Could not save the uploaded file.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_upload_move', __( 'Could not save the uploaded file.', 'radiusforms' ) );
 		}
 
 		$relative = ltrim( str_replace( self::base_dir(), '', $moved['file'] ), '/' );
@@ -172,7 +172,7 @@ class Uploads {
 	 */
 	public static function store_data_url( $data_url ) {
 		if ( ! preg_match( '#^data:image/(png|jpeg);base64,#', (string) $data_url, $m ) ) {
-			return new \WP_Error( 'activeforms_signature_invalid', __( 'Invalid signature data.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_signature_invalid', __( 'Invalid signature data.', 'radiusforms' ) );
 		}
 
 		$ext     = 'jpeg' === $m[1] ? 'jpg' : 'png';
@@ -180,19 +180,19 @@ class Uploads {
 		$decoded = base64_decode( $encoded, true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 
 		if ( false === $decoded || strlen( $decoded ) < 8 ) {
-			return new \WP_Error( 'activeforms_signature_invalid', __( 'Invalid signature data.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_signature_invalid', __( 'Invalid signature data.', 'radiusforms' ) );
 		}
 
 		$month = self::month_dir();
 		if ( '' === $month ) {
-			return new \WP_Error( 'activeforms_upload_dir', __( 'Could not prepare the upload directory.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_upload_dir', __( 'Could not prepare the upload directory.', 'radiusforms' ) );
 		}
 
 		$relative = $month . 'signature-' . substr( md5( $decoded . microtime( true ) ), 0, 10 ) . '.' . $ext;
 		$dest     = self::base_dir() . $relative;
 
 		if ( false === @file_put_contents( $dest, $decoded ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			return new \WP_Error( 'activeforms_signature_save', __( 'Could not save the signature.', 'activeforms' ) );
+			return new \WP_Error( 'radiusforms_signature_save', __( 'Could not save the signature.', 'radiusforms' ) );
 		}
 
 		return $relative;

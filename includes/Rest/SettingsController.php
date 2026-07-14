@@ -2,13 +2,13 @@
 /**
  * Global settings REST controller.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Rest;
+namespace RadiusForms\Rest;
 
-use ActiveForms\Core\Config;
-use ActiveForms\Core\Settings;
+use RadiusForms\Core\Config;
+use RadiusForms\Core\Settings;
 
 defined( 'ABSPATH' ) || exit;
 

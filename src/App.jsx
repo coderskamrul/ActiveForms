@@ -66,7 +66,7 @@ export default function App() {
   // the WP admin bar + side menu (this is a client-side hash route, so PHP can't
   // distinguish it). Always clean up so leaving the builder restores wp-admin.
   useEffect(() => {
-    const cls = 'activeforms-builder-fullscreen';
+    const cls = 'radiusforms-builder-fullscreen';
     document.body.classList.toggle(cls, inBuilder);
     document.documentElement.classList.toggle(cls, inBuilder);
     return () => {
@@ -77,27 +77,27 @@ export default function App() {
 
   return (
     <ToastProvider>
-      <div className="activeforms-app">
+      <div className="radiusforms-app">
         {!inBuilder && (
-          <nav className="activeforms-topnav">
-            <a className="activeforms-brand" href="#/dashboard">
-              <span className="activeforms-logo">{(brand.shortName || 'E').slice(0, 1)}</span>
-              <b>{(brand.name || 'ActiveForms').replace(/^easy/i, '')}</b>
+          <nav className="radiusforms-topnav">
+            <a className="radiusforms-brand" href="#/dashboard">
+              <span className="radiusforms-logo">{(brand.shortName || 'E').slice(0, 1)}</span>
+              <b>{(brand.name || 'RadiusForms').replace(/^easy/i, '')}</b>
             </a>
-            <div className="activeforms-nav">
+            <div className="radiusforms-nav">
               {NAV.map((item) => (
                 <a key={item.key} href={`#${item.path}`} className={active === item.key ? 'is-active' : ''}>
                   {t(item.key, item.label)}
                 </a>
               ))}
             </div>
-            <span className="activeforms-topnav__search" title="Search">
+            <span className="radiusforms-topnav__search" title="Search">
               <span className="dashicons dashicons-search" style={{ fontSize: 16, width: 16, height: 16 }} aria-hidden="true" />
               <kbd>⌘K</kbd>
             </span>
           </nav>
         )}
-        <main className={`activeforms-main${inBuilder ? ' is-builder' : ''}`}>
+        <main className={`radiusforms-main${inBuilder ? ' is-builder' : ''}`}>
           {renderPage(route)}
         </main>
       </div>

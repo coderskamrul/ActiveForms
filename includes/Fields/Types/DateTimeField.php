@@ -2,13 +2,13 @@
 /**
  * Date / time field.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Fields\Types;
+namespace RadiusForms\Fields\Types;
 
-use ActiveForms\Fields\AbstractField;
-use ActiveForms\Support\Arr;
+use RadiusForms\Fields\AbstractField;
+use RadiusForms\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,10 +61,10 @@ class DateTimeField extends AbstractField {
 		$icon     = 'time' === $mode ? $this->clock_svg() : $this->calendar_svg();
 
 		$control = sprintf(
-			'<div class="activeforms-dp-field">'
-				. '<input type="text" class="activeforms-input activeforms-datepicker" id="activeforms-%1$s" name="%1$s" value="%2$s" placeholder="%3$s" autocomplete="off" readonly'
-				. ' data-activeforms-datepicker data-ef-mode="%4$s" data-ef-format="%5$s"%6$s />'
-				. '<span class="activeforms-dp-icon" aria-hidden="true">%7$s</span>'
+			'<div class="radiusforms-dp-field">'
+				. '<input type="text" class="radiusforms-input radiusforms-datepicker" id="radiusforms-%1$s" name="%1$s" value="%2$s" placeholder="%3$s" autocomplete="off" readonly'
+				. ' data-radiusforms-datepicker data-ef-mode="%4$s" data-ef-format="%5$s"%6$s />'
+				. '<span class="radiusforms-dp-icon" aria-hidden="true">%7$s</span>'
 				. '</div>',
 			$key,
 			esc_attr( $value ),
@@ -118,14 +118,14 @@ class DateTimeField extends AbstractField {
 	private function default_placeholder( $mode ) {
 		switch ( $mode ) {
 			case 'time':
-				return __( 'Select a time', 'activeforms' );
+				return __( 'Select a time', 'radiusforms' );
 			case 'datetime':
-				return __( 'Select date & time', 'activeforms' );
+				return __( 'Select date & time', 'radiusforms' );
 			case 'range':
-				return __( 'Select a date range', 'activeforms' );
+				return __( 'Select a date range', 'radiusforms' );
 			case 'date':
 			default:
-				return __( 'Select a date', 'activeforms' );
+				return __( 'Select a date', 'radiusforms' );
 		}
 	}
 

@@ -1,6 +1,6 @@
 /**
- * Nonce-aware REST client for the ActiveForms admin app.
- * All admin data flows through activeforms/v1 routes (cookie + nonce auth).
+ * Nonce-aware REST client for the RadiusForms admin app.
+ * All admin data flows through radiusforms/v1 routes (cookie + nonce auth).
  */
 import config from '../config';
 

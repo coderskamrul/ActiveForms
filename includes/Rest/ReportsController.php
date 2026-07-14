@@ -2,12 +2,12 @@
 /**
  * Reports / analytics REST controller.
  *
- * @package ActiveForms
+ * @package RadiusForms
  */
 
-namespace ActiveForms\Rest;
+namespace RadiusForms\Rest;
 
-use ActiveForms\Reporting\Analytics;
+use RadiusForms\Reporting\Analytics;
 
 defined( 'ABSPATH' ) || exit;
 
