@@ -14,16 +14,16 @@ const slug = 'radiusforms';
 const outFile = join(root, `${slug}.zip`);
 
 // Directories and files excluded from the distributed build.
-// `src/` + package.json + webpack.config.js SHIP with the plugin on purpose: the
-// compiled bundles in assets/ are minified, and WordPress.org requires the original
-// human-readable sources (or a public repo) to accompany them. Keeping them in the
-// archive means the build is reproducible straight from the downloaded plugin.
+// The build toolchain (src/, package.json, webpack.config.js) is NOT shipped: the
+// original human-readable sources for the compiled assets live in the public
+// development repository linked from readme.txt, which is what WordPress.org
+// requires. Keeping them out keeps the distributed archive lean.
 const denyDirs = new Set([
-  'node_modules', 'scripts', '.git', '.github', '.claude',
+  'node_modules', 'src', 'scripts', '.git', '.github', '.claude',
   '.idea', '.vscode', 'plugin-requirements',
 ]);
 const denyFiles = new Set([
-  'package-lock.json', 'vite.config.js',
+  'package.json', 'package-lock.json', 'webpack.config.js', 'vite.config.js',
   '.babelrc', '.distignore', '.gitignore', '.DS_Store', `${slug}.zip`,
 ]);
 // Source maps and any Markdown (dev notes, review correspondence, specs) never

@@ -87,17 +87,17 @@ the plugin is deleted.
 
 Development repository (full source + build tooling): https://github.com/coderskamrul/RadiusForms
 
-The compiled JavaScript and CSS in `assets/dist/` and `assets/frontend/` are minified builds. The
-complete, unminified, human-readable source is also included with the plugin itself, in the `src/`
-directory, and the build configuration (`package.json`, `webpack.config.js`) ships alongside it — so
-the compiled assets can be reproduced either from the repository above or from the plugin exactly as
-distributed.
+The JavaScript and CSS in `assets/dist/` and `assets/frontend/` are compiled, minified builds. The
+complete, unminified, human-readable source for them — the `src/` directory together with the build
+configuration (`package.json`, `webpack.config.js`) — is published in the public repository linked
+above.
 
-To rebuild the assets from source:
+To regenerate the compiled assets from source:
 
-1. Install Node.js 20+ and npm.
-2. From the plugin directory, run `npm install` to install the build dependencies.
-3. Run `npm run build` to compile `src/` into `assets/dist/` and `assets/frontend/`.
+1. Clone https://github.com/coderskamrul/RadiusForms
+2. Install Node.js 20+ and npm.
+3. Run `npm install` to install the build dependencies.
+4. Run `npm run build` to compile `src/` into `assets/dist/` and `assets/frontend/`.
 
 The build uses webpack with two named entry points — `dist/radiusforms` (the React admin app, from
 `src/main.jsx`) and `frontend/form` (the public form script, from `src/frontend/form.js`) — as

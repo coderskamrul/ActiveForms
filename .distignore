@@ -1,13 +1,16 @@
 # Files & directories excluded from the distributed WordPress.org build.
-# NOTE: /src, package.json and webpack.config.js are intentionally NOT excluded —
-# the original sources for the compiled assets ship with the plugin.
+# The build toolchain is not shipped; the original sources for the compiled
+# assets live in the public development repository linked from readme.txt.
 /node_modules
+/src
 /scripts
 /.git
 /.github
 /.claude
 /plugin-requirements
+package.json
 package-lock.json
+webpack.config.js
 .distignore
 .gitignore
 .babelrc
