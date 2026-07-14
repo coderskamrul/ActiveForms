@@ -39,7 +39,6 @@ export default function Settings() {
   // Typed setters passed to every tab — keeps tab components free of state plumbing.
   const setField = (key, value) => setSettings((s) => ({ ...s, [key]: value }));
   const setMessage = (key, value) => setSettings((s) => ({ ...s, messages: { ...(s.messages || {}), [key]: value } }));
-  const setRecaptcha = (key, value) => setSettings((s) => ({ ...s, recaptcha: { ...(s.recaptcha || {}), [key]: value } }));
 
   const save = async () => {
     setSaving(true);
@@ -92,7 +91,6 @@ export default function Settings() {
               settings={settings}
               setField={setField}
               setMessage={setMessage}
-              setRecaptcha={setRecaptcha}
             />
           </div>
         </div>

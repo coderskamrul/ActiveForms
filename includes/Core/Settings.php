@@ -99,11 +99,6 @@ class Settings {
 			'help_placement'           => 'below',
 			'error_placement'          => 'below',
 			'remove_data_on_uninstall' => false,
-			'recaptcha'                => array(
-				'provider'   => '',
-				'site_key'   => '',
-				'secret_key' => '',
-			),
 			'messages'                 => array(
 				'required'       => '',
 				'invalid_email'  => '',

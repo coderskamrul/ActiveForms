@@ -30,10 +30,26 @@ import {
 let idSeq = 0;
 const withId = (field) => ({ ...field, _id: `f${(idSeq += 1)}` });
 
+/**
+ * Composite fields (name, address) keep their sub-fields as an ordered list.
+ * Older saved schemas used a `{ first: {...}, last: {...} }` map, which JSON-
+ * decodes to an object rather than an array. PHP tolerates both shapes; mirror
+ * that here so such a form opens in the builder instead of throwing.
+ */
+function normalizeSubfields(field) {
+  const subs = field.fields;
+  if (!subs || Array.isArray(subs)) return field;
+  if (typeof subs !== 'object') return { ...field, fields: [] };
+  return {
+    ...field,
+    fields: Object.keys(subs).map((key) => ({ key, ...(subs[key] || {}) })),
+  };
+}
+
 /** Recursively assign client _ids (containers' nested fields included). */
 function hydrate(fields) {
   return (fields || []).map((f) => {
-    const n = withId(f);
+    const n = withId(normalizeSubfields(f));
     if (n.type === 'container' && Array.isArray(n.columns)) {
       n.columns = n.columns.map((c) => ({ ...c, fields: hydrate(c.fields || []) }));
     }

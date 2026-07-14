@@ -56,12 +56,26 @@ abstract class AbstractController {
 	abstract public function register_routes();
 
 	/**
-	 * Permission check for read operations.
+	 * Permission check for read operations on entry data (entries, reports).
 	 *
 	 * @return bool
 	 */
 	public function can_read() {
 		return current_user_can( Config::cap( 'view_entries' ) );
+	}
+
+	/**
+	 * Permission check for reading form definitions.
+	 *
+	 * A form definition carries its schema, settings, and integration configuration,
+	 * which is editor-level data. It is therefore gated on the form-editing
+	 * capability rather than the entry-viewing one, so a user who may only read
+	 * entries never receives full form definitions.
+	 *
+	 * @return bool
+	 */
+	public function can_edit_forms() {
+		return current_user_can( Config::cap( 'edit_forms' ) );
 	}
 
 	/**

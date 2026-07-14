@@ -193,7 +193,6 @@ export default function Forms() {
                     <a className="radiusforms-form-title" href={`#/forms/${f.id}/edit`}>{f.title}</a>
                     <div className="radiusforms-flinks">
                       <a href={`#/forms/${f.id}/edit`}>Edit</a>
-                      <a href={`#/forms/${f.id}/edit`}>Settings</a>
                       <a href={`#/forms/${f.id}/entries`}>Entries</a>
                       <a href={previewUrl(f.id)} target="_blank" rel="noreferrer">Preview</a>
                       <button type="button" onClick={() => duplicate(f.id)}>Duplicate</button>

@@ -10,7 +10,6 @@ namespace RadiusForms\Core;
 use RadiusForms\Admin\Menu;
 use RadiusForms\Admin\AdminAssets;
 use RadiusForms\Fields\FieldRegistry;
-use RadiusForms\Integrations\IntegrationRegistry;
 use RadiusForms\Notifications\SmartCodes;
 use RadiusForms\Rest\RestServiceProvider;
 use RadiusForms\Frontend\Shortcode;
@@ -106,21 +105,6 @@ final class Plugin {
 				 * @param FieldRegistry $registry Field registry.
 				 */
 				do_action( 'radiusforms_register_fields', $registry );
-				return $registry;
-			}
-		);
-
-		$c->bind(
-			'integrations',
-			function () {
-				$registry = new IntegrationRegistry();
-				$registry->register_defaults();
-				/**
-				 * Allow add-ons to register integrations.
-				 *
-				 * @param IntegrationRegistry $registry Integration registry.
-				 */
-				do_action( 'radiusforms_register_integrations', $registry );
 				return $registry;
 			}
 		);

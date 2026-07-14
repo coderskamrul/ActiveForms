@@ -26,7 +26,6 @@ class LayoutField extends AbstractField {
 		'section'   => array( 'label' => 'Section Break', 'icon' => 'minus', 'category' => 'layout' ),
 		'html'      => array( 'label' => 'Custom HTML', 'icon' => 'editor-code', 'category' => 'general' ),
 		'container' => array( 'label' => 'Columns', 'icon' => 'columns', 'category' => 'layout' ),
-		'step'      => array( 'label' => 'Page Break / Step', 'icon' => 'flag', 'category' => 'layout' ),
 		'submit'    => array( 'label' => 'Submit Button', 'icon' => 'button', 'category' => 'layout' ),
 	);
 
@@ -67,14 +66,9 @@ class LayoutField extends AbstractField {
 					array( 'width' => 50, 'fields' => array() ),
 				);
 				break;
-			case 'step':
-				$schema['label']      = __( 'Step', 'radiusforms' );
-				$schema['prev_label'] = __( 'Previous', 'radiusforms' );
-				$schema['next_label'] = __( 'Next', 'radiusforms' );
-				break;
 			case 'submit':
-				$schema['label']     = __( 'Submit', 'radiusforms' );
-				$schema['alignment'] = 'left';
+				$schema['label'] = __( 'Submit', 'radiusforms' );
+				$schema['align'] = 'left';
 				break;
 		}
 
@@ -117,19 +111,11 @@ class LayoutField extends AbstractField {
 				return '<div class="radiusforms-html">' . wp_kses_post( Arr::get( $field, 'content', '' ) ) . '</div>';
 
 			case 'submit':
-				$align = esc_attr( Arr::get( $field, 'alignment', 'left' ) );
+				// The builder persists this as `align`; `alignment` is the older key.
+				$align = esc_attr( Arr::get( $field, 'align', Arr::get( $field, 'alignment', 'left' ) ) );
 				$label = esc_html( Arr::get( $field, 'label', __( 'Submit', 'radiusforms' ) ) );
 				return '<div class="radiusforms-submit radiusforms-submit--' . $align . '"><button type="submit" class="radiusforms-btn radiusforms-btn--primary">' . $label . '</button></div>';
 
-			case 'step':
-				$label = esc_html( Arr::get( $field, 'label', '' ) );
-				$out   = '<div class="radiusforms-step-break" data-prev="' . esc_attr( Arr::get( $field, 'prev_label', __( 'Previous', 'radiusforms' ) ) ) . '" data-next="' . esc_attr( Arr::get( $field, 'next_label', __( 'Next', 'radiusforms' ) ) ) . '">';
-				$out  .= '<span class="radiusforms-step-break__line"></span>';
-				if ( $label ) {
-					$out .= '<span class="radiusforms-step-break__label">' . $label . '</span>';
-				}
-				$out .= '</div>';
-				return $out;
 
 			case 'container':
 				// Rendered by FormRenderer with nested fields.

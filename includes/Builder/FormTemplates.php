@@ -125,7 +125,22 @@ class FormTemplates {
 				'icon'        => 'email',
 				'category'    => 'general',
 				'fields'      => array(
-					self::field( 'name', 'name', __( 'Name', 'radiusforms' ), array( 'required' => true, 'fields' => array( 'first' => array( 'visible' => true, 'label' => __( 'First Name', 'radiusforms' ) ), 'last' => array( 'visible' => true, 'label' => __( 'Last Name', 'radiusforms' ) ) ) ) ),
+					// Sub-fields must be an ordered LIST (not a key => value map): the schema
+				// is JSON-encoded, and a PHP associative array would serialize to a JSON
+				// object, which the builder cannot iterate.
+				self::field(
+					'name',
+					'name',
+					__( 'Name', 'radiusforms' ),
+					array(
+						'required' => true,
+						'fields'   => array(
+							array( 'key' => 'first', 'label' => __( 'First Name', 'radiusforms' ), 'placeholder' => __( 'First Name', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+							array( 'key' => 'middle', 'label' => __( 'Middle Name', 'radiusforms' ), 'placeholder' => __( 'Middle Name', 'radiusforms' ), 'visible' => false, 'required' => false, 'type' => 'text' ),
+							array( 'key' => 'last', 'label' => __( 'Last Name', 'radiusforms' ), 'placeholder' => __( 'Last Name', 'radiusforms' ), 'visible' => true, 'required' => false, 'type' => 'text' ),
+						),
+					)
+				),
 					self::field( 'email', 'email', __( 'Email', 'radiusforms' ), array( 'required' => true ) ),
 					self::field( 'text', 'subject', __( 'Subject', 'radiusforms' ) ),
 					self::field( 'textarea', 'message', __( 'Message', 'radiusforms' ), array( 'required' => true, 'rows' => 5 ) ),

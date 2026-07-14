@@ -12,16 +12,12 @@ import Entries from './pages/Entries.jsx';
 import EntryDetail from './pages/EntryDetail.jsx';
 import Reports from './pages/Reports.jsx';
 import Settings from './pages/Settings.jsx';
-import Integrations from './pages/Integrations.jsx';
 
 const NAV = [
   { path: '/dashboard', key: 'dashboard', label: 'Dashboard' },
   { path: '/forms', key: 'forms', label: 'Forms' },
   { path: '/entries', key: 'entries', label: 'Entries' },
   { path: '/reports', key: 'reports', label: 'Reports' },
-  // { path: '/payments', key: 'payments', label: 'Payments' },
-  // { path: '/integrations', key: 'integrations', label: 'Integrations' },
-  // { path: '/tools', key: 'tools', label: 'Tools' },
   { path: '/settings', key: 'settings', label: 'Settings' },
 ];
 
@@ -44,8 +40,6 @@ function renderPage(route) {
       return <Entries formId={a ? parseInt(a, 10) : null} />;
     case 'reports':
       return <Reports formId={a ? parseInt(a, 10) : null} />;
-    case 'integrations':
-      return <Integrations />;
     case 'settings':
       return <Settings />;
     case 'dashboard':

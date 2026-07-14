@@ -87,12 +87,10 @@ abstract class AbstractField implements FieldInterface {
 			'required'        => false,
 			'default'         => '',
 			'css_class'       => '',
-			'label_placement' => 'top',
-			'conditional'     => array(
-				'enabled' => false,
-				'logic'   => 'all',
-				'rules'   => array(),
-			),
+			// Empty means "inherit the global Settings → General → Label Placement".
+			// Hard-coding 'top' here would make every builder-created field override
+			// the global default, so the site-wide setting would never take effect.
+			'label_placement' => '',
 		);
 	}
 
@@ -177,6 +175,11 @@ abstract class AbstractField implements FieldInterface {
 	 * @return string
 	 */
 	protected function required_message( $field ) {
+		// A per-field message set in the builder always wins over the global default.
+		$custom = trim( (string) Arr::get( $field, 'required_message', '' ) );
+		if ( '' !== $custom ) {
+			return $custom;
+		}
 		return Settings::message( 'required', __( 'This field is required.', 'radiusforms' ) );
 	}
 

@@ -70,14 +70,6 @@ class SettingsController extends AbstractController {
 		$clean['label_placement']          = $this->one_of( $body, 'label_placement', array( 'top', 'right', 'bottom', 'left', 'hide' ), 'top' );
 		$clean['remove_data_on_uninstall'] = ! empty( $body['remove_data_on_uninstall'] );
 
-		if ( isset( $body['recaptcha'] ) && is_array( $body['recaptcha'] ) ) {
-			$clean['recaptcha'] = array(
-				'provider'   => isset( $body['recaptcha']['provider'] ) ? sanitize_key( $body['recaptcha']['provider'] ) : '',
-				'site_key'   => isset( $body['recaptcha']['site_key'] ) ? sanitize_text_field( $body['recaptcha']['site_key'] ) : '',
-				'secret_key' => isset( $body['recaptcha']['secret_key'] ) ? sanitize_text_field( $body['recaptcha']['secret_key'] ) : '',
-			);
-		}
-
 		if ( isset( $body['messages'] ) && is_array( $body['messages'] ) ) {
 			$allowed = array( 'required', 'invalid_email', 'invalid_url', 'invalid_number' );
 			$messages = array();

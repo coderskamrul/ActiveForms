@@ -40,9 +40,5 @@ delete_option( 'radiusforms_settings' );
 delete_option( 'radiusforms_db_version' );
 delete_option( 'radiusforms_installed_at' );
 
-// Delete integration option rows (radiusforms_integration_*).
-// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'radiusforms_integration_%'" );
-
 // Clear scheduled hooks.
 wp_clear_scheduled_hook( 'radiusforms_process_scheduled_actions' );

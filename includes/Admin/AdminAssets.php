@@ -122,7 +122,6 @@ class AdminAssets {
 			'entries'      => __( 'Entries', 'radiusforms' ),
 			'reports'      => __( 'Reports', 'radiusforms' ),
 			'settings'     => __( 'Settings', 'radiusforms' ),
-			'integrations' => __( 'Integrations', 'radiusforms' ),
 			'addNew'       => __( 'Add New Form', 'radiusforms' ),
 			'save'         => __( 'Save', 'radiusforms' ),
 			'saved'        => __( 'Saved', 'radiusforms' ),
@@ -145,7 +144,6 @@ class AdminAssets {
 			'searchFields' => __( 'Search fields ( press / to focus )', 'radiusforms' ),
 			'undo'         => __( 'Undo', 'radiusforms' ),
 			'redo'         => __( 'Redo', 'radiusforms' ),
-			'conditionalLogic' => __( 'Conditional Logic', 'radiusforms' ),
 			'back'         => __( 'Back', 'radiusforms' ),
 		);
 	}
@@ -153,32 +151,89 @@ class AdminAssets {
 	/**
 	 * Build the inline CSS-variable block from design tokens.
 	 *
+	 * The token tree is filterable (radiusforms/design_tokens), so every key and
+	 * value is sanitized before it is concatenated into the CSS context: a key is
+	 * reduced to [a-z0-9-] and a value is stripped of any character that could
+	 * terminate the declaration or the rule block, or escape the <style> element.
+	 *
 	 * @return string
 	 */
 	private function tokens_css() {
 		$t   = Config::design_tokens();
 		$css = ':root, #radiusforms-app {';
 
-		foreach ( $t['color'] as $key => $value ) {
-			$css .= '--radiusforms-color-' . $this->kebab( $key ) . ':' . $value . ';';
+		$groups = array(
+			'color'  => isset( $t['color'] ) ? $t['color'] : array(),
+			'radius' => isset( $t['radius'] ) ? $t['radius'] : array(),
+			'shadow' => isset( $t['shadow'] ) ? $t['shadow'] : array(),
+			'space'  => isset( $t['space'] ) ? $t['space'] : array(),
+		);
+
+		foreach ( $groups as $group => $items ) {
+			foreach ( (array) $items as $key => $value ) {
+				$css .= $this->css_var( $group . '-' . $this->kebab( $key ), $value );
+			}
 		}
-		foreach ( $t['radius'] as $key => $value ) {
-			$css .= '--radiusforms-radius-' . $key . ':' . $value . ';';
+
+		if ( isset( $t['font']['family'] ) ) {
+			$css .= $this->css_var( 'font', $t['font']['family'] );
 		}
-		foreach ( $t['shadow'] as $key => $value ) {
-			$css .= '--radiusforms-shadow-' . $key . ':' . $value . ';';
+		if ( isset( $t['font']['size'] ) ) {
+			foreach ( (array) $t['font']['size'] as $key => $value ) {
+				$css .= $this->css_var( 'font-' . $this->kebab( $key ), $value );
+			}
 		}
-		foreach ( $t['space'] as $i => $value ) {
-			$css .= '--radiusforms-space-' . $i . ':' . $value . ';';
+		if ( isset( $t['motion']['normal'], $t['motion']['easing'] ) ) {
+			$css .= $this->css_var( 'motion', $t['motion']['normal'] . ' ' . $t['motion']['easing'] );
 		}
-		$css .= '--radiusforms-font:' . $t['font']['family'] . ';';
-		foreach ( $t['font']['size'] as $key => $value ) {
-			$css .= '--radiusforms-font-' . $key . ':' . $value . ';';
-		}
-		$css .= '--radiusforms-motion:' . $t['motion']['normal'] . ' ' . $t['motion']['easing'] . ';';
+
 		$css .= '}';
 
 		return $css;
+	}
+
+	/**
+	 * Render one sanitized CSS custom property, or '' when it is unsafe/empty.
+	 *
+	 * @param string $name  Variable name (without the --radiusforms- prefix).
+	 * @param mixed  $value Raw token value.
+	 * @return string
+	 */
+	private function css_var( $name, $value ) {
+		$name  = preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $name ) );
+		$value = $this->css_value( $value );
+
+		if ( '' === $name || '' === $value ) {
+			return '';
+		}
+
+		return '--radiusforms-' . $name . ':' . $value . ';';
+	}
+
+	/**
+	 * Sanitize a value for use inside a CSS declaration.
+	 *
+	 * Removes comment markers and any character that could close the declaration,
+	 * the rule block, or the surrounding <style> element, and rejects values that
+	 * try to pull in external resources or script-like CSS.
+	 *
+	 * @param mixed $value Raw token value.
+	 * @return string Safe CSS value, or '' when it must be dropped.
+	 */
+	private function css_value( $value ) {
+		if ( ! is_scalar( $value ) ) {
+			return '';
+		}
+
+		$value = (string) $value;
+		$value = preg_replace( '#/\*|\*/#', '', $value );
+		$value = str_replace( array( '<', '>', '{', '}', ';', '\\' ), '', $value );
+
+		if ( preg_match( '/(?:url\s*\(|expression\s*\(|@import|javascript\s*:)/i', $value ) ) {
+			return '';
+		}
+
+		return trim( $value );
 	}
 
 	/**
@@ -188,7 +243,7 @@ class AdminAssets {
 	 * @return string
 	 */
 	private function kebab( $value ) {
-		return strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $value ) );
+		return strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', (string) $value ) );
 	}
 
 	/**

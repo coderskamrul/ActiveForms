@@ -23,7 +23,7 @@ class Analytics {
 	 * Full analytics dashboard scoped by form + date range.
 	 *
 	 * Every figure is computed live from the entries / logs tables. Where a
-	 * metric has no data yet (e.g. geo, integration logs) the section returns an
+	 * metric has no data yet the section returns an
 	 * empty set so the UI can show a graceful empty state rather than break.
 	 *
 	 * @param array{form_id:int,from:string,to:string} $args Filters.
@@ -34,7 +34,6 @@ class Analytics {
 		$tables  = Config::tables();
 		$entries = $wpdb->prefix . $tables['entries'];
 		$forms   = $wpdb->prefix . $tables['forms'];
-		$logs    = $wpdb->prefix . $tables['logs'];
 
 		$form_id = isset( $args['form_id'] ) ? (int) $args['form_id'] : 0;
 
@@ -102,7 +101,7 @@ class Analytics {
 		// ---- Top performing forms ----
 		$top_rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT form_id, COUNT(*) AS count, COALESCE(SUM(payment_total),0) AS payments
+				"SELECT form_id, COUNT(*) AS count
 				 FROM {$entries} WHERE {$live}{$fc} AND created_at BETWEEN %s AND %s
 				 GROUP BY form_id ORDER BY count DESC LIMIT 6",
 				$from_dt,
@@ -114,30 +113,11 @@ class Analytics {
 		foreach ( (array) $top_rows as $r ) {
 			$form        = Form::find( (int) $r['form_id'] );
 			$top_forms[] = array(
-				'form_id'  => (int) $r['form_id'],
-				'title'    => $form ? $form['title'] : __( '(deleted form)', 'radiusforms' ),
-				'count'    => (int) $r['count'],
-				'payments' => (int) $r['payments'],
+				'form_id' => (int) $r['form_id'],
+				'title'   => $form ? $form['title'] : __( '(deleted form)', 'radiusforms' ),
+				'count'   => (int) $r['count'],
 			);
 		}
-
-		// ---- Submissions by country ----
-		$country_rows = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT country, COUNT(*) AS count FROM {$entries}
-				 WHERE {$live}{$fc} AND country IS NOT NULL AND country != '' AND created_at BETWEEN %s AND %s
-				 GROUP BY country ORDER BY count DESC LIMIT 10",
-				$from_dt,
-				$to_dt
-			),
-			ARRAY_A
-		);
-		$by_country = array_map(
-			function ( $r ) {
-				return array( 'country' => $r['country'], 'count' => (int) $r['count'] );
-			},
-			(array) $country_rows
-		);
 
 		// ---- Day-of-week x hour timeline (0 = Sunday) ----
 		$tl_rows  = $wpdb->get_results(
@@ -162,57 +142,19 @@ class Analytics {
 			}
 		}
 
-		// ---- API / integration logs ----
-		$log_rows = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT DATE(created_at) AS day,
-					SUM(status = 'success') AS success,
-					SUM(status IN ('processing','pending')) AS processing,
-					SUM(status IN ('failed','error')) AS failed
-				 FROM {$logs} WHERE created_at BETWEEN %s AND %s{$fc}
-				 GROUP BY DATE(created_at)",
-				$from_dt,
-				$to_dt
-			),
-			ARRAY_A
-		);
-		$logs_by_day = array();
-		foreach ( (array) $log_rows as $r ) {
-			$logs_by_day[ $r['day'] ] = $r;
-		}
-		$api_logs = array();
-		$cursor   = strtotime( $from );
-		while ( $cursor <= $end ) {
-			$day = gmdate( 'Y-m-d', $cursor );
-			$d   = isset( $logs_by_day[ $day ] ) ? $logs_by_day[ $day ] : array();
-			$api_logs[] = array(
-				'day'        => $day,
-				'success'    => (int) ( isset( $d['success'] ) ? $d['success'] : 0 ),
-				'processing' => (int) ( isset( $d['processing'] ) ? $d['processing'] : 0 ),
-				'failed'     => (int) ( isset( $d['failed'] ) ? $d['failed'] : 0 ),
-			);
-			$cursor = strtotime( '+1 day', $cursor );
-		}
 		// phpcs:enable
 
-		$incomplete = 0; // Partial-entry capture isn't tracked yet; all stored entries are complete.
-		$complete   = $submissions;
-		$pct        = ( $complete + $incomplete ) > 0 ? (int) round( $complete / ( $complete + $incomplete ) * 100 ) : 0;
-
 		return array(
-			'range'      => array( 'from' => $from, 'to' => $to ),
-			'cards'      => array(
+			'range'    => array( 'from' => $from, 'to' => $to ),
+			'cards'    => array(
 				'submissions' => array( 'value' => $submissions, 'delta' => self::delta( $submissions, $prev_subs ) ),
 				'spam'        => array( 'value' => $spam ),
 				'unread'      => array( 'value' => $unread ),
 				'forms'       => array( 'value' => $forms_count ),
 			),
-			'series'     => $series,
-			'completion' => array( 'complete' => $complete, 'incomplete' => $incomplete, 'percentage' => $pct ),
-			'topForms'   => $top_forms,
-			'byCountry'  => $by_country,
-			'timeline'   => $timeline,
-			'apiLogs'    => $api_logs,
+			'series'   => $series,
+			'topForms' => $top_forms,
+			'timeline' => $timeline,
 		);
 	}
 

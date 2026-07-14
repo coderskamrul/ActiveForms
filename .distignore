@@ -1,16 +1,16 @@
 # Files & directories excluded from the distributed WordPress.org build.
+# NOTE: /src, package.json and webpack.config.js are intentionally NOT excluded —
+# the original sources for the compiled assets ship with the plugin.
 /node_modules
-/src
 /scripts
 /.git
 /.github
 /.claude
 /plugin-requirements
-package.json
 package-lock.json
-webpack.config.js
 .distignore
 .gitignore
 .babelrc
 *.map
+*.md
 radiusforms.zip

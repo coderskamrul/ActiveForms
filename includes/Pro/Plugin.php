@@ -17,7 +17,6 @@ use RadiusFormsPro\Fields\RichTextField;
 use RadiusFormsPro\Fields\RepeaterField;
 use RadiusFormsPro\Fields\FileUploadField;
 use RadiusFormsPro\Fields\ImageUploadField;
-use RadiusFormsPro\Integrations\GoogleSheetsIntegration;
 use RadiusFormsPro\Rest\UploadController;
 
 defined( 'ABSPATH' ) || exit;
@@ -55,7 +54,6 @@ final class Plugin {
 		( new UploadController() )->register();
 
 		add_action( 'radiusforms_register_fields', array( $this, 'register_fields' ) );
-		add_action( 'radiusforms_register_integrations', array( $this, 'register_integrations' ) );
 		// Register the Pro bundle alongside the free one...
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ), 20 );
 		// ...then enqueue it exactly when a form actually renders (the free plugin
@@ -80,16 +78,6 @@ final class Plugin {
 		$registry->register( new RepeaterField() );
 		$registry->register( new FileUploadField() );
 		$registry->register( new ImageUploadField() );
-	}
-
-	/**
-	 * Register the bundled integrations.
-	 *
-	 * @param \RadiusForms\Integrations\IntegrationRegistry $registry Integration registry.
-	 * @return void
-	 */
-	public function register_integrations( $registry ) {
-		$registry->register( new GoogleSheetsIntegration() );
 	}
 
 	/**

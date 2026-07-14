@@ -80,7 +80,6 @@ class BuilderController extends AbstractController {
 					array( 'key' => 'general', 'label' => __( 'General Fields', 'radiusforms' ) ),
 					array( 'key' => 'layout', 'label' => __( 'Layout', 'radiusforms' ) ),
 					array( 'key' => 'advanced', 'label' => __( 'Advanced (Pro)', 'radiusforms' ) ),
-					array( 'key' => 'payment', 'label' => __( 'Payment', 'radiusforms' ) ),
 				),
 			)
 		);

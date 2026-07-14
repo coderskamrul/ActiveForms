@@ -158,9 +158,6 @@ class SubmissionProcessor {
 		$notifier = new EmailNotifier( $this->container->get( 'smartcodes' ) );
 		$notifier->send( $form, $entry );
 
-		// Integrations (synchronous for the free core; queueable via Pro).
-		$this->run_integrations( $form, $entry );
-
 		/**
 		 * Fires after a submission is stored and processed.
 		 *
@@ -205,41 +202,6 @@ class SubmissionProcessor {
 			'type'    => 'message',
 			'message' => wp_kses_post( $codes->parse( $message, $entry, $form ) ),
 		);
-	}
-
-	/**
-	 * Run configured integration feeds for a form.
-	 *
-	 * @param array $form  Form schema.
-	 * @param array $entry Entry data.
-	 * @return void
-	 */
-	protected function run_integrations( $form, $entry ) {
-		$settings = Arr::get( $form, 'settings', array() );
-		$feeds    = Arr::get( $settings, 'integrations', array() );
-		if ( empty( $feeds ) ) {
-			return;
-		}
-
-		$registry = $this->container->get( 'integrations' );
-		$logger   = $this->container->get( 'logger' );
-
-		foreach ( (array) $feeds as $feed ) {
-			if ( empty( $feed['enabled'] ) || empty( $feed['provider'] ) ) {
-				continue;
-			}
-			$integration = $registry->get( $feed['provider'] );
-			if ( ! $integration ) {
-				continue;
-			}
-
-			$result = $integration->process( $feed, $entry, $form );
-			if ( is_wp_error( $result ) ) {
-				$logger->log( $feed['provider'], 'failed', $integration->slug(), $result->get_error_message(), array( 'form_id' => $form['id'], 'entry_id' => $entry['id'] ) );
-			} else {
-				$logger->log( $feed['provider'], $result ? 'success' : 'failed', $integration->slug(), '', array( 'form_id' => $form['id'], 'entry_id' => $entry['id'] ) );
-			}
-		}
 	}
 
 	/**

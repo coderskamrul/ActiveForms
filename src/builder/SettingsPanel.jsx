@@ -1,12 +1,11 @@
 /**
  * "Input Customization" tab — per-field editor. Settings are organized into
- * collapsible sections (General, Options, Validation, Conditional Logic,
+ * collapsible sections (General, Options, Validation,
  * Advanced) and adapt to the selected field's type.
  */
 import React, { useState } from 'react';
 import { Toggle } from '../components/ui';
 import Icon from './icons.jsx';
-import ConditionalLogic from './ConditionalLogic.jsx';
 import config from '../config';
 
 const COUNTRIES = (config && config.countries) || {};
@@ -355,19 +354,7 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
         </Section>
       )}
 
-      {type === 'step' && (
-        <Section title="Step / Page Break">
-          <Row label="Step Title" hint="Shown in the step indicator.">
-            <input className="radiusforms-input" value={field.label || ''} onChange={(e) => set('label', e.target.value)} />
-          </Row>
-          <div className="radiusforms-row-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
-            <Row label="Previous Button"><input className="radiusforms-input" value={field.prev_label || ''} onChange={(e) => set('prev_label', e.target.value)} /></Row>
-            <Row label="Next Button"><input className="radiusforms-input" value={field.next_label || ''} onChange={(e) => set('next_label', e.target.value)} /></Row>
-          </div>
-        </Section>
-      )}
-
-      {type !== 'container' && type !== 'step' && (
+      {type !== 'container' && (
       <Section title="General">
         {type === 'html' ? (
           <Row label="HTML Content">
@@ -552,16 +539,6 @@ export default function SettingsPanel({ field, definition, onChange, allFields =
       {isInput && !COMPOSITE_TYPES.includes(type) && (
         <Section title="Validation">
           <RequiredEditor field={field} set={set} />
-        </Section>
-      )}
-
-      {isInput && (
-        <Section title="Conditional Logic" open={false}>
-          <ConditionalLogic
-            conditional={field.conditional}
-            fields={allFields}
-            onChange={(c) => set('conditional', c)}
-          />
         </Section>
       )}
 

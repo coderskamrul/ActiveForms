@@ -1,4 +1,4 @@
-# Copyright (C) 2026 hasanedev
+# Copyright (C) 2026 hasandev
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-14T06:16:53+00:00\n"
+"POT-Creation-Date: 2026-07-14T08:36:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: radiusforms\n"
@@ -27,7 +27,7 @@ msgid "Create contact forms, surveys, quizzes, lead generation forms, and conver
 msgstr ""
 
 #. Author of the plugin
-msgid "hasanedev"
+msgid "hasandev"
 msgstr ""
 
 #. Author URI of the plugin
@@ -54,111 +54,103 @@ msgid "Reports"
 msgstr ""
 
 #: includes/Admin/AdminAssets.php:124
-#: includes/Admin/Menu.php:56
+#: includes/Admin/Menu.php:55
 msgid "Settings"
 msgstr ""
 
 #: includes/Admin/AdminAssets.php:125
-msgid "Integrations"
-msgstr ""
-
-#: includes/Admin/AdminAssets.php:126
 msgid "Add New Form"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:127
+#: includes/Admin/AdminAssets.php:126
 msgid "Save"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:128
+#: includes/Admin/AdminAssets.php:127
 msgid "Saved"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:129
+#: includes/Admin/AdminAssets.php:128
 msgid "Preview"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:130
+#: includes/Admin/AdminAssets.php:129
 msgid "Delete"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:131
+#: includes/Admin/AdminAssets.php:130
 msgid "Duplicate"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:132
+#: includes/Admin/AdminAssets.php:131
 msgid "Edit"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:133
+#: includes/Admin/AdminAssets.php:132
 msgid "Search…"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:134
+#: includes/Admin/AdminAssets.php:133
 msgid "No forms yet. Create your first form."
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:135
+#: includes/Admin/AdminAssets.php:134
 msgid "Field Library"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:136
+#: includes/Admin/AdminAssets.php:135
 msgid "Field Settings"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:137
+#: includes/Admin/AdminAssets.php:136
 msgid "Drag fields here to build your form"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:138
+#: includes/Admin/AdminAssets.php:137
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:139
+#: includes/Admin/AdminAssets.php:138
 msgid "Input Fields"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:140
+#: includes/Admin/AdminAssets.php:139
 msgid "Input Customization"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:141
+#: includes/Admin/AdminAssets.php:140
 msgid "History"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:142
+#: includes/Admin/AdminAssets.php:141
 msgid "Save Form"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:143
+#: includes/Admin/AdminAssets.php:142
 msgid "Preview & Design"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:144
+#: includes/Admin/AdminAssets.php:143
 msgid "Unsaved changes"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:145
+#: includes/Admin/AdminAssets.php:144
 msgid "Search fields ( press / to focus )"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:146
+#: includes/Admin/AdminAssets.php:145
 msgid "Undo"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:147
+#: includes/Admin/AdminAssets.php:146
 msgid "Redo"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:148
-msgid "Conditional Logic"
-msgstr ""
-
-#: includes/Admin/AdminAssets.php:149
+#: includes/Admin/AdminAssets.php:147
 msgid "Back"
 msgstr ""
 
-#: includes/Admin/AdminAssets.php:201
+#: includes/Admin/AdminAssets.php:256
 msgid "RadiusForms admin assets have not been built yet. Run \"nvm use 20 && npm install && npm run build\" in the plugin directory."
 msgstr ""
 
@@ -170,12 +162,12 @@ msgstr ""
 msgid "Add New"
 msgstr ""
 
-#: includes/Admin/Menu.php:78
+#: includes/Admin/Menu.php:77
 msgid "Loading RadiusForms…"
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:90
-#: includes/Frontend/SubmissionProcessor.php:203
+#: includes/Frontend/SubmissionProcessor.php:200
 msgid "Thank you! Your submission has been received."
 msgstr ""
 
@@ -196,8 +188,8 @@ msgid "Start from scratch."
 msgstr ""
 
 #: includes/Builder/FormTemplates.php:118
-#: includes/Fields/Types/LayoutField.php:76
-#: includes/Fields/Types/LayoutField.php:121
+#: includes/Fields/Types/LayoutField.php:70
+#: includes/Fields/Types/LayoutField.php:116
 #: includes/Frontend/FormRenderer.php:62
 msgid "Submit"
 msgstr ""
@@ -210,82 +202,87 @@ msgstr ""
 msgid "Name, email, and message."
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:128
+#: includes/Builder/FormTemplates.php:134
 msgid "Name"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:128
+#: includes/Builder/FormTemplates.php:138
 #: includes/Fields/Types/NameField.php:36
 msgid "First Name"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:128
+#: includes/Builder/FormTemplates.php:139
+#: includes/Fields/Types/NameField.php:37
+msgid "Middle Name"
+msgstr ""
+
+#: includes/Builder/FormTemplates.php:140
 #: includes/Fields/Types/NameField.php:38
 msgid "Last Name"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:129
-#: includes/Builder/FormTemplates.php:141
+#: includes/Builder/FormTemplates.php:144
+#: includes/Builder/FormTemplates.php:156
 msgid "Email"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:130
+#: includes/Builder/FormTemplates.php:145
 msgid "Subject"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:131
+#: includes/Builder/FormTemplates.php:146
 msgid "Message"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:132
+#: includes/Builder/FormTemplates.php:147
 msgid "Send Message"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:137
+#: includes/Builder/FormTemplates.php:152
 msgid "Support Request"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:138
+#: includes/Builder/FormTemplates.php:153
 msgid "Collect support tickets with priority."
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:142
+#: includes/Builder/FormTemplates.php:157
 msgid "Priority"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:142
+#: includes/Builder/FormTemplates.php:157
 msgid "Low"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:142
+#: includes/Builder/FormTemplates.php:157
 msgid "High"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:143
+#: includes/Builder/FormTemplates.php:158
 msgid "Details"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:144
+#: includes/Builder/FormTemplates.php:159
 msgid "Submit Ticket"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:149
+#: includes/Builder/FormTemplates.php:164
 msgid "Newsletter Signup"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:150
+#: includes/Builder/FormTemplates.php:165
 msgid "Simple email capture."
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:153
+#: includes/Builder/FormTemplates.php:168
 msgid "Email Address"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:154
+#: includes/Builder/FormTemplates.php:169
 msgid "Consent"
 msgstr ""
 
-#: includes/Builder/FormTemplates.php:155
+#: includes/Builder/FormTemplates.php:170
 msgid "Subscribe"
 msgstr ""
 
@@ -293,31 +290,31 @@ msgstr ""
 msgid "Drag & Drop Form Builder"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:106
+#: includes/Fields/AbstractField.php:104
 msgid "Label"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:107
+#: includes/Fields/AbstractField.php:105
 msgid "Placeholder"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:108
+#: includes/Fields/AbstractField.php:106
 msgid "Help text"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:109
+#: includes/Fields/AbstractField.php:107
 msgid "Default value"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:110
+#: includes/Fields/AbstractField.php:108
 msgid "Required"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:111
+#: includes/Fields/AbstractField.php:109
 msgid "CSS class"
 msgstr ""
 
-#: includes/Fields/AbstractField.php:180
+#: includes/Fields/AbstractField.php:183
 msgid "This field is required."
 msgstr ""
 
@@ -426,30 +423,12 @@ msgstr ""
 msgid "Value must be at most %s."
 msgstr ""
 
-#: includes/Fields/Types/LayoutField.php:58
+#: includes/Fields/Types/LayoutField.php:57
 msgid "Section"
 msgstr ""
 
-#: includes/Fields/Types/LayoutField.php:62
+#: includes/Fields/Types/LayoutField.php:61
 msgid "Custom HTML content"
-msgstr ""
-
-#: includes/Fields/Types/LayoutField.php:71
-msgid "Step"
-msgstr ""
-
-#: includes/Fields/Types/LayoutField.php:72
-#: includes/Fields/Types/LayoutField.php:126
-msgid "Previous"
-msgstr ""
-
-#: includes/Fields/Types/LayoutField.php:73
-#: includes/Fields/Types/LayoutField.php:126
-msgid "Next"
-msgstr ""
-
-#: includes/Fields/Types/NameField.php:37
-msgid "Middle Name"
 msgstr ""
 
 #: includes/Frontend/PreviewPage.php:64
@@ -493,62 +472,6 @@ msgstr ""
 
 #: includes/Frontend/SubmissionProcessor.php:123
 msgid "Please correct the highlighted fields."
-msgstr ""
-
-#: includes/Integrations/Providers/MailchimpIntegration.php:25
-msgid "Mailchimp"
-msgstr ""
-
-#: includes/Integrations/Providers/MailchimpIntegration.php:34
-msgid "API Key"
-msgstr ""
-
-#: includes/Integrations/Providers/MailchimpIntegration.php:43
-msgid "Audience / List ID"
-msgstr ""
-
-#: includes/Integrations/Providers/MailchimpIntegration.php:44
-msgid "Email field"
-msgstr ""
-
-#: includes/Integrations/Providers/MailchimpIntegration.php:63
-msgid "Mailchimp API key is not configured."
-msgstr ""
-
-#: includes/Integrations/Providers/MailchimpIntegration.php:77
-msgid "A valid email and list ID are required."
-msgstr ""
-
-#: includes/Integrations/Providers/SlackIntegration.php:25
-msgid "Slack"
-msgstr ""
-
-#: includes/Integrations/Providers/SlackIntegration.php:41
-msgid "Slack Webhook URL"
-msgstr ""
-
-#: includes/Integrations/Providers/SlackIntegration.php:58
-msgid "Slack webhook URL is missing."
-msgstr ""
-
-#: includes/Integrations/Providers/SlackIntegration.php:61
-msgid "New submission"
-msgstr ""
-
-#: includes/Integrations/Providers/WebhookIntegration.php:24
-msgid "Webhook"
-msgstr ""
-
-#: includes/Integrations/Providers/WebhookIntegration.php:40
-msgid "Request URL"
-msgstr ""
-
-#: includes/Integrations/Providers/WebhookIntegration.php:44
-msgid "Method"
-msgstr ""
-
-#: includes/Integrations/Providers/WebhookIntegration.php:66
-msgid "Webhook URL is missing."
 msgstr ""
 
 #: includes/Models/Form.php:118
@@ -644,18 +567,6 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: includes/Pro/Integrations/GoogleSheetsIntegration.php:43
-msgid "Service Account JSON"
-msgstr ""
-
-#: includes/Pro/Integrations/GoogleSheetsIntegration.php:56
-msgid "Spreadsheet ID"
-msgstr ""
-
-#: includes/Pro/Integrations/GoogleSheetsIntegration.php:61
-msgid "Worksheet name"
-msgstr ""
-
 #: includes/Pro/Rest/UploadController.php:61
 msgid "Security check failed."
 msgstr ""
@@ -699,8 +610,8 @@ msgstr ""
 msgid "Could not save the signature."
 msgstr ""
 
-#: includes/Reporting/Analytics.php:118
-#: includes/Reporting/Analytics.php:300
+#: includes/Reporting/Analytics.php:117
+#: includes/Reporting/Analytics.php:242
 msgid "(deleted form)"
 msgstr ""
 
@@ -714,10 +625,6 @@ msgstr ""
 
 #: includes/Rest/BuilderController.php:82
 msgid "Advanced (Pro)"
-msgstr ""
-
-#: includes/Rest/BuilderController.php:83
-msgid "Payment"
 msgstr ""
 
 #: includes/Rest/EntriesController.php:123
@@ -744,24 +651,12 @@ msgstr ""
 msgid "Could not duplicate form."
 msgstr ""
 
-#: includes/Rest/IntegrationsController.php:62
-msgid "Unknown integration."
-msgstr ""
-
-#: includes/Spam/SpamGuard.php:40
+#: includes/Spam/SpamGuard.php:41
 msgid "Your submission was flagged as spam."
 msgstr ""
 
-#: includes/Spam/SpamGuard.php:71
+#: includes/Spam/SpamGuard.php:61
 msgid "Leave this field empty"
-msgstr ""
-
-#: includes/Spam/SpamGuard.php:92
-msgid "Please complete the captcha challenge."
-msgstr ""
-
-#: includes/Spam/SpamGuard.php:119
-msgid "Captcha verification failed. Please try again."
 msgstr ""
 
 #: includes/Support/UserAgent.php:37

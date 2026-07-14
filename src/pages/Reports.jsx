@@ -1,18 +1,15 @@
 /**
- * Reports — a full analytics dashboard (overview / payments / submissions),
+ * Reports — an analytics dashboard (overview / submissions),
  * filterable by form and date range. All figures come from the live
  * /reports/dashboard endpoint; the per-form field breakdown is layered in when a
  * single form is selected.
  */
 import React, { useEffect, useMemo, useState } from 'react';
 import api from '../api/client';
-import config from '../config';
 import { Loading, Card, PageHead, Empty } from '../components/ui';
 import {
-  StatCard, ChartCard, Segmented, ChartEmpty, LineBarChart, Gauge, HBars, Heatmap,
+  StatCard, ChartCard, Segmented, ChartEmpty, LineBarChart, HBars, Heatmap,
 } from './reports/charts.jsx';
-
-const COUNTRIES = (config && config.countries) || {};
 
 const SERIES_COLORS = {
   submissions: '#7c3aed', spam: '#ef4444', unread: '#f59e0b', read: '#3b82f6', trashed: '#9ca3af',
@@ -63,10 +60,6 @@ function rangeLabel(from, to) {
   return `${f} - ${t}`;
 }
 
-function money(cents) {
-  return `$${(Number(cents || 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
-
 /** Horizontal bar distribution for one reportable field. */
 function FieldChart({ field }) {
   const total = field.buckets.reduce((sum, b) => sum + b.count, 0) || 1;
@@ -92,31 +85,14 @@ function FieldChart({ field }) {
 /** Overview tab — the headline analytics dashboard. */
 function OverviewTab({ data }) {
   const [chartMode, setChartMode] = useState('bar');
-  const [topMetric, setTopMetric] = useState('submissions');
-  const [apiMode, setApiMode] = useState('bar');
   const [half, setHalf] = useState('am');
 
   const labels = data.series.map((s) => s.day);
   const overviewSeries = SERIES_DEFS.map((d) => ({ ...d, color: SERIES_COLORS[d.key], data: data.series.map((s) => s[d.key]) }));
 
-  const apiLabels = data.apiLogs.map((s) => s.day);
-  const apiSeries = [
-    { key: 'success', label: 'Success', color: '#2563eb', data: data.apiLogs.map((s) => s.success) },
-    { key: 'processing', label: 'Processing', color: '#f59e0b', data: data.apiLogs.map((s) => s.processing) },
-    { key: 'failed', label: 'Failed', color: '#ef4444', data: data.apiLogs.map((s) => s.failed) },
-  ];
-  const apiHasData = apiSeries.some((s) => s.data.some((v) => v > 0));
 
-  const topItems = (data.topForms || []).map((f) => ({
-    label: f.title,
-    value: topMetric === 'payments' ? f.payments : f.count,
-  }));
+  const topItems = (data.topForms || []).map((f) => ({ label: f.title, value: f.count }));
   const topHasData = topItems.some((t) => t.value > 0);
-
-  const countryItems = (data.byCountry || []).map((c) => ({
-    label: COUNTRIES[c.country] || c.country,
-    value: c.count,
-  }));
 
   return (
     <>
@@ -127,39 +103,18 @@ function OverviewTab({ data }) {
         <StatCard icon="feedback" label="Created Forms" value={data.cards.forms.value} />
       </div>
 
-      <div className="radiusforms-rep-row radiusforms-rep-row--2-1">
-        <ChartCard
-          title="Overview Chart"
-          right={<Segmented value={chartMode} onChange={setChartMode} options={[{ value: 'line', label: 'Line' }, { value: 'bar', label: 'Bar' }]} />}
-        >
-          <LineBarChart series={overviewSeries} labels={labels} mode={chartMode} />
-        </ChartCard>
+      <ChartCard
+        title="Overview Chart"
+        right={<Segmented value={chartMode} onChange={setChartMode} options={[{ value: 'line', label: 'Line' }, { value: 'bar', label: 'Bar' }]} />}
+      >
+        <LineBarChart series={overviewSeries} labels={labels} mode={chartMode} />
+      </ChartCard>
 
-        <ChartCard title="Completion Rate" subtitle="Complete vs incomplete submissions">
-          <Gauge percentage={data.completion.percentage} />
-          <div className="radiusforms-rep-gauge-stats">
-            <div><span className="num">{data.completion.incomplete}</span><span className="lbl">Incomplete</span></div>
-            <div><span className="num">{data.completion.complete}</span><span className="lbl">Complete</span></div>
-          </div>
-        </ChartCard>
-      </div>
-
-      <div className="radiusforms-rep-row radiusforms-rep-row--2">
-        <ChartCard
-          title="Top Performing Forms"
-          right={<Segmented value={topMetric} onChange={setTopMetric} options={[{ value: 'submissions', label: 'Submissions' }, { value: 'payments', label: 'Payments' }]} />}
-        >
-          {topHasData
-            ? <HBars items={topItems} format={topMetric === 'payments' ? money : undefined} />
-            : <ChartEmpty>No submission data available for the selected date range</ChartEmpty>}
-        </ChartCard>
-
-        <ChartCard title="Submissions By Country">
-          {countryItems.length
-            ? <HBars items={countryItems} color="#0ea5e9" />
-            : <ChartEmpty>No submission data available for the selected date range</ChartEmpty>}
-        </ChartCard>
-      </div>
+      <ChartCard title="Top Performing Forms">
+        {topHasData
+          ? <HBars items={topItems} />
+          : <ChartEmpty>No submission data available for the selected date range</ChartEmpty>}
+      </ChartCard>
 
       <ChartCard
         title="Submission Timeline Patterns"
@@ -167,41 +122,12 @@ function OverviewTab({ data }) {
       >
         <Heatmap matrix={data.timeline} half={half} />
       </ChartCard>
-
-      <ChartCard
-        title="API Logs"
-        right={<Segmented value={apiMode} onChange={setApiMode} options={[{ value: 'line', label: 'Line' }, { value: 'bar', label: 'Bar' }]} />}
-      >
-        {apiHasData
-          ? <LineBarChart series={apiSeries} labels={apiLabels} mode={apiMode} height={200} />
-          : <ChartEmpty>No integration activity recorded for the selected range.</ChartEmpty>}
-      </ChartCard>
     </>
   );
 }
 
-/** Payments tab — revenue-focused view. */
-function PaymentsTab({ data }) {
-  const totalRevenue = (data.topForms || []).reduce((s, f) => s + (f.payments || 0), 0);
-  const paidForms = (data.topForms || []).filter((f) => f.payments > 0);
-  const items = paidForms.map((f) => ({ label: f.title, value: f.payments }));
-  return (
-    <>
-      <div className="radiusforms-grid radiusforms-grid-4 radiusforms-rep-stats">
-        <StatCard icon="money-alt" label="Total Revenue" value={money(totalRevenue)} />
-        <StatCard icon="cart" label="Paying Forms" value={paidForms.length} />
-        <StatCard icon="feedback" label="Total Submissions" value={data.cards.submissions.value} delta={data.cards.submissions.delta} />
-      </div>
-      <ChartCard title="Revenue by Form">
-        {items.length ? <HBars items={items} color="#16a34a" format={money} /> : <ChartEmpty>No payments collected in this range.</ChartEmpty>}
-      </ChartCard>
-    </>
-  );
-}
-
-/** Submissions tab — per-field breakdown + geography. */
-function SubmissionsTab({ data, formId, fieldReport }) {
-  const countryItems = (data.byCountry || []).map((c) => ({ label: COUNTRIES[c.country] || c.country, value: c.count }));
+/** Submissions tab — per-field response breakdown. */
+function SubmissionsTab({ formId, fieldReport }) {
   return (
     <>
       {!formId ? (
@@ -215,17 +141,12 @@ function SubmissionsTab({ data, formId, fieldReport }) {
           {fieldReport.fields.map((f) => <FieldChart key={f.key} field={f} />)}
         </div>
       )}
-
-      <ChartCard title="Submissions By Country">
-        {countryItems.length ? <HBars items={countryItems} color="#0ea5e9" /> : <ChartEmpty>No submission data available for the selected date range</ChartEmpty>}
-      </ChartCard>
     </>
   );
 }
 
 const TABS = [
   { key: 'overview', label: 'Overview' },
-  { key: 'payments', label: 'Payments' },
   { key: 'submissions', label: 'Submissions' },
 ];
 
@@ -246,7 +167,7 @@ export default function Reports({ formId: routeFormId }) {
     setData(null);
     api.get(`/reports/dashboard?form_id=${formId}&from=${range.from}&to=${range.to}`)
       .then(setData)
-      .catch(() => setData({ series: [], apiLogs: [], topForms: [], byCountry: [], timeline: Array.from({ length: 7 }, () => Array(24).fill(0)), cards: { submissions: { value: 0, delta: 0 }, spam: { value: 0 }, unread: { value: 0 }, forms: { value: 0 } }, completion: { complete: 0, incomplete: 0, percentage: 0 } }));
+      .catch(() => setData({ series: [], topForms: [], timeline: Array.from({ length: 7 }, () => Array(24).fill(0)), cards: { submissions: { value: 0, delta: 0 }, spam: { value: 0 }, unread: { value: 0 }, forms: { value: 0 } } }));
   }, [formId, range.from, range.to]);
 
   useEffect(() => {
@@ -281,8 +202,7 @@ export default function Reports({ formId: routeFormId }) {
       {data === null ? <Loading /> : (
         <div className="radiusforms-rep">
           {tab === 'overview' && <OverviewTab data={data} />}
-          {tab === 'payments' && <PaymentsTab data={data} />}
-          {tab === 'submissions' && <SubmissionsTab data={data} formId={formId} fieldReport={fieldReport} />}
+          {tab === 'submissions' && <SubmissionsTab formId={formId} fieldReport={fieldReport} />}
          </div>
       )}
     </div>

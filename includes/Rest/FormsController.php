@@ -35,7 +35,7 @@ class FormsController extends AbstractController {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'index' ),
-					'permission_callback' => array( $this, 'can_read' ),
+					'permission_callback' => array( $this, 'can_edit_forms' ),
 				),
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
@@ -52,7 +52,7 @@ class FormsController extends AbstractController {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'show' ),
-					'permission_callback' => array( $this, 'can_read' ),
+					'permission_callback' => array( $this, 'can_edit_forms' ),
 					'args'                => $this->id_arg(),
 				),
 				array(
@@ -261,11 +261,15 @@ class FormsController extends AbstractController {
 			if ( ! is_array( $field ) ) {
 				continue;
 			}
+			$type = isset( $field['type'] ) ? $field['type'] : '';
 			$item = array();
 			foreach ( $field as $key => $value ) {
 				if ( 'content' === $key ) {
 					$item[ $key ] = wp_kses_post( $value );
-				} elseif ( 'columns' === $key && is_array( $value ) ) {
+				} elseif ( 'columns' === $key && is_array( $value ) && 'container' === $type ) {
+					// Only a layout container's `columns` are { width, fields } — other
+					// field types (e.g. the repeater) use `columns` for their own shape
+					// and must fall through to the generic sanitizer, or their data is lost.
 					$item[ $key ] = array();
 					foreach ( $value as $col ) {
 						$item[ $key ][] = array(

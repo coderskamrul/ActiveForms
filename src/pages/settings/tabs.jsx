@@ -16,6 +16,8 @@ import { Section, Row, Note, Select } from './parts.jsx';
 export const TABS = [
   { key: 'general', label: 'General', icon: 'admin-settings', group: 'Form Defaults', functional: true },
   { key: 'validation', label: 'Validation Messages', icon: 'editor-spellcheck', group: 'Form Defaults', functional: true },
+  { key: 'spam', label: 'Spam & Security', icon: 'shield-alt', group: 'Security', functional: true },
+  { key: 'privacy', label: 'Privacy & Data', icon: 'privacy', group: 'Security', functional: true },
 ];
 
 /** Order in which rail groups are rendered. */
@@ -68,37 +70,11 @@ function ValidationTab({ settings, setMessage }) {
 
 /* ----------------------------------------------------------- Spam & Security */
 
-const PROVIDER_OPTS = [
-  { value: '', label: 'None (honeypot only)' },
-  { value: 'recaptcha', label: 'Google reCAPTCHA' },
-  { value: 'hcaptcha', label: 'hCaptcha' },
-  { value: 'turnstile', label: 'Cloudflare Turnstile' },
-];
-
-function SpamTab({ settings, setRecaptcha }) {
-  const r = settings.recaptcha || {};
+function SpamTab() {
   return (
-    <>
-      <Section title="Honeypot" description="A hidden field that traps automated bots. Enabled on every form and requires no configuration.">
-        <Note icon="shield">Honeypot protection is always active and adds zero friction for real visitors.</Note>
-      </Section>
-
-      <Section title="CAPTCHA" description="Add a challenge from a third-party provider for an extra layer of spam protection.">
-        <Row title="Provider" description="Choose a CAPTCHA service, or keep honeypot-only protection.">
-          <Select value={r.provider || ''} onChange={(v) => setRecaptcha('provider', v)} options={PROVIDER_OPTS} />
-        </Row>
-        {r.provider && (
-          <>
-            <Row title="Site Key" stacked description="The public site key from your provider dashboard.">
-              <Text value={r.site_key} onChange={(v) => setRecaptcha('site_key', v)} placeholder="Site key" />
-            </Row>
-            <Row title="Secret Key" stacked description="The private key used for server-side verification. Stored securely.">
-              <input className="radiusforms-input" type="password" value={r.secret_key || ''} onChange={(e) => setRecaptcha('secret_key', e.target.value)} placeholder="Secret key" />
-            </Row>
-          </>
-        )}
-      </Section>
-    </>
+    <Section title="Honeypot" description="A hidden field that traps automated bots. Enabled on every form and requires no configuration.">
+      <Note icon="shield">Honeypot protection is always active and adds zero friction for real visitors. Submissions are checked entirely on your own site — nothing is sent to any external service.</Note>
+    </Section>
   );
 }
 

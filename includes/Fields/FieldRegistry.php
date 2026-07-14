@@ -67,7 +67,7 @@ class FieldRegistry {
 			$this->register( new ConsentField( $type ) );
 		}
 
-		foreach ( array( 'section', 'html', 'container', 'step', 'submit' ) as $type ) {
+		foreach ( array( 'section', 'html', 'container', 'submit' ) as $type ) {
 			$this->register( new LayoutField( $type ) );
 		}
 	}

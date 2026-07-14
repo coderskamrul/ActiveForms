@@ -52,7 +52,6 @@ class Menu {
 			'#/forms/new' => __( 'Add New', 'radiusforms' ),
 			'#/entries'   => __( 'Entries', 'radiusforms' ),
 			'#/reports'   => __( 'Reports', 'radiusforms' ),
-			// '#/integrations' => __( 'Integrations', 'radiusforms' ),
 			'#/settings'  => __( 'Settings', 'radiusforms' ),
 		);
 

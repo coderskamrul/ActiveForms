@@ -7,13 +7,14 @@
 
 namespace RadiusForms\Spam;
 
-use RadiusForms\Core\Config;
-use RadiusForms\Support\Arr;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Runs honeypot and captcha checks against a submission.
+ * Runs the honeypot check against a submission.
+ *
+ * Protection is entirely local: nothing about a submission is sent to any
+ * external service. Add-ons can layer on further checks via the
+ * radiusforms/spam_check filter.
  */
 class SpamGuard {
 
@@ -40,17 +41,6 @@ class SpamGuard {
 			return __( 'Your submission was flagged as spam.', 'radiusforms' );
 		}
 
-		$settings = Arr::get( $form, 'settings', array() );
-		$captcha  = Arr::get( $settings, 'captcha', array() );
-
-		if ( ! empty( $captcha['enabled'] ) ) {
-			$token  = isset( $payload['radiusforms_captcha_token'] ) ? $payload['radiusforms_captcha_token'] : '';
-			$result = $this->verify_captcha( $token );
-			if ( true !== $result ) {
-				return $result;
-			}
-		}
-
 		/**
 		 * Allow add-ons (Akismet, CleanTalk) to run additional spam checks.
 		 *
@@ -71,54 +61,5 @@ class SpamGuard {
 			. '<label>' . esc_html__( 'Leave this field empty', 'radiusforms' ) . '</label>'
 			. '<input type="text" name="' . esc_attr( self::HONEYPOT ) . '" tabindex="-1" autocomplete="off" value="" />'
 			. '</div>';
-	}
-
-	/**
-	 * Verify a captcha token against the configured provider.
-	 *
-	 * @param string $token Client token.
-	 * @return true|string
-	 */
-	protected function verify_captcha( $token ) {
-		$settings = get_option( Config::OPTION_SETTINGS, array() );
-		$cfg      = isset( $settings['recaptcha'] ) ? $settings['recaptcha'] : array();
-		$provider = isset( $cfg['provider'] ) ? $cfg['provider'] : '';
-		$secret   = isset( $cfg['secret_key'] ) ? $cfg['secret_key'] : '';
-
-		if ( ! $provider || ! $secret ) {
-			return true; // Not configured: do not block.
-		}
-		if ( ! $token ) {
-			return __( 'Please complete the captcha challenge.', 'radiusforms' );
-		}
-
-		$endpoints = array(
-			'recaptcha' => 'https://www.google.com/recaptcha/api/siteverify',
-			'hcaptcha'  => 'https://hcaptcha.com/siteverify',
-			'turnstile' => 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-		);
-		$endpoint = isset( $endpoints[ $provider ] ) ? $endpoints[ $provider ] : $endpoints['recaptcha'];
-
-		$response = wp_remote_post(
-			$endpoint,
-			array(
-				'timeout' => 15,
-				'body'    => array(
-					'secret'   => $secret,
-					'response' => $token,
-				),
-			)
-		);
-
-		if ( is_wp_error( $response ) ) {
-			return true; // Fail open on transport error.
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( empty( $body['success'] ) ) {
-			return __( 'Captcha verification failed. Please try again.', 'radiusforms' );
-		}
-
-		return true;
 	}
 }

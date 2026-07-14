@@ -52,7 +52,6 @@ class RestServiceProvider {
 			new EntriesController( $this->container ),
 			new SettingsController( $this->container ),
 			new BuilderController( $this->container ),
-			new IntegrationsController( $this->container ),
 			new ReportsController( $this->container ),
 		);
 
